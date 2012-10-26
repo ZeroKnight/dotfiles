@@ -1,6 +1,6 @@
 " Vim color scheme
 "
-" Original theme: zerocasts
+" Original theme: railscasts
 " Personal color modifications by ZeroKnight
 
 set background=dark
