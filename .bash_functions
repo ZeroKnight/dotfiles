@@ -1,5 +1,6 @@
 function chom() {
     # chown and chmod in one step
+
     args=("$@")
 
     if [ $# -eq 0 ]; then
@@ -9,8 +10,8 @@ function chom() {
 
     for ((i=2; i<=($#-1); i++)); do
         echo "Changing attributes of: ${args[$i]}"
-        chown ${args[0]} ${args[$i]}
-        chmod ${args[1]} ${args[$i]}
+        chown $1 ${args[$i]}
+        chmod $2 ${args[$i]}
     done
 
     return 0
@@ -37,13 +38,13 @@ function scrumpatch() {
     cd $DIR
 
     # Create patch dir if it doesn't exist
-    if [ -d ${args[0]} ]; then
-        md -p patches/${args[0]}
+    if [ -d $1 ]; then
+        md -p patches/$1
     fi
     for ((i=1; i<=($#-1); i++)); do
-        echo "Patching '${args[$i]}' in 'patches/${args[0]}'"
+        echo "Patching '${args[$i]}' in 'patches/$1'"
         diff -u /games/scrumbleship/src/${args[$i]} src/${args[$i]} > \
-            patches/${args[0]}/${args[$i]}.patch
+            patches/$1/${args[$i]}.patch
     done
 
     return 0
@@ -52,12 +53,16 @@ function scrumpatch() {
 function winep() {
     # Shortcut for starting Wine with a custom Winebottle
 
-    args=("$@")
-
     # Use regular `wine` call if no prefix specified
     if [ $# -gt 1 ]; then
-        wine ${args[0]}
+        wine $1
     else
-        env WINEPREFIX=~/.winebottles/${args[0]} wine ${args[1]}
+        env WINEPREFIX=~/.winebottles/$1 wine $2
     fi
+}
+
+function findREcmd() {
+    # Shortcut for finding out what a Red Eclipse command does via grep
+
+    grep -rnC10 ".\?COMMAND.\?(.*, $1," /games/redeclipse/src
 }
