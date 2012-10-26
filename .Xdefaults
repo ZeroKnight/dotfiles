@@ -1,0 +1,57 @@
+### URxvt Settings
+######################
+
+### Window settings
+URxvt*title: URxvt - ZeroArch
+URxvt*iconName: URxvt
+URxvt*geometry: 115x30
+URxvt*urgentOnBell: True
+# Do not immediately destroy window on exit
+URxvt*hold: True
+
+### Theme settings
+URxvt*backgroundPixmap: /home/zeroknight/Pictures/Anime/Code\ Geass/C.C/19f7325795c2c0_full.jpg;style=stretched
+URxvt*iconFile: /home/zeroknight/.icons/AwOken/clear/128x128/apps/terminal.png
+URxvt*transparent: False
+#URxvt*shading: 50
+URxvt*tintColor: Black
+URxvt*scrollstyle: plain
+URxvt*scrollColor: #606060
+URxvt*borderColor: #202020
+
+### Font settings
+URxvt*foreground: Green
+URxvt*skipBuiltinGlyphs: True
+
+### Cursor settings
+URxvt*cursorColor: Green
+URxvt*cursorColor2: Black
+URxvt*cursorBlink: True
+
+### Buffer settings
+URxvt*jumpScroll: True
+URxvt*skipScroll: False
+URxvt*scrollTtyOutput: False
+URxvt*scrollTtyKeypress: False
+URxvt*saveLines: 2048
+# Scrolls 5 lines
+URxvt*mouseWheelScrollPage: False
+URxvt*tripleclickwords: True
+
+### Extensions
+URxvt*perl-ext-common: default,matcher,tabbed
+# Clickable URLs
+URxvt*urlLauncher: /usr/bin/firefox
+URxvt*matcher.button: 1
+
+# URL List
+URxvt*keysym.C-Delete: perl:matcher:last
+URxvt*keysym.M-Delete: perl:matcher:list
+
+# Color URLs
+URxvt*colorUL: #4682B4
+
+# Tab Colors
+URxvt*tabbed.tabbar-fg: 2
+URxvt*tabbed.tab-fg: 0
+URxvt*tabbed.tab-bg: 2

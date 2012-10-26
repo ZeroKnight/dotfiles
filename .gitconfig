@@ -1,0 +1,8 @@
+[user]
+	name = ZeroKnight
+	email = xzeroknightx@gmail.com
+[color]
+	status = auto
+	branch = auto
+[core]
+	excludesfile = /home/zeroknight/.gitignore

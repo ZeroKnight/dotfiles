@@ -1,0 +1,52 @@
+"--------------------------------
+" ZeroKnight's VIMRC ~ Functions
+" Last changed: 31/05/2012
+"--------------------------------
+
+" Smart TAB Key -- Will insert space where there is no keyword;
+" in which case it will perform completion
+"function! Smart_TabComplete()
+  "let line = getline('.')                         " current line
+
+  "let substr = strpart(line, -1, col('.')+1)      " from the start of the current
+                                                  "" line to one character right
+                                                  "" of the cursor
+  "let substr = matchstr(substr, "[^ \t]*$")       " word till cursor
+  "if (strlen(substr)==0)                          " nothing to match on empty string
+    "return "\<tab>"
+  "endif
+  "let has_period = match(substr, '\.') != -1      " position of period, if any
+  "let has_slash = match(substr, '\/') != -1       " position of slash, if any
+  "if (!has_period && !has_slash)
+    "return "\<C-X>\<C-P>"                         " existing text matching
+  "elseif ( has_slash )
+    "return "\<C-X>\<C-F>"                         " file matching
+  "else
+    "return "\<C-X>\<C-O>"                         " plugin matching
+  "endif
+"endfunction
+
+
+" Smart HOME
+function! SmartHome()
+  let s:col = col(".")
+  normal! ^
+  if s:col == col(".")
+    normal! 0
+  endif
+endfunction
+nnoremap <silent> <Home> :call SmartHome()<CR>
+inoremap <silent> <Home> <C-O>:call SmartHome()<CR>
+nnoremap <silent> 0 :call SmartHome()<CR>
+
+
+" Session Save/Load shortcut
+command! -nargs=1 Ss :mksession! ~/.vim/sessions/<args>.vim
+command! -nargs=1 Sl :source ~/.vim/sessions/<args>.vim
+
+
+" Checks for existence of var, returns val if found
+function! VarExists(var, val)
+  if exists(a:var) | return a:val | else | return '' | endif
+endfunction
+

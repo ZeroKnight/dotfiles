@@ -1,0 +1,39 @@
+### Whitelist of wanted files
+#############################
+*
+!*/
+
+### Files
+!/.Xdefaults
+!/.bash*
+!/.conkyrc
+!/.gitconfig
+!/.gitignore
+!/.gvimrc
+!/.vimrc*
+!/.xinitrc
+
+
+### Directories
+
+!.vim/*
+!scripts/*
+
+
+### Final Filter
+/.bash_history
+
+
+### Generic ignore patterns
+*~
+.netrwhist
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
