@@ -17,6 +17,7 @@
 ### Directories
 
 !.vim/*
+!.vim/*/*
 !scripts/*
 
 

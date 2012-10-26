@@ -1,0 +1,132 @@
+# main()
+snippet main
+	int main( int argc, const char **argv )
+	{
+		${1}
+
+		return 0;
+	}
+# #include <...>
+snippet inc
+	#include <${1:iostream}>${2}
+# #include "..."
+snippet Inc
+	#include "${1:`Filename("$1.h${2:pp}")`}"${3}
+# #include <sys/x.h>
+snippet incs
+	#include <sys/${1}.h>${2}
+# Unix Netcode libraries
+snippet incsock
+	#include <sys/types.h>
+	#include <sys/socket.h>
+	#include <netinet/in.h>
+	#include <netdb.h>
+	#include <arpa/inet.h>
+# #ifndef ... #define ... #endif
+snippet Def
+	#ifndef $1
+	#define ${1:SYMBOL} ${2:value}
+	#endif${3}
+snippet def
+	#define 
+snippet ifdef
+	#ifdef ${1:FOO}
+		${2:#define }
+	#endif
+snippet #if
+	#if ${1:FOO}
+		${2}
+	#endif
+# Header Include-Guard
+snippet guard
+	#ifndef __${1:`toupper(Filename('', 'UNTITLED'))`}_${2:`'HPP'`}__
+	#define __$1_$2__
+
+	${3}
+
+	#endif // __$1_$2__
+# If Condition
+snippet if
+	if ( ${1} )
+	{
+		${2}
+	}
+# If Condition (no block)
+snippet If
+	if ( ${1} )
+		${2}
+snippet el
+	else {
+		${1}
+	}
+snippet El
+	else
+		${1}
+# Tertiary conditional
+snippet ter
+	${1:/* condition */} ? ${2:true} : ${3:false}
+# Do While Loop
+snippet do
+	do {
+		${2}
+	} while ( ${1} );
+# While Loop
+snippet wh
+	while ( ${1:true} )
+	{
+		${2}
+	}
+# Generic For Loop
+snippet for
+	for ( int ${2:i} = 0; $2 < ${1:count}; $2${3:++} ) {
+		${4:}
+	}
+# Custom For Loop
+snippet forr
+	for ( ${1} ${2:= 0}; ${3:$1} < ${4}; ${3:$1}${5:++} ) {
+		${6}
+	}
+# Function Call
+snippet fun
+	${1:function_name}( ${2} )${3}
+# Function Declaration
+snippet fund
+	${1:void} ${2:function_name}( ${3} );${4}
+# Function Definition
+snippet funD
+	${1:void} ${2:function_name}( ${3} )
+	{
+		${4}
+	}
+# Typedef
+snippet td
+	typedef ${1:int} ${2:MyCustomType};${3}
+# Struct
+snippet st
+	struct ${1:`Filename('$1', 'name')`} {
+		${2}
+	}${3};${4}
+# Typedef struct
+snippet tds
+	typedef struct ${2} {
+		${3}
+	} ${1:`Filename('$1', 'name')`};
+# Typdef enum
+snippet tde
+	typedef enum {
+		${1}
+	} ${2:foo};
+# printf
+# unfortunately version this isn't as nice as TextMates's, given the lack of a
+# dynamic `...`
+snippet pr
+	printf("${1:%s}\n"${2});${3}
+# fprintf (again, this isn't as nice as TextMate's version, but it works)
+snippet fpr
+	fprintf(${1:stderr}, "${2:%s}\n"${3});${4}
+snippet .
+	[${1}]${2}
+snippet un
+	unsigned
+snippet si
+	signed
