@@ -35,12 +35,13 @@ function scrumpatch() {
     fi
 
     DIR='/home/zeroknight/Documents/Coding/scrumbleship'
-    cd $DIR
+    cd $DIR/patches
 
     # Create patch dir if it doesn't exist
-    if [ -d $1 ]; then
-        md -p patches/$1
+    if [ ! -d $1 ]; then
+        mkdir -p $1
     fi
+    cd ..
     for ((i=1; i<=($#-1); i++)); do
         echo "Patching '${args[$i]}' in 'patches/$1'"
         diff -u /games/scrumbleship/src/${args[$i]} src/${args[$i]} > \

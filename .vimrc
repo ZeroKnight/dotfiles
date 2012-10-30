@@ -1,6 +1,5 @@
 "-------------------------
 " ZeroKnight's VIMRC
-" Last changed: 10/10/2012
 "-------------------------
 
 "-------------------------
@@ -40,8 +39,10 @@ set viewdir=~/.vim/view
 cd ~/Documents/Coding/Projects
 
 " Write all temporary files to /tmp/vim
+if !isdirectory("/tmp/vim")
+    silent !mkdir -p /tmp/vim
+endif
 set dir=/tmp/vim
-"set dir=C:\Windows\Temp\vim
 
 " NERDTree Bookmarks
 let NERDTreeBookmarksFile = '/home/zeroknight/.vim/.NERDTreeBookmarks'
@@ -105,6 +106,8 @@ autocmd InsertLeave * hi StatusLine guifg=#1A1A1A | hi User1 guibg=#1A1A1A | hi 
 "-------------------------
 " Editing Settings
 "-------------------------
+set nowrap
+
 " Tabs/Indent
 set expandtab
 set autoindent
@@ -129,7 +132,9 @@ set scrolljump=5
 " files without needing to save
 set hidden
 
-set nowrap
+" Persistent Undo
+set undofile
+set undodir="$HOME/.vim/undo"
 
 
 "-------------------------
