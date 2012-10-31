@@ -6,3 +6,5 @@
 	branch = auto
 [core]
 	excludesfile = /home/zeroknight/.gitignore
+[push]
+	default = simple

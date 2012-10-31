@@ -11,7 +11,7 @@ snippet inc
 	#include <${1:iostream}>${2}
 # #include "..."
 snippet Inc
-	#include "${1:`Filename("$1.h${2:pp}")`}"${3}
+	#include "${1:`Filename("$1")`}.h${2:pp}"${3}
 # #include <sys/x.h>
 snippet incs
 	#include <sys/${1}.h>${2}
