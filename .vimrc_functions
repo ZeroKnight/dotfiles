@@ -31,4 +31,4 @@ function! ReloadSnipMate(snippets_dir, ft)
     call ResetSnippets()
     call GetSnippets(a:snippets_dir, a:ft)
 endfunction
-map ,sr :call ReloadSnipMate(snippets_dir, &ft)<Return>
+map <silent> ,sr :call ReloadSnipMate(snippets_dir, &ft)<CR>:echo "Snippets reloaded"<CR>

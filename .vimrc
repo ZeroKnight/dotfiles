@@ -106,7 +106,8 @@ autocmd InsertLeave * hi StatusLine guifg=#1A1A1A | hi User1 guibg=#1A1A1A | hi 
 "-------------------------
 " Editing Settings
 "-------------------------
-set nowrap
+set wrap
+set lbr
 
 " Tabs/Indent
 set expandtab
@@ -195,6 +196,9 @@ nnoremap ,cd :cd %:p:h<CR>:pwd<CR>
 "-------------------------
 " Mappings
 "-------------------------
+" Sudo Write
+cmap w!! %!sudo tee > /dev/null %
+
 " Window cycle
 cnoremap <C-Tab> w
 inoremap <C-Tab> w

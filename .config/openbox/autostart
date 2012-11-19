@@ -1,0 +1,15 @@
+#
+# openbox autostart
+#
+
+## Set wallpaper
+nitrogen --restore &
+
+## Start sexy desktop stuff
+tint2 &
+conky &
+pnmixer &
+compton --config ~/.config/compton.conf -b
+
+## Misc
+clipit -d &
