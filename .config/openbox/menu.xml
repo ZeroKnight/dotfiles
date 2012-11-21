@@ -337,6 +337,14 @@
                 </startupnotify>
             </action>
         </item>
+        <item label="Blender" icon="/home/zeroknight/.icons/AwOken/clear/128x128/apps/blender.png">
+            <action name="Execute">
+                <command>blender</command>
+                <startupnotify>
+                    <enabled>yes</enabled>
+                </startupnotify>
+            </action>
+        </item>
     </menu>
     <menu id="system-menu" label="System">
         <item label="Openbox Configuration Manager" icon="/home/zeroknight/.icons/AwOken/clear/128x128/apps/openbox.png">
