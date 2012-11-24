@@ -40,7 +40,7 @@ au BufWinEnter,BufRead * silent! loadview
 
 " Source the vimrc automatically after saving it
 if has("autocmd")
-    autocmd bufwritepost .vimrc source $MYVIMRC
+    autocmd! bufwritepost .vimrc source $MYVIMRC
 endif
 
 " Misc
