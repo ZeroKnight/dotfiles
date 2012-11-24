@@ -38,6 +38,11 @@ set sessionoptions=blank,buffers,curdir,folds,help,winsize,tabpages,winpos
 au BufWinLeave,BufWrite * silent! mkview
 au BufWinEnter,BufRead * silent! loadview
 
+" Source the vimrc automatically after saving it
+if has("autocmd")
+    autocmd bufwritepost .vimrc source $MYVIMRC
+endif
+
 " Misc
 set helplang=En
 set history=50
@@ -200,54 +205,51 @@ let showmarks_enable=0
 
 "-------------------------oOo-------------------------
 "
-"                        Binds
+"                   Mappings/Binds
 "
 "-------------------------oOo-------------------------
 " Search/Replace word under cursor (needs to be fixed?)
 " nmap ; :%s/\<=expand("")\>/
 
-" F2 - quick save + remove trailing whitespace
-nnoremap <F2> :%s/\s\+$/g<Return>:w<Return>
-
-" F3 - Toggle NERDtree
-nnoremap <F3> :NERDTreeToggle<Return>
-vnoremap <F3> :NERDTreeToggle<Return>
-inoremap <F3> :NERDTreeToggle<Return>
-
-" F4 - Toggle TagList
-nnoremap <F4> :TlistToggle<Return>
-vnoremap <F4> :TlistToggle<Return>
-inoremap <F4> :TlistToggle<Return>
-
-" F5 - Toggle Gundo
-nnoremap <F5> :GundoToggle<Return>
-vnoremap <F5> :GundoToggle<Return>
-inoremap <F5> :GundoToggle<Return>
-
-" F6 - Toggle ShowMarks
-nnoremap <F6> :ShowMarksToggle<Return>
-vnoremap <F6> :ShowMarksToggle<Return>
-inoremap <F6> :ShowMarksToggle<Return>
-
-" F7 - Marks
-noremap <F7> :marks<Return>
-vnoremap <F7> :marks<Return>
-inoremap <F7> :marks<Return>
-
-" F9 - make
-noremap <F9> :make<Return>
-
 " ,cd - Change cwd to that of the current file
 nnoremap ,cd :cd %:p:h<CR>:pwd<CR>
 
-
-"-------------------------oOo-------------------------
-"
-"                       Mappings
-"
-"-------------------------oOo-------------------------
 " Sudo Write
-cmap w!! %!sudo tee > /dev/null %
+cnoremap w!! %!sudo tee > /dev/null %
+
+" Quick-edit .vimrc
+nnoremap ,vr :tabedit $MYVIMRC<CR>
+
+" F2 - quick save + remove trailing whitespace
+nnoremap <F2> :%s/\s\+$/g<CR>:w<CR>
+
+" F3 - Toggle NERDtree
+nnoremap <F3> :NERDTreeToggle<CR>
+vnoremap <F3> :NERDTreeToggle<CR>
+inoremap <F3> :NERDTreeToggle<CR>
+
+" F4 - Toggle TagList
+nnoremap <F4> :TlistToggle<CR>
+vnoremap <F4> :TlistToggle<CR>
+inoremap <F4> :TlistToggle<CR>
+
+" F5 - Toggle Gundo
+nnoremap <F5> :GundoToggle<CR>
+vnoremap <F5> :GundoToggle<CR>
+inoremap <F5> :GundoToggle<CR>
+
+" F6 - Toggle ShowMarks
+nnoremap <F6> :ShowMarksToggle<CR>
+vnoremap <F6> :ShowMarksToggle<CR>
+inoremap <F6> :ShowMarksToggle<CR>
+
+" F7 - Marks
+noremap <F7> :marks<CR>
+vnoremap <F7> :marks<CR>
+inoremap <F7> :marks<CR>
+
+" F9 - make
+noremap <F9> :make<CR>
 
 " Window cycle
 cnoremap <C-Tab> w
