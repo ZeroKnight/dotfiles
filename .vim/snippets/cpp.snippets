@@ -1,0 +1,38 @@
+# Read File Into Vector
+snippet readfile
+	std::vector<char> v;
+	if (FILE *${2:fp} = fopen(${1:"filename"}, "r")) {
+		char buf[1024];
+		while (size_t len = fread(buf, 1, sizeof(buf), $2))
+			v.insert(v.end(), buf, buf + len);
+		fclose($2);
+	}${3}
+# std::map
+snippet map
+	std::map<${1:key}, ${2:value}> ${3:map};
+# std::vector
+snippet vector
+	std::vector<${1:char}> ${2:v};
+# Namespace
+snippet ns
+	namespace ${1:`Filename('', 'my')`} {
+		${2}
+	} /* $1 */
+# Class
+snippet cl
+	class ${1:`Filename('$1', 'name')`}${2:: public }
+	{
+	private:
+		${3}
+
+	public:
+		$1(${4});
+		${5:virtual} ~$1();
+	}${6};
+# Doxygen Comment
+snippet dcom
+	/** ${1}
+	  */
+# const std::string &str
+snippet csr
+	const std::string& ${1:str}
