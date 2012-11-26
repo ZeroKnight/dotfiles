@@ -5,25 +5,27 @@
 #   curl -Ss https://github.com/ZeroKnight/dotfiles/install.sh | sh
 
 DOTDIRS="\
-$HOME/.config/openbox
-$HOME/.config/tint2
-$HOME/.vim
-$HOME/scripts"
+.config/openbox
+.config/tint2
+.vim
+scripts"
 
 DOTFILES="\
-$HOME/.config/compton.conf
-$HOME/.conkyrc
-$HOME/.gvimrc
-$HOME/.vimrc
-$HOME/.vimrc_funcitons
-$HOME/.xinitc
-$HOME/.zshrc"
+.config/compton.conf
+.conkyrc
+.gvimrc
+.vimrc
+.vimrc_funcitons
+.xinitc
+.zshrc"
+
+cd $HOME
 
 ### Splash ########################
 echo -e "\n--- Grabbing ZeroKnight's Dotfiles... ---\n"
 
 ### Clone the Repo ################
-git clone git://github.com/ZeroKnight/dotfiles.git ~/dotfiles
+git clone git://github.com/ZeroKnight/dotfiles.git dotfiles
 
 ### Backup existing dotfiles ######
 ### Create symlinks ###############
@@ -34,7 +36,7 @@ for d in $DOTDIRS; do
         echo "[!] $d backed up as ${d}.nongit"
     fi
 
-#ln -s $d $(echo "$d" | sed 's/\//\/dotfiles\//')
+    ln -s $HOME/dotfiles/$d ${HOME}/$d
 done
 
 echo -e "\n--- Symlinking Dotfiles... ---\n"
@@ -44,13 +46,13 @@ for f in $DOTFILES; do
         echo "[!] $f backed up as ${f}.nongit"
     fi
 
-#ln -s $f $(echo "$f" | sed 's/\//\/dotfiles\//')
+    ln -s ${HOME}/dotfiles/$f ${HOME}/$f
 done
 
 ### Update submodules #############
 echo -e "\n--- Updating submodules... ---\n"
-git --git-dir="~/dotfiles" submodule init
-git --git-dir="~/dotfiles" submodule update
+git --git-dir="dotfiles" submodule init
+git --git-dir="dotfiles" submodule update
 
 ### Farewell! #####################
 echo -e "\n--- Dotfiles Installation done! ---"
