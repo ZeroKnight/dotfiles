@@ -53,3 +53,6 @@
 	path = .vim/bundle/showmarks
 	url = git://github.com/vim-scripts/ShowMarks.git
         ignore = dirty
+[submodule ".vim/bundle/minibufexpl"]
+	path = .vim/bundle/minibufexpl
+	url = git://github.com/techlivezheng/vim-plugin-minibufexpl.git

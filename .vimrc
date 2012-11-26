@@ -251,26 +251,33 @@ inoremap <F7> :marks<CR>
 " F9 - make
 noremap <F9> :make<CR>
 
-" Window cycle
-cnoremap <C-Tab> w
-inoremap <C-Tab> w
-onoremap <C-Tab> w
-nnoremap <C-Tab> w
-vnoremap <C-Tab> w
+" Window Switching
+nnoremap <C-H> h
+nnoremap <C-J> j
+nnoremap <C-K> k
+nnoremap <C-L> l
+
+" Tab Cycling
+nnoremap <C-Tab> :tabnext<CR>
+inoremap <C-Tab> :tabnext<CR>
+vnoremap <C-Tab> :tabnext<CR>
+nnoremap <C-S-Tab> :tabprev<CR>
+inoremap <C-S-Tab> :tabprev<CR>
+vnoremap <C-S-Tab> :tabprev<CR>
 
 " Select All
-xnoremap  ggVG
-snoremap  gggHG
-onoremap  gggHG
-nnoremap  gggHG
+xnoremap  ggVG
+snoremap  gggHG
+onoremap  gggHG
+nnoremap  gggHG
 
 " Cut/Paste
-cmap <S-Insert> +
-imap <S-Insert> +
-vmap <S-Insert> +
+cmap <S-Insert> +
+imap <S-Insert> +
+vmap <S-Insert> +
 vnoremap <C-Insert> "+y
-vnoremap  "+y
-vnoremap  "+x
+vnoremap  "+y
+vnoremap  "+x
 vnoremap <S-Del> "+x
 vnoremap <BS> d
 
