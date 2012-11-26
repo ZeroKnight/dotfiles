@@ -37,6 +37,7 @@
 [submodule ".vim/bundle/xml"]
 	path = .vim/bundle/xml
 	url = git://github.com/othree/xml.vim.git
+        ignore = dirty
 [submodule ".vim/bundle/unimpaired"]
 	path = .vim/bundle/unimpaired
 	url = git://github.com/tpope/vim-unimpaired.git
