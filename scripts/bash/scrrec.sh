@@ -25,7 +25,7 @@ if [[ ${args[0]} == "-f" || ${args[0]} == "--fullscreen" ]]; then
 else
     INFO=$(xwininfo -frame)
     RES=$(echo "$INFO" | grep -e "Height:" -e "Width:" | cut -d\: -f2 | tr "\n" " " | awk '{print $1 "x" $2}')
-    POS=$(echo "$INFO" | grep "upper-left" | head -n 2 | cut -d\: -f2 | tr "\n" " " | awk'{print $1 "," $2}')
+    POS=$(echo "$INFO" | grep "upper-left" | head -n 2 | cut -d\: -f2 | tr "\n" " " | awk '{print $1 "," $2}')
 fi
 
 # Fire up ffmpeg
