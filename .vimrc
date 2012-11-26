@@ -39,8 +39,10 @@ au BufWinLeave,BufWrite * silent! mkview
 au BufWinEnter,BufRead * silent! loadview
 
 " Source the vimrc automatically after saving it
+" Reload Openbox after editing menu.xml
 if has("autocmd")
     autocmd! bufwritepost .vimrc source $MYVIMRC
+    autocmd! bufwritepost ~/.config/openbox/menu.xml silent !openbox --reconfigure
 endif
 
 " Misc
@@ -70,8 +72,17 @@ if !isdirectory("/tmp/vim")
 endif
 set dir=/tmp/vim
 
+" Sokoban Level dir
+let g:SokobanLevelDirectory = "/home/zeroknight/.vim/bundle/sokoban/"
+
 " NERDTree Bookmarks
 let NERDTreeBookmarksFile = '/home/zeroknight/.vim/.NERDTreeBookmarks'
+
+" Tags
+set tags+=~/.vim/tags/cpp
+set tags+=~/.vim/tags/gl
+set tags+=~/.vim/tags/sdl
+set tags+=~/.vim/tags/qt
 
 
 "-------------------------oOo-------------------------
@@ -187,20 +198,29 @@ hi User4 guifg=#CCCC00 ctermfg=107
 call pathogen#infect()
 call pathogen#helptags()
 
-" NERDTree Settings
+" NERDTree
 let NERDChristmasTree = 1
 let NERDTreeHijackNetrw = 1
 let NERDTreeShowBookmarks = 1
 let NERDTreeShowHidden = 1
 
+" SnipMate
+let g:snips_author = "Alex \"ZeroKnight\" George"
+let g:snippets_dir = "~/.vim/snippets"
+
 " Indent Guides
 let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_start_level = 2
 let g:indent_guides_guide_size = 1
-let g:snips_author = "Alex \"ZeroKnight\" George"
 
-" Turn off ShowMarks on startup
+" ShowMarks
+" Keep disabled on startup
 let showmarks_enable=0 
+
+" OmniCppComplete
+let OmniCpp_NamespaceSearch = 2
+let OmniCpp_ShowPrototypeInAbbr = 1
+let OmniCpp_SelectFirstItem = 1
 
 
 "-------------------------oOo-------------------------
