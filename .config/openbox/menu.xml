@@ -370,6 +370,11 @@
                 <execute>nitrogen</execute>
             </action>
         </item>
+        <item label="Nvidia Settings" icon="/usr/share/pixmaps/nvidia-settings.png">
+            <action name="Execute">
+                <execute>nvidia-settings</execute>
+            </action>
+        </item>
         <separator/>
         <item label="Reconfigure Openbox" icon="/home/zeroknight/.icons/AwOken/clear/128x128/apps/openbox.png">
             <action name="Reconfigure"/>
