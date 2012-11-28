@@ -13,3 +13,10 @@ compton --config ~/.config/compton.conf -b
 
 ## Misc
 clipit -d &
+
+## Essentials
+gnome-terminal
+gnome-terminal --profile=Irssi
+gnome-terminal --profile=Fullscreen
+
+keepassx
