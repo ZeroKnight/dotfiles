@@ -26,3 +26,6 @@ setopt cdablevars
 ### Environment Settings ##########
 export PAGER='less -R'
 export EDITOR='vim'
+
+### Display Fortune ###############
+fortune
