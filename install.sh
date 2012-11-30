@@ -38,7 +38,7 @@ for d in $DOTDIRS; do
         echo "[!] $d backed up as ${d}.nongit"
     fi
 
-    ln -s $HOME/dotfiles/$d ${HOME}/$d
+    ln -s ${HOME}/dotfiles/$d ${HOME}/$d
 done
 
 echo -e "\n--- Symlinking Dotfiles... ---\n"
