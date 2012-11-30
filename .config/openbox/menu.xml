@@ -73,6 +73,14 @@
     <!-- Root Menus and Items -->
 
     <menu id="apps-accessories-menu" label="Accessories">
+        <!--<item label="Alarm Clock" icon="/home/zeroknight/.icons/AwOken/clear/128x128/apps/alarm-clock.png">
+            <action name="Execute">
+                <command>alarm-clock</command>
+                <startupnotify>
+                    <enabled>yes</enabled>
+                </startupnotify>
+            </action>
+        </item>-->
         <item label="Character Map" icon="/home/zeroknight/.icons/AwOken/clear/128x128/apps/gucharmap.png">
             <action name="Execute">
                 <command>gucharmap</command>
@@ -126,15 +134,15 @@
                 </startupnotify>
             </action>
         </item>
+        <item label="Meld" icon="/home/zeroknight/.icons/AwOken/clear/128x128/apps/meld.png">
+            <action name="Execute">
+                <execute>meld</execute>
+            </action>
+        </item>
         <separator/>
         <item label="CMake" icon="/home/zeroknight/.icons/AwOken/clear/128x128/apps/cmake-gui1.png">
             <action name="Execute">
                 <execute>cmake-gui</execute>
-            </action>
-        </item>
-        <item label="Meld" icon="/home/zeroknight/.icons/AwOken/clear/128x128/apps/meld.png">
-            <action name="Execute">
-                <execute>meld</execute>
             </action>
         </item>
         <item label="Kodos" icon="/usr/share/pixmaps/kodos.png">

@@ -7,7 +7,7 @@
 
 ### oh-my-zsh Settings #############
 ZSH=$HOME/.oh-my-zsh
-ZSH_THEME="robbyrussell"
+ZSH_THEME="gnzh"
 CASE_SENSITIVE="false"
 COMPLETION_WAITING_DOTS="true"
 
