@@ -18,7 +18,8 @@ DOTFILES="\
 .vimrc
 .vimrc_funcitons
 .xinitc
-.zshrc"
+.zshrc
+.zprofile"
 
 cd $HOME
 
