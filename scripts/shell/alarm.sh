@@ -13,7 +13,7 @@ VOLUME=40
 # If moc isn't running, start it.
 PID=$(pgrep -f mocp)
 if [ -z "$PID" ]; then
-    screen -d -m -S moc-alarm 
+    screen -d -m -S moc-alarm mocp
 fi
 
 # If atd.service isn't active, start it.
