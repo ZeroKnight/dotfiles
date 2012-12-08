@@ -164,6 +164,11 @@
                 <execute>dwarffortress</execute>
             </action>
         </item>
+        <item label="FTL: Faster Than Light" icon="/games/FTL/data/ftl.gif">
+            <action name="Execute">
+                <execute>/games/FTL/FTL.sh</execute>
+            </action>
+        </item>
         <item label="Minecraft" icon="/usr/share/pixmaps/minecraft.png">
             <action name="Execute">
                 <execute>minecraft</execute>
