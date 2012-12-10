@@ -35,15 +35,18 @@ set t_vb=
 set sessionoptions=blank,buffers,curdir,folds,help,winsize,tabpages,winpos
 
 " Always load/save Folds
-au BufWinLeave,BufWrite * silent! mkview
-au BufWinEnter,BufRead * silent! loadview
+autocmd BufWinLeave,BufWrite * silent! mkview
+autocmd BufWinEnter,BufRead * silent! loadview
 
 " Source the vimrc automatically after saving it
 " Reload Openbox after editing menu.xml
 if has("autocmd")
-    autocmd! bufwritepost .vimrc source $MYVIMRC
-    autocmd! bufwritepost ~/.config/openbox/menu.xml silent !openbox --reconfigure
+    autocmd! BufWritePost .vimrc source $MYVIMRC
+    autocmd! BufWritePost */openbox/menu.xml silent !openbox --reconfigure
 endif
+
+" Shell syntax highlighting for Openbox Autostart
+autocmd BufEnter */openbox/autostart nested set filetype=sh
 
 " Misc
 set helplang=En

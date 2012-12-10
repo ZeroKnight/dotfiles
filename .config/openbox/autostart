@@ -5,6 +5,9 @@
 ## Set wallpaper
 nitrogen --restore &
 
+## Set Cursor Theme
+export XCURSOR_THEME="Ecliz"
+
 ## Start sexy desktop stuff
 tint2 &
 conky -b &
@@ -15,8 +18,8 @@ compton --config ~/.config/compton.conf -b
 clipit -d &
 
 ## Essentials
-gnome-terminal
-gnome-terminal --profile=Irssi
-gnome-terminal --profile=Fullscreen
+gnome-terminal &
+gnome-terminal --profile=Irssi &
+gnome-terminal --profile=Fullscreen &
 
-keepassx
+keepassx &

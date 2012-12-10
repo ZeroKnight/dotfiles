@@ -9,31 +9,35 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
 endif
 set shortmess=aoO
 badd +1 ~/Documents/Coding/scrumbleship/rotationref
-badd +162 ~/Documents/Coding/scrumbleship/config/text/components
-badd +19 ~/Documents/Coding/scrumbleship/config/language/english
-badd +2431 ~/Documents/Coding/scrumbleship/src/ScrumbleGui.c
+badd +4 ~/Documents/Coding/scrumbleship/src/ScrumbleGui.c
 badd +56 ~/Documents/Coding/scrumbleship/src/ScrumbleMaterials.c
 badd +9 ~/Documents/Coding/scrumbleship/src/ScrumbleShipStorage.c
 badd +5 ~/Documents/Coding/scrumbleship/src/ScrumbleParse.h
 badd +33 ~/Documents/Coding/scrumbleship/src/ScrumbleSaves.c
 badd +64 ~/Documents/Coding/scrumbleship/src/ScrumbleShipStorage.h
-badd +0 ~/Documents/Coding/scrumbleship/ScrumbleSnippets
-badd +1921 ~/Documents/Coding/scrumbleship/src/ScrumbleGui.c.old
-badd +113 ~/Documents/Coding/scrumbleship/src/ScrumbleGui.h
-badd +11 ~/Documents/Coding/scrumbleship/src/ScrumbleSaves.h
-badd +58 ~/Documents/Coding/scrumbleship/src/ScrumbleClient.c
+badd +1 ~/Documents/Coding/scrumbleship/ScrumbleSnippets
+badd +69 ~/Documents/Coding/scrumbleship/src/ScrumbleGui.h
+badd +12 ~/Documents/Coding/scrumbleship/src/ScrumbleSaves.h
+badd +1343 ~/Documents/Coding/scrumbleship/src/ScrumbleClient.c
 badd +13 ~/Documents/Coding/scrumbleship/src/ScrumbleOptions.h
 badd +7 ~/Documents/Coding/scrumbleship/src/ScrumbleOptions.c
+badd +100 /games/scrumbleship/config/language/english
+badd +5 /games/scrumbleship/config/text/components
 silent! argdel *
-winpos 0 31
-edit ~/Documents/Coding/scrumbleship/src/ScrumbleClient.c
+winpos 0 40
+edit ~/Documents/Coding/scrumbleship/src/ScrumbleGui.c
 set splitbelow splitright
 wincmd _ | wincmd |
 vsplit
+1wincmd h
+wincmd w
+wincmd _ | wincmd |
+split
+1wincmd k
+wincmd w
 wincmd _ | wincmd |
 vsplit
-2wincmd h
-wincmd w
+1wincmd h
 wincmd _ | wincmd |
 split
 wincmd _ | wincmd |
@@ -59,23 +63,25 @@ set nosplitbelow
 set nosplitright
 wincmd t
 set winheight=1 winwidth=1
-exe 'vert 1resize ' . ((&columns * 31 + 96) / 192)
-exe '2resize ' . ((&lines * 14 + 37) / 74)
-exe 'vert 2resize ' . ((&columns * 109 + 96) / 192)
-exe '3resize ' . ((&lines * 12 + 37) / 74)
-exe 'vert 3resize ' . ((&columns * 109 + 96) / 192)
-exe '4resize ' . ((&lines * 23 + 37) / 74)
-exe 'vert 4resize ' . ((&columns * 109 + 96) / 192)
-exe '5resize ' . ((&lines * 20 + 37) / 74)
-exe 'vert 5resize ' . ((&columns * 109 + 96) / 192)
-exe '6resize ' . ((&lines * 19 + 37) / 74)
-exe 'vert 6resize ' . ((&columns * 50 + 96) / 192)
-exe '7resize ' . ((&lines * 20 + 37) / 74)
-exe 'vert 7resize ' . ((&columns * 50 + 96) / 192)
-exe '8resize ' . ((&lines * 23 + 37) / 74)
-exe 'vert 8resize ' . ((&columns * 50 + 96) / 192)
-exe '9resize ' . ((&lines * 7 + 37) / 74)
-exe 'vert 9resize ' . ((&columns * 50 + 96) / 192)
+exe 'vert 1resize ' . ((&columns * 31 + 84) / 169)
+exe '2resize ' . ((&lines * 3 + 28) / 56)
+exe 'vert 2resize ' . ((&columns * 137 + 84) / 169)
+exe '3resize ' . ((&lines * 16 + 28) / 56)
+exe 'vert 3resize ' . ((&columns * 87 + 84) / 169)
+exe '4resize ' . ((&lines * 8 + 28) / 56)
+exe 'vert 4resize ' . ((&columns * 87 + 84) / 169)
+exe '5resize ' . ((&lines * 17 + 28) / 56)
+exe 'vert 5resize ' . ((&columns * 87 + 84) / 169)
+exe '6resize ' . ((&lines * 6 + 28) / 56)
+exe 'vert 6resize ' . ((&columns * 87 + 84) / 169)
+exe '7resize ' . ((&lines * 10 + 28) / 56)
+exe 'vert 7resize ' . ((&columns * 49 + 84) / 169)
+exe '8resize ' . ((&lines * 13 + 28) / 56)
+exe 'vert 8resize ' . ((&columns * 49 + 84) / 169)
+exe '9resize ' . ((&lines * 14 + 28) / 56)
+exe 'vert 9resize ' . ((&columns * 49 + 84) / 169)
+exe '10resize ' . ((&lines * 10 + 28) / 56)
+exe 'vert 10resize ' . ((&columns * 49 + 84) / 169)
 argglobal
 enew
 file NERD_tree_1
@@ -86,6 +92,18 @@ setlocal fdi=#
 setlocal fdl=0
 setlocal fml=1
 setlocal fdn=20
+setlocal nofen
+wincmd w
+argglobal
+enew
+file -MiniBufExplorer-
+setlocal fdm=manual
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
 setlocal fen
 wincmd w
 argglobal
@@ -98,16 +116,16 @@ setlocal fml=1
 setlocal fdn=20
 setlocal fen
 silent! normal! zE
-let s:l = 2874 - ((10 * winheight(0) + 7) / 14)
+let s:l = 1878 - ((6 * winheight(0) + 8) / 16)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-2874
-let s:c = 100 - ((95 * winwidth(0) + 54) / 109)
+1878
+let s:c = 70 - ((24 * winwidth(0) + 43) / 87)
 if s:c > 0
-  exe 'normal! 0' . s:c . 'lzs' . (100 - s:c) . 'l'
+  exe 'normal! 0' . s:c . 'lzs' . (70 - s:c) . 'l'
 else
-  normal! 0100l
+  normal! 070l
 endif
 wincmd w
 argglobal
@@ -121,12 +139,12 @@ setlocal fml=1
 setlocal fdn=20
 setlocal fen
 silent! normal! zE
-let s:l = 1822 - ((8 * winheight(0) + 6) / 12)
+let s:l = 3170 - ((1 * winheight(0) + 4) / 8)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-1822
-normal! 04l
+3170
+normal! 055l
 wincmd w
 argglobal
 edit ~/Documents/Coding/scrumbleship/src/ScrumbleGui.c
@@ -139,35 +157,12 @@ setlocal fml=1
 setlocal fdn=20
 setlocal fen
 silent! normal! zE
-let s:l = 3171 - ((14 * winheight(0) + 11) / 23)
+let s:l = 786 - ((3 * winheight(0) + 8) / 17)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-3171
-let s:c = 46 - ((16 * winwidth(0) + 54) / 109)
-if s:c > 0
-  exe 'normal! 0' . s:c . 'lzs' . (46 - s:c) . 'l'
-else
-  normal! 046l
-endif
-wincmd w
-argglobal
-edit ~/Documents/Coding/scrumbleship/src/ScrumbleGui.c
-setlocal fdm=manual
-setlocal fde=0
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=0
-setlocal fml=1
-setlocal fdn=20
-setlocal fen
-silent! normal! zE
-let s:l = 795 - ((13 * winheight(0) + 10) / 20)
-if s:l < 1 | let s:l = 1 | endif
-exe s:l
-normal! zt
-795
-normal! 011l
+786
+normal! 025l
 wincmd w
 argglobal
 edit ~/Documents/Coding/scrumbleship/ScrumbleSnippets
@@ -180,7 +175,7 @@ setlocal fml=1
 setlocal fdn=20
 setlocal fen
 silent! normal! zE
-let s:l = 13 - ((12 * winheight(0) + 9) / 19)
+let s:l = 13 - ((4 * winheight(0) + 3) / 6)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
@@ -188,7 +183,7 @@ normal! zt
 normal! 0
 wincmd w
 argglobal
-edit ~/Documents/Coding/scrumbleship/config/language/english
+edit ~/Documents/Coding/scrumbleship/ScrumbleSnippets
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -198,15 +193,15 @@ setlocal fml=1
 setlocal fdn=20
 setlocal fen
 silent! normal! zE
-let s:l = 37 - ((19 * winheight(0) + 10) / 20)
+let s:l = 9 - ((6 * winheight(0) + 5) / 10)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-37
-normal! 06l
+9
+normal! 0
 wincmd w
 argglobal
-edit ~/Documents/Coding/scrumbleship/config/text/components
+edit /games/scrumbleship/config/language/english
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -216,12 +211,30 @@ setlocal fml=1
 setlocal fdn=20
 setlocal fen
 silent! normal! zE
-let s:l = 162 - ((12 * winheight(0) + 11) / 23)
+let s:l = 101 - ((5 * winheight(0) + 6) / 13)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-162
-normal! 03l
+101
+normal! 014l
+wincmd w
+argglobal
+edit /games/scrumbleship/config/text/components
+setlocal fdm=manual
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+silent! normal! zE
+let s:l = 116 - ((9 * winheight(0) + 7) / 14)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+116
+normal! 08l
 wincmd w
 argglobal
 edit ~/Documents/Coding/scrumbleship/rotationref
@@ -234,31 +247,33 @@ setlocal fml=1
 setlocal fdn=20
 setlocal fen
 silent! normal! zE
-let s:l = 1 - ((0 * winheight(0) + 3) / 7)
+let s:l = 1 - ((0 * winheight(0) + 5) / 10)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
 1
 normal! 08l
 wincmd w
-4wincmd w
-exe 'vert 1resize ' . ((&columns * 31 + 96) / 192)
-exe '2resize ' . ((&lines * 14 + 37) / 74)
-exe 'vert 2resize ' . ((&columns * 109 + 96) / 192)
-exe '3resize ' . ((&lines * 12 + 37) / 74)
-exe 'vert 3resize ' . ((&columns * 109 + 96) / 192)
-exe '4resize ' . ((&lines * 23 + 37) / 74)
-exe 'vert 4resize ' . ((&columns * 109 + 96) / 192)
-exe '5resize ' . ((&lines * 20 + 37) / 74)
-exe 'vert 5resize ' . ((&columns * 109 + 96) / 192)
-exe '6resize ' . ((&lines * 19 + 37) / 74)
-exe 'vert 6resize ' . ((&columns * 50 + 96) / 192)
-exe '7resize ' . ((&lines * 20 + 37) / 74)
-exe 'vert 7resize ' . ((&columns * 50 + 96) / 192)
-exe '8resize ' . ((&lines * 23 + 37) / 74)
-exe 'vert 8resize ' . ((&columns * 50 + 96) / 192)
-exe '9resize ' . ((&lines * 7 + 37) / 74)
-exe 'vert 9resize ' . ((&columns * 50 + 96) / 192)
+3wincmd w
+exe 'vert 1resize ' . ((&columns * 31 + 84) / 169)
+exe '2resize ' . ((&lines * 3 + 28) / 56)
+exe 'vert 2resize ' . ((&columns * 137 + 84) / 169)
+exe '3resize ' . ((&lines * 16 + 28) / 56)
+exe 'vert 3resize ' . ((&columns * 87 + 84) / 169)
+exe '4resize ' . ((&lines * 8 + 28) / 56)
+exe 'vert 4resize ' . ((&columns * 87 + 84) / 169)
+exe '5resize ' . ((&lines * 17 + 28) / 56)
+exe 'vert 5resize ' . ((&columns * 87 + 84) / 169)
+exe '6resize ' . ((&lines * 6 + 28) / 56)
+exe 'vert 6resize ' . ((&columns * 87 + 84) / 169)
+exe '7resize ' . ((&lines * 10 + 28) / 56)
+exe 'vert 7resize ' . ((&columns * 49 + 84) / 169)
+exe '8resize ' . ((&lines * 13 + 28) / 56)
+exe 'vert 8resize ' . ((&columns * 49 + 84) / 169)
+exe '9resize ' . ((&lines * 14 + 28) / 56)
+exe 'vert 9resize ' . ((&columns * 49 + 84) / 169)
+exe '10resize ' . ((&lines * 10 + 28) / 56)
+exe 'vert 10resize ' . ((&columns * 49 + 84) / 169)
 tabnext 1
 if exists('s:wipebuf')
   silent exe 'bwipe ' . s:wipebuf
