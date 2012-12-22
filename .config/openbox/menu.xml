@@ -99,7 +99,7 @@
         </item>
         <item label="PeaZip Archive Manger" icon="/home/zeroknight/.icons/AwOken/clear/128x128/apps/peazip.png">
             <action name="Execute">
-                <command>ark</command>
+                <command>peazip</command>
                 <startupnotify>
                     <enabled>yes</enabled>
                 </startupnotify>
@@ -153,6 +153,12 @@
         <menu id="apps-development-qt" icon="/home/zeroknight/.icons/AwOken/clear/128x128/apps/qt.png"/>
     </menu>
     <menu id="app-games-menu" label="Games">
+        <item label="Steam" icon="/home/zeroknight/.icons/AwOken/clear/128x128/categories/applications-accessories.png">
+            <action name="Execute">
+                <execute>steam</execute>
+            </action>
+        </item>
+        <separator/>
         <item label="Battle for Wesnoth" icon="/home/zeroknight/.icons/AwOken/clear/128x128/apps/wesnoth-icon.png">
             <action name="Execute">
                 <execute>wesnoth</execute>
@@ -418,7 +424,7 @@
             </action>
         </item>
         <separator/>
-        <item label="Steam" icon="/home/zeroknight/.icons/AwOken/clear/128x128/categories/applications-accessories.png">
+        <item label="Steam (Wine)" icon="/home/zeroknight/.icons/AwOken/clear/128x128/categories/applications-accessories.png">
             <action name="Execute">
                 <execute>wine ~/.wine/drive_c/Program\ Files\ \(x86\)/Steam/Steam.exe -no-dwrite &gt;/dev/null 2&gt;&amp;1 &amp;</execute>
             </action>
