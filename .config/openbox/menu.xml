@@ -177,7 +177,7 @@
         </item>
         <item label="Minecraft" icon="/usr/share/pixmaps/minecraft.png">
             <action name="Execute">
-                <execute>minecraft</execute>
+                <execute>MultiMC</execute>
             </action>
         </item>
         <item label="Minetest">
