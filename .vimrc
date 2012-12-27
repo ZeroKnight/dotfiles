@@ -164,6 +164,7 @@ if has("gui_running")
     let g:solarized_termcolors = 256
 else
     let g:solarized_termcolors = 16
+    set t_co=16
 endif
     
 
