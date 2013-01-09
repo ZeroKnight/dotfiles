@@ -207,7 +207,7 @@
         </item>
         <item label="Starsector" icon="/games/starsector/graphics/ui/sf32.png">
             <action name="Execute">
-                <execute>/games/starfarer/starsector.sh</execute>
+                <execute>/games/starsector/starsector.sh</execute>
             </action>
         </item>
         <item label="Skyrim" icon="/home/zeroknight/.local/share/icons/hicolor/256x256/apps/D5FB_SkyrimLauncher.0.png">
