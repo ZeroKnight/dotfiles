@@ -15,6 +15,7 @@ DOTFILES="\
 .config/compton.conf
 .conkyrc
 .gvimrc
+.screenrc
 .vimrc
 .vimrc_funcitons
 .xinitc
