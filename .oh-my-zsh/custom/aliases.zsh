@@ -5,6 +5,7 @@ alias grep='grep --color=auto --exclude-dir=".svn"'
 alias fgrep='fgrep --color=auto --exclude-dir=".svn"'
 alias egrep='egrep --color=auto --exclude-dir=".svn"'
 alias pacman='sudo pacman-color'
+alias cpanm='cpanm --sudo --skip-installed'
 
 ### Disk Checking #################
 alias df='df -h'
