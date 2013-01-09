@@ -69,20 +69,12 @@ if [ -f Bleeding.zip ]; then
     echo "Extracting Bleeding.zip ..."
     unzip -qo Bleeding.zip
 
-    echo "Updating binary ..."
+    echo "Updating ScrumbleShip..."
     cd scrumbleship
-    if [ -d config ]; then
-        cp -r config src scrumbleship${ARCH} $SCRUMDIR
-        if [ $? != 0 ]; then
-            echo "[!] Couldn't copy bleeding files to game"
-            exit 1
-        fi
-    else
-        cp -r src scrumbleship${ARCH} $SCRUMDIR
-        if [ $? != 0 ]; then
-            echo "[!] Couldn't copy bleeding files to game"
-            exit 1
-        fi
+    cp -r * $SCRUMDIR
+    if [ $? != 0 ]; then
+        echo "[!] Couldn't copy bleeding files to game"
+        exit 1
     fi
 
 # If Bleeding.zip isn't in Downloads, check for the files in the Build dir
@@ -92,40 +84,13 @@ else
     if [ -d scrumbleship ]; then
         echo "Found '$BUILDDIR/scrumbleship', using that ..."
         cd scrumbleship
-        if [ -d config ]; then
-            cp -r config src scrumbleship${ARCH} $SCRUMDIR
-            if [ $? != 0 ]; then
-                echo "[!] Couldn't copy bleeding files to game"
-                exit 1
-            fi
-        else
-            cp -r src scrumbleship${ARCH} $SCRUMDIR
-            if [ $? != 0 ]; then
-                echo "[!] Couldn't copy bleeding files to game"
-                exit 1
-            fi
+        cp -r * $SCRUMDIR
+        if [ $? != 0 ]; then
+            echo "[!] Couldn't copy bleeding files to game"
+            exit 1
         fi
 
-# Check for the zip if we can't find "scrumbleship"
-    elif [ -f Bleeding.zip ]; then
-        echo "Found '$BUILDDIR/Bleeding.zip', using that ..."
-        unzip -qo Bleeding.zip
-        cd scrumbleship
-        if [ -d config ]; then
-            cp -r config src scrumbleship${ARCH} $SCRUMDIR
-            if [ $? != 0 ]; then
-                echo "[!] Couldn't copy bleeding files to game"
-                exit 1
-            fi
-        else
-            cp -r src scrumbleship${ARCH} $SCRUMDIR
-            if [ $? != 0 ]; then
-                echo "[!] Couldn't copy bleeding files to game"
-                exit 1
-            fi
-        fi
-    
-# Scmething dun goofed
+    # Scmething dun goofed
     else
         echo '[!] Bleeding Update not found!'
         exit 1
@@ -141,7 +106,8 @@ else
 fi
 
 # Note the Bleeding number, for various future reference
-read -p 'Bleeding Build number: ' REV
+LASTBLEED=$(cat $SCRUMDIR/lastbleeding)
+read -p "Bleeding Build number (prev: $LASTBLEED): " REV
 echo "$REV" > $SCRUMDIR/lastbleeding
 
 # Src Update
