@@ -245,7 +245,7 @@ cnoremap w!! %!sudo tee > /dev/null %
 nnoremap ,vr :tabedit $MYVIMRC<CR>
 
 " F2 - quick save + remove trailing whitespace
-nnoremap <F2> :%s/\s\+$/g<CR>:w<CR>
+nnoremap <F2> :%s/\s\+$//g<CR>:w<CR>
 
 " F3 - Toggle NERDtree
 nnoremap <F3> :NERDTreeToggle<CR>
