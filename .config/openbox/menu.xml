@@ -290,6 +290,11 @@
                 <execute>mumble</execute>
             </action>
         </item>
+        <item label="Remobo">
+            <action name="Execute">
+                <execute>remobo-gui</execute>
+            </action>
+        </item>
         <item label="Teamspeak" icon="/usr/share/pixmaps/teamspeak3.xpm">
             <action name="Execute">
                 <execute>teamspeak3</execute>
