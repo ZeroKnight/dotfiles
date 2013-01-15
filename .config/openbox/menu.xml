@@ -302,7 +302,7 @@
         </item>
         <item label="Teamviewer">
             <action name="Execute">
-                <execute>/opt/teamviewer/teamviewer/7/bin/teamviewer</execute>
+                <execute>teamviewer</execute>
             </action>
         </item>
         <separator label="File Transfer"/>
