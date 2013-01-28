@@ -8,6 +8,7 @@ DOTDIRS="\
 .config/openbox
 .config/tint2
 .config/.oh-my-zsh/custom
+.ssh
 .vim
 scripts"
 
