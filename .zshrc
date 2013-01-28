@@ -23,6 +23,10 @@ setopt no_list_beep
 setopt auto_cd
 setopt cdablevars
 
+### SSH Settings ##################
+# Start keychain
+eval $(keychain --eval --agents ssh -Q --quiet id_rsa)
+
 ### Environment Settings ##########
 export PAGER='less -R'
 export EDITOR='vim'
