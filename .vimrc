@@ -82,6 +82,8 @@ let g:SokobanLevelDirectory = "/home/zeroknight/.vim/bundle/sokoban/"
 let NERDTreeBookmarksFile = '/home/zeroknight/.vim/.NERDTreeBookmarks'
 
 " Tags
+set tags+=./src/tags
+set tags+=./src/TAGS
 set tags+=~/.vim/tags/cpp
 set tags+=~/.vim/tags/gl
 set tags+=~/.vim/tags/sdl
@@ -224,7 +226,8 @@ let showmarks_enable=0
 " OmniCppComplete
 let OmniCpp_NamespaceSearch = 2
 let OmniCpp_ShowPrototypeInAbbr = 1
-let OmniCpp_SelectFirstItem = 1
+let OmniCpp_SelectFirstItem = 0
+let OmniCpp_MayCompleteScope = 1
 
 
 "-------------------------oOo-------------------------
@@ -274,6 +277,9 @@ inoremap <F7> :marks<CR>
 
 " F9 - make
 noremap <F9> :make<CR>
+
+" C-F12 - Generate tags file for OmniCppComplete
+map <C-F12> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
 
 " Window Switching
 nnoremap <C-H> h
