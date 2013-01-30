@@ -1,6 +1,6 @@
 #=============][==============>>
 # ZeroKnight's .zshrc file 
-#=============][=============>>
+#=============][==============>>
 
 # oh-my-zsh pretty much handles all of this beautifully :)
 # Yay for modularity!!
@@ -11,7 +11,7 @@ ZSH_THEME="gnzh"
 CASE_SENSITIVE="false"
 COMPLETION_WAITING_DOTS="true"
 
-plugins=(git)
+plugins=(git screen)
 
 source $ZSH/oh-my-zsh.sh
 
