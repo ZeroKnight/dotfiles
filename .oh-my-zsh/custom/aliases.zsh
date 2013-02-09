@@ -1,3 +1,23 @@
+### Various Shortcuts #############
+# Sudo shortcut
+alias sudo='sudo -E'
+alias _='sudo'
+
+alias iptraf='sudo iptraf-ng'
+
+alias untar='tar -xvf'
+alias scrot="scrot 'SCREENSHOT_\%m-\%d-\%Y_\%H:\%M:\%S.png' -d3 -q100 -ms -e 'mv \$f ~/Pictures/Screenshots/'"
+alias reloadtint2='killall -SIGUSR1 tint2'
+alias cpanm='cpanm --sudo --skip-installed'
+alias gproc='ps aux | grep -i'
+alias steamfix='STEAM_RUNTIME=0 steam &> /dev/null &'
+
+### Tricks and 'new' Commands #####
+alias userlist='cat /etc/passwd | cut -d":" -f1'
+alias grouplist='cat /etc/group | cut -d":" -f1'
+alias today='date "+%A, %B %d, %Y"'
+alias openports='netstat --all --numeric --programs --inet --inet6'
+
 ### Auto-Coloring ##################
 #alias dir='dir --color=auto'
 #alias vdir='vdir --color=auto'
@@ -27,27 +47,6 @@ alias lz='ls -rS'                   # Sort by Size
 alias lt='ls -rt'                   # Sort by Date
 alias lp='ls | less'
 alias lv='ls -ls'                   # long style and human readable sizes (verbose)
-
-### Various Shortcuts #############
-# Sudo shortcut
-alias sudo='sudo -E'
-alias _='sudo'
-
-alias untar='tar -xvf'
-alias scrot="scrot 'SCREENSHOT_\%m-\%d-\%Y_\%H:\%M:\%S.png' -d3 -q100 -ms -e 'mv \$f ~/Pictures/Screenshots/'"
-alias reloadtint2='killall -SIGUSR1 tint2'
-alias cpanm='cpanm --sudo --skip-installed'
-alias gproc='ps aux | grep -i'
-alias steamfix='STEAM_RUNTIME=0 steam &> /dev/null &'
-
-# Show history
-alias history='fc -l 1'
-
-### Tricks and 'new' Commands #####
-alias userlist='cat /etc/passwd | cut -d":" -f1'
-alias grouplist='cat /etc/group | cut -d":" -f1'
-alias today='date "+%A, %B %d, %Y"'
-alias openports='netstat --all --numeric --programs --inet --inet6'
 
 ### Saftey Measures... ############
 alias ln='ln -i'                    # Prompts to remove destination
