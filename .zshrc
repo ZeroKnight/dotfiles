@@ -11,7 +11,7 @@ ZSH_THEME="gnzh"
 CASE_SENSITIVE="false"
 COMPLETION_WAITING_DOTS="true"
 
-plugins=(git screen)
+plugins=(git screen cp)
 
 source $ZSH/oh-my-zsh.sh
 
