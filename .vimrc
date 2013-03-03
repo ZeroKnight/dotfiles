@@ -194,6 +194,12 @@ hi User4 guifg=#CCCC00 ctermfg=107
 "autocmd InsertEnter * hi StatusLine guifg=#0E1B0E | hi User1 guibg=#0E1B0E | hi User2 guibg=#0E1B0E | hi User3 guibg=#0E1B0E | hi User4 guibg=#0E1B0E
 "autocmd InsertLeave * hi StatusLine guifg=#1A1A1A | hi User1 guibg=#1A1A1A | hi User2 guibg=#1A1A1A | hi User3 guibg=#1A1A1A | hi User4 guibg=#1A1A1A
 
+" C Syntax Settings
+let c_gnu = 1
+let c_comment_strings = 1
+let c_curly_error = 1
+" Load doxygen syntax
+let g:load_doxygen_syntax = 1
 
 "-------------------------oOo-------------------------
 "

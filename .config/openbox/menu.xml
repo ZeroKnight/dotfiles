@@ -197,7 +197,7 @@
         </item>
         <item label="Red Eclipse" icon="/games/redeclipse/src/site/bits/favicon.png">
             <action name="Execute">
-                <execute>/games/redeclipse/redeclipse.sh</execute>
+                <execute>/games/redeclipse/fpsclient.sh</execute>
             </action>
         </item>
         <item label="ScrumbleShip" icon="/usr/share/pixmaps/ScrumbleShip.png">
