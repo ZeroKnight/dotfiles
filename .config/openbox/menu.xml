@@ -159,6 +159,11 @@
             </action>
         </item>
         <separator/>
+        <item label="0ad" icon="/usr/share/pixmaps/0ad.png">
+            <action name="Execute">
+                <execute>0ad</execute>
+            </action>
+        </item>
         <item label="Battle for Wesnoth" icon="/home/zeroknight/.icons/AwOken/clear/128x128/apps/wesnoth-icon.png">
             <action name="Execute">
                 <execute>wesnoth</execute>
@@ -197,7 +202,7 @@
         </item>
         <item label="Red Eclipse" icon="/games/redeclipse/src/site/bits/favicon.png">
             <action name="Execute">
-                <execute>/games/redeclipse/fpsclient.sh</execute>
+                <execute>/games/redeclipse/redeclipse.sh</execute>
             </action>
         </item>
         <item label="ScrumbleShip" icon="/usr/share/pixmaps/ScrumbleShip.png">
@@ -328,14 +333,6 @@
         </item>
     </menu>
     <menu id="apps-multimedia-menu" label="Multimedia">
-        <item label="Amarok" icon="/home/zeroknight/.icons/AwOken/clear/128x128/apps/amarok.png">
-            <action name="Execute">
-                <command>amarok</command>
-                <startupnotify>
-                    <enabled>yes</enabled>
-                </startupnotify>
-            </action>
-        </item>
         <item label="Audacity" icon="/home/zeroknight/.icons/AwOken/clear/128x128/apps/audacity.png">
             <action name="Execute">
                 <execute>audacity</execute>
@@ -344,6 +341,14 @@
         <item label="qV4L2" icon="/usr/share/icons/hicolor/32x32/apps/qv4l2.png">
             <action name="Execute">
                 <execute>qv4l2</execute>
+            </action>
+        </item>
+        <item label="Clementine" icon="/home/zeroknight/.icons/AwOken/clear/128x128/apps/clementine.png">
+            <action name="Execute">
+                <command>clementine</command>
+                <startupnotify>
+                    <enabled>yes</enabled>
+                </startupnotify>
             </action>
         </item>
         <item label="VLC Media Player" icon="/home/zeroknight/.icons/AwOken/clear/128x128/apps/vlc.png">
