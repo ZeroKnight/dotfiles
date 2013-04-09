@@ -31,5 +31,8 @@ eval $(keychain --eval --agents ssh -Q --quiet id_rsa)
 export PAGER='less -R'
 export EDITOR='vim'
 
+### Start Tmux ####################
+[[ $TERM != screen* ]] && exec tmux
+
 ### Display Fortune ###############
 fortune
