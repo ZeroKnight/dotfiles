@@ -1,0 +1,253 @@
+#!/bin/bash
+
+# reservctl [start|stop|restart|status] <servername>
+
+##################################################################################
+# Control script for WazuClan Red Eclipse servers
+#
+# Acts as a wrapper for the main server startup script to provide extra
+# features such as starting as a dedicated user, and control over not one,
+# but any amount of servers. Servers are managed in a smart way in that
+# only one instance of a server may be run, their running state can be queried,
+# and they can be restarted and stopped at will.
+#
+# Written by Alex "ZeroKnight" George
+##################################################################################
+
+# List of available Red Eclipse servers that can be controlled
+# The names in the list are the names of each server's data directory
+servlist='public instaffa private svn'
+
+# Root directory of server data directories
+_servdir='/home/reserver/settings'
+
+# Path of the Red Eclipse server startup script
+# ie. the one that is distributed with the game
+servscript='/home/reserver/redeclipse-current/redeclipse_server.sh'
+
+### DO NOT EDIT BELOW THIS LINE ###############################
+
+server="$2"
+servdir="${_servdir}/$server"
+
+### Functions
+
+function server_validate() {
+    # Check to see if specified server is a valid choice
+
+    # Tab-complete friendliness :)
+    if [[ "$server" == */ ]]; then
+        server=${server%?}
+    fi
+    for i in $servlist; do
+        if [ "$i" = "$server" ]; then
+            if [ -d "$servdir" ]; then
+                # Valid
+                return 0
+            else
+                # Valid, but actual dir doesn't exist for some reason
+                return 2
+            fi
+        fi
+    done
+    # Invalid
+    return 1
+}
+
+function server_status() {
+    local searchpid
+    local choice
+
+    # Create PID file if it doesn't exist; default it to null
+    if [ ! -e $servdir/server.pid ]; then
+        echo '-1' > $servdir/server.pid
+    fi
+
+    read lastpid < $servdir/server.pid
+    if [ $lastpid -eq -1 ]; then
+        # Server is not running
+        return 1
+    else
+        searchpid="$(ps -p $lastpid -o pid= | cut -d ' ' -f2)"
+        if [[ $searchpid == $lastpid ]]; then
+            if [[ $(ps -p $lastpid -o ruser= | cut -d ' ' -f2) == 'reserver' ]]; then
+                # Server is running properly
+                return 0
+            else
+                # Server is running, but not properly
+                echo "Server '$server' is already running, but not as user 'reserver'. This most likely means the server was not started via 'reservctl'"
+                read -sn 1 -p 'Would you like to restart the server properly? [Yn] ' choice
+                if [ "$choice" != 'n' ]; then
+                    server_restart
+                else
+                    exit 2
+                fi
+            fi
+        else
+            # Failsafe
+            echo '-1' > $servdir/server.pid
+            echo "Server '$server' doesn't appear to be running, but its PID file is set to '$lastpid'. This may be due to an improper/unexpected shutdown."
+            echo 'The PID file has been reset to allow for a safe restart'
+            exit 4
+        fi
+    fi
+}
+
+function server_start() {
+    local newpid
+    local pass
+
+    # Check to see if server is running first
+    server_status
+    case $? in
+    0)
+        # Server already running; do nothing
+        echo "Server '$server' is already running; use 'reservctl restart $server' instead."
+        exit 5
+    ;;
+    1)
+        # We want to start the server as user 'reserver'
+        # inside of a screen (for viewing output)
+        if [ -n "$STY" ]; then
+            # Currently in a screen...we don't want that
+            echo 'Currently in a screen. To avoid recursion, please detach and try again'
+            exit 3
+        else
+            # Create 'logs' dir if it doesn't exist
+            if [ ! -d $servdir/logs ]; then
+                mkdir $servdir/logs
+            fi
+
+            # Set variable for server launch script
+            export APP_OPTIONS="-h${servdir}"
+
+            # Get sudo password ahead of time, otherwise the real prompt
+            # in being backgrounded will be trampled by the script and break
+            read -s -p "[sudo] password for $USER: " pass
+            echo
+
+            # Fire it up!
+            echo $pass | sudo -ESsu reserver source $servscript &> $servdir/logs/reserver_$(date +"%F_%T").log &
+            printf "Starting server '%s'... " $server
+
+            # Avoid a race condition, wait for the server script to execute
+            # so we get the right PID from $!
+            sleep 1
+
+            # Grab the PID (*grumble* stupid space in the output)
+            newpid="$(ps --ppid $! -o pid= | cut -d ' ' -f2)"
+
+            if [[ $newpid > 0 ]]; then
+                echo "SUCCESS (PID: $newpid)"
+                echo "$newpid" > $servdir/server.pid
+                exit 0
+            else
+                echo 'FAILED'
+                echo '-1' > $servdir/server.pid
+                exit 1
+            fi
+        fi
+    ;;
+    esac
+}
+
+function server_stop() {
+    # Check to stee if server is already down
+    server_status
+    case $? in
+    0)
+        sudo -u reserver kill $lastpid
+        printf "Stopping server '%s' (PID: %d)... " $server $lastpid
+        if [ $? -eq 0 ]; then
+            echo 'SUCCESS'
+
+            # Nullify PID file
+            echo '-1' > $servdir/server.pid
+            return 0
+        else
+            echo 'FAILED'
+            return 1
+        fi
+    ;;
+    *)
+        echo "Server '$server' is not running."
+        exit 5
+    ;;
+    esac
+}
+
+function server_restart() {
+    # Stop the server
+    server_stop
+    case $? in
+    0)
+        # Start the server back up
+        server_start
+    ;;
+    1)
+        exit 1
+    ;;
+    esac
+}
+
+function server_showlist() {
+    printf 'Available servers are: '
+    for i in $servlist; do
+        printf "%s " $i
+    done
+    printf "\n"
+}
+
+### Main script body
+
+# Check permissions
+if [[ $(groups $USER) != *reserver* ]]; then
+    echo "Insufficient permissions"
+    exit 4
+fi
+
+# Display help
+if [[ $1 == '--help' ]]; then
+    echo 'Usage: reservctl [start|stop|restart|status] <servername>'
+    server_showlist
+    exit 255
+fi
+
+server_validate
+if [ $? -eq 0 ]; then
+    case $1 in
+    'start')
+        server_start
+    ;;
+    'stop')
+        server_stop
+    ;;
+    'restart')
+        server_restart
+    ;;
+    'status')
+        server_status
+        case $? in
+        0)
+            echo "Server '$server' is running (PID: $lastpid)"
+            exit 0
+        ;;
+        1)
+            echo "Server '$server' is not running"
+            exit 1
+        ;;
+        esac
+    ;;
+    *)
+        echo "Invalid option '$1'"
+        exit 2
+    ;;
+    esac
+elif [ $? -eq 1 ]; then
+    printf "Invalid server '$server'. "
+    server_showlist
+    exit 3
+else
+    echo "Server '$server' is valid, but its directory does not exist"
+    exit 4
+fi
