@@ -20,7 +20,7 @@ alias openports='netstat --all --numeric --programs --inet --inet6'
 ### Auto-Coloring ##################
 #alias dir='dir --color=auto'
 #alias vdir='vdir --color=auto'
-alias pacman='sudo pacman-color'
+alias pacman='sudo pacman'
 
 ### Disk Checking #################
 alias df='df -h'
