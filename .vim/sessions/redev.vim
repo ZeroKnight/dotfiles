@@ -8,16 +8,19 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +52 data/config/menus/options.cfg
+badd +385 data/config/menus/options.cfg
 badd +1 src/game/hud.cpp
-badd +41 data/config/menus/main.cfg
+badd +34 data/config/menus/main.cfg
 badd +20 data/config/menus/game.cfg
 badd +1 data/config/menus/package.cfg
-badd +165 data/config/menus/glue.cfg
-badd +2 data/config/menus/maps.cfg
+badd +168 data/config/menus/glue.cfg
+badd +133 ~/.redeclipse/config.cfg
+badd +11 data/config/menus/vars.cfg
+badd +0 ~/.redeclipse/autoexec.cfg
+badd +0 data/config/menus/profile.cfg
 silent! argdel *
 winpos 990 40
-edit data/config/menus/maps.cfg
+edit data/config/menus/profile.cfg
 set splitbelow splitright
 wincmd _ | wincmd |
 split
@@ -25,10 +28,7 @@ wincmd _ | wincmd |
 split
 wincmd _ | wincmd |
 split
-wincmd _ | wincmd |
-split
-4wincmd k
-wincmd w
+3wincmd k
 wincmd w
 wincmd w
 wincmd w
@@ -36,11 +36,10 @@ set nosplitbelow
 set nosplitright
 wincmd t
 set winheight=1 winwidth=1
-exe '1resize ' . ((&lines * 1 + 24) / 48)
-exe '2resize ' . ((&lines * 6 + 24) / 48)
-exe '3resize ' . ((&lines * 17 + 24) / 48)
-exe '4resize ' . ((&lines * 10 + 24) / 48)
-exe '5resize ' . ((&lines * 8 + 24) / 48)
+exe '1resize ' . ((&lines * 2 + 22) / 45)
+exe '2resize ' . ((&lines * 6 + 22) / 45)
+exe '3resize ' . ((&lines * 20 + 22) / 45)
+exe '4resize ' . ((&lines * 12 + 22) / 45)
 argglobal
 enew
 file -MiniBufExplorer-
@@ -63,12 +62,12 @@ setlocal fml=1
 setlocal fdn=20
 setlocal fen
 silent! normal! zE
-let s:l = 182 - ((2 * winheight(0) + 3) / 6)
+let s:l = 62 - ((2 * winheight(0) + 3) / 6)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-182
-normal! 034l
+62
+normal! 037l
 wincmd w
 argglobal
 edit data/config/menus/options.cfg
@@ -81,80 +80,48 @@ setlocal fml=1
 setlocal fdn=20
 setlocal fen
 silent! normal! zE
-33,278fold
-280,376fold
-let s:l = 381 - ((102 * winheight(0) + 8) / 17)
+let s:l = 13 - ((12 * winheight(0) + 10) / 20)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-381
-normal! 04l
-wincmd w
-argglobal
-edit data/config/menus/options.cfg
-setlocal fdm=manual
-setlocal fde=0
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=0
-setlocal fml=1
-setlocal fdn=20
-setlocal fen
-silent! normal! zE
-let s:l = 416 - ((5 * winheight(0) + 5) / 10)
-if s:l < 1 | let s:l = 1 | endif
-exe s:l
-normal! zt
-416
-normal! 04l
-wincmd w
-argglobal
-edit data/config/menus/glue.cfg
-setlocal fdm=manual
-setlocal fde=0
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=0
-setlocal fml=1
-setlocal fdn=20
-setlocal fen
-silent! normal! zE
-let s:l = 165 - ((4 * winheight(0) + 4) / 8)
-if s:l < 1 | let s:l = 1 | endif
-exe s:l
-normal! zt
-165
+13
 normal! 0
 wincmd w
+argglobal
+edit data/config/menus/options.cfg
+setlocal fdm=manual
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+silent! normal! zE
+let s:l = 711 - ((2 * winheight(0) + 6) / 12)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+711
+normal! 08l
+wincmd w
 3wincmd w
-exe '1resize ' . ((&lines * 1 + 24) / 48)
-exe '2resize ' . ((&lines * 6 + 24) / 48)
-exe '3resize ' . ((&lines * 17 + 24) / 48)
-exe '4resize ' . ((&lines * 10 + 24) / 48)
-exe '5resize ' . ((&lines * 8 + 24) / 48)
-tabedit src/game/hud.cpp
+exe '1resize ' . ((&lines * 2 + 22) / 45)
+exe '2resize ' . ((&lines * 6 + 22) / 45)
+exe '3resize ' . ((&lines * 20 + 22) / 45)
+exe '4resize ' . ((&lines * 12 + 22) / 45)
+tabedit ~/.redeclipse/autoexec.cfg
 set splitbelow splitright
 wincmd _ | wincmd |
 split
-wincmd _ | wincmd |
-split
-2wincmd k
-wincmd w
-wincmd w
-wincmd _ | wincmd |
-vsplit
-1wincmd h
+1wincmd k
 wincmd w
 set nosplitbelow
 set nosplitright
 wincmd t
 set winheight=1 winwidth=1
-exe '1resize ' . ((&lines * 1 + 24) / 48)
-exe '2resize ' . ((&lines * 3 + 24) / 48)
-exe '3resize ' . ((&lines * 37 + 24) / 48)
-exe 'vert 3resize ' . ((&columns * 93 + 66) / 132)
-exe '4resize ' . ((&lines * 37 + 24) / 48)
-exe 'vert 4resize ' . ((&columns * 38 + 66) / 132)
+exe '1resize ' . ((&lines * 2 + 22) / 45)
+exe '2resize ' . ((&lines * 40 + 22) / 45)
 argglobal
 enew
 file -MiniBufExplorer-
@@ -168,17 +135,6 @@ setlocal fdn=20
 setlocal fen
 wincmd w
 argglobal
-enew
-setlocal fdm=manual
-setlocal fde=0
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=0
-setlocal fml=1
-setlocal fdn=20
-setlocal fen
-wincmd w
-argglobal
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -188,38 +144,16 @@ setlocal fml=1
 setlocal fdn=20
 setlocal fen
 silent! normal! zE
-let s:l = 2191 - ((0 * winheight(0) + 18) / 37)
+let s:l = 19 - ((10 * winheight(0) + 20) / 40)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-2191
-normal! 028l
-wincmd w
-argglobal
-edit src/game/hud.cpp
-setlocal fdm=manual
-setlocal fde=0
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=0
-setlocal fml=1
-setlocal fdn=20
-setlocal fen
-silent! normal! zE
-let s:l = 1 - ((0 * winheight(0) + 18) / 37)
-if s:l < 1 | let s:l = 1 | endif
-exe s:l
-normal! zt
-1
-normal! 0
+19
+normal! 01l
 wincmd w
 3wincmd w
-exe '1resize ' . ((&lines * 1 + 24) / 48)
-exe '2resize ' . ((&lines * 3 + 24) / 48)
-exe '3resize ' . ((&lines * 37 + 24) / 48)
-exe 'vert 3resize ' . ((&columns * 93 + 66) / 132)
-exe '4resize ' . ((&lines * 37 + 24) / 48)
-exe 'vert 4resize ' . ((&columns * 38 + 66) / 132)
+exe '1resize ' . ((&lines * 2 + 22) / 45)
+exe '2resize ' . ((&lines * 40 + 22) / 45)
 tabnext 1
 if exists('s:wipebuf')
   silent exe 'bwipe ' . s:wipebuf
