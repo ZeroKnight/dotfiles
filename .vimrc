@@ -82,8 +82,8 @@ let g:SokobanLevelDirectory = "/home/zeroknight/.vim/bundle/sokoban/"
 let NERDTreeBookmarksFile = '/home/zeroknight/.vim/.NERDTreeBookmarks'
 
 " Tags
-set tags+=./src/tags
-set tags+=./src/TAGS
+set tags+=src/tags
+set tags+=src/TAGS
 set tags+=~/.vim/tags/cpp
 set tags+=~/.vim/tags/gl
 set tags+=~/.vim/tags/sdl
