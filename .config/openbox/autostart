@@ -2,24 +2,35 @@
 # openbox autostart
 #
 
-## Set wallpaper
+### Functions #####################
+function tmux_session() {
+    ((tmux has-session -t $1 && tmux attach-session -t $1) || tmux new-session -s $1)
+}
+
+### Set wallpaper #################
 nitrogen --restore &
 
-## Set Cursor Theme
+### Set Cursor Theme ##############
 export XCURSOR_THEME="Ecliz"
 
-## Start sexy desktop stuff
+### Start sexy desktop stuff ######
 tint2 &
 conky -b &
 pnmixer &
 compton --config ~/.config/compton.conf -b
 
-## Misc
+### Essentials ####################
+keepassx &
+
+### Misc ##########################
 clipit -d &
 
-## Essentials
-gnome-terminal &
-gnome-terminal --profile=Irssi &
-gnome-terminal --profile=Fullscreen &
+### tmux Setup ####################
+# Sessions
+#TODO: figure this shit out
+tmux_session zeroarch
+#tmux_session irc '-x 45 -y 135'
 
-keepassx &
+# Windows
+# not sure how to make a window start in a particular session...
+#tmux new-window -d
