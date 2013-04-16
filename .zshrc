@@ -32,7 +32,7 @@ export PAGER='less -R'
 export EDITOR='vim'
 
 ### Start Tmux ####################
-[[ $TERM != screen* ]] && exec tmux
+[[ $(which tmux) != '' && $TERM != screen* && $TMUX == '' ]] && exec tmux
 
 ### Display Fortune ###############
-fortune
+[[ $(which fortune) != '' ]] && fortune
