@@ -31,6 +31,11 @@ set nobackup
 set novisualbell
 set t_vb=
 
+" viminfo Options
+" '=# of files to save local marks for; :=# of command history lines
+" /=# of search history lines; %=save/restore buffer list
+set viminfo='500,:100,/100,%
+
 " Session Options
 set sessionoptions=blank,buffers,curdir,folds,help,winsize,tabpages,winpos
 
