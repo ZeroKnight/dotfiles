@@ -8,7 +8,6 @@ alias iptraf='sudo iptraf-ng'
 alias untar='tar -xvf'
 alias scrot="scrot 'SCREENSHOT_\%m-\%d-\%Y_\%H:\%M:\%S.png' -d3 -q100 -ms -e 'mv \$f ~/Pictures/Screenshots/'"
 alias reloadtint2='killall -SIGUSR1 tint2'
-alias cpanm='cpanm --sudo --skip-installed'
 alias gproc='ps aux | grep -i'
 
 ### Tricks and 'new' Commands #####
