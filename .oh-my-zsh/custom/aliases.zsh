@@ -1,8 +1,9 @@
 ### Various Shortcuts #############
-# Sudo shortcut
 alias sudo='sudo -E'
 alias _='sudo'
-
+alias systemctl='sudo systemctl'
+alias netctl='sudo netctl'
+alias pacman='sudo pacman'
 alias iptraf='sudo iptraf-ng'
 
 alias untar='tar -xvf'
@@ -19,7 +20,6 @@ alias openports='netstat --all --numeric --programs --inet --inet6'
 ### Auto-Coloring ##################
 #alias dir='dir --color=auto'
 #alias vdir='vdir --color=auto'
-alias pacman='sudo pacman'
 
 ### Disk Checking #################
 alias df='df -h'
