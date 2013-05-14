@@ -3,67 +3,68 @@ if &cp | set nocp | endif
 let s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
 let v:this_session=expand("<sfile>:p")
 silent only
-cd ~/Documents/Coding/Projects/IRCBots/faqbot
+cd ~/Documents/Development/Projects/IRCBots/faqbot
 if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +120 ~/Documents/Coding/Projects/IRCBots/ZeroBot/src/config.cpp
-badd +292 src/faqbot.cpp
-badd +30 src/faqbot.hpp
-badd +27 config.xml
-badd +210 src/faqbot-irc.cpp
-badd +35 Makefile
-badd +44 Makefile.
-badd +1 TODO
-badd +2 data/help/help
-badd +1 data/help/quit
-badd +1 data/help/faq
-badd +34 src/faqbot-util.hpp
+badd +98 src/faqbot.cpp
+badd +56 src/faqbot.hpp
+badd +25 faq.xml
+badd +1 src/util.cpp
+badd +5 data/help/faq
+badd +22 src/Makefile
+badd +0 TODO
+badd +1 config.xml
 silent! argdel *
-winpos 0 292
-edit -MiniBufExplorer-
+winpos 0 40
+edit src/faqbot.hpp
 set splitbelow splitright
 wincmd _ | wincmd |
-split
-1wincmd k
-wincmd w
+vsplit
 wincmd _ | wincmd |
 vsplit
-1wincmd h
 wincmd _ | wincmd |
-split
-wincmd _ | wincmd |
-split
-wincmd _ | wincmd |
-split
-3wincmd k
-wincmd w
-wincmd w
+vsplit
+3wincmd h
 wincmd w
 wincmd w
 wincmd _ | wincmd |
 split
-1wincmd k
+wincmd _ | wincmd |
+split
+2wincmd k
+wincmd w
+wincmd w
+wincmd w
+wincmd _ | wincmd |
+split
+wincmd _ | wincmd |
+split
+2wincmd k
+wincmd w
 wincmd w
 set nosplitbelow
 set nosplitright
 wincmd t
 set winheight=1 winwidth=1
-exe '1resize ' . ((&lines * 2 + 24) / 49)
-exe '2resize ' . ((&lines * 6 + 24) / 49)
-exe 'vert 2resize ' . ((&columns * 121 + 79) / 158)
-exe '3resize ' . ((&lines * 18 + 24) / 49)
-exe 'vert 3resize ' . ((&columns * 121 + 79) / 158)
-exe '4resize ' . ((&lines * 16 + 24) / 49)
-exe 'vert 4resize ' . ((&columns * 121 + 79) / 158)
-exe '5resize ' . ((&lines * 1 + 24) / 49)
-exe 'vert 5resize ' . ((&columns * 121 + 79) / 158)
-exe '6resize ' . ((&lines * 22 + 24) / 49)
-exe 'vert 6resize ' . ((&columns * 36 + 79) / 158)
-exe '7resize ' . ((&lines * 21 + 24) / 49)
-exe 'vert 7resize ' . ((&columns * 36 + 79) / 158)
+exe 'vert 1resize ' . ((&columns * 31 + 136) / 273)
+exe 'vert 2resize ' . ((&columns * 29 + 136) / 273)
+exe '3resize ' . ((&lines * 1 + 33) / 66)
+exe 'vert 3resize ' . ((&columns * 147 + 136) / 273)
+exe '4resize ' . ((&lines * 31 + 33) / 66)
+exe 'vert 4resize ' . ((&columns * 147 + 136) / 273)
+exe '5resize ' . ((&lines * 30 + 33) / 66)
+exe 'vert 5resize ' . ((&columns * 147 + 136) / 273)
+exe '6resize ' . ((&lines * 16 + 33) / 66)
+exe 'vert 6resize ' . ((&columns * 63 + 136) / 273)
+exe '7resize ' . ((&lines * 32 + 33) / 66)
+exe 'vert 7resize ' . ((&columns * 63 + 136) / 273)
+exe '8resize ' . ((&lines * 14 + 33) / 66)
+exe 'vert 8resize ' . ((&columns * 63 + 136) / 273)
 argglobal
+enew
+file NERD_tree_1
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -71,35 +72,23 @@ setlocal fdi=#
 setlocal fdl=0
 setlocal fml=1
 setlocal fdn=20
-setlocal fen
-silent! normal! zE
-let s:l = 1 - ((0 * winheight(0) + 1) / 2)
-if s:l < 1 | let s:l = 1 | endif
-exe s:l
-normal! zt
-1
-normal! 058l
+setlocal nofen
 wincmd w
 argglobal
-edit data/help/faq
+enew
+file __Tag_List__
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
 setlocal fdi=#
-setlocal fdl=0
-setlocal fml=1
+setlocal fdl=9999
+setlocal fml=0
 setlocal fdn=20
 setlocal fen
-silent! normal! zE
-let s:l = 3 - ((2 * winheight(0) + 3) / 6)
-if s:l < 1 | let s:l = 1 | endif
-exe s:l
-normal! zt
-3
-normal! 040l
 wincmd w
 argglobal
-edit src/faqbot.hpp
+enew
+file -MiniBufExplorer-
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -108,16 +97,8 @@ setlocal fdl=0
 setlocal fml=1
 setlocal fdn=20
 setlocal fen
-silent! normal! zE
-let s:l = 84 - ((15 * winheight(0) + 9) / 18)
-if s:l < 1 | let s:l = 1 | endif
-exe s:l
-normal! zt
-84
-normal! 014l
 wincmd w
 argglobal
-edit src/faqbot-irc.cpp
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -127,26 +108,15 @@ setlocal fml=1
 setlocal fdn=20
 setlocal fen
 silent! normal! zE
-67,86fold
-56,89fold
-173,204fold
-245,250fold
-252,263fold
-56
-normal! zo
-67
-normal! zo
-56
-normal! zc
-let s:l = 212 - ((7 * winheight(0) + 8) / 16)
+let s:l = 92 - ((24 * winheight(0) + 15) / 31)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-212
-normal! 043l
+92
+normal! 027|
 wincmd w
 argglobal
-edit Makefile
+edit src/faqbot.cpp
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -156,12 +126,12 @@ setlocal fml=1
 setlocal fdn=20
 setlocal fen
 silent! normal! zE
-let s:l = 49 - ((0 * winheight(0) + 0) / 1)
+let s:l = 333 - ((16 * winheight(0) + 15) / 30)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-49
-normal! 0
+333
+normal! 027|
 wincmd w
 argglobal
 edit TODO
@@ -174,12 +144,30 @@ setlocal fml=1
 setlocal fdn=20
 setlocal fen
 silent! normal! zE
-let s:l = 11 - ((10 * winheight(0) + 11) / 22)
+let s:l = 12 - ((8 * winheight(0) + 8) / 16)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-11
-normal! 0
+12
+normal! 016|
+wincmd w
+argglobal
+edit faq.xml
+setlocal fdm=manual
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+silent! normal! zE
+let s:l = 25 - ((0 * winheight(0) + 16) / 32)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+25
+normal! 091|
 wincmd w
 argglobal
 edit config.xml
@@ -192,32 +180,28 @@ setlocal fml=1
 setlocal fdn=20
 setlocal fen
 silent! normal! zE
-let s:l = 10 - ((1 * winheight(0) + 10) / 21)
+let s:l = 1 - ((0 * winheight(0) + 7) / 14)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-10
-let s:c = 22 - ((8 * winwidth(0) + 18) / 36)
-if s:c > 0
-  exe 'normal! 0' . s:c . 'lzs' . (22 - s:c) . 'l'
-else
-  normal! 022l
-endif
+1
+normal! 0
 wincmd w
 4wincmd w
-exe '1resize ' . ((&lines * 2 + 24) / 49)
-exe '2resize ' . ((&lines * 6 + 24) / 49)
-exe 'vert 2resize ' . ((&columns * 121 + 79) / 158)
-exe '3resize ' . ((&lines * 18 + 24) / 49)
-exe 'vert 3resize ' . ((&columns * 121 + 79) / 158)
-exe '4resize ' . ((&lines * 16 + 24) / 49)
-exe 'vert 4resize ' . ((&columns * 121 + 79) / 158)
-exe '5resize ' . ((&lines * 1 + 24) / 49)
-exe 'vert 5resize ' . ((&columns * 121 + 79) / 158)
-exe '6resize ' . ((&lines * 22 + 24) / 49)
-exe 'vert 6resize ' . ((&columns * 36 + 79) / 158)
-exe '7resize ' . ((&lines * 21 + 24) / 49)
-exe 'vert 7resize ' . ((&columns * 36 + 79) / 158)
+exe 'vert 1resize ' . ((&columns * 31 + 136) / 273)
+exe 'vert 2resize ' . ((&columns * 29 + 136) / 273)
+exe '3resize ' . ((&lines * 1 + 33) / 66)
+exe 'vert 3resize ' . ((&columns * 147 + 136) / 273)
+exe '4resize ' . ((&lines * 31 + 33) / 66)
+exe 'vert 4resize ' . ((&columns * 147 + 136) / 273)
+exe '5resize ' . ((&lines * 30 + 33) / 66)
+exe 'vert 5resize ' . ((&columns * 147 + 136) / 273)
+exe '6resize ' . ((&lines * 16 + 33) / 66)
+exe 'vert 6resize ' . ((&columns * 63 + 136) / 273)
+exe '7resize ' . ((&lines * 32 + 33) / 66)
+exe 'vert 7resize ' . ((&columns * 63 + 136) / 273)
+exe '8resize ' . ((&lines * 14 + 33) / 66)
+exe 'vert 8resize ' . ((&columns * 63 + 136) / 273)
 tabnext 1
 if exists('s:wipebuf')
   silent exe 'bwipe ' . s:wipebuf

@@ -37,7 +37,7 @@ set t_vb=
 set viminfo='500,:100,/100,%
 
 " Session Options
-set sessionoptions=blank,buffers,curdir,folds,help,winsize,tabpages,winpos
+set sessionoptions=buffers,curdir,folds,help,winsize,tabpages,winpos,resize,slash
 
 " Always load/save Folds
 autocmd BufWinLeave,BufWrite * silent! mkview
@@ -239,6 +239,9 @@ let OmniCpp_NamespaceSearch = 2
 let OmniCpp_ShowPrototypeInAbbr = 1
 let OmniCpp_SelectFirstItem = 0
 let OmniCpp_MayCompleteScope = 1
+
+" Taglist
+let Tlist_Enable_Fold_Column = 0
 
 
 "-------------------------oOo-------------------------
