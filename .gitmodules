@@ -59,7 +59,7 @@
 	url = git://github.com/techlivezheng/vim-plugin-minibufexpl.git
 [submodule ".vim/bundle/omnicppcompl"]
 	path = .vim/bundle/omnicppcompl
-	url = git://github.com/vim-scripts/OmniCppComplete.git
+	url = git://github.com/ZeroKnight/OmniCppComplete.git
 [submodule ".vim/bundle/yankring"]
 	path = .vim/bundle/yankring
 	url = git://github.com/vim-scripts/YankRing.vim.git
@@ -69,3 +69,6 @@
 [submodule ".vim/bundle/sokoban"]
 	path = .vim/bundle/sokoban
 	url = git://github.com/vim-scripts/sokoban.vim.git
+[submodule ".vim/bundle/Headlights"]
+	path = .vim/bundle/Headlights
+	url = git://github.com/vim-scripts/Headlights
