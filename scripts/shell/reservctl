@@ -25,10 +25,17 @@ _servdir='/home/reserver/settings'
 # ie. the one that is distributed with the game
 servscript='/home/reserver/redeclipse-current/redeclipse_server.sh'
 
+# Log directory relative to $servdir
+_logdir='logs'
+
 ### DO NOT EDIT BELOW THIS LINE ###############################
 
 server="$2"
 servdir="${_servdir}/$server"
+
+logname="${server}_$(date +"%F_%T").log"
+logdir="${servdir}/${_logdir}"
+logfile="${logdir}/${logname}"
 
 ### Functions
 
@@ -107,43 +114,36 @@ function server_start() {
     ;;
     1)
         # We want to start the server as user 'reserver'
-        # inside of a screen (for viewing output)
         if [ -n "$STY" ]; then
-            # Currently in a screen...we don't want that
             echo 'Currently in a screen. To avoid recursion, please detach and try again'
             exit 3
         else
             # Create 'logs' dir if it doesn't exist
-            if [ ! -d $servdir/logs ]; then
-                mkdir $servdir/logs
+            if [ ! -d $logdir ]; then
+                mkdir $logdir
             fi
 
             # Set variable for server launch script
-            export APP_OPTIONS="-h${servdir}"
+            export APP_OPTIONS="-h${servdir} -g${logfile}"
 
-            # Get sudo password ahead of time, otherwise the real prompt
-            # in being backgrounded will be trampled by the script and break
-            read -s -p "[sudo] password for $USER: " pass
-            echo
+            # Start the server
+            sudo -Eu reserver screen -AmdS reserver_$server $servscript
+            printf "Starting server '%s' on screen 'reserver_%s'... " $server $server
 
-            # Fire it up!
-            echo $pass | sudo -ESsu reserver source $servscript &> $servdir/logs/reserver_$(date +"%F_%T").log &
-            printf "Starting server '%s'... " $server
 
-            # Avoid a race condition, wait for the server script to execute
-            # so we get the right PID from $!
+            # Wait a moment and check to see if we're running
             sleep 1
-
-            # Grab the PID (*grumble* stupid space in the output)
-            newpid="$(ps --ppid $! -o pid= | cut -d ' ' -f2)"
-
-            if [[ $newpid > 0 ]]; then
+            newpid="$(ps --ppid $(pgrep -f reserver_$server) -o pid=)"
+            if [[ $newpid != '' ]]; then
                 echo "SUCCESS (PID: $newpid)"
                 echo "$newpid" > $servdir/server.pid
+
+                # Set lastlog info
+                echo "$logname" > $logdir/.lastlog
+
                 exit 0
             else
-                echo 'FAILED'
-                echo '-1' > $servdir/server.pid
+                echo 'FAILED, could not acquire PID which means the server likely failed to start'
                 exit 1
             fi
         fi
@@ -163,6 +163,8 @@ function server_stop() {
 
             # Nullify PID file
             echo '-1' > $servdir/server.pid
+
+            rotate_logs
             return 0
         else
             echo 'FAILED'
@@ -198,10 +200,21 @@ function server_showlist() {
     printf "\n"
 }
 
+function rotate_logs() {
+    # Get filename of previous log
+    lastlog="$(cat $logdir/.lastlog)"
+
+    # GZip compress previous log
+    gzip --best $logdir/$lastlog
+
+    # Prune old logs
+    find $logdir -name \*.log -mtime 30 -exec rm -f {} \;
+}
+
 ### Main script body
 
 # Check permissions
-if [[ $(groups $USER) != *reserver* ]]; then
+if [[ ($(groups $USER) != *reserver*) && ($USER != 'root') ]]; then
     echo "Insufficient permissions"
     exit 4
 fi
