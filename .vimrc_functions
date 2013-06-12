@@ -32,3 +32,12 @@ function! ReloadSnipMate(snippets_dir, ft)
     call GetSnippets(a:snippets_dir, a:ft)
 endfunction
 map <silent> ,sr :call ReloadSnipMate(snippets_dir, &ft)<CR>:echo "Snippets reloaded"<CR>
+
+" Converts DOS EOL to UNIX
+function! DosToUnixEOL()
+    update             " Save any changes
+    e ++ff=dos         " Edit file again, using dos format ('fileformats' ignored)
+    setlocal ff=unix   " Buffer will use LF-only line endings when written
+    write              " Write the buffer (using LF-only line endings)
+endfunction
+map <silent> ,eol :call DosToUnixEOL()<CR>
