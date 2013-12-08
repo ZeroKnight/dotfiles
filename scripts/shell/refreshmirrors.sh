@@ -1,28 +1,34 @@
 #!/bin/bash
 
 # refreshmirrors.sh
-# Script to update the pacman mirrorlist
+# Script to update the pacman mirrorlist using `reflector`
+# Generally intended to be run in a cron job
 
 ### Options
 
 # Path to mirrorlist file
-FILE='/etc/pacman.d/mirrorlist'
+MIRRORFILE='/etc/pacman.d/mirrorlist'
 
 # Mirror protocol; 'http' or 'ftp'
-PROTOCOL='http'
+MIRRORPROTOCOL='http'
 
 # Sort mirrors by: score, delay, age, country, rate
-SORT='score'
+MIRRORSORT='score'
 
-FILTERS='-f 10 -l 10'
+MIRRORFILTERS='-f 10 -l 10'
 
 ### Execute
-echo -n "Updating pacman mirrorlist, saving to: '${FILE}' ..."
+echo -n "Updating pacman mirrorlist, saving to: '${MIRRORFILE}' ..."
 
-reflector --save $FILE --sort $SORT $FILTERS
+reflector --save $MIRRORFILE -p $MIRRORPROTOCOL --sort $MIRRORSORT $MIRRORFILTERS
 
 if [ $? -eq 0 ]; then
-    echo ' Done!'
+    echo ' Done! Synchronizing...'
+    pacman -Syy
+    echo 'New mirrorlist:'
+    cat $MIRRORFILE
+    exit 0
 else
     echo ' FAILED.'
+    exit 1
 fi
