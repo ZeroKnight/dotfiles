@@ -22,7 +22,6 @@ set termencoding=utf-8
 " Filetype Settings
 filetype on
 filetype plugin on
-autocmd BufRead,BufNewFile *.gui set filetype=cfg
 
 " No need for the spam
 set nobackup
@@ -67,21 +66,20 @@ source ~/.vimrc_functions
 "-------------------------oOo-------------------------
 " Persistent Undo
 set undofile
-set undodir="$HOME/.vim/undo"
+set undodir=~/.vim/undo
 
 set viewdir=~/.vim/view
 
-" Write all temporary files to /tmp/vim
-if !isdirectory("/tmp/vim")
-    silent !mkdir -p /tmp/vim
-endif
-set dir=/tmp/vim
+" Do not write temporary files to current directory
+set dir-=.
 
 " Sokoban Level dir
-let g:SokobanLevelDirectory = "/home/zeroknight/.vim/bundle/sokoban/"
+" FIXME
+let g:SokobanLevelDirectory="/home/zeroknight/.vim/bundle/sokoban/"
 
 " NERDTree Bookmarks
-let NERDTreeBookmarksFile = '/home/zeroknight/.vim/.NERDTreeBookmarks'
+" FIXME
+let NERDTreeBookmarksFile='~/.vim/.NERDTreeBookmarks'
 
 " Tags
 set tags+=src/tags
