@@ -71,9 +71,6 @@ set undodir="$HOME/.vim/undo"
 
 set viewdir=~/.vim/view
 
-" Starting Directory
-cd ~/Documents/Development/Projects
-
 " Write all temporary files to /tmp/vim
 if !isdirectory("/tmp/vim")
     silent !mkdir -p /tmp/vim
