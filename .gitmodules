@@ -60,9 +60,9 @@
 [submodule ".vim/bundle/omnicppcompl"]
 	path = .vim/bundle/omnicppcompl
 	url = git://github.com/ZeroKnight/OmniCppComplete.git
-[submodule ".vim/bundle/yankring"]
-	path = .vim/bundle/yankring
-	url = git://github.com/vim-scripts/YankRing.vim.git
+#[submodule ".vim/bundle/yankring"]
+#	path = .vim/bundle/yankring
+#	url = git://github.com/vim-scripts/YankRing.vim.git
 [submodule ".vim/bundle/tetris"]
 	path = .vim/bundle/tetris
 	url = git://github.com/vim-scripts/TeTrIs.vim.git
