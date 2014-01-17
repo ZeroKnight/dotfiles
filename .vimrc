@@ -1,184 +1,154 @@
-"-------------------------oOo-------------------------
-"
-"                 ZeroKnight's VIMRC
-"
-"-------------------------oOo-------------------------
+"   _____                  __ __       _       __    __ _      
+"  /__  / ___  _________  / //_/____  (_)___ _/ /_  / /( )_____
+"    / / / _ \/ ___/ __ \/ ,<  / __ \/ / __ `/ __ \/ __/// ___/
+"   / /_/  __/ /  / /_/ / /| |/ / / / / /_/ / / / / /_  (__  ) 
+"  /____|___/_/   \____/_/ |_/_/ /_/_/\__, /_/ /_/\__/ /____/  
+"                 _   __(_)___ ___  _/____/___                 
+"                | | / / / __ `__ \/ ___/ ___/                 
+"               _| |/ / / / / / / / /  / /__                   
+"              (_)___/_/_/ /_/ /_/_/   \___/                   
+"                                                              
 
 
+" Basic & Global Settings
+"==============================
 
-"-------------------------oOo-------------------------
-"
-"                 Global/Misc Settings
-"
-"-------------------------oOo-------------------------
-" VIM settings are better than VI!
+" First and foremost, I want Vim settings! Let's make sure of that
 set nocompatible
 
-" Encoding
+" Accept nothing less than unicode. NOTHING!
 setglobal fileencoding=utf-8
 set encoding=utf-8
 set termencoding=utf-8
 
-" Filetype Settings
+" The oh-so-essential Filetype!
 filetype on
 filetype plugin on
 
-" No need for the spam
-set nobackup
+" Set some environment variables
+let $VIMFILES = expand("~/.vim")
 
-" Turn off bells beeps, as they're the devil.
-set novisualbell
-set t_vb=
-
-" viminfo Options
-" '=# of files to save local marks for; :=# of command history lines
-" /=# of search history lines; %=save/restore buffer list
-set viminfo='500,:100,/100,%
-
-" Session Options
-set sessionoptions=buffers,curdir,folds,help,winsize,tabpages,winpos,resize,slash
-
-" Always load/save Folds
-autocmd BufWinLeave,BufWrite * silent! mkview
-autocmd BufWinEnter,BufRead * silent! loadview
-
-" Source the vimrc automatically after saving it
-" Reload Openbox after editing menu.xml
-if has("autocmd")
-    autocmd! BufWritePost .vimrc source $MYVIMRC
-    autocmd! BufWritePost */openbox/menu.xml silent !openbox --reconfigure
-endif
-
-" Shell syntax highlighting for Openbox Autostart
-autocmd BufEnter */openbox/autostart nested set filetype=sh
-
-" Misc
-set helplang=En
-set history=50
-
-" Call Vim Functions file
+" Source our Vim functions file
 source ~/.vimrc_functions
 
-"-------------------------oOo-------------------------
-"
-"                   Directory Settings
-"
-"-------------------------oOo-------------------------
+" Write swap files to $TEMP
+set dir=$TEMP
+
+" Keep backups, but without cluttering everything
+set backup
+set backupdir=$VIMFILES/backup
+
+" viminfo Options
+" ' = Save marks; : = Save command history; % = Save buffer list
+" Don't include '/' because we want all search/substitute pattern history
+" Don't include '<' because we want all register lines, but limit size with 's'
+set viminfo='50,:100,%,s256,n$VIMFILES/.viminfo
+
+" Session/View Options
+set sessionoptions=buffers,curdir,folds,globals,resize,slash,tabpages,unix,winpos,winsize
+let $VIMSESSIONS = $VIMFILES . "/sessions"
+set viewoptions=cursor,folds,slash,unix
+set viewdir=$VIMFILES/view
+
 " Persistent Undo
 set undofile
-set undodir=~/.vim/undo
+set undodir=$VIMFILES/undo
 
-set viewdir=~/.vim/view
+" Tell Vim where to look for tags
+set tags=./tags,./TAGS,tags,TAGS,src/tags,src/TAGS
+set tags+=$VIMFILES/tags/cpp
+set tags+=$VIMFILES/tags/gl
+set tags+=$VIMFILES/tags/sdl
+set tags+=$VIMFILES/tags/qt
+    
 
-" Do not write temporary files to current directory
-set dir-=.
+" Editor Settings
+"==============================
 
-" Sokoban Level dir
-" FIXME
-let g:SokobanLevelDirectory="/home/zeroknight/.vim/bundle/sokoban/"
-
-" NERDTree Bookmarks
-" FIXME
-let NERDTreeBookmarksFile='~/.vim/.NERDTreeBookmarks'
-
-" Tags
-set tags+=src/tags
-set tags+=src/TAGS
-set tags+=~/.vim/tags/cpp
-set tags+=~/.vim/tags/gl
-set tags+=~/.vim/tags/sdl
-set tags+=~/.vim/tags/qt
-
-
-"-------------------------oOo-------------------------
-"
-"                   Editing Settings
-"
-"-------------------------oOo-------------------------
-" Visual Information & Statistics
-set ruler
+" Hybrid line numbering, woo! Thanks, Vim 7.4!
+set number
 set relativenumber
-set foldcolumn=2
-set showcmd
-set listchars=eol:$,tab:>-,trail:`
 
-" StatusLine
-set statusline=%<%f%1*%h%*%2*%m%*%3*%r%*%4*%{VarExists('b:gzflag','\ [GZ]')}%*\ [%3l,%c/%L]\ [%P]%=%b/0x%B\ %4*%y%*\ [%{&encoding}] 
-set laststatus=2
+" I've got you in my crosshairs...
+set cursorline
+set cursorcolumn
 
-" Tabs/Indentation
-set expandtab
-set autoindent
+" C Indenting ftw
 set cindent
-set smartindent
-set softtabstop=4
+set cinoptions=>1s,l1,b1,(0,U1,w1,j1,J1
 set shiftwidth=4
-set tabstop=4
 
-" Set line wrapping
-set wrap
-set lbr
+" Use spaces for tabs like a civilized person
+set expandtab
+set softtabstop=4
+
+" Minimal fold column
+set foldcolumn=2
+
+" Let our last command stick around
+set showcmd
 
 " Searching
 set incsearch
 set nohls
 
+" StatusLine settings
+set statusline=%<%f%1*%h%*%2*%m%*%3*%r%*%4*%{VarExists('b:gzflag','\ [GZ]')}%*\ [%3l,%c/%L]\ [%P]%=%b/0x%B\ %4*%y%*\ [%{&encoding}] 
+set laststatus=2
+
+" List mode characters (:set list)
+set listchars=eol:$,tab:>-,trail:`,extends:#,precedes:#,nbsp:^
+
+
+" Buffer Settings
+"==============================
+
+" Make buffers not annoying
+set hidden
+
+" Jump 5 lines when running out of the screen
+set scrolljump=5
+
+" Set line wrapping, but do so intelligently
+set wrap
+set lbr
+set whichwrap=b,s,<,>,[,]
+
 " Selecting
 set selection=inclusive
 set selectmode=mouse,key
-
 " Shift + [End|Home|PgUp|PgDn] can select text (sans Shift will deselect)
 set keymodel=startsel,stopsel
 
 " Makes backspace behave like it does in most editors
 set backspace=indent,eol,start
 
-" Jump 5 lines when running out of the screen
-set scrolljump=5
 
-" Prevents unloading of buffer when switching. Allows editing multiple
-" files without /needing/ to save
-set hidden
+" Coloring/Highlighting/Syntax
+"==============================
 
-set whichwrap=b,s,<,>,[,]
-
-
-"-------------------------oOo-------------------------
-"
-"           Coloring/Highlighting/Syntax
-"
-"-------------------------oOo-------------------------
 " Turn on Syntax Highlighting if not already on
 if !exists("syntax on")
     syntax on
 endif
 
+" Set color scheme
 set background=dark
 color solarized
 
-" If using Solarized, make listchars lightly colored
+" Solarized Settings
 if exists("color solarized")
+    " Make listchars lightly colored
     let g:solarized_visibility = low
-endif
-
-" If using Solarized, use 16 color palette for vim in terminal
-if has("gui_running")
-    let g:solarized_termcolors = 256
-else
-    let g:solarized_termcolors = 16
-    set t_co=16
-endif
     
-
-" Custom Settings
-"hi Cursor               guibg=#00FF00 guifg=#000000
-"hi CursorLine           guibg=#1A1A1A
-"hi StatusLine           guibg=#767676 guifg=#1A1A1A 
-"hi StatusLineNC         guibg=#1A1A1A guifg=#767676
-"hi LineNr               guibg=#1A1A1A guifg=#767676
-"hi Folded               guibg=#1A1A1A guifg=cyan
-"hi FoldColumn           guibg=#1A1A1A guifg=cyan
-"hi Visual               guibg=#323846
+    " Set termcolors
+    if has("gui_running")
+        "let g:solarized_termcolors = 256
+    else
+        let g:solarized_termcolors = 16
+        set t_co=16
+    endif
+endif
 
 " Extra C++ Syntax Highlighting
 "autocmd BufRead,BufNewFile *.cpp,*.hpp,*.c,*.h syntax match cOpers "[!~%^&*(){}?+=[\]\\\-;,.:<>|]"
@@ -201,12 +171,11 @@ let c_curly_error = 1
 " Load doxygen syntax
 let g:load_doxygen_syntax = 1
 
-"-------------------------oOo-------------------------
-"
-"                   Plugin Settings
-"
-"-------------------------oOo-------------------------
-" Pathogen
+
+" Plugin Settings
+"==============================
+
+" Spread the illness
 call pathogen#infect()
 call pathogen#helptags()
 
@@ -215,10 +184,11 @@ let NERDChristmasTree = 1
 let NERDTreeHijackNetrw = 1
 let NERDTreeShowBookmarks = 1
 let NERDTreeShowHidden = 1
+let NERDTreeBookmarksFile = $VIMFILES . "/.NERDTreeBookmarks"
 
 " SnipMate
 let g:snips_author = "Alex \"ZeroKnight\" George"
-let g:snippets_dir = "~/.vim/snippets"
+let g:snippets_dir = $VIMFILES . "/snippets"
 
 " Indent Guides
 let g:indent_guides_enable_on_vim_startup = 1
@@ -227,7 +197,7 @@ let g:indent_guides_guide_size = 1
 
 " ShowMarks
 " Keep disabled on startup
-let showmarks_enable=0 
+let showmarks_enable = 0 
 
 " OmniCppComplete
 let OmniCpp_NamespaceSearch = 2
@@ -239,22 +209,37 @@ let OmniCpp_MayCompleteScope = 1
 let Tlist_Enable_Fold_Column = 0
 
 
-"-------------------------oOo-------------------------
-"
-"                   Mappings/Binds
-"
-"-------------------------oOo-------------------------
-" Search/Replace word under cursor (needs to be fixed?)
-" nmap ; :%s/\<=expand("")\>/
+" Auto Commands
+"==============================
+
+if has("autocmd")
+    augroup AutoSource
+        autocmd!
+        autocmd BufWritePost .vimrc source $MYVIMRC
+        autocmd BufWritePost */openbox/menu.xml silent !openbox --reconfigure
+    augroup END
+
+    augroup SyntaxOverride
+        autocmd!
+        autocmd BufEnter */openbox/autostart nested set filetype=sh
+    augroup END
+endif
+
+
+" Mappings
+"==============================
 
 " ,cd - Change cwd to that of the current file
 nnoremap ,cd :cd %:p:h<CR>:pwd<CR>
 
+" Quick-edit .vimrc
+nnoremap ,vr :tabedit $MYVIMRC<CR>
+
 " Sudo Write
 cnoremap w!! %!sudo tee > /dev/null %
 
-" Quick-edit .vimrc
-nnoremap ,vr :tabedit $MYVIMRC<CR>
+" Move cursor to the middle of a line
+noremap <silent> gm :call cursor(0, virtcol('$')/2)<CR>
 
 " F2 - quick save + remove trailing whitespace
 nnoremap <F2> :%s/\s\+$//g<CR>:w<CR>
@@ -276,7 +261,7 @@ inoremap <F5> :GundoToggle<CR>
 
 " F6 - Toggle ShowMarks
 nnoremap <F6> :ShowMarksToggle<CR>
-vnoremap <F6> :ShowMarksToggle<CR>
+vnoremap <F6> :ShowMarksToggle<CR>http://xkcd.com/1312
 inoremap <F6> :ShowMarksToggle<CR>
 
 " F7 - Marks
@@ -288,7 +273,7 @@ inoremap <F7> :marks<CR>
 noremap <F9> :make<CR>
 
 " C-F12 - Generate tags file for OmniCppComplete
-map <C-F12> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
+noremap <C-F12> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
 
 " Window Switching
 nnoremap <C-H> h
@@ -317,6 +302,5 @@ vmap <S-Insert> +
 vnoremap <C-Insert> "+y
 vnoremap  "+y
 vnoremap  "+x
-vnoremap <S-Del> "+x
 vnoremap <BS> d
 
