@@ -75,3 +75,6 @@
 [submodule ".vim/bundle/CSApprox"]
 	path = .vim/bundle/CSApprox
 	url = https://github.com/vim-scripts/CSApprox.git
+[submodule ".vim/bundle/vim-pathogen"]
+	path = .vim/bundle/vim-pathogen
+	url = https://github.com/tpope/vim-pathogen
