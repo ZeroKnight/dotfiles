@@ -72,3 +72,6 @@
 [submodule ".vim/bundle/Headlights"]
 	path = .vim/bundle/Headlights
 	url = git://github.com/vim-scripts/Headlights
+[submodule ".vim/bundle/CSApprox"]
+	path = .vim/bundle/CSApprox
+	url = https://github.com/vim-scripts/CSApprox.git
