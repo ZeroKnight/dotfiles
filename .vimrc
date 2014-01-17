@@ -176,8 +176,9 @@ let g:load_doxygen_syntax = 1
 "==============================
 
 " Spread the illness
-call pathogen#infect()
-call pathogen#helptags()
+runtime bundle/vim-pathogen/autoload/pathogen.vim
+execute pathogen#infect()
+execute pathogen#helptags()
 
 " NERDTree
 let NERDChristmasTree = 1

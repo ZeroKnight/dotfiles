@@ -44,12 +44,15 @@
 [submodule ".vim/bundle/snipmate"]
 	path = .vim/bundle/snipmate
 	url = git://github.com/msanders/snipmate.vim.git
+        ignore = dirty
 [submodule ".vim/bundle/taglist"]
 	path = .vim/bundle/taglist
 	url = git://github.com/vim-scripts/taglist.vim.git
+        ignore = dirty
 [submodule ".vim/bundle/nerd-commenter"]
 	path = .vim/bundle/nerd-commenter
 	url = git://github.com/vim-scripts/The-NERD-Commenter.git
+        ignore = dirty
 [submodule ".vim/bundle/showmarks"]
 	path = .vim/bundle/showmarks
 	url = git://github.com/vim-scripts/ShowMarks.git
@@ -60,6 +63,7 @@
 [submodule ".vim/bundle/omnicppcompl"]
 	path = .vim/bundle/omnicppcompl
 	url = git://github.com/ZeroKnight/OmniCppComplete.git
+        ignore = dirty
 #[submodule ".vim/bundle/yankring"]
 #	path = .vim/bundle/yankring
 #	url = git://github.com/vim-scripts/YankRing.vim.git
@@ -72,9 +76,11 @@
 [submodule ".vim/bundle/Headlights"]
 	path = .vim/bundle/Headlights
 	url = git://github.com/vim-scripts/Headlights
+        ignore = dirty
 [submodule ".vim/bundle/CSApprox"]
 	path = .vim/bundle/CSApprox
 	url = https://github.com/vim-scripts/CSApprox.git
+        ignore = dirty
 [submodule ".vim/bundle/vim-pathogen"]
 	path = .vim/bundle/vim-pathogen
 	url = https://github.com/tpope/vim-pathogen
