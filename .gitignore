@@ -1,0 +1,7 @@
+# Various vim files
+/.vim/backup/
+/.vim/view/
+/.vim/sessions/
+/.vim/undo/
+/.vim/.viminfo
+
