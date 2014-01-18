@@ -87,3 +87,6 @@
 [submodule ".vim/bundle/cpp-enhanced"]
 	path = .vim/bundle/cpp-enhanced
 	url = https://github.com/octol/vim-cpp-enhanced-highlight
+[submodule ".vim/bundle/molokai"]
+	path = .vim/bundle/molokai
+	url = https://github.com/tomasr/molokai
