@@ -87,33 +87,30 @@
 [submodule ".vim/bundle/cpp-enhanced"]
 	path = .vim/bundle/cpp-enhanced
 	url = https://github.com/octol/vim-cpp-enhanced-highlight
-[submodule ".vim/bundle/molokai"]
-	path = .vim/bundle/molokai
+[submodule ".vim/bundle/colors-molokai"]
+	path = .vim/bundle/colors-molokai
 	url = https://github.com/tomasr/molokai
-[submodule ".vim/bundle/gentooish"]
-	path = .vim/bundle/gentooish
+[submodule ".vim/bundle/colors-gentooish"]
+	path = .vim/bundle/colors-gentooish
 	url = https://github.com/briancarper/gentooish.vim
-[submodule ".vim/bundle/inkpot"]
-	path = .vim/bundle/inkpot
+[submodule ".vim/bundle/colors-inkpot"]
+	path = .vim/bundle/colors-inkpot
 	url = https://github.com/ciaranm/inkpot
-[submodule ".vim/bundle/jellybeans"]
-	path = .vim/bundle/jellybeans
+[submodule ".vim/bundle/colors-jellybeans"]
+	path = .vim/bundle/colors-jellybeans
 	url = https://github.com/nanotech/jellybeans.vim
-[submodule ".vim/bundle/lettuce"]
-	path = .vim/bundle/lettuce
+[submodule ".vim/bundle/colors-lettuce"]
+	path = .vim/bundle/colors-lettuce
 	url = https://github.com/vim-scripts/lettuce.vim
-[submodule ".vim/bundle/liquidcarbon"]
-	path = .vim/bundle/liquidcarbon
+[submodule ".vim/bundle/colors-liquidcarbon"]
+	path = .vim/bundle/colors-liquidcarbon
 	url = https://github.com/vim-scripts/Liquid-Carbon
-[submodule ".vim/bundle/rdark"]
-	path = .vim/bundle/rdark
+[submodule ".vim/bundle/colors-rdark"]
+	path = .vim/bundle/colors-rdark
 	url = https://github.com/vim-scripts/rdark
-[submodule ".vim/bundle/solarized"]
-	path = .vim/bundle/solarized
-	url = https://github.com/altercation/vim-colors-solarized
-[submodule ".vim/bundle/sorcerer"]
-	path = .vim/bundle/sorcerer
+[submodule ".vim/bundle/colors-sorcerer"]
+	path = .vim/bundle/colors-sorcerer
 	url = https://github.com/vim-scripts/Sorcerer
-[submodule ".vim/bundle/werks"]
-	path = .vim/bundle/werks
+[submodule ".vim/bundle/colors-werks"]
+	path = .vim/bundle/colors-werks
 	url = https://github.com/vim-scripts/werks.vim
