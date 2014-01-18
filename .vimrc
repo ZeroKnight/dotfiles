@@ -124,54 +124,6 @@ set keymodel=startsel,stopsel
 set backspace=indent,eol,start
 
 
-" Coloring/Highlighting/Syntax
-"==============================
-
-" Turn on Syntax Highlighting if not already on
-if !exists("syntax on")
-    syntax on
-endif
-
-" Set color scheme
-set background=dark
-color solarized
-
-" Solarized Settings
-if exists("color solarized")
-    " Make listchars lightly colored
-    let g:solarized_visibility = low
-    
-    " Set termcolors
-    if has("gui_running")
-        "let g:solarized_termcolors = 256
-    else
-        let g:solarized_termcolors = 16
-        set t_co=16
-    endif
-endif
-
-" Extra C++ Syntax Highlighting
-"autocmd BufRead,BufNewFile *.cpp,*.hpp,*.c,*.h syntax match cOpers "[!~%^&*(){}?+=[\]\\\-;,.:<>|]"
-"autocmd BufRead,BufNewFile *.cpp,*.hpp,*.c,*.h hi cOpers guifg=#E81919
-
-" StatusLine Highlights
-hi User1 gui=bold guifg=#00FFFF term=bold cterm=bold ctermfg=cyan
-hi User2 guifg=#00FF00 ctermfg=green
-hi User3 gui=bold guifg=#FF0000 term=bold cterm=bold ctermfg=red
-hi User4 guifg=#CCCC00 ctermfg=107
-
-" Change Color of StatusLine when in Insert mode (zerocasts)
-"autocmd InsertEnter * hi StatusLine guifg=#0E1B0E | hi User1 guibg=#0E1B0E | hi User2 guibg=#0E1B0E | hi User3 guibg=#0E1B0E | hi User4 guibg=#0E1B0E
-"autocmd InsertLeave * hi StatusLine guifg=#1A1A1A | hi User1 guibg=#1A1A1A | hi User2 guibg=#1A1A1A | hi User3 guibg=#1A1A1A | hi User4 guibg=#1A1A1A
-
-" C Syntax Settings
-let c_gnu = 1
-let c_comment_strings = 1
-let c_curly_error = 1
-" Load doxygen syntax
-let g:load_doxygen_syntax = 1
-
-
 " Plugin Settings
 "==============================
 
@@ -210,6 +162,46 @@ let OmniCpp_MayCompleteScope = 1
 let Tlist_Enable_Fold_Column = 0
 
 
+" Coloring/Highlighting/Syntax
+"==============================
+
+" Turn on Syntax Highlighting if not already on
+if !exists("syntax on")
+    syntax on
+endif
+
+" Set color scheme
+set background=dark
+color solarized
+
+" Solarized Settings
+if exists("color solarized")
+    " Make listchars lightly colored
+    let g:solarized_visibility = low
+    
+    " Set termcolors
+    if has("gui_running")
+        "let g:solarized_termcolors = 256
+    else
+        let g:solarized_termcolors = 256
+        set t_Co=256
+    endif
+endif
+
+" StatusLine Highlights
+hi User1 gui=bold guifg=#00FFFF term=bold cterm=bold ctermfg=cyan
+hi User2 guifg=#00FF00 ctermfg=green
+hi User3 gui=bold guifg=#FF0000 term=bold cterm=bold ctermfg=red
+hi User4 guifg=#CCCC00 ctermfg=107
+
+" C Syntax Settings
+let c_gnu = 1
+let c_comment_strings = 1
+let c_curly_error = 1
+" Load doxygen syntax
+let g:load_doxygen_syntax = 1
+
+
 " Auto Commands
 "==============================
 
@@ -223,6 +215,10 @@ if has("autocmd")
     augroup SyntaxOverride
         autocmd!
         autocmd BufEnter */openbox/autostart nested set filetype=sh
+
+        " Extra C++ Syntax Highlighting
+        autocmd BufRead,BufNewFile *.[ch]p\\\{0,2\} syntax match cOpers "[!~%^&*(){}?+=[\]\\\-;,.:<>|]"
+        autocmd BufRead,BufNewFile *.[ch]p\\\{0,2\} hi def link cOpers Operator
     augroup END
 endif
 
