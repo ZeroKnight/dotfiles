@@ -84,3 +84,6 @@
 [submodule ".vim/bundle/vim-pathogen"]
 	path = .vim/bundle/vim-pathogen
 	url = https://github.com/tpope/vim-pathogen
+[submodule ".vim/bundle/cpp-enhanced"]
+	path = .vim/bundle/cpp-enhanced
+	url = https://github.com/octol/vim-cpp-enhanced-highlight
