@@ -232,6 +232,10 @@ nnoremap ,cd :cd %:p:h<CR>:pwd<CR>
 " Quick-edit .vimrc
 nnoremap ,vr :tabedit $MYVIMRC<CR>
 
+" GitGutter hunk jumping
+nnoremap ]h <Plug>GitGutterNextHunk
+nnoremap [h <Plug>GitGutterPrevHunk
+
 " Move cursor to the middle of a line
 noremap <silent> gm :call cursor(0, virtcol('$')/2)<CR>
 
