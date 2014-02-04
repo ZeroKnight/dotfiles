@@ -114,3 +114,6 @@
 [submodule ".vim/bundle/colors-werks"]
 	path = .vim/bundle/colors-werks
 	url = https://github.com/vim-scripts/werks.vim
+[submodule ".vim/bundle/nerd-tree-tabs"]
+	path = .vim/bundle/nerd-tree-tabs
+	url = https://github.com/jistr/vim-nerdtree-tabs.git

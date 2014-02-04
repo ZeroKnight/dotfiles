@@ -1,13 +1,13 @@
-"   _____                  __ __       _       __    __ _      
+"   _____                  __ __       _       __    __ _
 "  /__  / ___  _________  / //_/____  (_)___ _/ /_  / /( )_____
 "    / / / _ \/ ___/ __ \/ ,<  / __ \/ / __ `/ __ \/ __/// ___/
-"   / /_/  __/ /  / /_/ / /| |/ / / / / /_/ / / / / /_  (__  ) 
-"  /____|___/_/   \____/_/ |_/_/ /_/_/\__, /_/ /_/\__/ /____/  
-"                 _   __(_)___ ___  _/____/___                 
-"                | | / / / __ `__ \/ ___/ ___/                 
-"               _| |/ / / / / / / / /  / /__                   
-"              (_)___/_/_/ /_/ /_/_/   \___/                   
-"                                                              
+"   / /_/  __/ /  / /_/ / /| |/ / / / / /_/ / / / / /_  (__  )
+"  /____|___/_/   \____/_/ |_/_/ /_/_/\__, /_/ /_/\__/ /____/
+"                 _   __(_)___ ___  _/____/___
+"                | | / / / __ `__ \/ ___/ ___/
+"               _| |/ / / / / / / / /  / /__
+"              (_)___/_/_/ /_/ /_/_/   \___/
+"
 
 
 " Basic & Global Settings
@@ -60,7 +60,7 @@ set tags+=$VIMFILES/tags/cpp
 set tags+=$VIMFILES/tags/gl
 set tags+=$VIMFILES/tags/sdl
 set tags+=$VIMFILES/tags/qt
-    
+
 
 " Editor Settings
 "==============================
@@ -93,7 +93,7 @@ set incsearch
 set nohls
 
 " StatusLine settings
-set statusline=%<%f%1*%h%*%2*%m%*%3*%r%*%4*%{VarExists('b:gzflag','\ [GZ]')}%*\ [%3l,%c/%L]\ [%P]%=%b/0x%B\ %4*%y%*\ [%{&encoding}] 
+set statusline=%<%f%1*%h%*%2*%m%*%3*%r%*%4*%{VarExists('b:gzflag','\ [GZ]')}%*\ [%3l,%c/%L]\ [%P]%=%b/0x%B\ %4*%y%*\ [%{&encoding}]
 set laststatus=2
 
 " List mode characters (:set list)
@@ -132,7 +132,7 @@ runtime bundle/vim-pathogen/autoload/pathogen.vim
 execute pathogen#infect()
 execute pathogen#helptags()
 
-" NERDTree
+" NERDTree(Tabs)
 let NERDChristmasTree = 1
 let NERDTreeHijackNetrw = 1
 let NERDTreeShowBookmarks = 1
@@ -150,7 +150,7 @@ let g:indent_guides_guide_size = 1
 
 " ShowMarks
 " Keep disabled on startup
-let showmarks_enable = 0 
+let showmarks_enable = 0
 
 " OmniCppComplete
 let OmniCpp_NamespaceSearch = 2
@@ -178,7 +178,7 @@ color solarized
 if exists("color solarized")
     " Make listchars lightly colored
     let g:solarized_visibility = low
-    
+
     " Set termcolors
     if has("gui_running")
         "let g:solarized_termcolors = 256
@@ -242,9 +242,9 @@ noremap <silent> gm :call cursor(0, virtcol('$')/2)<CR>
 nnoremap <F2> :%s/\s\+$//g<CR>:w<CR>
 
 " F3 - Toggle NERDtree
-nnoremap <F3> :NERDTreeToggle<CR>
-vnoremap <F3> :NERDTreeToggle<CR>
-inoremap <F3> :NERDTreeToggle<CR>
+nnoremap <F3> :NERDTreeTabsToggle<CR>
+vnoremap <F3> :NERDTreeTabsToggle<CR>
+inoremap <F3> :NERDTreeTabsToggle<CR>
 
 " F4 - Toggle TagList
 nnoremap <F4> :TlistToggle<CR>
