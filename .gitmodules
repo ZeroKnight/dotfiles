@@ -125,3 +125,6 @@
 [submodule ".vim/bundle/airline"]
 	path = .vim/bundle/airline
 	url = https://github.com/bling/vim-airline.git
+[submodule ".vim/bundle/colors-luna"]
+	path = .vim/bundle/colors-luna
+	url = https://github.com/Pychimp/vim-luna.git
