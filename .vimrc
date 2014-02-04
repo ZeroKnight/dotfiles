@@ -93,7 +93,7 @@ set incsearch
 set nohls
 
 " StatusLine settings
-set statusline=%<%f%1*%h%*%2*%m%*%3*%r%*%4*%{VarExists('b:gzflag','\ [GZ]')}%*\ [%3l,%c/%L]\ [%P]%=%b/0x%B\ %4*%y%*\ [%{&encoding}]
+"set statusline=%<%f%1*%h%*%2*%m%*%3*%r%*%4*%{VarExists('b:gzflag','\ [GZ]')}%*\ [%3l,%c/%L]\ [%P]%=%b/0x%B\ %4*%y%*\ [%{&encoding}]
 set laststatus=2
 
 " List mode characters (:set list)
@@ -189,10 +189,10 @@ if exists("color solarized")
 endif
 
 " StatusLine Highlights
-hi User1 gui=bold guifg=#00FFFF term=bold cterm=bold ctermfg=cyan
-hi User2 guifg=#00FF00 ctermfg=green
-hi User3 gui=bold guifg=#FF0000 term=bold cterm=bold ctermfg=red
-hi User4 guifg=#CCCC00 ctermfg=107
+"hi User1 gui=bold guifg=#00FFFF term=bold cterm=bold ctermfg=cyan
+"hi User2 guifg=#00FF00 ctermfg=green
+"hi User3 gui=bold guifg=#FF0000 term=bold cterm=bold ctermfg=red
+"hi User4 guifg=#CCCC00 ctermfg=107
 
 " C Syntax Settings
 let c_gnu = 1
