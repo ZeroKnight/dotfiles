@@ -246,10 +246,10 @@ nnoremap <F3> :NERDTreeTabsToggle<CR>
 vnoremap <F3> :NERDTreeTabsToggle<CR>
 inoremap <F3> :NERDTreeTabsToggle<CR>
 
-" F4 - Toggle TagList
-nnoremap <F4> :TlistToggle<CR>
-vnoremap <F4> :TlistToggle<CR>
-inoremap <F4> :TlistToggle<CR>
+" F4 - Toggle Tagbar
+nnoremap <F4> :TagbarToggle<CR>
+vnoremap <F4> :TagbarToggle<CR>
+inoremap <F4> :TagbarToggle<CR>
 
 " F5 - Toggle Gundo
 nnoremap <F5> :GundoToggle<CR>

@@ -45,10 +45,6 @@
 	path = .vim/bundle/snipmate
 	url = git://github.com/msanders/snipmate.vim.git
         ignore = dirty
-[submodule ".vim/bundle/taglist"]
-	path = .vim/bundle/taglist
-	url = git://github.com/vim-scripts/taglist.vim.git
-        ignore = dirty
 [submodule ".vim/bundle/nerd-commenter"]
 	path = .vim/bundle/nerd-commenter
 	url = git://github.com/vim-scripts/The-NERD-Commenter.git
@@ -117,3 +113,6 @@
 [submodule ".vim/bundle/nerd-tree-tabs"]
 	path = .vim/bundle/nerd-tree-tabs
 	url = https://github.com/jistr/vim-nerdtree-tabs.git
+[submodule ".vim/bundle/tagbar"]
+	path = .vim/bundle/tagbar
+	url = https://github.com/majutsushi/tagbar.git
