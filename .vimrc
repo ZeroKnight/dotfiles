@@ -232,9 +232,6 @@ nnoremap ,cd :cd %:p:h<CR>:pwd<CR>
 " Quick-edit .vimrc
 nnoremap ,vr :tabedit $MYVIMRC<CR>
 
-" Sudo Write
-cnoremap w!! %!sudo tee > /dev/null %
-
 " Move cursor to the middle of a line
 noremap <silent> gm :call cursor(0, virtcol('$')/2)<CR>
 
