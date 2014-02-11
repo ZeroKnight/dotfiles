@@ -226,11 +226,11 @@ endif
 " Mappings
 "==============================
 
-" ,cd - Change cwd to that of the current file
-nnoremap ,cd :cd %:p:h<CR>:pwd<CR>
+" Change cwd to that of the current file
+nnoremap <Leader>cd :cd %:p:h<CR>:pwd<CR>
 
 " Quick-edit .vimrc
-nnoremap ,vr :tabedit $MYVIMRC<CR>
+nnoremap <Leader>vr :tabedit $MYVIMRC<CR>
 
 " GitGutter hunk jumping
 nnoremap ]h <Plug>GitGutterNextHunk
@@ -287,18 +287,34 @@ nnoremap <C-S-Tab> :tabprev<CR>
 inoremap <C-S-Tab> :tabprev<CR>
 vnoremap <C-S-Tab> :tabprev<CR>
 
-" Select All
-xnoremap  ggVG
-snoremap  gggHG
-onoremap  gggHG
-nnoremap  gggHG
+" Reloads snipMate without having to restart Vim
+function! ReloadSnipMate(snippets_dir, ft)
+    call ResetSnippets()
+    call GetSnippets(a:snippets_dir, a:ft)
+endfunction
+nnoremap <silent> <Leader>sr :call ReloadSnipMate(snippets_dir, &ft)<CR>:echo "Snippets reloaded"<CR>
 
-" Cut/Paste
-cmap <S-Insert> +
-imap <S-Insert> +
-vmap <S-Insert> +
-vnoremap <C-Insert> "+y
-vnoremap  "+y
-vnoremap  "+x
-vnoremap <BS> d
+" Converts DOS EOL to UNIX
+function! DosToUnixEOL()
+    update             " Save any changes
+    e ++ff=dos         " Edit file again, using dos format ('fileformats' ignored)
+    setlocal ff=unix   " Buffer will use LF-only line endings when written
+    write              " Write the buffer (using LF-only line endings)
+endfunction
+nnoremap <silent> <Leader>eol :call DosToUnixEOL()<CR>
 
+" Smart HOME
+function! SmartHome()
+    let s:col = col(".")
+    normal! ^
+    if s:col == col(".")
+        normal! 0
+    endif
+endfunction
+nnoremap <silent> <Home> :call SmartHome()<CR>
+inoremap <silent> <Home> <C-O>:call SmartHome()<CR>
+nnoremap <silent> 0 :call SmartHome()<CR>
+
+" Session Save/Load shortcut
+command! -nargs=1 Ss :mksession! ~/.vim/sessions/<args>.vim
+command! -nargs=1 Sl :source ~/.vim/sessions/<args>.vim
