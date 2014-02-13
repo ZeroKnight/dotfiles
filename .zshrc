@@ -1,5 +1,5 @@
 #=============][==============>>
-# ZeroKnight's .zshrc file 
+# ZeroKnight's .zshrc file
 #=============][==============>>
 
 # oh-my-zsh pretty much handles all of this beautifully :)
@@ -25,7 +25,7 @@ setopt cdablevars
 
 ### SSH Settings ##################
 # Start keychain
-eval $(keychain --eval --agents ssh -Q --quiet id_rsa)
+eval $(keychain --eval --agents ssh -Q --quiet $(ls ~/.ssh/*.key))
 
 ### Environment Settings ##########
 export PAGER='less -R'
