@@ -2,7 +2,7 @@
 
 # "Installer" for ZeroKnight's dotfiles
 # Intended to be run via:
-#   curl -L https://raw.github.com/ZeroKnight/dotfiles/master/install.sh | sh
+#   curl -L https://raw.github.com/ZeroKnight/dotfiles/master/install.sh | bash
 
 DOTDIRS="\
 .config/openbox
