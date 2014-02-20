@@ -41,9 +41,6 @@
 [submodule ".vim/bundle/unimpaired"]
 	path = .vim/bundle/unimpaired
 	url = git://github.com/tpope/vim-unimpaired.git
-[submodule ".vim/bundle/snipmate"]
-	path = .vim/bundle/snipmate
-	url = git://github.com/msanders/snipmate.vim.git
         ignore = dirty
 [submodule ".vim/bundle/nerd-commenter"]
 	path = .vim/bundle/nerd-commenter
@@ -128,3 +125,6 @@
 [submodule ".vim/bundle/colors-luna"]
 	path = .vim/bundle/colors-luna
 	url = https://github.com/Pychimp/vim-luna.git
+[submodule ".vim/bundle/ultisnips"]
+	path = .vim/bundle/ultisnips
+	url = https://github.com/SirVer/ultisnips
