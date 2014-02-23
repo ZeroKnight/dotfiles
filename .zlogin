@@ -15,7 +15,7 @@
 if isAvailable tmux &&
   [[ "$TERM" != screen* ]] &&
   [ -z "$TMUX" ]; then
-    exec tmux new-session -A -s main -n $HOSTNAME
+    tmux new-session -A -s main -n $HOSTNAME
 fi
 
 # Display a lovely fortune
