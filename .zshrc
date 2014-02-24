@@ -21,8 +21,13 @@ DISABLE_AUTO_TITLE="false"
 DISABLE_CORRECTION="false"
 COMPLETION_WAITING_DOTS="true"
 
-plugins=(git screen)
+# Load Plugins
+plugins=(git screen colored-man)
+if [[ "$(uname -o)" == 'Cygwin' ]]; then
+    plugins+=cygwin
+fi
 
+# Let oh-my-zsh do its thing
 source $ZSH/oh-my-zsh.sh
 
 ########
