@@ -15,7 +15,12 @@
 if isAvailable tmux &&
   [[ "$TERM" != screen* ]] &&
   [ -z "$TMUX" ]; then
+    # Attach to main session, creating it if it doesn't exist yet
     tmux new-session -A -s main -n $HOSTNAME
+    if ! tmux has -t irc; then
+        # Create irc session
+        tmux new-session -s irc
+    fi
 fi
 
 # Display a lovely fortune
