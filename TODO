@@ -1,3 +1,0 @@
-* Modify ls aliases to use colorizing tricks
-    + alias ls='ls --color'
-    + alias less='less -R'

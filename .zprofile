@@ -55,5 +55,6 @@ else
     export EDITOR='gvim'
 fi
 
-# Set PAGER
-export PAGER='less -R'
+# `less` Settings
+export PAGER='less'
+export LESS='-R'
