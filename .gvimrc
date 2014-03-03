@@ -27,17 +27,3 @@ endif
 " Set guitablabel
 " ...after learning some vim scripting :)
 
-" Select All
-xnoremap  ggVG
-snoremap  gggHG
-onoremap  gggHG
-nnoremap  gggHG
-
-" Cut/Paste
-cmap <S-Insert> +
-imap <S-Insert> +
-vmap <S-Insert> +
-vnoremap <C-Insert> "+y
-vnoremap  "+y
-vnoremap  "+x
-vnoremap <BS> d
