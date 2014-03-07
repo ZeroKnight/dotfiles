@@ -1,0 +1,2 @@
+* Force git to keep all text files with LF EOL
+    * See gitattributes
