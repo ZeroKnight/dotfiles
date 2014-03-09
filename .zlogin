@@ -28,6 +28,6 @@ isAvailableRun fortune
 
 # Start keychain
 if [ -z "$SSH" ] && isAvailable keychain; then
-    eval $(keychain --eval --agents ssh -Q $(ls ~/.ssh/*.key))
+    eval $(keychain --eval --agents ssh -Q ~/.ssh/*.key)
 fi
 
