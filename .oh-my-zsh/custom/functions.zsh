@@ -1,1 +1,7 @@
-# future use
+###
+### Shortcuts
+###
+
+psg() {
+    ps -fp $(pgrep $1)
+}

@@ -1,31 +1,62 @@
-########
-### Various Shortcuts
-############
-
-# Administrative
-alias sudo='sudo -E'
+# Administrative shortcuts
 alias pacman='sudo pacman'
+alias aptg='sudo apt-get'
+alias aptc='sudo apt-cache'
 alias systemctl='sudo systemctl'
 alias netctl='sudo netctl'
-alias iptraf='sudo iptraf-ng'
+
+# grep Shortcuts
+alias grep='grep --color'
+alias sgrep='grep -RnHIC5 --exclude-dir={.git,.svn,CVS}'
+
+# ps Shortcuts
+alias ps='ps -ef'
+alias psf='ps --forest'
+alias psl='\ps -ely'
+alias psc='\ps --forest -eo uid,pid,ppid,c,pcpu,pmem,rsz,psr,stime,time,tty,cmd'
+
+# Quick tail
+alias t='tail -F'
+
+# Pipe shortcuts
+alias -g H='| head'
+alias -g T='| tail'
+alias -g G='| grep'
+alias -g L="| less"
+alias -g LL="2>&1 | less"
+alias -g NE="2> /dev/null"
+alias -g NUL="> /dev/null 2>&1"
+
+# Quick Screenshot
+alias scrot="scrot 'SCREENSHOT_\%m-\%d-\%Y_\%H:\%M:\%S.png' -d3 -q100 -ms -e 'mv \$f ~/Pictures/Screenshots/'"
 
 # Misc
-alias scrot="scrot 'SCREENSHOT_\%m-\%d-\%Y_\%H:\%M:\%S.png' -d3 -q100 -ms -e 'mv \$f ~/Pictures/Screenshots/'"
 alias reloadtint2='killall -SIGUSR1 tint2'
-
-########
-### Neat Tricks
-############
-
 alias userlist='cat /etc/passwd | cut -d":" -f1'
 alias grouplist='cat /etc/group | cut -d":" -f1'
-alias today='date "+%A, %B %d, %Y"'
-alias openports='netstat --all --numeric --programs --inet --inet6'
 
-########
-### Saftey Measures
-############
+# Suffix Aliases
+if [ ${ZSH_VERSION//\./} -ge 420 ]; then
+    # open browser on urls
+    _browser_fts=(htm html de org net com at cx nl se dk dk php)
+    for ft in $_browser_fts ; do alias -s $ft=$BROWSER ; done
 
+    # open images
+    _image_fts=(jpg jpeg png gif mng tiff tif xpm)
+    for ft in $_image_fts ; do alias -s $ft=$XIVIEWER; done
+
+    #_media_fts=(avi mpg mpeg ogm mp3 wav ogg ape rm mov mkv)
+    #for ft in $_media_fts ; do alias -s $ft=mplayer ; done
+
+    # list whats inside an archive
+    alias -s zip="unzip -l"
+    alias -s rar="unrar l"
+    alias -s tar="tar tf"
+    alias -s tar.gz="echo "
+    alias -s ace="unace l"
+fi
+
+# Saftey Measures
 alias ln='ln -i'                    # Prompts to remove destination
 alias chown='chown --preserve-root' # Prevent recursive on /
 alias chmod='chmod --preserve-root'
