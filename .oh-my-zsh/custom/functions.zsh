@@ -3,5 +3,5 @@
 ###
 
 psg() {
-    ps -fp $(pgrep $1)
+    ps -fp $(pgrep $@)
 }
