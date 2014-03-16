@@ -1,6 +1,8 @@
 # Quick shortcut for extracting various archive types
 # Original credit unknown, found here:
 # http://justinlilly.com/dotfiles/zsh.html
+# Modified by Alex "ZeroKnight" George for his dotfiles:
+# http://github.com/ZeroKnight/dotfiles
 
 extract () {
     if [ -f $1 ] ; then
@@ -15,7 +17,15 @@ extract () {
             *.tgz)      tar xzf $1      ;;
             *.zip)      unzip $1        ;;
             *.Z)        uncompress $1   ;;
-            *)          echo "'$1' cannot be extracted via extract()" ;;
+            *) # Fallback
+                case file -bi $1 | grep -Eo '(x-\w+(-\w+)?|zip)' in
+                    x-bzip2)            tar xjf $1 || bunzip2 $1 ;;
+                    x-gzip)             tar xzf $1 || gunzip $1 ;;
+                    x-tar)              tar xf $1 ;;
+                    x-rar-compressed)   unrar x $1 ;;
+                    zip)                unzip $1 ;;
+                    *) echo "'$1' cannot be extracted via extract()" ;;
+                esac
         esac
     else
         echo "'$1' is not a valid file"
