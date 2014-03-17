@@ -22,7 +22,7 @@ DISABLE_CORRECTION="false"
 COMPLETION_WAITING_DOTS="true"
 
 # Load Plugins
-plugins=(git screen colored-man extract)
+plugins=(git screen colored-man extract fasd)
 if [[ "$(uname -o)" == 'Cygwin' ]]; then
     plugins+=cygwin
 fi
