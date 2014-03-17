@@ -70,14 +70,14 @@ set relativenumber
 set cursorline
 set cursorcolumn
 
-" C Indenting ftw
-set cindent
+" Set indenting options
+" cindent set automatically based on filetype
+set smartindent
 set cinoptions=>1s,l1,b1,(0,U1,w1,j1,J1
-set shiftwidth=4
-
 " Use spaces for tabs like a civilized person
 set expandtab
 set softtabstop=4
+set shiftwidth=4
 
 " Minimal fold column
 set foldcolumn=2
@@ -214,8 +214,13 @@ if has("autocmd")
         autocmd BufEnter */openbox/autostart nested set filetype=sh
 
         " Extra C++ Syntax Highlighting
-        autocmd BufRead,BufNewFile *.[ch]p\\\{0,2\} syntax match cOpers "[!~%^&*(){}?+=[\]\\\-;,.:<>|]"
-        autocmd BufRead,BufNewFile *.[ch]p\\\{0,2\} hi def link cOpers Operator
+        autocmd BufRead,BufNewFile *.[ch]\\\{1,2\},*.[ch]pp,*.[ch]xx,*.m syntax match cOpers "[!~%^&*(){}?+=[\]\\\-;,.:<>|]"
+        autocmd BufRead,BufNewFile *.[ch]\\\{1,2\},*.[ch]pp,*.[ch]xx,*.m hi def link cOpers Operator
+    augroup END
+
+    augroup Indenting
+        autocmd!
+        autocmd BufRead,BufNewFile *.[ch]\\\{1,2\},*.[ch]pp,*.[ch]xx,*.m set cindent
     augroup END
 endif
 
