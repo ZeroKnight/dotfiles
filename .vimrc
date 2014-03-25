@@ -79,8 +79,10 @@ set expandtab
 set softtabstop=4
 set shiftwidth=4
 
+" Fold Options
 " Minimal fold column
 set foldcolumn=2
+set foldopen=block,hor,mark,percent,quickfix,search,tag,undo
 
 " Let our last command stick around
 set showcmd
