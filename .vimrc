@@ -264,16 +264,8 @@ inoremap <F5> :GundoToggle<CR>
 
 " F6 - Toggle ShowMarks
 nnoremap <F6> :ShowMarksToggle<CR>
-vnoremap <F6> :ShowMarksToggle<CR>http://xkcd.com/1312
+vnoremap <F6> :ShowMarksToggle<CR>
 inoremap <F6> :ShowMarksToggle<CR>
-
-" F7 - Marks
-noremap <F7> :marks<CR>
-vnoremap <F7> :marks<CR>
-inoremap <F7> :marks<CR>
-
-" F9 - make
-noremap <F9> :make<CR>
 
 " C-F12 - Generate tags file for OmniCppComplete
 noremap <C-F12> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
