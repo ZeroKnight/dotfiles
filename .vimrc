@@ -284,13 +284,6 @@ nnoremap <C-S-Tab> :tabprev<CR>
 inoremap <C-S-Tab> :tabprev<CR>
 vnoremap <C-S-Tab> :tabprev<CR>
 
-" Reloads snipMate without having to restart Vim
-function! ReloadSnipMate(snippets_dir, ft)
-    call ResetSnippets()
-    call GetSnippets(a:snippets_dir, a:ft)
-endfunction
-nnoremap <silent> <Leader>sr :call ReloadSnipMate(snippets_dir, &ft)<CR>:echo "Snippets reloaded"<CR>
-
 " Converts DOS EOL to UNIX
 function! DosToUnixEOL()
     update             " Save any changes
