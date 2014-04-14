@@ -85,7 +85,7 @@ set foldopen=block,hor,mark,percent,quickfix,search,tag,undo
 set showcmd
 
 " Searching
-set incsearch nohls
+set smartcase incsearch nohls
 
 " StatusLine settings
 set laststatus=2
