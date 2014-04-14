@@ -18,12 +18,10 @@ set nocompatible
 
 " Accept nothing less than unicode. NOTHING!
 setglobal fileencoding=utf-8
-set encoding=utf-8
-set termencoding=utf-8
+set encoding=utf-8 termencoding=utf-8
 
 " DOS Line endings can go to hell
-set fileformats=unix,dos
-set fileformat=unix
+set fileformats=unix,dos fileformat=unix
 
 " The oh-so-essential Filetype!
 filetype on
@@ -36,8 +34,7 @@ let $VIMFILES = expand("~/.vim")
 set dir=$TEMP
 
 " Keep backups, but without cluttering everything
-set backup
-set backupdir=$VIMFILES/backup
+set backup backupdir=$VIMFILES/backup
 
 " viminfo Options
 " ' = Save marks; : = Save command history; % = Save buffer list
@@ -52,8 +49,7 @@ set viewoptions=cursor,folds,slash,unix
 set viewdir=$VIMFILES/view
 
 " Persistent Undo
-set undofile
-set undodir=$VIMFILES/undo
+set undofile undodir=$VIMFILES/undo
 
 " Tell Vim where to look for tags
 set tags=./tags,./TAGS,tags,TAGS,src/tags,src/TAGS
@@ -67,12 +63,10 @@ set tags+=$VIMFILES/tags/qt
 "==============================
 
 " Hybrid line numbering, woo! Thanks, Vim 7.4!
-set number
-set relativenumber
+set number relativenumber
 
 " I've got you in my crosshairs...
-set cursorline
-set cursorcolumn
+set cursorline cursorcolumn
 
 " Set indenting options
 " cindent set automatically based on filetype
@@ -80,9 +74,7 @@ set smartindent
 set cinoptions=>s,l1,b1,g0,(0,U1,w1,Ws,j1,J1
 set cinkeys=0{,0},:,0#,!^F,o,O,e,0=break
 " Use spaces for tabs like a civilized person
-set expandtab
-set softtabstop=4
-set shiftwidth=4
+set expandtab softtabstop=4 shiftwidth=4
 
 " Fold Options
 " Minimal fold column
@@ -93,8 +85,7 @@ set foldopen=block,hor,mark,percent,quickfix,search,tag,undo
 set showcmd
 
 " Searching
-set incsearch
-set nohls
+set incsearch nohls
 
 " StatusLine settings
 "set statusline=%<%f%1*%h%*%2*%m%*%3*%r%*%4*%{VarExists('b:gzflag','\ [GZ]')}%*\ [%3l,%c/%L]\ [%P]%=%b/0x%B\ %4*%y%*\ [%{&encoding}]
@@ -114,9 +105,7 @@ set hidden
 set scrolljump=5
 
 " Set line wrapping, but do so intelligently
-set wrap
-set lbr
-set whichwrap=b,s,<,>,[,]
+set wrap lbr whichwrap=b,s,<,>,[,]
 
 " Selecting
 set selection=inclusive
