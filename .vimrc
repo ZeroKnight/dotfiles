@@ -233,6 +233,9 @@ nnoremap <Leader>cd :cd %:p:h<CR>:pwd<CR>
 " Quick-edit .vimrc
 nnoremap <Leader>vr :tabedit $MYVIMRC<CR>
 
+" Quick-edit UltiSnips for current filetype
+nnoremap <Leader>ue :UltiSnipsEdit<CR>
+
 " GitGutter hunk jumping
 nnoremap ]h :GitGutterNextHunk<CR>
 nnoremap [h :GitGutterPrevHunk<CR>
