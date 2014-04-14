@@ -274,6 +274,13 @@ inoremap <F6> :ShowMarksToggle<CR>
 " C-F12 - Generate tags file for OmniCppComplete
 noremap <C-F12> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
 
+" Yank/Paste Shortcuts
+nnoremap <C-Ins> "*y
+vnoremap <C-Ins> "*y
+nnoremap <S-Ins> "*p
+inoremap <S-Ins> <C-o>"*p
+vnoremap <S-Ins> "-d"*P
+
 " Window Switching
 nnoremap <C-H> h
 nnoremap <C-J> j
