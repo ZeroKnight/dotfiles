@@ -190,45 +190,12 @@ let OmniCpp_MayCompleteScope = 1
 " Taglist
 let Tlist_Enable_Fold_Column = 0
 
-
-" Coloring/Highlighting/Syntax
-"==============================
-
-" Turn on Syntax Highlighting if not already on
-if !exists("syntax on")
-    syntax on
-endif
-
-" Set color scheme
-set background=dark
-color solarized
-
-" Solarized Settings
-if exists("color solarized")
-    " Make listchars lightly colored
-    let g:solarized_visibility = low
-
-    " Set termcolors
-    if has("gui_running")
-        "let g:solarized_termcolors = 256
-    else
-        let g:solarized_termcolors = 256
-        set t_Co=256
-    endif
-endif
-
-" StatusLine Highlights
-"hi User1 gui=bold guifg=#00FFFF term=bold cterm=bold ctermfg=cyan
-"hi User2 guifg=#00FF00 ctermfg=green
-"hi User3 gui=bold guifg=#FF0000 term=bold cterm=bold ctermfg=red
-"hi User4 guifg=#CCCC00 ctermfg=107
-
-" C Syntax Settings
-let c_gnu = 1
-let c_comment_strings = 1
-let c_curly_error = 1
-" Load doxygen syntax
-let g:load_doxygen_syntax = 1
+" GitGutter
+hi! link SignColumn LineNr
+hi! link GitGutterAdd           DiffAdd
+hi! link GitGutterChange        DiffChange
+hi! link GitGutterDelete        DiffDelete
+hi! link GitGutterChangeDelete  DiffDelete
 
 
 " Auto Commands
@@ -267,8 +234,8 @@ nnoremap <Leader>cd :cd %:p:h<CR>:pwd<CR>
 nnoremap <Leader>vr :tabedit $MYVIMRC<CR>
 
 " GitGutter hunk jumping
-nnoremap ]h <Plug>GitGutterNextHunk
-nnoremap [h <Plug>GitGutterPrevHunk
+nnoremap ]h :GitGutterNextHunk<CR>
+nnoremap [h :GitGutterPrevHunk<CR>
 
 " Move cursor to the middle of a line
 noremap <silent> gm :call cursor(0, virtcol('$')/2)<CR>
