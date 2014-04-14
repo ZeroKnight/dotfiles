@@ -116,6 +116,43 @@ set keymodel=startsel,stopsel
 set backspace=indent,eol,start
 
 
+" Coloring/Highlighting/Syntax
+"==============================
+
+" Turn on Syntax Highlighting if not already on
+if !exists("syntax on")
+    syntax on
+endif
+
+" Set color scheme
+set background=dark
+color solarized
+
+" Solarized Settings
+if exists("color solarized")
+    " Make listchars lightly colored
+    let g:solarized_visibility = low
+
+    " Do not use italics for comments
+    let g:solarized_underline = 0
+
+    " Set termcolors
+    if has("gui_running")
+        "let g:solarized_termcolors = 256
+    else
+        let g:solarized_termcolors = 256
+        set t_Co=256
+    endif
+endif
+
+" C Syntax Settings
+let c_gnu = 1
+let c_comment_strings = 1
+let c_curly_error = 1
+" Load doxygen syntax
+let g:load_doxygen_syntax = 1
+
+
 " Plugin Settings
 "==============================
 
