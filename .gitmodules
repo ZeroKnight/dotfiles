@@ -50,16 +50,13 @@
 	path = .vim/bundle/showmarks
 	url = git://github.com/vim-scripts/ShowMarks.git
         ignore = dirty
-[submodule ".vim/bundle/minibufexpl"]
-	path = .vim/bundle/minibufexpl
-	url = git://github.com/techlivezheng/vim-plugin-minibufexpl.git
+#[submodule ".vim/bundle/minibufexpl"]
+#	path = .vim/bundle/minibufexpl
+#	url = git://github.com/techlivezheng/vim-plugin-minibufexpl.git
 [submodule ".vim/bundle/omnicppcompl"]
 	path = .vim/bundle/omnicppcompl
 	url = git://github.com/ZeroKnight/OmniCppComplete.git
         ignore = dirty
-#[submodule ".vim/bundle/yankring"]
-#	path = .vim/bundle/yankring
-#	url = git://github.com/vim-scripts/YankRing.vim.git
 [submodule ".vim/bundle/tetris"]
 	path = .vim/bundle/tetris
 	url = git://github.com/vim-scripts/TeTrIs.vim.git
