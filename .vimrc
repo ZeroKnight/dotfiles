@@ -21,6 +21,10 @@ setglobal fileencoding=utf-8
 set encoding=utf-8
 set termencoding=utf-8
 
+" DOS Line endings can go to hell
+set fileformats=unix,dos
+set fileformat=unix
+
 " The oh-so-essential Filetype!
 filetype on
 filetype plugin on
