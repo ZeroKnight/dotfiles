@@ -13,7 +13,9 @@ alias sgrep='grep -RnHIC5 --exclude-dir={.git,.svn,CVS}'
 alias ps='ps -ef'
 alias psf='ps --forest'
 alias psl='\ps -ely'
-alias psc='\ps --forest -eo uid,pid,ppid,c,pcpu,pmem,rsz,psr,stime,time,tty,cmd'
+alias psv='\ps --forest -eo uid,pid,ppid,c,pcpu,pmem,rsz,psr,stime,time,tty,cmd'
+alias psm='\ps -eo rss,cmd | sort -b -nr'
+alias psc='\ps -eo pcpu,c,nice,stat,time,cmd | sort -k1,1r'
 
 # Quick tail
 alias t='tail -F'
@@ -24,8 +26,8 @@ alias -g T='| tail'
 alias -g G='| grep'
 alias -g L="| less"
 alias -g LL="2>&1 | less"
-alias -g NE="2> /dev/null"
-alias -g NUL="> /dev/null 2>&1"
+alias -g NE="2>/dev/null"
+alias -g NUL="&>/dev/null"
 
 # Quick Screenshot
 alias scrot="scrot 'SCREENSHOT_\%m-\%d-\%Y_\%H:\%M:\%S.png' -d3 -q100 -ms -e 'mv \$f ~/Pictures/Screenshots/'"
