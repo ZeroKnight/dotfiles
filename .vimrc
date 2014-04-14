@@ -88,7 +88,6 @@ set showcmd
 set incsearch nohls
 
 " StatusLine settings
-"set statusline=%<%f%1*%h%*%2*%m%*%3*%r%*%4*%{VarExists('b:gzflag','\ [GZ]')}%*\ [%3l,%c/%L]\ [%P]%=%b/0x%B\ %4*%y%*\ [%{&encoding}]
 set laststatus=2
 
 " List mode characters (:set list)
