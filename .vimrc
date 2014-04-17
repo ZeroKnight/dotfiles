@@ -134,7 +134,7 @@ if exists("color solarized")
     let g:solarized_visibility = low
 
     " Do not use italics for comments
-    let g:solarized_underline = 0
+    let g:solarized_italic = 0
 
     " Set termcolors
     if has("gui_running")
