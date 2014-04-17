@@ -168,9 +168,8 @@ let NERDTreeShowBookmarks = 1
 let NERDTreeShowHidden = 1
 let NERDTreeBookmarksFile = $VIMFILES . "/.NERDTreeBookmarks"
 
-" SnipMate
+" UltiSnips
 let g:snips_author = "Alex \"ZeroKnight\" George"
-let g:snippets_dir = $VIMFILES . "/snippets"
 
 " Indent Guides
 let g:indent_guides_enable_on_vim_startup = 1
