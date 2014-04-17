@@ -156,11 +156,6 @@ let g:load_doxygen_syntax = 1
 " Plugin Settings
 "==============================
 
-" Spread the illness
-runtime bundle/vim-pathogen/autoload/pathogen.vim
-execute pathogen#infect()
-execute pathogen#helptags()
-
 " NERDTree(Tabs)
 let NERDChristmasTree = 1
 let NERDTreeHijackNetrw = 1
