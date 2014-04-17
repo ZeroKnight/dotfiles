@@ -242,6 +242,9 @@ nnoremap [h :GitGutterPrevHunk<CR>
 " Move cursor to the middle of a line
 noremap <silent> gm :call cursor(0, virtcol('$')/2)<CR>
 
+" More logical Y
+noremap Y y$
+
 " F2 - quick save + remove trailing whitespace
 nnoremap <F2> :%s/\s\+$//g<CR>:w<CR>
 
