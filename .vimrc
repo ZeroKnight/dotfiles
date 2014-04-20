@@ -37,10 +37,10 @@ set dir=$TEMP
 set backup backupdir=$VIMFILES/backup
 
 " viminfo Options
-" ' = Save marks; : = Save command history; % = Save buffer list
+" ' = Save marks; : = Save command history
 " Don't include '/' because we want all search/substitute pattern history
 " Don't include '<' because we want all register lines, but limit size with 's'
-set viminfo='50,:100,%,s256,n$VIMFILES/.viminfo
+set viminfo='50,:100,s256,n$VIMFILES/.viminfo
 
 " Session/View Options
 set sessionoptions=buffers,curdir,folds,globals,resize,slash,tabpages,unix,winpos,winsize
