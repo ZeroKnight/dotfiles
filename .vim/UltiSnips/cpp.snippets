@@ -1,0 +1,39 @@
+priority -50
+
+extends c
+
+# Overwrite duplicate C snips
+priority -49
+
+snippet cl "class"
+class ${1:`!p snip.rv = snip.basename or "name"`}
+{
+public:
+    ${1/(\w+).*/$1/} (${2:arguments});
+    virtual ~${1/(\w+).*/$1/} ();
+
+private:
+    ${0:/* data */}
+};
+endsnippet
+
+snippet ns "namespace"
+namespace${1/.+/ /m}${1:`!p snip.rv = snip.basename or "name"`}
+{
+    ${VISUAL}
+}${1/.+/ \/* /m}$1${1/.+/ *\/ /m}
+endsnippet
+
+snippet map "std::map"
+std::map<${1:key}, ${2:value}> ${0:map};
+endsnippet
+
+snippet vector "std::vector"
+std::vector<${1:char}> ${0:v};
+endsnippet
+
+snippet tp "template <typename ..>"
+template <typename ${1:_InputIter}>
+endsnippet
+
+# vim: ft=snippets

@@ -1,0 +1,19 @@
+priority -50
+
+extends sh
+
+priority -49
+
+snippet #! "shebang" b
+`!p snip.rv = "#!/bin/"`${1:zsh}
+
+$0
+endsnippet
+
+snippet #!e "#!/usr/bin/env" b
+`!p snip.rv = "#!/usr/bin/env"` ${1:zsh}
+
+$0
+endsnippet
+
+# vim: ft=snippets

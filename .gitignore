@@ -4,10 +4,12 @@
 /.ssh/authorized_keys
 
 # Various vim files
-/.vim/backup/
-/.vim/view/
-/.vim/sessions/
-/.vim/undo/
+/.vim/bundle/
+/.vim/.backup/
+/.vim/.view/
+/.vim/.sessions/
+/.vim/.undo/
+/.vim/.tmp/
 /.vim/.viminfo
 /.vim/.NERDTreeBookmarks
 
