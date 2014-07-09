@@ -11,18 +11,32 @@
 #
 
 ########
+### Preliminary Setup & Helpers
+############
+
+# Do we have this program?
+isAvailable() {
+    whence -p $1 &>/dev/null
+}
+
+isAvailableRun() {
+    whence -p $1 &>/dev/null && $1
+}
+
+########
 ### oh-my-zsh Settings
 ############
 
 ZSH=$HOME/.oh-my-zsh
 ZSH_THEME="gnzh"
 CASE_SENSITIVE="false"
-DISABLE_AUTO_TITLE="false"
+DISABLE_AUTO_TITLE="true"
 DISABLE_CORRECTION="false"
 COMPLETION_WAITING_DOTS="true"
 
 # Load Plugins
-plugins=(git screen colored-man extract fasd)
+# TODO: Modify vundle plugin?
+plugins=(git vi-mode colored-man extract fasd command-not-found cpanm)
 if [[ "$(uname -o)" == 'Cygwin' ]]; then
     plugins+=cygwin
 fi
@@ -40,4 +54,27 @@ setopt no_list_beep
 
 setopt auto_cd
 setopt cdablevars
+
+########
+### Interactive Environment Settings
+############
+
+# NOTE: This may need to be moved or re-worked
+export TERM='screen-256color'
+
+# `less` Settings
+export PAGER='less'
+export LESS='-R'
+
+########
+### Run core programs
+############
+
+# Display a lovely fortune
+isAvailableRun fortune
+
+# Start keychain
+if [ -z "$SSH" ] && isAvailable keychain; then
+    eval $(keychain --eval --agents ssh -Q ~/.ssh/*.key)
+fi
 

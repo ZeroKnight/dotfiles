@@ -11,23 +11,4 @@
 #               (_)___/_/\____/\__, /_/_/ /_/
 #                             /____/
 
-# Start tmux
-if isAvailable tmux &&
-  [[ "$TERM" != screen* ]] &&
-  [ -z "$TMUX" ]; then
-    # Attach to main session, creating it if it doesn't exist yet
-    tmux new-session -A -s main -n $HOSTNAME
-    if ! tmux has -t irc; then
-        # Create irc session
-        tmux new-session -s irc
-    fi
-fi
-
-# Display a lovely fortune
-isAvailableRun fortune
-
-# Start keychain
-if [ -z "$SSH" ] && isAvailable keychain; then
-    eval $(keychain --eval --agents ssh -Q ~/.ssh/*.key)
-fi
-
+# TODO: Find a use for this

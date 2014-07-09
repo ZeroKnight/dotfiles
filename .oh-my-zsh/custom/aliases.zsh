@@ -5,10 +5,6 @@ alias aptc='sudo apt-cache'
 alias systemctl='sudo systemctl'
 alias netctl='sudo netctl'
 
-# grep Shortcuts
-alias grep='grep --color'
-alias sgrep='grep -RnHIC5 --exclude-dir={.git,.svn,CVS}'
-
 # ps Shortcuts
 alias ps='ps -ef'
 alias psf='ps --forest'
@@ -30,7 +26,8 @@ alias -g NE="2>/dev/null"
 alias -g NUL="&>/dev/null"
 
 # Quick Screenshot
-alias scrot="scrot 'SCREENSHOT_\%m-\%d-\%Y_\%H:\%M:\%S.png' -d3 -q100 -ms -e 'mv \$f ~/Pictures/Screenshots/'"
+alias scrot="scrot 'SCREENSHOT_%m-%d-%Y_%H:%M:%S.png' -d3 -q100 -ms -e 'mv \$f ~/Pictures/Screenshots/'"
+alias scrotf="\scrot 'SCREENSHOT_%m-%d-%Y_%H:%M:%S.png' -d3 -q100 -m -e 'mv \$f ~/Pictures/Screenshots/'"
 
 # Misc
 alias reloadtint2='killall -SIGUSR1 tint2'
@@ -49,13 +46,6 @@ if [ ${ZSH_VERSION//\./} -ge 420 ]; then
 
     #_media_fts=(avi mpg mpeg ogm mp3 wav ogg ape rm mov mkv)
     #for ft in $_media_fts ; do alias -s $ft=mplayer ; done
-
-    # list whats inside an archive
-    alias -s zip="unzip -l"
-    alias -s rar="unrar l"
-    alias -s tar="tar tf"
-    alias -s tar.gz="echo "
-    alias -s ace="unace l"
 fi
 
 # Saftey Measures
