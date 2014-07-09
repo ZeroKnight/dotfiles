@@ -34,11 +34,12 @@ let NERDTreeShowBookmarks = 1
 let NERDTreeShowHidden = 1
 let NERDTreeBookmarksFile = $VIMFILES . "/.NERDTreeBookmarks"
 
-" OmniCppComplete {{{1
-let OmniCpp_NamespaceSearch = 2
-let OmniCpp_ShowPrototypeInAbbr = 1
-let OmniCpp_SelectFirstItem = 0
-let OmniCpp_MayCompleteScope = 1
+" YouCompleteMe {{{1
+let g:ycm_error_symbol = '✗'
+let g:ycm_warning_symbol = '!!'
+let g:ycm_complete_in_comments = 1
+let g:ycm_collect_identifiers_from_tags_files = 1
+let g:ycm_autoclose_preview_window_after_completion = 1
 
 " ShowMarks {{{1
 " Keep disabled on startup
@@ -78,6 +79,7 @@ let g:startify_bookmarks = [
     \ '~/.vim/config.vim',
     \ '~/.vim/vundle.vim',
     \ '~/.vim/plugins.vim',
+    \ '~/.config/awesome/rc.lua',
     \ ]
 let g:startify_skiplist = [
     \ 'COMMIT_EDITMSG',

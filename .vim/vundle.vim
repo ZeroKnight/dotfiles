@@ -17,7 +17,7 @@ set rtp+=~/.vim/bundle/vundle
 call vundle#rc()
 
 " Let Vundle manage itself
-Plugin 'gmarik/vundle'
+Plugin 'gmarik/Vundle.vim'
 
 " Plugin Bundles
 "================
@@ -70,7 +70,7 @@ Plugin 'vim-scripts/werks.vim'
 "}}}
 
 " Language Additions/Extensions {{{
-Plugin 'othree/xml'
+Plugin 'othree/xml.vim'
 "Plugin 'Valloric/MatchTagAlways'
 Plugin 'octol/vim-cpp-enhanced-highlight'
 "}}}

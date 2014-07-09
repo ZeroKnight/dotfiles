@@ -6,9 +6,33 @@ snippet #! "shebang" b
 $0
 endsnippet
 
-snippet usesw "use strict; use warnings;" b
+snippet usw "use strict; use warnings;" b
 use strict;
 use warnings;
+
+$0
+endsnippet
+
+snippet usw5 "use v5.14; use strict; use warnings;" b
+use v5.14;
+use strict;
+use warnings;
+
+$0
+endsnippet
+
+snippet pack "package Foo::Bar ..." b
+package ${1:`!v expand('%:.:gs?/?::?:h')`}::${2:`!v expand('%:t:r')`};
+
+$0
+
+1;
+endsnippet
+
+snippet exporter "require Exporter; our @ISA ... our @EXPORT ..." b
+require Exporter;
+our @ISA = qw(Exporter);
+our @EXPORT = qw($1);
 
 $0
 endsnippet
@@ -17,6 +41,10 @@ snippet if "if ..."
 if ($1) {
     ${0:${VISUAL}}
 }
+endsnippet
+
+snippet xif "if (one-line)"
+${1:expr} if $2;
 endsnippet
 
 snippet el "else ..."
@@ -49,14 +77,14 @@ if ($1) {
 }
 endsnippet
 
-snippet xif "if (one-line)"
-${1:expression} if ${2:condition};
-endsnippet
-
 snippet unless "unless"
 unless ($1) {
     ${0:${VISUAL}}
 }
+endsnippet
+
+snippet xunless "unless (one-line)"
+${1:expr} unless $2;
 endsnippet
 
 snippet while "while"
@@ -65,34 +93,48 @@ while ($1) {
 }
 endsnippet
 
-snippet for "for"
-for (my $${1:var} = 0; $$1 < ${2:expression}; $$1++) {
+snippet xwhile "while (one-line)"
+${1:expr} while $2;
+endsnippet
+
+snippet for "foreach"
+foreach ${1:my $${2:i}} (${4:@${3:array}}) {
     ${0:${VISUAL}}
 }
 endsnippet
 
-snippet fore "foreach"
-foreach ${1:my $${2:x}} (@${3:array}) {
+snippet xfor "foreach (one-line)"
+${1:expr} foreach @${2:array};
+endsnippet
+
+snippet forc "for"
+for (my $${1:var} = 0; $$1 < ${2:expr}; $$1++) {
     ${0:${VISUAL}}
 }
 endsnippet
 
-snippet xunless "unless (one-line)"
-${1:expression} unless ${2:condition};
+snippet given "given"
+given ($1) {
+    ${0:${VISUAL}}
+}
+endsnippet
+
+snippet when "when"
+when ($1) {
+    ${0:${VISUAL}}
+}
+endsnippet
+
+snippet xwhen "when (one-line)"
+${1:expr} when $2;
 endsnippet
 
 snippet sub "Subroutine (function)"
 sub ${1:sub_name} {
-    $2
+    my ${2/([^,])+(,)?.*/(?2:\()/}${2:\$foo}${2/([^,])+(,)?.*/(?2:\))/} = ${2/([^,])+(,)?.*/(?2:@_:shift)/};
+
+    $0
 }
-endsnippet
-
-snippet xfore "foreach (one-line)"
-${1:expression} foreach @${2:array};
-endsnippet
-
-snippet xwhile "while (one-line)"
-${1:expression} while ${2:condition};
 endsnippet
 
 snippet slurp "slurp"

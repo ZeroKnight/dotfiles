@@ -59,7 +59,10 @@ set wildignore+=*.o,*.obj,*.exe,*.so,*.dll,*.pyc,.svn,.hg,.bzr,.git
 
 " List mode
 set list
-set listchars=tab:▶▶,trail:∙,extends:▷,precedes:◁
+set listchars=tab:▮▶,trail:∙,extends:▷,precedes:◁
+
+" Wild Menu
+set wildmenu
 
 " Buffer Settings {{{1
 "==============================
