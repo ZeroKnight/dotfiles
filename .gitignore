@@ -1,5 +1,5 @@
 # SSH
-/.ssh/*.key
+/.ssh/*.key*
 /.ssh/known_hosts
 /.ssh/authorized_keys
 
