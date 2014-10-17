@@ -40,6 +40,7 @@ let g:ycm_warning_symbol = '!!'
 let g:ycm_complete_in_comments = 1
 let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_autoclose_preview_window_after_completion = 1
+let g:ycm_always_populate_location_list = 1
 
 " ShowMarks {{{1
 " Keep disabled on startup
@@ -92,6 +93,9 @@ let Tlist_Enable_Fold_Column = 0
 
 " UltiSnips {{{1
 let g:snips_author = "Alex \"ZeroKnight\" George"
+" YCM Compatibility (mnemonic: 's' for 'snippet')
+let g:UltiSnipsExpandTrigger = "<C-Tab>"
+let g:UltiSnipsListSnippets = "<C-S-Tab>"
 
 " xolox Extended Sessions {{{1
 let g:session_directory = $VIMSESSIONS

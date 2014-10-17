@@ -1,6 +1,9 @@
 " Mappings
 "==============================
 
+" Sudo Write {{{1
+cnoremap w!! w !sudo tee >/dev/null %
+
 " Change cwd to that of the current file {{{1
 nnoremap <Leader>cd :cd %:p:h<CR>:pwd<CR>
 
@@ -56,7 +59,7 @@ vnoremap <F6> :ShowMarksToggle<CR>
 inoremap <F6> :ShowMarksToggle<CR>
 
 " C-F12 - Generate tags file for OmniCppComplete {{{1
-noremap <C-F12> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
+noremap <C-F12> :!ctags -R --c++-kinds=+p --fields=+liaS --extra=+q .<CR>
 
 " Yank entire buffer {{{1
 nnoremap gy :%y+<cr>
@@ -78,10 +81,11 @@ nnoremap <C-K> k
 nnoremap <C-L> l
 
 " Tab Cycling {{{1
-nnoremap <C-Tab> :tabnext<CR>
-inoremap <C-Tab> :tabnext<CR>
-vnoremap <C-Tab> :tabnext<CR>
-nnoremap <C-S-Tab> :tabprev<CR>
-inoremap <C-S-Tab> :tabprev<CR>
-vnoremap <C-S-Tab> :tabprev<CR>
+"nnoremap <C-Tab> :tabnext<CR>
+"inoremap <C-Tab> :tabnext<CR>
+"vnoremap <C-Tab> :tabnext<CR>
+"nnoremap <C-S-Tab> :tabprev<CR>
+"inoremap <C-S-Tab> :tabprev<CR>
+"vnoremap <C-S-Tab> :tabprev<CR>
 
+" vim: fdm=marker

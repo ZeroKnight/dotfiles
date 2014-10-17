@@ -33,6 +33,7 @@ Plugin 'majutsushi/tagbar'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'vim-scripts/CharTab'
 Plugin 'vim-scripts/ShowMarks'
+Plugin 'nathanaelkane/vim-indent-guides'
 "}}}
 
 " Commands/Mappings {{{
