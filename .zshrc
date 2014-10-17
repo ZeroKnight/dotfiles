@@ -78,3 +78,6 @@ if [ -z "$SSH" ] && isAvailable keychain; then
     eval $(keychain --eval --agents ssh -Q ~/.ssh/*.key)
 fi
 
+# Powerline
+source /usr/share/zsh/site-contrib/powerline.zsh
+
