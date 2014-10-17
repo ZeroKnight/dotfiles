@@ -1,0 +1,8 @@
+# .config Whitelist
+*
+!*/
+!.gitignore
+!/awesome/**
+#!/openbox/**
+#!/tint2/**
+!/compton.conf
