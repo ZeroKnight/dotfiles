@@ -4,23 +4,39 @@
 # Intended to be run via:
 #   curl -L https://raw.github.com/ZeroKnight/dotfiles/master/install.sh | bash
 
+dotfiles='dotfiles'
+
+#files=$(git --git-dir="$dotfiles" ls-files | egrep -o '^[^/]+/?' | uniq)
 DOTDIRS="\
-.config/openbox
-.config/tint2
-.config/.oh-my-zsh/custom
+.config
+.oh-my-zsh/custom
 .ssh
-.vim
-scripts"
+.vim"
 
 DOTFILES="\
-.config/compton.conf
 .conkyrc
 .gvimrc
-.screenrc
+.tmux.conf
 .vimrc
 .xinitrc
-.zshrc
-.zprofile"
+.zlogin
+.zprofile
+.zshenv
+.zshrc"
+
+say() {
+    echo "[--] $1"
+}
+
+warn() {
+    echo "[!!] $1"
+}
+
+err() {
+    echo "[**] $1"
+}
+
+cd $HOME
 
 # Splash
 echo
@@ -31,45 +47,47 @@ echo
 sleep 1
 
 # Clone dotfiles repo
-if [[ -d $HOME/dotfiles && -d $HOME/dotfiles/.git ]]; then
-    echo "[!!] Dotfiles already cloned! Skipping..."
-elif [[ -d $HOME/dotfiles && ! -d $HOME/dotfiles/.git ]]; then
-    echo "[**] 'dotfiles' directory exists, but is not a git repository. Aborting."
+if [[ -d $dotfiles && -d $dotfiles/.git ]]; then
+    warn "$dotfiles already cloned! Skipping..."
+elif [[ -d $dotfiles && ! -d $dotfiles/.git ]]; then
+    err "'$dotfiles' directory exists, but is not a git repository. Aborting."
     exit 1
 else
-    git clone git://github.com/ZeroKnight/dotfiles.git dotfiles
+    say "Cloning ${dotfiles}..."
+    hash git &>/dev/null && git clone git://github.com/ZeroKnight/dotfiles.git $dotfiles || {
+        err 'git is not installed!'
+        exit
+    }
 fi
 
-# Initialize submodules
-echo "[--] Initializing submodules..."
-git --git-dir="dotfiles" submodule init
-git --git-dir="dotfiles" submodule update
-
 # Install oh-my-zsh!
-echo "[--] Installing oh-my-zsh!..."
-curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sh
+say "Installing oh-my-zsh!..."
+git clone git://github.com/robbyrussell/oh-my-zsh.git .oh-my-zsh
+rm -r .oh-my-zsh/custom
 
-# Create symlinks in HOME, backing up existing files
-echo "[--] Symlinking directories..."
+# Create symlinks, merging existing directories and backing up existing files
+say "Symlinking files..."
 for d in $DOTDIRS; do
     if [ -d $d ]; then
-        mv $d ${d}.nongit
-        echo "[!!] $d backed up as ${d}.nongit"
+        warn "Merging '$d'"
+        mv $d ${d}~
+        ln -s $dotfiles/$d $d
+        mv ${d}~/* $d
+        rmdir ${d}~
+    else
+        ln -s $dotfiles/$d $d
     fi
-    ln -s $HOME/dotfiles/$d $HOME/$d
 done
-
-echo "[--] Symlinking files..."
 for f in $DOTFILES; do
     if [ -e $f ]; then
         mv $f ${f}.nongit
-        echo "[!!] $f backed up as ${f}.nongit"
+        warn "$f backed up as ${f}.nongit"
     fi
-    ln -s $HOME/dotfiles/$f $HOME/$f
+    ln -s $dotfiles/$f $f
 done
 
 ### Farewell! #####################
-echo "[--] Dotfiles installation done!"
-echo "[--] Don't forget to grab the private keys!"
+say "Dotfiles installation done!"
+say "Don't forget to grab any required ssh keypairs!"
 exit 0
 
