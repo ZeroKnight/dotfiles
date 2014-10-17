@@ -5,7 +5,7 @@ alias du='du -ch'   # Human-readable; total
 ### ls Shortcuts
 ###
 
-alias ls='ls -hAF --color'  # Baseline
+alias ls='ls -hAFH --color' # Baseline
 alias ll='ls -l'            # Long-list
 alias lr='ls -R'            # Recursive
 alias lx='ls -BX'           # Sort by Extension, omit backups
