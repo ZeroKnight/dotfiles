@@ -1,0 +1,36 @@
+[user]
+    name = ZeroKnight
+    email = xzeroknightx@gmail.com
+[color]
+    ui = auto
+    status = auto
+    branch = auto
+    diff = auto
+    interactive = auto
+    grep = auto
+[core]
+    excludesfile = ~/._gitignore
+    editor = gvim -f
+    pager = less -S
+[alias]
+    co = checkout
+    cm = commit
+    ca = commit -a
+    br = branch
+    brc = checkout -b
+    cob = checkout -b
+    st = status
+    sa = submodule add
+    unstage = reset HEAD --
+    master = checkout master
+    this = !git init && git add . && git commit -m \\\"Initial Commit\\\"
+    ignore = !([ ! -e .gitignore ] && touch .gitignore) | echo  >>.gitignore
+    ctags = !.git/hooks/ctags
+    r = !git ls-files -z --deleted | xargs -0 git rm
+    alias = !git config --get-regexp '^alias\\.' | sed 's/^alias\\.\\(\\S\\+\\)/\\1\\t=>/' | sort | less -S
+    l = log --graph --full-history --all --color --pretty=format:"%x1b[31m%h%x09%x1b[32m%d%x1b[0m%x20%s"
+    lv = log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+[push]
+    default = simple
+[init]
+    templatedir = ~/.git_template

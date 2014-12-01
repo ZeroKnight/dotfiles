@@ -1,0 +1,14 @@
+# Global .gitignore file
+
+## Vim
+[._]*.s[a-w][a-z]
+[._]s[a-w][a-z]
+*.un~
+.netrwhist
+*~
+Session.vim
+
+## Misc
+tags
+.DS_Store
+.AppleDouble
