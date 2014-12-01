@@ -35,7 +35,7 @@ if has('persistent_undo')
 endif
 
 " Tell Vim where to look for tags
-set tags=./tags,./TAGS,tags,TAGS,src/tags,src/TAGS
+set tags=./tags,./TAGS,tags,TAGS,src/tags,src/TAGS,.git/tags,.git/TAGS
 set tags+=$VIMFILES/tags/cpp
 set tags+=$VIMFILES/tags/gl
 set tags+=$VIMFILES/tags/sdl

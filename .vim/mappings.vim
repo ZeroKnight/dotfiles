@@ -59,7 +59,7 @@ vnoremap <F6> :ShowMarksToggle<CR>
 inoremap <F6> :ShowMarksToggle<CR>
 
 " C-F12 - Generate tags file for OmniCppComplete {{{1
-noremap <C-F12> :!ctags -R --c++-kinds=+p --fields=+liaS --extra=+q .<CR>
+"noremap <C-F12> :!ctags -R --c++-kinds=+p --fields=+liaS --extra=+q .<CR>
 
 " Yank entire buffer {{{1
 nnoremap gy :%y+<cr>
