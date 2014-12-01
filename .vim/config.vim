@@ -103,7 +103,7 @@ endif
 
 " Set color scheme
 set background=dark
-color solarized
+color molokai
 
 " Solarized Settings
 if exists("color solarized")
