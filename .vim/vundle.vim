@@ -89,6 +89,7 @@ Plugin 'mutewinter/vim-tmux'
 " Libraries/APIs {{{
 Plugin 'tpope/vim-repeat'
 Plugin 'xolox/vim-misc'
+Plugin 'tpope/vim-dispatch'
 "}}}
 
 " vim: fdm=marker
