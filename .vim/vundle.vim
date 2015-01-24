@@ -55,6 +55,7 @@ Plugin 'xolox/vim-session'
 Plugin 'kien/ctrlp.vim'
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'tpope/vim-pastie'
+Plugin 'bruno-/vim-man'
 "}}}
 
 " Color Schemes {{{
