@@ -13,9 +13,11 @@
     editor = gvim -f
     pager = less -S
 [alias]
+    p = add --patch
     co = checkout
-    cm = commit
+    ci = commit
     ca = commit -a
+    cv = commit --verbose
     br = branch
     brc = checkout -b
     cob = checkout -b
