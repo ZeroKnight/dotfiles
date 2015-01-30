@@ -15,12 +15,14 @@ if has("autocmd")
         autocmd BufWritePost */openbox/menu.xml silent !openbox --reconfigure
         autocmd BufEnter */openbox/autostart nested set filetype=sh
 
-        " Help mode bindings
-        " <enter> to follow tag, <bs> to go back, and q to quit.
-        " From http://ctoomey.com/posts/an-incremental-approach-to-vim/
+
+        " Help/Man Page Viewer
         autocmd filetype help nnoremap <buffer><CR> <C-]>
         autocmd filetype help nnoremap <buffer><BS> <C-T>
-        autocmd filetype help nnoremap <buffer>q :q<CR>
+        autocmd filetype help,man nnoremap <buffer>q :q<CR>
+        autocmd filetype man
+            \ setlocal ro noma nonu cc=0 noet ts=8 sts=8 sw=8 nolist |
+            \ IndentGuidesDisable
 
         " Extra C++ Syntax Highlighting
         autocmd BufRead,BufNewFile *.[ch]\\\{1,2\},*.[ch]pp,*.[ch]xx,*.m syntax match cOpers "[!~%^&*(){}?+=[\]\\\-;,.:<>|]"
