@@ -88,4 +88,7 @@ nnoremap <C-L> l
 "inoremap <C-S-Tab> :tabprev<CR>
 "vnoremap <C-S-Tab> :tabprev<CR>
 
+" Quick Trim Trailing Space {{{1
+nnoremap <Leader>ts :s/\s\+$//<CR>:nohls<CR>
+
 " vim: fdm=marker
