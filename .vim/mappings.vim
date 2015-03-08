@@ -36,32 +36,29 @@ nnoremap [h :GitGutterPrevHunk<CR>
 noremap <silent> gm :call cursor(0, virtcol('$')/2)<CR>
 
 " F2 - quick save + remove trailing whitespace {{{1
-nnoremap <F2> :%s/\s\+$//g<CR>:w<CR>
+nnoremap <silent> <F2> :%s/\s\+$//g<CR>:w<CR>
 
 " F3 - Toggle NERDtree {{{1
 nnoremap <silent> <F3> :NERDTreeToggle<CR>
 inoremap <silent> <F3> <C-o>:NERDTreeToggle<CR>
 
 " F4 - Toggle Tagbar {{{1
-nnoremap <F4> :TagbarToggle<CR>
-vnoremap <F4> :TagbarToggle<CR>
-inoremap <F4> :TagbarToggle<CR>
+nnoremap <silent> <F4> :TagbarToggle<CR>
+inoremap <silent> <F4> <C-o>:TagbarToggle<CR>
 
-" F5 - Toggle Gundo {{{1
-nnoremap <F5> :GundoToggle<CR>
-vnoremap <F5> :GundoToggle<CR>
-inoremap <F5> :GundoToggle<CR>
+" F5 - Toggle UndoTree {{{1
+nnoremap <silent> <F5> :UndotreeToggle<CR>
+inoremap <silent> <F5> <C-o>:UndotreeToggle<CR>
 
 " F6 - Toggle ShowMarks {{{1
-nnoremap <F6> :ShowMarksToggle<CR>
-vnoremap <F6> :ShowMarksToggle<CR>
-inoremap <F6> :ShowMarksToggle<CR>
+nnoremap <silent> <F6> :ShowMarksToggle<CR>
+inoremap <silent> <F6> <C-o>:ShowMarksToggle<CR>
 
-" C-F12 - Generate tags file for OmniCppComplete {{{1
-"noremap <C-F12> :!ctags -R --c++-kinds=+p --fields=+liaS --extra=+q .<CR>
+" C-F12 - Generate tags file {{{1
+"nnoremap <C-F12> :!ctags -R --c++-kinds=+p --fields=+liaS --extra=+q .<CR>
 
 " Yank entire buffer {{{1
-nnoremap gy :%y+<cr>
+nnoremap gy :%y+<CR>
 
 " More logical Y {{{1
 noremap Y y$
