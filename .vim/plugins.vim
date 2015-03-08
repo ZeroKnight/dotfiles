@@ -93,8 +93,8 @@ let Tlist_Enable_Fold_Column = 0
 " UltiSnips {{{1
 let g:snips_author = "Alex \"ZeroKnight\" George"
 " YCM Compatibility (mnemonic: 's' for 'snippet')
-let g:UltiSnipsExpandTrigger = "<C-Tab>"
-let g:UltiSnipsListSnippets = "<C-S-Tab>"
+let g:UltiSnipsExpandTrigger = "<C-x>"
+let g:UltiSnipsListSnippets = "<C-S-x>"
 
 " xolox Extended Sessions {{{1
 let g:session_directory = $VIMSESSIONS
