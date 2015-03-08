@@ -43,6 +43,9 @@ fi
 
 # Let oh-my-zsh do its thing
 source $ZSH/oh-my-zsh.sh
+#XXX: TEMP HACK FOR GREP_OPTIONS DEPRECATION
+unset GREP_OPTIONS
+alias grep='grep --color=auto --exclude-dir=".git,.svn"'
 
 ########
 ### zsh Settings
