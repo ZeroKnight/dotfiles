@@ -78,7 +78,7 @@ isAvailableRun fortune
 
 # Start keychain
 if [ -z "$SSH" ] && isAvailable keychain; then
-    eval $(keychain --eval --agents ssh -Q ~/.ssh/*.key)
+    eval $(keychain --attempts 3 --eval --agents ssh --ignore-missing -Q ~/.ssh/*.key)
 fi
 
 # Powerline
