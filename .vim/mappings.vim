@@ -39,9 +39,8 @@ noremap <silent> gm :call cursor(0, virtcol('$')/2)<CR>
 nnoremap <F2> :%s/\s\+$//g<CR>:w<CR>
 
 " F3 - Toggle NERDtree {{{1
-nnoremap <F3> :NERDTreeTabsToggle<CR>
-vnoremap <F3> :NERDTreeTabsToggle<CR>
-inoremap <F3> :NERDTreeTabsToggle<CR>
+nnoremap <silent> <F3> :NERDTreeToggle<CR>
+inoremap <silent> <F3> <C-o>:NERDTreeToggle<CR>
 
 " F4 - Toggle Tagbar {{{1
 nnoremap <F4> :TagbarToggle<CR>

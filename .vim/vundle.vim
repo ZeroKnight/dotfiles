@@ -25,7 +25,6 @@ Plugin 'gmarik/Vundle.vim'
 " UI Additions {{{
 Plugin 'bling/vim-airline'
 Plugin 'scrooloose/nerdtree'
-Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'mhinz/vim-startify'
 Plugin 'mbbill/undotree'
 "Plugin 'sjl/gundo'

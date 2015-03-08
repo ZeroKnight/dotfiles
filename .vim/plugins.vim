@@ -26,8 +26,7 @@ let g:indent_guides_guide_size = 1
 let g:indent_guides_start_level = 2
 let g:indent_guides_exclude_filetypes = ['help', 'nerdtree', 'startify']
 
-" NERDTree(Tabs) {{{1
-let g:nerdtree_tabs_open_on_gui_startup = 0
+" NERDTree {{{1
 let NERDChristmasTree = 1
 let NERDTreeHijackNetrw = 1
 let NERDTreeShowBookmarks = 1
