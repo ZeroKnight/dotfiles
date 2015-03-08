@@ -80,7 +80,4 @@ nnoremap <C-J> j
 nnoremap <C-K> k
 nnoremap <C-L> l
 
-" Quick Trim Trailing Space {{{1
-nnoremap <Leader>ts :s/\s\+$//<CR>:nohls<CR>
-
 " vim: fdm=marker
