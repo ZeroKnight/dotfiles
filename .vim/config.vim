@@ -80,6 +80,9 @@ set selectmode=mouse,key
 " Shift + [End|Home|PgUp|PgDn] can select text (sans Shift will deselect)
 set keymodel=startsel,stopsel
 
+" Automatically reload buffers changed outside of Vim
+set autoread
+
 
 " Formatting Options {{{1
 "==============================

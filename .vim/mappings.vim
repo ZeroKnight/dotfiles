@@ -1,6 +1,12 @@
 " Mappings
 "==============================
 
+" Simple, quick Esc alternative {{{1
+inoremap jk <Esc>
+inoremap JK <Esc>
+inoremap Jk <Esc>
+inoremap jK <Esc>
+
 " Sudo Write {{{1
 cnoremap w!! w !sudo tee >/dev/null %
 
@@ -28,12 +34,6 @@ nnoremap [h :GitGutterPrevHunk<CR>
 
 " Move cursor to the middle of a line {{{1
 noremap <silent> gm :call cursor(0, virtcol('$')/2)<CR>
-
-" Experimental Esc alternative {{{1
-inoremap jk <Esc>
-inoremap JK <Esc>
-inoremap Jk <Esc>
-inoremap jK <Esc>
 
 " F2 - quick save + remove trailing whitespace {{{1
 nnoremap <F2> :%s/\s\+$//g<CR>:w<CR>
@@ -79,14 +79,6 @@ nnoremap <C-H> h
 nnoremap <C-J> j
 nnoremap <C-K> k
 nnoremap <C-L> l
-
-" Tab Cycling {{{1
-"nnoremap <C-Tab> :tabnext<CR>
-"inoremap <C-Tab> :tabnext<CR>
-"vnoremap <C-Tab> :tabnext<CR>
-"nnoremap <C-S-Tab> :tabprev<CR>
-"inoremap <C-S-Tab> :tabprev<CR>
-"vnoremap <C-S-Tab> :tabprev<CR>
 
 " Quick Trim Trailing Space {{{1
 nnoremap <Leader>ts :s/\s\+$//<CR>:nohls<CR>

@@ -2,7 +2,7 @@
 "==============================
 
 " CtrlP {{{1
-let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'dir', 'rtscript', 'line', 'mixed']
+let g:ctrlp_extensions = ['mixed', 'line', 'dir', 'quickfix', 'buffertag', 'tag']
 let g:ctrlp_switch_buffer = 'Et'
 let g:ctrlp_working_path_mode = 'ar'
 
