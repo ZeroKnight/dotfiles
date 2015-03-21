@@ -48,9 +48,10 @@ Plugin 'scrooloose/nerdcommenter'
 "}}}
 
 " Helpers {{{
+Plugin 'ervandew/supertab'
 Plugin 'Valloric/YouCompleteMe'
-Plugin 'rking/ag.vim'
 Plugin 'SirVer/ultisnips'
+Plugin 'rking/ag.vim'
 Plugin 'xolox/vim-session'
 Plugin 'kien/ctrlp.vim'
 Plugin 'tpope/vim-pastie'
