@@ -19,7 +19,8 @@ path=(~/bin ~/scripts/shell $path)
 
 # Set EDITOR, BROWSER
 if [ -n "$DISPLAY" ]; then
-    export EDITOR='gvim'
+    #export EDITOR='gvim'
+    export EDITOR='vim'
     export BROWSER='firefox'
 else
     export EDITOR='vim'
