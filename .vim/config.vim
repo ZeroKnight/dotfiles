@@ -9,7 +9,7 @@ set encoding=utf-8 termencoding=utf-8
 
 " Set some environment variables
 let $VIMFILES = expand('~/.vim')
-let $VIMSESSIONS = $VIMFILES . '/.sessions'
+let $VIMSESSIONS = $VIMFILES . '/session'
 
 " viminfo Options
 " ' = Save marks; : = Save command history

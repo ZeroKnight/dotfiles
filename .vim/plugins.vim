@@ -50,7 +50,7 @@ hi! link StartifyHeader Statement
 hi! link StartifyFooter Statement
 let g:startify_change_to_vcs_root = 1
 let g:startify_restore_position = 1
-let g:startify_session_dir = '~/.vim/.session'
+let g:startify_session_dir = $VIMSESSIONS
 let g:startify_custom_header = [
     \ '  ____   ____.__         ',
     \ '  \   \ /   /|__| _____  ',
