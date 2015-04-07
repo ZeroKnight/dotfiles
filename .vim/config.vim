@@ -24,14 +24,14 @@ set viewoptions=cursor,folds,slash,unix
 " File/Directory Locations {{{1
 "==============================
 
-" To avoid clutter, keep all file types in their own directory in home
-set dir=$VIMFILES/.tmp
-set backup backupdir=$VIMFILES/.backup
-set viewdir=$VIMFILES/.view
+" To avoid clutter, keep all file types in their own directory in .vim
+set dir=$VIMFILES/tmp
+set backup backupdir=$VIMFILES/backup
+set viewdir=$VIMFILES/view
 
 " Persistent Undo
 if has('persistent_undo')
-    set undofile undodir=$VIMFILES/.undo
+    set undofile undodir=$VIMFILES/undo
 endif
 
 " Tell Vim where to look for tags
