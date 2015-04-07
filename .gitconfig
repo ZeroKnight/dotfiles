@@ -22,6 +22,7 @@
     cob = checkout -b
     st = status
     sa = submodule add
+    su = submodule update
     unstage = reset HEAD --
     master = checkout master
     this = !git init && git add . && git commit -m \\\"Initial Commit\\\"
