@@ -1,9 +1,15 @@
-# SSH
+# SSH #########################
 /.ssh/*.key*
 /.ssh/known_hosts
 /.ssh/authorized_keys
 
-# Various vim files
-/.vim/.viminfo
+# Vim #########################
+/.vim/.viminf*
+/.vim/.netrwhist
 /.vim/.NERDTreeBookmarks
-
+/.vim/backup/
+/.vim/bundle/
+/.vim/sessions/
+/.vim/tmp/
+/.vim/undo/
+/.vim/view/
