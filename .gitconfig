@@ -9,7 +9,6 @@
     interactive = auto
     grep = auto
 [core]
-    excludesfile = ~/._gitignore
     editor = vim
     pager = less -S
 [alias]
