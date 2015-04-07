@@ -7,3 +7,4 @@
 #!/tint2/**
 !/compton.conf
 !/git/**
+!.dircolors
