@@ -10,8 +10,9 @@ inoremap jK <Esc>
 " Sudo Write {{{1
 cnoremap w!! w !sudo tee >/dev/null %
 
-" Change cwd to that of the current file {{{1
+" Change (l)cwd to that of the current file {{{1
 nnoremap <Leader>cd :cd %:p:h<CR>:pwd<CR>
+nnoremap <Leader>lcd :lcd %:p:h<CR>:pwd<CR>
 
 " Quick-edit .vimrc {{{1
 nnoremap <Leader>vr :tabedit $MYVIMRC<CR>
