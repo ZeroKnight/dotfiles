@@ -29,12 +29,19 @@ $0
 1;
 endsnippet
 
-snippet exporter "require Exporter; our @ISA ... our @EXPORT ..." b
-require Exporter;
-our @ISA = qw(Exporter);
+snippet exporter "use parent 'Exporter' ..." b
+use parent 'Exporter';
 our @EXPORT = qw($1);
 
 $0
+endsnippet
+
+snippet moose "use Moose; ..." b
+use Moose;
+$0
+
+no Moose;
+__PACKAGE__->meta->make_immutable;
 endsnippet
 
 snippet if "if ..."
@@ -129,8 +136,25 @@ snippet xwhen "when (one-line)"
 ${1:expr} when $2;
 endsnippet
 
-snippet sub "Subroutine (function)"
+snippet sub "Subroutine (function)" b
 sub ${1:sub_name} {
+    my ${2/([^,])+(,)?.*/(?2:\()/}${2:\$foo}${2/([^,])+(,)?.*/(?2:\))/} = ${2/([^,])+(,)?.*/(?2:@_:shift)/};
+
+    $0
+}
+endsnippet
+
+snippet has "Moose attribute (has ...)"
+has '${1:attr}' => (
+    is  => '${2:rw}',
+    isa => '${3:Any}',
+    ${4:default => }$0
+);
+endsnippet
+
+snippet method "Class method: sub foo { my $self = shift; ..." b
+sub ${1:method_name} {
+    my $self = shift;
     my ${2/([^,])+(,)?.*/(?2:\()/}${2:\$foo}${2/([^,])+(,)?.*/(?2:\))/} = ${2/([^,])+(,)?.*/(?2:@_:shift)/};
 
     $0
