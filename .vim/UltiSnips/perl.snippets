@@ -165,4 +165,14 @@ snippet slurp "slurp"
 my $${1:var} = do { local $/ = undef; open my $fh, '<', ${2:$file}; <$fh> };
 endsnippet
 
+snippet inlist "unless grep { $_ eq $foo } @bar"
+${1:unless} (grep { $_ eq $${2:foo} } ${3/(\S+)(\s)?/(?2:qw\(:@)/}${3:bar}${3/(\S+)(\s)?/(?2:\))/}) {
+    $0
+}
+endsnippet
+
+snippet xinlist "... unless grep { $_ eq $foo } @bar"
+${1:unless} grep { $_ eq $${2:foo} } ${3/(\S+)(\s)?.*/(?2:qw\(:@)/}${3:bar}${3/(\S+)(\s)?.*/(?2:\);)/}
+endsnippet
+
 # vim:ft=snippets:
