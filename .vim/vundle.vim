@@ -79,11 +79,12 @@ Plugin 'othree/xml.vim'
 Plugin 'octol/vim-cpp-enhanced-highlight'
 "}}}
 
-" Other Languages {{{
+" Syntax Files {{{
 "Plugin 'ZeroKnight/vim-cubescript'
 Plugin 'plasticboy/vim-markdown'
 Plugin 'mutewinter/vim-tmux'
 "Plugin 'mutewinter/nginx.vim'
+Plugin 'kurayama/systemd-vim-syntax'
 "}}}
 
 " Libraries/APIs {{{
