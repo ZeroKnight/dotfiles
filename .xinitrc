@@ -1,9 +1,9 @@
 #!/bin/sh
 #
-# ~/.xinitrc for Arch Linux
+# ~/.xinitrc - Executed by `startx`
 #
-# Executed by startx (run your window manager from here)
 
+# Execute system-wide X settings
 if [ -d /etc/X11/xinit/xinitrc.d ]; then
   for f in /etc/X11/xinit/xinitrc.d/*; do
     [ -x "$f" ] && . "$f"
@@ -11,16 +11,23 @@ if [ -d /etc/X11/xinit/xinitrc.d ]; then
   unset f
 fi
 
+# Load our X resources
+[[ -f ~/.config/.Xresources ]] && xrdb -merge -I$HOME/.config/.Xresources.d ~/.config/.Xresources
+
 # Set Compose key
 setxkbmap -option compose:rwin
 
-DEFAULT_SESSION=openbox-session
+# Set up and start fcitx (mozc)
+export GTK_IM_MODULE=fcitx
+export QT_IM_MODULE=fcitx
+export XMODIFIERS=@im=fcitx
+fcitx
 
-case $1 in
-openbox)
-    exec openbox-session
-    ;;
-*)
-    exec $DEFAULT_SESSION
-    ;;
-esac
+# Start up some staple programs
+#xscreensaver -nosplash &
+keepass &
+guake &
+
+# Start up our WM
+exec awesome
+
