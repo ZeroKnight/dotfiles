@@ -1,0 +1,28 @@
+# xbindkeys configuration
+
+### Extra Keyboard Keys #################################################
+
+"pactl set-sink-mute @DEFAULT_SINK@ toggle"
+    m:0x0 + c:121
+    XF86AudioMute
+
+"pactl set-sink-volume @DEFAULT_SINK@ -5%"
+    m:0x0 + c:122
+    XF86AudioLowerVolume
+
+"pactl set-sink-volume @DEFAULT_SINK@ +5%"
+    m:0x0 + c:123
+    XF86AudioRaiseVolume
+
+"systemctl suspend -i"
+    m:0x0 + c:150
+    XF86Sleep
+
+"xbacklight -dec 10"
+    m:0x0 + c:232
+    XF86MonBrightnessDown
+
+"xbacklight -inc 10"
+    m:0x0 + c:233
+    XF86MonBrightnessUp
+
