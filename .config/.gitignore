@@ -8,3 +8,4 @@
 !/compton.conf
 !/git/**
 !.dircolors
+!/termite/config
