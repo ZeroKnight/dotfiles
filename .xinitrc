@@ -14,9 +14,6 @@ fi
 # Load our X resources
 [[ -f ~/.config/.Xresources ]] && xrdb -merge -I$HOME/.config/.Xresources.d ~/.config/.Xresources
 
-# Set Compose key
-setxkbmap -option compose:rwin
-
 # Set up and start fcitx (mozc)
 export GTK_IM_MODULE=fcitx
 export QT_IM_MODULE=fcitx
