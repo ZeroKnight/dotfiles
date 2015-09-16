@@ -6,6 +6,7 @@ psg() {
     ps -fp $(pgrep $@)
 }
 
+# Shortcut to select which image to boot while rebooting
 reboot() {
     local lin=0
     local win=2
@@ -28,10 +29,19 @@ reboot() {
     sudo reboot
 }
 
+# Use Vim as our man page viewer with the help of a couple plugins and settings
 vman() {
     vim -c "Man $* | only"
 
     if [ "$?" != 0 ]; then
         echo "No manual entry for $*"
     fi
+}
+
+# ptpb pastebin client shortcut
+pb() { curl -F "c=@${1:--}" https://ptpb.pw/ }
+
+# ptpb pastebin client shortcut with automatic url copy
+pbx() {
+    curl -sF "c=@${1:--}" -w "%{redirect_url}" 'https://ptpb.pw/?r=1' -o /dev/stderr | xsel -l /dev/null -b
 }
