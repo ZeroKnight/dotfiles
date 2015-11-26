@@ -26,8 +26,8 @@ alias -g NE="2>/dev/null"
 alias -g NUL="&>/dev/null"
 
 # Quick Screenshot
-alias scrot="scrot 'SCREENSHOT_%m-%d-%Y_%H:%M:%S.png' -d3 -q100 -ms -e 'mv \$f ~/Pictures/Screenshots/'"
-alias scrotf="\scrot 'SCREENSHOT_%m-%d-%Y_%H:%M:%S.png' -d3 -q100 -m -e 'mv \$f ~/Pictures/Screenshots/'"
+alias screenshot="maim -s \"~/Pictures/Screenshots/SCREENSHOT_$(date '%F_%T').png\""
+alias screenshotf="maim \"~/Pictures/Screenshots/SCREENSHOT_$(date '%F_%T').png\""
 
 # Misc
 alias reloadtint2='killall -SIGUSR1 tint2'
