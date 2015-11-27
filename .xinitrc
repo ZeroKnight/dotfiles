@@ -25,6 +25,8 @@ fcitx
 
 # Start up some staple programs
 #xscreensaver -nosplash &
+clipit &
+pnmixer &
 keepass &
 guake &
 
