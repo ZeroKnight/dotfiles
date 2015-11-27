@@ -1,3 +1,5 @@
+alias v='vim'
+
 # Administrative shortcuts
 alias pacman='sudo pacman'
 alias aptg='sudo apt-get'

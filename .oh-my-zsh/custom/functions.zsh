@@ -45,3 +45,18 @@ pb() { curl -F "c=@${1:--}" https://ptpb.pw/ }
 pbx() {
     curl -sF "c=@${1:--}" -w "%{redirect_url}" 'https://ptpb.pw/?r=1' -o /dev/stderr | xsel -l /dev/null -b
 }
+
+pbdel() {
+    curl -X DELETE "https://ptpb.pw/$1"
+}
+
+cget() {
+    curl -fJOL --compressed "$@"
+}
+
+mkcd() {
+    [[ $1 ]] || return 0
+    [[ -d $1 ]] || mkdir -vp "$1"
+    [[ -d $1 ]] && cd "$1"
+}
+
