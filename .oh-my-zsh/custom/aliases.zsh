@@ -1,4 +1,5 @@
 alias v='vim'
+alias t='tmux attach-session -t'
 
 # Administrative shortcuts
 alias pacman='sudo pacman'
@@ -8,31 +9,27 @@ alias systemctl='sudo systemctl'
 alias netctl='sudo netctl'
 
 # ps Shortcuts
-alias ps='ps -ef'
-alias psf='ps --forest'
-alias psl='\ps -ely'
-alias psv='\ps --forest -eo uid,pid,ppid,c,pcpu,pmem,rsz,psr,stime,time,tty,cmd'
-alias psm='\ps -eo rss,cmd | sort -b -nr'
-alias psc='\ps -eo pcpu,c,nice,stat,time,cmd | sort -k1,1r'
-
-# Quick tail
-alias t='tail -F'
+# TODO: Figure out better aliases (better options)
+alias ps='ps -elfy | less'
+alias psf='\ps -elfy --forest | less'
+alias psv='\ps --forest -eo uid,pid,ppid,c,pcpu,pmem,rsz,psr,stime,time,tty,cmd | less'
+alias psm='\ps -eo rss,cmd | sort -b -nr | less'
+alias psc='\ps -eo pcpu,c,nice,stat,time,cmd | sort -k1,1r | less'
 
 # Pipe shortcuts
 alias -g H='| head'
 alias -g T='| tail'
 alias -g G='| grep'
 alias -g L="| less"
-alias -g LL="2>&1 | less"
-alias -g NE="2>/dev/null"
-alias -g NUL="&>/dev/null"
+alias -g LL='2>&1 | less'
+alias -g NE='2>/dev/null'
+alias -g NUL='&>/dev/null'
 
 # Quick Screenshot
-alias screenshot="maim -s \"~/Pictures/Screenshots/SCREENSHOT_$(date '%F_%T').png\""
-alias screenshotf="maim \"~/Pictures/Screenshots/SCREENSHOT_$(date '%F_%T').png\""
+alias screenshot="maim -s \"~/Pictures/Screenshots/SCREENSHOT_$(date '+%F_%T').png\""
+alias screenshotf="maim \"~/Pictures/Screenshots/SCREENSHOT_$(date '+%F_%T').png\""
 
 # Misc
-alias reloadtint2='killall -SIGUSR1 tint2'
 alias userlist='cat /etc/passwd | cut -d":" -f1'
 alias grouplist='cat /etc/group | cut -d":" -f1'
 
