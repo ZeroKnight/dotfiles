@@ -30,8 +30,8 @@ alias screenshot="maim -s \"~/Pictures/Screenshots/SCREENSHOT_$(date '+%F_%T').p
 alias screenshotf="maim \"~/Pictures/Screenshots/SCREENSHOT_$(date '+%F_%T').png\""
 
 # Misc
-alias userlist='cat /etc/passwd | cut -d":" -f1'
-alias grouplist='cat /etc/group | cut -d":" -f1'
+alias userlist='cat /etc/passwd | cut -d":" -f1 | sort'
+alias grouplist='cat /etc/group | cut -d":" -f1 | sort'
 
 # Suffix Aliases
 if [ ${ZSH_VERSION//\./} -ge 420 ]; then
