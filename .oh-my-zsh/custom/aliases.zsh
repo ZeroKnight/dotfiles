@@ -1,5 +1,6 @@
 alias v='vim'
 alias t='tmux attach-session -t'
+alias md='mkdir -vp'
 
 # Administrative shortcuts
 alias pacman='sudo pacman'
