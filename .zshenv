@@ -13,7 +13,7 @@
 # Set PATH
 # TODO: Deprecate ~/scripts* in favor of ~/bin ?
 typeset -U path # Ensure entires in PATH are unique
-path=(~/bin ~/scripts/shell $path)
+path=(~/bin $path)
 
 # NOTE: Should the following belong in .zshrc ?
 
