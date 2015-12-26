@@ -1,7 +1,8 @@
 # termite Configuration
 
 [options]
-font = Source Code Pro 9
+#font = Source Code Pro 9
+font = Office Code Pro 9
 
 # Molokai theme
 [colors]
