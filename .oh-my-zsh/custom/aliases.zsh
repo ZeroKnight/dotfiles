@@ -1,4 +1,4 @@
-alias v='vim'
+alias v='f -e vim' # vim fasd shortcut
 alias t='tmux'
 alias ta='tmux attach-session -t'
 alias md='mkdir -vp'
