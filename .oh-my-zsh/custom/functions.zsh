@@ -60,3 +60,14 @@ mkcd() {
     [[ -d $1 ]] && cd "$1"
 }
 
+mkcdt() {
+    cd $(mktemp -d $@)
+}
+
+# Qucikly clone from Github
+github() {
+    for r in $@; do
+        git clone https://github.com/$r
+    done
+}
+
