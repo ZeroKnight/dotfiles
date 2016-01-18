@@ -4,17 +4,12 @@
 if has("autocmd")
     augroup ZeroVimAutoCommands
         " Clear the auto command group so we don't define it multiple times
-        " Idea from http://learnvimscriptthehardway.stevelosh.com/chapters/14.html
+        " From http://learnvimscriptthehardway.stevelosh.com/chapters/14.html
         autocmd!
 
         " Automatically source personal runtime files on modification
         autocmd BufWritePost .vimrc source $MYVIMRC
         autocmd BufWritePost ~/.vim/*.vim source %
-
-        " OpenBox WM configuration related 
-        autocmd BufWritePost */openbox/menu.xml silent !openbox --reconfigure
-        autocmd BufEnter */openbox/autostart nested set filetype=sh
-
 
         " Help/Man Page Viewer
         autocmd filetype help nnoremap <buffer><CR> <C-]>
