@@ -50,6 +50,7 @@ Plugin 'scrooloose/nerdcommenter'
 " Helpers {{{
 Plugin 'ervandew/supertab'
 Plugin 'Valloric/YouCompleteMe'
+Plugin 'rdnetto/YCM-Generator'
 Plugin 'SirVer/ultisnips'
 Plugin 'rking/ag.vim'
 Plugin 'xolox/vim-session'
