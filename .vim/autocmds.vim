@@ -9,7 +9,7 @@ if has("autocmd")
 
         " Automatically source personal runtime files on modification
         autocmd BufWritePost .vimrc source $MYVIMRC
-        autocmd BufWritePost ~/.vim/*.vim source %
+        autocmd BufWritePost ~/.vim/*.vim,~/dotfiles/.vim/*.vim source %
 
         " Help/Man Page Viewer
         autocmd filetype help nnoremap <buffer><CR> <C-]>
