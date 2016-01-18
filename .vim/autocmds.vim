@@ -23,11 +23,5 @@ if has("autocmd")
         autocmd filetype man
             \ setlocal ro noma nonu cc=0 noet ts=8 sts=8 sw=8 nolist |
             \ IndentGuidesDisable
-
-        " Extra C++ Syntax Highlighting
-        autocmd BufRead,BufNewFile *.[ch]\\\{1,2\},*.[ch]pp,*.[ch]xx,*.m syntax match cOpers "[!~%^&*(){}?+=[\]\\\-;,.:<>|]"
-        autocmd BufRead,BufNewFile *.[ch]\\\{1,2\},*.[ch]pp,*.[ch]xx,*.m hi def link cOpers Operator
-
-        autocmd BufRead,BufNewFile *.[ch]\\\{1,2\},*.[ch]pp,*.[ch]xx,*.m setlocal cindent
     augroup END
 endif

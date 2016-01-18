@@ -75,8 +75,9 @@ Plugin 'vim-scripts/werks.vim'
 
 " Language Additions/Extensions {{{
 Plugin 'othree/xml.vim'
-"Plugin 'Valloric/MatchTagAlways'
-Plugin 'octol/vim-cpp-enhanced-highlight'
+Plugin 'Valloric/MatchTagAlways'
+Plugin 'jeaye/color_coded'
+"Plugin 'octol/vim-cpp-enhanced-highlight'
 "}}}
 
 " Syntax Files {{{
