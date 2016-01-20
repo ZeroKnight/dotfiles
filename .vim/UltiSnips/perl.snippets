@@ -54,7 +54,7 @@ endsnippet
 
 snippet if "if ..."
 if ($1) {
-    ${0:${VISUAL}}
+	${0:${VISUAL}}
 }
 endsnippet
 
@@ -64,45 +64,45 @@ endsnippet
 
 snippet el "else ..."
 else {
-    ${0:${VISUAL}}
+	${0:${VISUAL}}
 }
 endsnippet
 
 snippet eli "elsif ..."
 elsif ($1) {
-    ${0:${VISUAL}}
+	${0:${VISUAL}}
 }
 endsnippet
 
 snippet ife "if .. else"
 if ($1) {
-    $2
+	$2
 } else {
-    $3
+	$3
 }
 endsnippet
 
 snippet ifei "if .. elsif"
 if ($1) {
-    $2
+	$2
 } elsif ($3) {
-    $4
+	$4
 }
 endsnippet
 
 snippet ifee "if..elsif..else"
 if ($1) {
-    $2
+	$2
 } elsif ($3) {
-    $4
+	$4
 } else {
-    $5
+	$5
 }
 endsnippet
 
 snippet unless "unless"
 unless ($1) {
-    ${0:${VISUAL}}
+	${0:${VISUAL}}
 }
 endsnippet
 
@@ -112,7 +112,7 @@ endsnippet
 
 snippet while "while"
 while ($1) {
-    ${0:${VISUAL}}
+	${0:${VISUAL}}
 }
 endsnippet
 
@@ -122,7 +122,7 @@ endsnippet
 
 snippet until "until"
 until ($1) {
-    ${0:${VISUAL}}
+	${0:${VISUAL}}
 }
 endsnippet
 
@@ -132,7 +132,7 @@ endsnippet
 
 snippet for "foreach"
 foreach ${1:my $${2:i}} (${3:list}) {
-    ${0:${VISUAL}}
+	${0:${VISUAL}}
 }
 endsnippet
 
@@ -142,19 +142,19 @@ endsnippet
 
 snippet forc "for"
 for (my $${1:i} = ${2:0}; $$1 < ${3:expr}; ++$$1) {
-    ${0:${VISUAL}}
+	${0:${VISUAL}}
 }
 endsnippet
 
 snippet given "given"
 given ($1) {
-    ${0:${VISUAL}}
+	${0:${VISUAL}}
 }
 endsnippet
 
 snippet when "when"
 when ($1) {
-    ${0:${VISUAL}}
+	${0:${VISUAL}}
 }
 endsnippet
 
@@ -166,26 +166,26 @@ endsnippet
 
 snippet sub "Subroutine (function)" b
 sub ${1:sub_name} {
-    my ${2/([^,])+(,)?.*/(?2:\()/}${2:\$foo}${2/([^,])+(,)?.*/(?2:\))/} = ${2/([^,])+(,)?.*/(?2:@_:shift)/};
+	my ${2/([^,])+(,)?.*/(?2:\()/}${2:\$foo}${2/([^,])+(,)?.*/(?2:\))/} = ${2/([^,])+(,)?.*/(?2:@_:shift)/};
 
-    $0
+	$0
 }
 endsnippet
 
 snippet has "Moose attribute (has ...)"
 has '${1:attr}' => (
-    is  => '${2:rw}',
-    isa => '${3:Any}',
-    ${4:default => }$0
+	is  => '${2:rw}',
+	isa => '${3:Any}',
+	${4:default => }$0
 );
 endsnippet
 
 snippet method "Class method: sub foo { my $self = shift; ..." b
 sub ${1:method_name} {
-    my $self = shift;
-    my ${2/([^,])+(,)?.*/(?2:\()/}${2:\$foo}${2/([^,])+(,)?.*/(?2:\))/} = ${2/([^,])+(,)?.*/(?2:@_:shift)/};
+	my $self = shift;
+	my ${2/([^,])+(,)?.*/(?2:\()/}${2:\$foo}${2/([^,])+(,)?.*/(?2:\))/} = ${2/([^,])+(,)?.*/(?2:@_:shift)/};
 
-    $0
+	$0
 }
 endsnippet
 
@@ -203,7 +203,7 @@ endsnippet
 
 snippet inlist "unless grep { $_ eq $foo } @bar"
 ${1:unless} (grep { $_ eq $${2:foo} } ${3/(\S+)(\s)?/(?2:qw\(:@)/}${3:bar}${3/(\S+)(\s)?/(?2:\))/}) {
-    $0
+	$0
 }
 endsnippet
 
@@ -213,13 +213,13 @@ endsnippet
 
 snippet hash "Hash definition"
 my %${1:hash} = (
-    $2
+	$2
 );
 endsnippet
 
 snippet hashr "Hashref definition"
 my $${1:hashref} = {
-    $2
+	$2
 };
 endsnippet
 
@@ -229,13 +229,13 @@ endsnippet
 
 snippet pairh "Key/Value pair with hashref value"
 ${1:key} => {
-    $2
+	$2
 },
 endsnippet
 
 snippet paira "Key/Value pair with arrayref value"
 ${1:key} => [
-    $2
+	$2
 ],
 endsnippet
 

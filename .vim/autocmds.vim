@@ -11,6 +11,10 @@ if has("autocmd")
         autocmd BufWritePost .vimrc source $MYVIMRC
         autocmd BufWritePost ~/.vim/*.vim,~/dotfiles/.vim/*.vim source %
 
+        " Use actual TABs when editing UltiSnips snippets. This makes UltiSnips
+        " dynamically use expandtab, softtabstop, shiftwidth, etc in snippets
+        autocmd BufRead ~/.vim/UltiSnips/*.snippets setlocal noet sts=0
+
         " Set SourcePawn syntax
         autocmd BufRead *.sp set filetype=sourcepawn
 

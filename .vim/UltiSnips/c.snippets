@@ -37,68 +37,68 @@ endsnippet
 snippet main "int main() { ... }"
 int main(int argc, char *argv[])
 {
-    ${VISUAL}${0:${VISUAL/(.*)/(?1::\/* code *\/)/}}
-    return 0;
+	${VISUAL}${0:${VISUAL/(.*)/(?1::\/* code *\/)/}}
+	return 0;
 }
 endsnippet
 
 snippet for "for loop"
 for (${2:i} = 0; $2 < ${1:count}; ${3:$2++}) {
-    ${VISUAL}${0:${VISUAL/(.*)/(?1::\/* code *\/)/}}
+	${VISUAL}${0:${VISUAL/(.*)/(?1::\/* code *\/)/}}
 }
 endsnippet
 
 snippet fori "for loop with declared init"
 for (${4:int} ${2:i} = 0; $2 < ${1:count}; ${3:$2++}) {
-    ${VISUAL}${0:${VISUAL/(.*)/(?1::\/* code *\/)/}}
+	${VISUAL}${0:${VISUAL/(.*)/(?1::\/* code *\/)/}}
 }
 endsnippet
 
 snippet wh "while loop"
 while(${1:/* condition */}) {
-    ${VISUAL}${0:${VISUAL/(.*)/(?1::\/* code *\/)/}}
+	${VISUAL}${0:${VISUAL/(.*)/(?1::\/* code *\/)/}}
 }
 endsnippet
 
 snippet do "do..while loop"
 do {
-    ${VISUAL}${0:${VISUAL/(.*)/(?1::\/* code *\/)/}}
+	${VISUAL}${0:${VISUAL/(.*)/(?1::\/* code *\/)/}}
 } while(${1:/* condition */});
 endsnippet
 
 snippet if "if ..."
 if ($1) {
-    ${VISUAL}
+	${VISUAL}
 }
 endsnippet
 
 snippet el "else ..."
 else {
-    ${VISUAL}
+	${VISUAL}
 }
 endsnippet
 
 snippet eli "else if ..."
 else if ($1) {
-    ${VISUAL}
+	${VISUAL}
 }
 endsnippet
 
 snippet ife "if .. else"
 if ($1) {
-    $2
+	$2
 } else {
-    $3
+	$3
 }
 endsnippet
 
 snippet ifee "if..else if..else"
 if ($1) {
-    $2
+	$2
 } else if ($3) {
-    $4
+	$4
 } else {
-    $5
+	$5
 }
 
 snippet enum "Enumeration"
@@ -112,21 +112,21 @@ endsnippet
 snippet st "struct"
 struct ${1:`!p snip.rv = (snip.basename or "name") + "_t"`}
 {
-    ${0:/* data */}
+	${0:/* data */}
 };
 endsnippet
 
 snippet tds "typedef struct ..."
 typedef struct ${1:`!p snip.rv = (snip.basename or "name") + "_t"`}
 {
-    ${0:/* data */}
+	${0:/* data */}
 } $1;
 endsnippet
 
 snippet fun "function definition" b
 ${1:void} ${2:function_name}(${3})
 {
-    ${VISUAL}
+	${VISUAL}$0
 }
 endsnippet
 
