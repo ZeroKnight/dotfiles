@@ -1,5 +1,7 @@
 priority -50
 
+### Assorted Boilerplate #######################################
+
 snippet #! "shebang" b
 `!p snip.rv = '#!/usr/bin/env perl'`
 
@@ -14,11 +16,15 @@ $0
 endsnippet
 
 snippet sw5 "use v5.14; use strict; use warnings;" b
-use v5.14;
 use strict;
 use warnings;
+use v5.14;
 
 $0
+endsnippet
+
+snippet noex "no warnings 'experimental::foo'"
+no warnings 'experimental::$1';
 endsnippet
 
 snippet pack "package Foo::Bar ..." b
@@ -43,6 +49,8 @@ $0
 no Moose;
 __PACKAGE__->meta->make_immutable;
 endsnippet
+
+### Branch Statements and Loops ################################
 
 snippet if "if ..."
 if ($1) {
@@ -112,6 +120,16 @@ snippet xwhile "while (one-line)"
 ${1:expr} while $2;
 endsnippet
 
+snippet until "until"
+until ($1) {
+    ${0:${VISUAL}}
+}
+endsnippet
+
+snippet xuntil "until (one-line)"
+${1:expr} until $2;
+endsnippet
+
 snippet for "foreach"
 foreach ${1:my $${2:i}} (${3:list}) {
     ${0:${VISUAL}}
@@ -144,6 +162,8 @@ snippet xwhen "when (one-line)"
 ${1:expr} when $2;
 endsnippet
 
+### Function/Object Constructs #################################
+
 snippet sub "Subroutine (function)" b
 sub ${1:sub_name} {
     my ${2/([^,])+(,)?.*/(?2:\()/}${2:\$foo}${2/([^,])+(,)?.*/(?2:\))/} = ${2/([^,])+(,)?.*/(?2:@_:shift)/};
@@ -169,6 +189,8 @@ sub ${1:method_name} {
 }
 endsnippet
 
+### Idioms and Shortcuts #######################################
+
 snippet slurp "slurp"
 my $${1:var} = do { local $/; open my $fh, '<', ${2:$file}; <$fh> };
 endsnippet
@@ -187,6 +209,34 @@ endsnippet
 
 snippet xinlist "... unless grep { $_ eq $foo } @bar"
 ${1:unless} grep { $_ eq $${2:foo} } ${3/(\S+)(\s)?.*/(?2:qw\(:@)/}${3:bar}${3/(\S+)(\s)?.*/(?2:\);)/}
+endsnippet
+
+snippet hash "Hash definition"
+my %${1:hash} = (
+    $2
+);
+endsnippet
+
+snippet hashr "Hashref definition"
+my $${1:hashref} = {
+    $2
+};
+endsnippet
+
+snippet pair "Key/Value pair; foo => bar"
+${1:key} => ${2:value},$0
+endsnippet
+
+snippet pairh "Key/Value pair with hashref value"
+${1:key} => {
+    $2
+},
+endsnippet
+
+snippet paira "Key/Value pair with arrayref value"
+${1:key} => [
+    $2
+],
 endsnippet
 
 # vim:ft=snippets:
