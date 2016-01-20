@@ -26,6 +26,7 @@ else
     export EDITOR='vim'
     export BROWSER='elinks'
 fi
+export XIVIEWER='sxiv'
 
 # Are we on a remote connection?
 if [ -n "$SSH_CONNECTION" ] ||

@@ -81,6 +81,12 @@ if [ -z "$SSH" ] && isAvailable keychain; then
     eval $(keychain --attempts 3 --eval --agents ssh --ignore-missing -Q ~/.ssh/*.key)
 fi
 
+# Tmuxifier
+if isAvailable tmuxifier; then
+    eval "$(tmuxifier init -)"
+    export TMUXIFIER_LAYOUT_PATH="$HOME/.config/tmuxifier"
+fi
+
 # Powerline
 source /usr/share/zsh/site-contrib/powerline.zsh
 

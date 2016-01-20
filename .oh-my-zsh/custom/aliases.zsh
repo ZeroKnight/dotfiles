@@ -3,7 +3,7 @@ alias t='tmux'
 alias ta='tmux attach-session -t'
 alias md='mkdir -vp'
 
-# Administrative shortcuts
+# Autoamtic sudo shortcuts
 alias pacman='sudo pacman'
 alias aptg='sudo apt-get'
 alias aptc='sudo apt-cache'
@@ -18,7 +18,7 @@ alias psv='\ps --forest -eo uid,pid,ppid,c,pcpu,pmem,rsz,psr,stime,time,tty,cmd 
 alias psm='\ps -eo rss,cmd | sort -b -nr | less'
 alias psc='\ps -eo pcpu,c,nice,stat,time,cmd | sort -k1,1r | less'
 
-# Pipe shortcuts
+# Pipe/Redirect shortcuts
 alias -g H='| head'
 alias -g T='| tail'
 alias -g G='| grep'
