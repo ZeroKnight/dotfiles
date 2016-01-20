@@ -79,6 +79,7 @@ Plugin 'othree/xml.vim'
 Plugin 'Valloric/MatchTagAlways'
 Plugin 'jeaye/color_coded'
 "Plugin 'octol/vim-cpp-enhanced-highlight'
+Plugin 'withgod/vim-sourcepawn'
 "}}}
 
 " Syntax Files {{{

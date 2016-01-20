@@ -1,0 +1,13 @@
+snippet plugin "struct Plugin myinfo" b
+struct Plugin myinfo =
+{
+  name = "$1",
+  author = "Alex \"ZeroKnight\" George",
+  description = "$2",
+  version = "${3:1.0}",
+  url = "http://${4:www.sourcemod.net/}"
+};
+
+$0
+endsnippet
+

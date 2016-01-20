@@ -11,6 +11,9 @@ if has("autocmd")
         autocmd BufWritePost .vimrc source $MYVIMRC
         autocmd BufWritePost ~/.vim/*.vim,~/dotfiles/.vim/*.vim source %
 
+        " Set SourcePawn syntax
+        autocmd BufRead *.sp set filetype=sourcepawn
+
         " Help/Man Page Viewer
         autocmd filetype help nnoremap <buffer><CR> <C-]>
         autocmd filetype help nnoremap <buffer><BS> <C-T>
