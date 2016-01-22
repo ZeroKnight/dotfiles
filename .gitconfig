@@ -15,8 +15,10 @@
     p = add --patch
     co = checkout
     ci = commit
-    ca = commit -a
+    ca = commit --amend
+    cA = commit --amend --reuse-message=HEAD
     cv = commit --verbose
+    cva = commit --ammend --verbose
     br = branch
     brc = checkout -b
     cob = checkout -b
@@ -25,7 +27,7 @@
     su = submodule update
     unstage = reset HEAD --
     master = checkout master
-    this = !git init && git add . && git commit -m \\\"Initial Commit\\\"
+    this = !git init && git add . && git commit -m 'Initial Commit'
     ignore = !([ ! -e .gitignore ] && touch .gitignore) | echo  >>.gitignore
     ctags = !.git/hooks/ctags
     r = !git ls-files -z --deleted | xargs -0 git rm
