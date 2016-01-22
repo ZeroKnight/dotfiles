@@ -55,7 +55,7 @@ cget() {
 }
 
 mkcd() {
-    [[ $1 ]] || return 0
+    [[ -n $1 ]] || return 0
     [[ -d $1 ]] || mkdir -vp "$1"
     [[ -d $1 ]] && cd "$1"
 }
