@@ -1,4 +1,3 @@
-alias v='f -e vim' # vim fasd shortcut
 alias t='tmux'
 alias ta='tmux attach-session -t'
 alias md='mkdir -vp'
@@ -28,8 +27,8 @@ alias -g NE='2>/dev/null'
 alias -g NUL='&>/dev/null'
 
 # Quick Screenshot
-alias screenshot="maim -s \"~/Pictures/Screenshots/SCREENSHOT_$(date '+%F_%T').png\""
-alias screenshotf="maim \"~/Pictures/Screenshots/SCREENSHOT_$(date '+%F_%T').png\""
+alias screenshot="maim -s \"$HOME/Pictures/Screenshots/SCREENSHOT_$(date '+%F_%T').png\""
+alias screenshotf="maim \"$HOME/Pictures/Screenshots/SCREENSHOT_$(date '+%F_%T').png\""
 
 # Misc
 alias userlist='cat /etc/passwd | cut -d":" -f1 | sort'
