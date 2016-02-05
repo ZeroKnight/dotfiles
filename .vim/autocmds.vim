@@ -13,7 +13,7 @@ if has("autocmd")
 
         " Use actual TABs when editing UltiSnips snippets. This makes UltiSnips
         " dynamically use expandtab, softtabstop, shiftwidth, etc in snippets
-        autocmd BufRead ~/.vim/UltiSnips/*.snippets setlocal noet sts=0
+        autocmd filetype snippets setlocal sts=0
 
         " Set SourcePawn syntax
         autocmd BufRead *.sp set filetype=sourcepawn
