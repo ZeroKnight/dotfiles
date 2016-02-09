@@ -15,8 +15,8 @@ if has("autocmd")
         " dynamically use expandtab, softtabstop, shiftwidth, etc in snippets
         autocmd filetype snippets setlocal sts=0
 
-        " Set SourcePawn syntax
-        autocmd BufRead *.sp set filetype=sourcepawn
+        " SourcePawn compilation
+        autocmd filetype sourcepawn setlocal makeprg=/usr/local/bin/spc\ %
 
         " Help/Man Page Viewer
         autocmd filetype help nnoremap <buffer><CR> <C-]>
