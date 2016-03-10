@@ -2,9 +2,7 @@
 ### Shortcuts
 ###
 
-psg() {
-    ps -fp $(pgrep $@)
-}
+psg() { ps -fp $(pgrep $@) }
 
 # Shortcut to select which image to boot while rebooting
 reboot() {
@@ -46,13 +44,9 @@ pbx() {
     curl -sF "c=@${1:--}" -w "%{redirect_url}" 'https://ptpb.pw/?r=1' -o /dev/stderr | xsel -l /dev/null -b
 }
 
-pbdel() {
-    curl -X DELETE "https://ptpb.pw/$1"
-}
+pbdel() { curl -X DELETE "https://ptpb.pw/$1" }
 
-cget() {
-    curl -fJOL --compressed "$@"
-}
+cget() { curl -fJOL --compressed "$@" }
 
 mkcd() {
     [[ -n $1 ]] || return 0
@@ -60,9 +54,11 @@ mkcd() {
     [[ -d $1 ]] && cd "$1"
 }
 
-mkcdt() {
-    cd $(mktemp -d $@)
-}
+mkt() { cd $(mktemp -d $@) }
+
+# Shortcut for "backing up" files; eg: mv foo{,~}
+bak() { for f in $@; do mv $f{,~}; done }
+unbak() { for f in $@; do mv $f{~,}; done }
 
 # Qucikly clone from Github
 github() {
