@@ -1,12 +1,13 @@
 alias t='tmux'
 alias ta='tmux attach-session -t'
 alias md='mkdir -vp'
+alias sysc='systemctl'
 
-# Autoamtic sudo shortcuts
+# Implicit sudo shortcuts
 alias pacman='sudo pacman'
+alias apt='sudo apt'
 alias aptg='sudo apt-get'
 alias aptc='sudo apt-cache'
-alias systemctl='sudo systemctl'
 alias netctl='sudo netctl'
 
 # ps Shortcuts
@@ -31,8 +32,8 @@ alias screenshot="maim -s \"$HOME/Pictures/Screenshots/SCREENSHOT_$(date '+%F_%T
 alias screenshotf="maim \"$HOME/Pictures/Screenshots/SCREENSHOT_$(date '+%F_%T').png\""
 
 # Misc
-alias userlist='cat /etc/passwd | cut -d":" -f1 | sort'
-alias grouplist='cat /etc/group | cut -d":" -f1 | sort'
+alias userlist='cat /etc/passwd | cut -d":" -f1 | sort | less'
+alias grouplist='cat /etc/group | cut -d":" -f1 | sort | less'
 
 # Suffix Aliases
 if [ ${ZSH_VERSION//\./} -ge 420 ]; then
