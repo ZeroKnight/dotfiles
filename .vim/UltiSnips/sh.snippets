@@ -12,9 +12,13 @@ snippet #!e "#!/usr/bin/env" b
 $0
 endsnippet
 
+snippet scriptdir "Directory of the script"
+"$(cd "$(dirname "$0")" && pwd)"
+endsnippet
+
 snippet if "if ... then (if)"
 if ${2:[[ $1 ]]}; then
-$0
+	$0
 fi
 endsnippet
 
