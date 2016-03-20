@@ -79,8 +79,9 @@ let g:startify_skiplist = [
     \ expand($VIMFILES) . 'bundle/.*/doc',
     \ ]
 
-" Taglist {{{1
-let Tlist_Enable_Fold_Column = 0
+" Tagbar {{{1
+let g:tagbar_autoshowtag = 1
+"let g:tagbar_compact = 1
 
 " UltiSnips {{{1
 let g:snips_author = "Alex \"ZeroKnight\" George"
