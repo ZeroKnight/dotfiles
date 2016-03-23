@@ -20,7 +20,6 @@ function! SmartHome()
 endfunction
 nnoremap <silent> <Home> :call SmartHome()<CR>
 inoremap <silent> <Home> <C-O>:call SmartHome()<CR>
-nnoremap <silent> 0 :call SmartHome()<CR>
 
 " Recompile YCM {{{1
 function! RecompileYCM()
