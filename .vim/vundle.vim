@@ -31,17 +31,18 @@ Plugin 'mbbill/undotree'
 Plugin 'majutsushi/tagbar'
 Plugin 'hari-rangarajan/CCTree'
 Plugin 'airblade/vim-gitgutter'
-Plugin 'vim-scripts/CharTab'
 Plugin 'vim-scripts/ShowMarks'
 Plugin 'nathanaelkane/vim-indent-guides'
 "}}}
 
 " Commands/Mappings {{{
 Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-rhubarb'
 Plugin 'tpope/vim-unimpaired'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-eunuch'
 Plugin 'tpope/vim-abolish'
+Plugin 'tpope/vim-characterize'
 Plugin 'godlygeek/tabular'
 Plugin 'scrooloose/nerdcommenter'
 "Plugin 'Lokaltog/vim-easymotion'
@@ -54,9 +55,10 @@ Plugin 'rdnetto/YCM-Generator'
 Plugin 'SirVer/ultisnips'
 Plugin 'rking/ag.vim'
 Plugin 'xolox/vim-session'
-Plugin 'kien/ctrlp.vim'
+Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'tpope/vim-pastie'
 Plugin 'bruno-/vim-man'
+Plugin 'alx741/vinfo'
 "}}}
 
 " Color Schemes {{{
