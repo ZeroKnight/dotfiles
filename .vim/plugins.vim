@@ -2,9 +2,11 @@
 "==============================
 
 " CtrlP {{{1
+let g:ctrlp_cmd = 'CtrlPBuffer'
 let g:ctrlp_extensions = ['mixed', 'line', 'dir', 'quickfix', 'buffertag', 'tag']
 let g:ctrlp_switch_buffer = 'Et'
 let g:ctrlp_working_path_mode = 'ar'
+let g:ctrlp_open_new_file = 'r'
 
 if executable('ag')
     " Enables CtrlP to search using Ag for listing files.
