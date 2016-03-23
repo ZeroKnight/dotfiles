@@ -16,7 +16,8 @@ if has("autocmd")
         autocmd filetype snippets setlocal sts=0
 
         " SourcePawn compilation
-        autocmd filetype sourcepawn setlocal makeprg=/usr/local/bin/spc\ %
+        autocmd filetype sourcepawn setlocal makeprg=/usr/local/bin/spc\ % |
+            \ setlocal commentstring=//%s
 
         " Help/Man Page Viewer
         autocmd filetype help nnoremap <buffer><CR> <C-]>
