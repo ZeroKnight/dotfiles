@@ -5,6 +5,10 @@ snippet sig "Insert signature"
 `!v g:snips_author`
 endsnippet
 
+snippet copyright "Copyright (c)"
+Copyright (c) `!v strftime("%Y")` `!v g:snips_author`
+endsnippet
+
 snippet time "Insert time"
 `!v strftime("%H:%M:%S")`
 endsnippet
@@ -19,10 +23,6 @@ endsnippet
 
 global !p
 import string, vim
-
-""" Maps a filetype to comment format used for boxes.
-Automatically filled during usage"""
-_commentDict = { }
 
 def _parse_comments(s):
 	""" Parses vim's comments option to extract comment format """
@@ -91,7 +91,7 @@ snippet foldi "Vim Fold Marker (Inline)"
 endsnippet
 
 snippet modeline "Vim modeline" b
-`!p snip.rv = _get_comment_format()[0]` vim: ${1:fdm=marker}
+`!p snip.rv = _get_comment_format()[0]` vim: ${1:et sts=`!v eval('&sts')` sw=`!v eval('&sw')`} $0
 endsnippet
 
 snippet lorem "Lorem Ipsum - 50 Words" b
@@ -101,4 +101,16 @@ vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren,
 no sea takimata sanctus est Lorem ipsum dolor sit amet.
 endsnippet
 
+# Ugly, I know
+snippet copyheader "Copyright info header" b
+`!p snip.rv = _get_comment_format()[0]`
+`!p snip.rv = ' ' if _get_comment_format()[1] == '*' else ''``!p snip.rv = _get_comment_format()[1]` Copyright (c) `!v strftime("%Y")` `!v g:snips_author`
+`!p snip.rv = ' ' if _get_comment_format()[1] == '*' else ''``!p snip.rv = _get_comment_format()[1]`
+`!p snip.rv = ' ' if _get_comment_format()[1] == '*' else ''``!p snip.rv = _get_comment_format()[1]` This file is licensed under the ${1:MIT} License. For details, please see the
+`!p snip.rv = ' ' if _get_comment_format()[1] == '*' else ''``!p snip.rv = _get_comment_format()[1]` LICENSE file that should be included with the source code, or
+`!p snip.rv = ' ' if _get_comment_format()[1] == '*' else ''``!p snip.rv = _get_comment_format()[1]` ${2:<https://opensource.org/licenses/MIT>}
+`!p snip.rv = ' ' if _get_comment_format()[1] == '*' else ''``!p snip.rv = _get_comment_format()[2]`
+endsnippet
+
 # vim:ft=snippets:
+

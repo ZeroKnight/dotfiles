@@ -3,13 +3,31 @@ extends c
 # Overwrite duplicate C snips
 priority 1
 
+snippet inc "#include local header"
+#include "${1:foo}.sp"
+endsnippet
+
+snippet Inc "#include <foo>"
+#include <${1:sourcemod}>
+endsnippet
+
+snippet prag "#pragma"
+#pragma $1
+endsnippet
+
+snippet pragmas "semicolon and newdecls pragmas" b
+#pragma semicolon 1
+#pragma newdecls required
+$0
+endsnippet
+
 snippet plugin "struct Plugin myinfo" b
 public Plugin myinfo =
 {
 	name        = "$1",
 	author      = "Alex \"ZeroKnight\" George",
 	description = "$2",
-	version     = "${3:1.0}",
+	version     = "${3:0.1.0}",
 	url         = "http://${4:www.sourcemod.net/}"
 };
 
@@ -18,6 +36,13 @@ endsnippet
 
 snippet fun "function definition" b
 ${1:public} ${2:void} ${3:function_name}(${4})
+{
+	${VISUAL}$0
+}
+endsnippet
+
+snippet callback "callback function"
+${1:public} ${2:Action} ${3:callback_name}(int client, int args)
 {
 	${VISUAL}$0
 }

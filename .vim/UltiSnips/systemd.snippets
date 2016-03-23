@@ -1,0 +1,20 @@
+# systemd Unit files
+
+snippet unit "[Unit] ..." b
+[Unit]
+Description=$1
+$0
+endsnippet
+
+snippet service "[Service] ..." b
+[Service]
+Type=${1:forking}
+$0
+endsnippet
+
+snippet install "[Install] ..." b
+[Install]
+WantedBy=${1:multi-user.target}
+$0
+endsnippet
+
