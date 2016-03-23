@@ -83,6 +83,25 @@ let g:startify_skiplist = [
 let g:tagbar_autoshowtag = 1
 "let g:tagbar_compact = 1
 
+let g:tagbar_type_sourcepawn = {
+    \ 'ctagstype' : 'c',
+    \ 'kinds' : [
+        \ 'd:macros:1:0',
+        \ 'g:enums',
+        \ 'e:enumerators:0:0',
+        \ 't:typedefs:0:0',
+        \ 's:structs',
+        \ 'm:members:0:0',
+        \ 'v:variables:0:0',
+        \ 'f:functions',
+    \ ],
+    \ 'sro' : '.',
+    \ 'kind2scope' : {
+        \ 'g' : 'enum',
+        \ 's' : 'struct'
+    \ },
+\ }
+
 " UltiSnips {{{1
 let g:snips_author = "Alex \"ZeroKnight\" George"
 let g:UltiSnipsExpandTrigger = "<tab>"
