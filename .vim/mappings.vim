@@ -7,9 +7,6 @@ inoremap JK <Esc>
 inoremap Jk <Esc>
 inoremap jK <Esc>
 
-" Sudo Write {{{1
-cnoremap w!! w !sudo tee >/dev/null %
-
 " Change (l)cwd to that of the current file {{{1
 nnoremap <Leader>cd :cd %:p:h<CR>:pwd<CR>
 nnoremap <Leader>lcd :lcd %:p:h<CR>:pwd<CR>
@@ -34,26 +31,23 @@ nnoremap ]h :GitGutterNextHunk<CR>
 nnoremap [h :GitGutterPrevHunk<CR>
 
 " Move cursor to the middle of a line {{{1
-noremap <silent> gm :call cursor(0, virtcol('$')/2)<CR>
-
-" F2 - quick save + remove trailing whitespace {{{1
-nnoremap <silent> <F2> :%s/\s\+$//g<CR>:w<CR>
+noremap <Silent> gm :call cursor(0, virtcol('$')/2)<CR>
 
 " F3 - Toggle NERDtree {{{1
-nnoremap <silent> <F3> :NERDTreeToggle<CR>
-inoremap <silent> <F3> <C-o>:NERDTreeToggle<CR>
+nnoremap <Silent> <F3> :NERDTreeToggle<CR>
+inoremap <Silent> <F3> <C-o>:NERDTreeToggle<CR>
 
 " F4 - Toggle Tagbar {{{1
-nnoremap <silent> <F4> :TagbarToggle<CR>
-inoremap <silent> <F4> <C-o>:TagbarToggle<CR>
+nnoremap <Silent> <F4> :TagbarToggle<CR>
+inoremap <Silent> <F4> <C-o>:TagbarToggle<CR>
 
 " F5 - Toggle UndoTree {{{1
-nnoremap <silent> <F5> :UndotreeToggle<CR>
-inoremap <silent> <F5> <C-o>:UndotreeToggle<CR>
+nnoremap <Silent> <F5> :UndotreeToggle<CR>
+inoremap <Silent> <F5> <C-o>:UndotreeToggle<CR>
 
 " F6 - Toggle ShowMarks {{{1
-nnoremap <silent> <F6> :ShowMarksToggle<CR>
-inoremap <silent> <F6> <C-o>:ShowMarksToggle<CR>
+nnoremap <Silent> <F6> :ShowMarksToggle<CR>
+inoremap <Silent> <F6> <C-o>:ShowMarksToggle<CR>
 
 " C-F12 - Generate tags file {{{1
 "nnoremap <C-F12> :!ctags -R --c++-kinds=+p --fields=+liaS --extra=+q .<CR>
@@ -68,11 +62,11 @@ noremap Y y$
 nnoremap K f<space>r<CR>
 
 " Yank/Paste Shortcuts {{{1
-nnoremap <C-Ins> "*y
-vnoremap <C-Ins> "*y
-nnoremap <S-Ins> "*p
-inoremap <S-Ins> <C-o>"*p
-vnoremap <S-Ins> "-d"*P
+nnoremap <C-Ins> "+y
+vnoremap <C-Ins> "+y
+nnoremap <S-Ins> "+p
+inoremap <S-Ins> <C-o>"+p
+vnoremap <S-Ins> "-d"+P
 
 " Window Switching {{{1
 nnoremap <C-H> h
