@@ -64,6 +64,9 @@ nnoremap gy :%y+<CR>
 " More logical Y {{{1
 noremap Y y$
 
+" Split line (thanks, /u/frumsfrums)
+nnoremap K f<space>r<CR>
+
 " Yank/Paste Shortcuts {{{1
 nnoremap <C-Ins> "*y
 vnoremap <C-Ins> "*y
