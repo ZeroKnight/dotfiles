@@ -31,23 +31,23 @@ nnoremap ]h :GitGutterNextHunk<CR>
 nnoremap [h :GitGutterPrevHunk<CR>
 
 " Move cursor to the middle of a line {{{1
-noremap <Silent> gm :call cursor(0, virtcol('$')/2)<CR>
+noremap <silent> gm :call cursor(0, virtcol('$')/2)<CR>
 
 " F3 - Toggle NERDtree {{{1
-nnoremap <Silent> <F3> :NERDTreeToggle<CR>
-inoremap <Silent> <F3> <C-o>:NERDTreeToggle<CR>
+nnoremap <silent> <F3> :NERDTreeToggle<CR>
+inoremap <silent> <F3> <C-o>:NERDTreeToggle<CR>
 
 " F4 - Toggle Tagbar {{{1
-nnoremap <Silent> <F4> :TagbarToggle<CR>
-inoremap <Silent> <F4> <C-o>:TagbarToggle<CR>
+nnoremap <silent> <F4> :TagbarToggle<CR>
+inoremap <silent> <F4> <C-o>:TagbarToggle<CR>
 
 " F5 - Toggle UndoTree {{{1
-nnoremap <Silent> <F5> :UndotreeToggle<CR>
-inoremap <Silent> <F5> <C-o>:UndotreeToggle<CR>
+nnoremap <silent> <F5> :UndotreeToggle<CR>
+inoremap <silent> <F5> <C-o>:UndotreeToggle<CR>
 
 " F6 - Toggle ShowMarks {{{1
-nnoremap <Silent> <F6> :ShowMarksToggle<CR>
-inoremap <Silent> <F6> <C-o>:ShowMarksToggle<CR>
+nnoremap <silent> <F6> :ShowMarksToggle<CR>
+inoremap <silent> <F6> <C-o>:ShowMarksToggle<CR>
 
 " C-F12 - Generate tags file {{{1
 "nnoremap <C-F12> :!ctags -R --c++-kinds=+p --fields=+liaS --extra=+q .<CR>
