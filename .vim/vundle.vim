@@ -56,7 +56,6 @@ Plugin 'SirVer/ultisnips'
 Plugin 'rking/ag.vim'
 Plugin 'xolox/vim-session'
 Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'tpope/vim-pastie'
 Plugin 'bruno-/vim-man'
 Plugin 'alx741/vinfo'
 "}}}
