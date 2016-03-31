@@ -88,7 +88,7 @@ set autoread
 "==============================
 
 set textwidth=80 colorcolumn=+1
-set formatoptions=crqnj
+set formatoptions=crqanj
 
 " Use spaces for tabs like a civilized person
 set expandtab softtabstop=4 shiftwidth=4
