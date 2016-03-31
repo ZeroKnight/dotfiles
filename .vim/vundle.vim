@@ -32,7 +32,7 @@ Plugin 'majutsushi/tagbar'
 Plugin 'hari-rangarajan/CCTree'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'vim-scripts/ShowMarks'
-Plugin 'nathanaelkane/vim-indent-guides'
+Plugin 'Yggdroot/indentLine'
 "}}}
 
 " Commands/Mappings {{{

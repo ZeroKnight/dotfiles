@@ -68,6 +68,9 @@ nnoremap <S-Ins> "+p
 inoremap <S-Ins> <C-o>"+p
 vnoremap <S-Ins> "-d"+P
 
+" Toggle Indent Guides {{{1
+nnoremap <silent> <Leader>ig :IndentLinesToggle<CR>
+
 " Window Switching {{{1
 nnoremap <C-H> h
 nnoremap <C-J> j
