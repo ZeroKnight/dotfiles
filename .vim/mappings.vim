@@ -18,12 +18,12 @@ nnoremap <Leader>vr :tabedit $MYVIMRC<CR>
 nnoremap <Leader>ue :UltiSnipsEdit<CR>
 
 " Clear search highlights {{{1
-nnoremap <Leader>/ :nohls<CR>
+nnoremap <silent> <Leader>/ :nohls<CR>
 
-" Highlight word under cursor without jumping
+" Highlight word under cursor without jumping {{{1
 nnoremap <Leader>hw *<C-o>
 
-" Quick-switch to last buffer
+" Quick-switch to last buffer {{{1
 nnoremap <Leader>, :b#<CR>
 
 " GitGutter hunk jumping {{{1
