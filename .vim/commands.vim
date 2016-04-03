@@ -9,4 +9,8 @@ command! -nargs=1 Sl :source ~/.vim/sessions/<args>.vim
 command! W w
 command! Q q
 
+" Open :help in a new tab {{{1
+command! -nargs=? -complete=help Helptab tab help <args>
+cnoreabbrev <expr> ht getcmdtype() == ":" && getcmdline() == 'ht' ? 'Helptab' : 'ht'
+
 " vim: fdm=marker
