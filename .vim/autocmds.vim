@@ -24,7 +24,6 @@ if has("autocmd")
         autocmd filetype help nnoremap <buffer><BS> <C-T>
         autocmd filetype help,man nnoremap <buffer>q :q<CR>
         autocmd filetype man
-            \ setlocal ro noma nonu cc=0 noet ts=8 sts=8 sw=8 nolist |
-            \ IndentGuidesDisable
+            \ setlocal ro noma nonu cc=0 noet ts=8 sts=8 sw=8 nolist
     augroup END
 endif
