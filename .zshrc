@@ -36,7 +36,16 @@ COMPLETION_WAITING_DOTS="true"
 
 # Load Plugins
 # TODO: Modify vundle plugin?
-plugins=(git vi-mode colored-man extract fasd command-not-found cpanm)
+plugins=(
+    git
+    vi-mode
+    colored-man
+    extract
+    fasd
+    command-not-found
+    cpanm
+    zsh-syntax-highlighting-filetypes
+)
 if [[ "$(uname -o)" == 'Cygwin' ]]; then
     plugins+=cygwin
 fi
