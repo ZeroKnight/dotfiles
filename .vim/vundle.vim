@@ -45,6 +45,8 @@ Plugin 'tpope/vim-abolish'
 Plugin 'tpope/vim-characterize'
 Plugin 'godlygeek/tabular'
 Plugin 'scrooloose/nerdcommenter'
+Plugin 'christoomey/vim-sort-motion'
+Plugin 'wellle/targets.vim'
 "Plugin 'Lokaltog/vim-easymotion'
 "}}}
 
@@ -89,6 +91,7 @@ Plugin 'plasticboy/vim-markdown'
 Plugin 'mutewinter/vim-tmux'
 "Plugin 'mutewinter/nginx.vim'
 Plugin 'kurayama/systemd-vim-syntax'
+Plugin 'xolox/vim-lua-ftplugin'
 "}}}
 
 " Libraries/APIs {{{

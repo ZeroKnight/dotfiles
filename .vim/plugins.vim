@@ -125,4 +125,7 @@ let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
 let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
 let g:SuperTabDefaultCompletionType = '<C-n>'
 
+" xolox Lua ftplugin {{{1
+let g:lua_internal = 0
+
 " vim: fdm=marker
