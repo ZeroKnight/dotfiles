@@ -77,4 +77,9 @@ nnoremap <C-J> j
 nnoremap <C-K> k
 nnoremap <C-L> l
 
+"}}}
+
+" Abbreviations
+"==============================
+
 " vim: fdm=marker
