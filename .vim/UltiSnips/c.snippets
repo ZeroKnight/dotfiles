@@ -45,61 +45,87 @@ int main(int argc, char *argv[])
 endsnippet
 
 snippet for "for loop"
-for (${2:i} = 0; $2 < ${1:count}; ${3:$2++}) {
+for (${2:i} = 0; $2 < ${1:count}; ${3:++$2})
+{
 	${VISUAL}${0:${VISUAL/(.*)/(?1::\/* code *\/)/}}
 }
 endsnippet
 
 snippet fori "for loop with declared init"
-for (${4:int} ${2:i} = 0; $2 < ${1:count}; ${3:$2++}) {
+for (${4:int} ${2:i} = 0; $2 < ${1:count}; ${3:++$2})
+{
 	${VISUAL}${0:${VISUAL/(.*)/(?1::\/* code *\/)/}}
 }
 endsnippet
 
 snippet wh "while loop"
-while(${1:/* condition */}) {
+while(${1:/* condition */})
+{
 	${VISUAL}${0:${VISUAL/(.*)/(?1::\/* code *\/)/}}
 }
 endsnippet
 
 snippet do "do..while loop"
-do {
+do
+{
 	${VISUAL}${0:${VISUAL/(.*)/(?1::\/* code *\/)/}}
 } while(${1:/* condition */});
 endsnippet
 
 snippet if "if ..."
-if ($1) {
+if ($1)
+{
 	${VISUAL}
 }
 endsnippet
 
 snippet el "else ..."
-else {
+else
+{
 	${VISUAL}
 }
 endsnippet
 
 snippet eli "else if ..."
-else if ($1) {
+else if ($1)
+{
 	${VISUAL}
 }
 endsnippet
 
 snippet ife "if .. else"
-if ($1) {
+if ($1)
+{
 	$2
-} else {
+}
+else
+{
 	$3
 }
 endsnippet
 
-snippet ifee "if..else if..else"
-if ($1) {
+snippet ifei "if .. else if"
+if ($1)
+{
 	$2
-} else if ($3) {
+}
+else if ($3)
+{
 	$4
-} else {
+}
+endsnippet
+
+snippet ifee "if..else if..else"
+if ($1)
+{
+	$2
+}
+else if ($3)
+{
+	$4
+}
+else
+{
 	$5
 }
 
@@ -142,6 +168,14 @@ endsnippet
 
 snippet fprintf "fprintf ..."
 fprintf(${1:stderr}, "${2:%s}\n"${2/([^%]|%%)*(%.)?.*/(?2:, :\);)/}$3${2/([^%]|%%)*(%.)?.*/(?2:\);)/}
+endsnippet
+
+snippet section "Section Comment header" b
+/***************************************************************\
+ * $1
+\***************************************************************/
+
+$0
 endsnippet
 
 # vim: ft=snippets
