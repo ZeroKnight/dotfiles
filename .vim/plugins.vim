@@ -9,10 +9,10 @@ let g:ctrlp_working_path_mode = 'ar'
 let g:ctrlp_open_new_file = 'r'
 
 if executable('ag')
-    " Enables CtrlP to search using Ag for listing files.
-    " Lightning fast, no need to cache and even respects .gitignore
-    let g:ctrlp_user_command = 'ag %s --nocolor -l -g ""'
-    let g:ctrlp_use_caching = 0
+  " Enables CtrlP to search using Ag for listing files.
+  " Lightning fast, no need to cache and even respects .gitignore
+  let g:ctrlp_user_command = 'ag %s --nocolor -l -g ""'
+  let g:ctrlp_use_caching = 0
 endif
 
 " GitGutter {{{1
@@ -40,9 +40,9 @@ let showmarks_enable = 0
 
 " Startify {{{1
 function! PrettyVersion()
-    let major = v:version / 100
-    let minor = v:version - (major * 100)
-    return major . '.' . minor
+  let major = v:version / 100
+  let minor = v:version - (major * 100)
+  return major . '.' . minor
 endfunction
 
 hi! link StartifySpecial Comment
@@ -53,54 +53,54 @@ let g:startify_change_to_vcs_root = 1
 let g:startify_restore_position = 1
 let g:startify_session_dir = $VIMSESSIONS
 let g:startify_custom_header = [
-    \ '  ____   ____.__         ',
-    \ '  \   \ /   /|__| _____  ',
-    \ '   \   Y   / |  |/     \ ',
-    \ '    \     /  |  |  Y Y  \',
-    \ '     \___/   |__|__|_|  /  ' . PrettyVersion(),
-    \ '                      \/ ',
-    \ '',
-    \ ] + map(split(system('fortune'), '\n'), '"   ". v:val') + ['']
+  \ '  ____   ____.__         ',
+  \ '  \   \ /   /|__| _____  ',
+  \ '   \   Y   / |  |/     \ ',
+  \ '    \     /  |  |  Y Y  \',
+  \ '     \___/   |__|__|_|  /  ' . PrettyVersion(),
+  \ '                      \/ ',
+  \ '',
+  \ ] + map(split(system('fortune'), '\n'), '"   ". v:val') + ['']
 let g:startify_list_order = [
-    \ ['=== Recent files:'], 'files',
-    \ ['=== Last modified files in: ' . getcwd() ], 'dir',
-    \ ['=== Sessions:'], 'sessions',
-    \ ['=== Bookmarks:'], 'bookmarks',
-    \ ]
+  \ ['=== Recent files:'], 'files',
+  \ ['=== Last modified files in: ' . getcwd() ], 'dir',
+  \ ['=== Sessions:'], 'sessions',
+  \ ['=== Bookmarks:'], 'bookmarks',
+  \ ]
 let g:startify_bookmarks = [
-    \ '~/.vimrc',
-    \ '~/.vim/config.vim',
-    \ '~/.vim/vundle.vim',
-    \ '~/.vim/plugins.vim',
-    \ '~/.config/awesome/rc.lua',
-    \ ]
+  \ '~/.vimrc',
+  \ '~/.vim/config.vim',
+  \ '~/.vim/vundle.vim',
+  \ '~/.vim/plugins.vim',
+  \ '~/.config/awesome/rc.lua',
+  \ ]
 let g:startify_skiplist = [
-    \ 'COMMIT_EDITMSG',
-    \ expand($VIMRUNTIME) . '/doc',
-    \ expand($VIMFILES) . 'bundle/.*/doc',
-    \ ]
+  \ 'COMMIT_EDITMSG',
+  \ expand($VIMRUNTIME) . '/doc',
+  \ expand($VIMFILES) . 'bundle/.*/doc',
+  \ ]
 
 " Tagbar {{{1
 let g:tagbar_autoshowtag = 1
 "let g:tagbar_compact = 1
 
 let g:tagbar_type_sourcepawn = {
-    \ 'ctagstype' : 'c',
-    \ 'kinds' : [
-        \ 'd:macros:1:0',
-        \ 'g:enums',
-        \ 'e:enumerators:0:0',
-        \ 't:typedefs:0:0',
-        \ 's:structs',
-        \ 'm:members:0:0',
-        \ 'v:variables:0:0',
-        \ 'f:functions',
-    \ ],
-    \ 'sro' : '.',
-    \ 'kind2scope' : {
-        \ 'g' : 'enum',
-        \ 's' : 'struct'
-    \ },
+  \ 'ctagstype' : 'c',
+  \ 'kinds' : [
+      \ 'd:macros:1:0',
+      \ 'g:enums',
+      \ 'e:enumerators:0:0',
+      \ 't:typedefs:0:0',
+      \ 's:structs',
+      \ 'm:members:0:0',
+      \ 'v:variables:0:0',
+      \ 'f:functions',
+  \ ],
+  \ 'sro' : '.',
+  \ 'kind2scope' : {
+      \ 'g' : 'enum',
+      \ 's' : 'struct'
+  \ },
 \ }
 
 " UltiSnips {{{1
