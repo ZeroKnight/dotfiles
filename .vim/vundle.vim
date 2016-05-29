@@ -22,7 +22,7 @@ Plugin 'VundleVim/Vundle.vim'
 " Plugin Bundles
 "================
 
-" UI Additions {{{
+" Menus, UI Tweaks & Additions {{{
 Plugin 'bling/vim-airline'
 "Plugin 'scrooloose/nerdtree'
 Plugin 'justinmk/vim-dirvish'
@@ -46,14 +46,12 @@ Plugin 'tpope/vim-abolish'
 Plugin 'tpope/vim-characterize'
 Plugin 'tpope/vim-commentary'
 Plugin 'godlygeek/tabular'
-" Plugin 'scrooloose/nerdcommenter'
 Plugin 'christoomey/vim-sort-motion'
 Plugin 'wellle/targets.vim'
 Plugin 'moll/vim-bbye'
-"Plugin 'Lokaltog/vim-easymotion'
 "}}}
 
-" Helpers {{{
+" Helpers & Tools {{{
 Plugin 'ervandew/supertab'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'rdnetto/YCM-Generator'
@@ -67,18 +65,12 @@ Plugin 'reedes/vim-wordy'
 "}}}
 
 " Color Schemes {{{
-"Plugin 'vim-scripts/CSApprox'
+Plugin 'vim-scripts/CSApprox'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'Pychimp/vim-luna'
 Plugin 'tomasr/molokai'
-Plugin 'briancarper/gentooish.vim'
 Plugin 'ciaranm/inkpot'
 Plugin 'nanotech/jellybeans.vim'
-Plugin 'vim-scripts/lettuce.vim'
-Plugin 'vim-scripts/Liquid-Carbon'
-Plugin 'vim-scripts/rdark'
-Plugin 'vim-scripts/Sorcerer'
-Plugin 'vim-scripts/werks.vim'
 "}}}
 
 " Language Additions/Extensions {{{
@@ -86,7 +78,6 @@ Plugin 'othree/xml.vim'
 Plugin 'Valloric/MatchTagAlways'
 Plugin 'jeaye/color_coded'
 "Plugin 'octol/vim-cpp-enhanced-highlight'
-Plugin 'withgod/vim-sourcepawn'
 "}}}
 
 " Syntax Files {{{
@@ -96,6 +87,7 @@ Plugin 'mutewinter/vim-tmux'
 "Plugin 'mutewinter/nginx.vim'
 Plugin 'kurayama/systemd-vim-syntax'
 Plugin 'xolox/vim-lua-ftplugin'
+Plugin 'withgod/vim-sourcepawn'
 "}}}
 
 " Libraries/APIs {{{
