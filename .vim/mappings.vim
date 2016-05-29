@@ -11,6 +11,9 @@ inoremap jK <Esc>
 nnoremap <Leader>cd :cd %:p:h<CR>:pwd<CR>
 nnoremap <Leader>lcd :lcd %:p:h<CR>:pwd<CR>
 
+" Quick :Bdelete (vim-bbye) {{{1
+nnoremap <Leader>d :Bdelete
+
 " Quick-edit .vimrc {{{1
 nnoremap <Leader>vr :tabedit $MYVIMRC<CR>
 
