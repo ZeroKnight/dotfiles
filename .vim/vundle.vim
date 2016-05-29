@@ -24,7 +24,8 @@ Plugin 'VundleVim/Vundle.vim'
 
 " UI Additions {{{
 Plugin 'bling/vim-airline'
-Plugin 'scrooloose/nerdtree'
+"Plugin 'scrooloose/nerdtree'
+Plugin 'justinmk/vim-dirvish'
 Plugin 'mhinz/vim-startify'
 Plugin 'mbbill/undotree'
 "Plugin 'sjl/gundo'
@@ -43,10 +44,12 @@ Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-eunuch'
 Plugin 'tpope/vim-abolish'
 Plugin 'tpope/vim-characterize'
+Plugin 'tpope/vim-commentary'
 Plugin 'godlygeek/tabular'
-Plugin 'scrooloose/nerdcommenter'
+" Plugin 'scrooloose/nerdcommenter'
 Plugin 'christoomey/vim-sort-motion'
 Plugin 'wellle/targets.vim'
+Plugin 'moll/vim-bbye'
 "Plugin 'Lokaltog/vim-easymotion'
 "}}}
 
@@ -60,6 +63,7 @@ Plugin 'xolox/vim-session'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'bruno-/vim-man'
 Plugin 'alx741/vinfo'
+Plugin 'reedes/vim-wordy'
 "}}}
 
 " Color Schemes {{{
