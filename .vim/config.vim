@@ -93,7 +93,7 @@ set formatoptions=crqnj
 " Use spaces for tabs like a civilized person
 set expandtab softtabstop=2 shiftwidth=2
 set smartindent " cindent set automatically based on filetype
-set cinoptions=>s,l1,b0,g0,(0,U1,w1,Ws,m1,j1,J1
+set cinoptions=Ls,l1,b1,g0,N-s,t0,(0,U1,w1,Ws,m1,j1,J1
 set cinkeys=0{,0},:,0#,!^F,o,O,e,0=break
 
 " Coloring/Highlighting/Syntax {{{1
