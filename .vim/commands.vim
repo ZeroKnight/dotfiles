@@ -13,4 +13,9 @@ command! Q q
 command! -nargs=? -complete=help Helptab tab help <args>
 cnoreabbrev <expr> ht getcmdtype() == ':' && getcmdline() == 'ht' ? 'Helptab' : 'ht'
 
+" Open :help in a vertical split {{{1
+command! -nargs=? -complete=help Helpvert vert help <args>
+cnoreabbrev <expr> hv getcmdtype() == ':' && getcmdline() == 'hv' ? 'Helpvert' : 'hv'
+cnoreabbrev <expr> vh getcmdtype() == ':' && getcmdline() == 'vh' ? 'Helpvert' : 'vh'
+
 " vim: fdm=marker
