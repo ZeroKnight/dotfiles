@@ -19,17 +19,22 @@ if has("autocmd")
 
     " Use actual TABs when editing UltiSnips snippets. This makes UltiSnips
     " dynamically use expandtab, softtabstop, shiftwidth, etc in snippets
-    autocmd filetype snippets setlocal sts=0
+    autocmd FileType snippets setlocal sts=0
 
     " SourcePawn compilation
-    autocmd filetype sourcepawn setlocal makeprg=/usr/local/bin/spc\ % |
+    autocmd FileType sourcepawn
+      \ setlocal makeprg=/usr/local/bin/spc\ % |
       \ setlocal commentstring=//%s
 
     " Help/Man Page Viewer
-    autocmd filetype help,man nnoremap <buffer><CR> <C-]>
-    autocmd filetype help,man nnoremap <buffer><BS> <C-T>
-    autocmd filetype help,man nnoremap <buffer>q :q<CR>
-    autocmd filetype man
+    autocmd FileType help,man
+      \ nnoremap <buffer> <CR> <C-]> |
+      \ nnoremap <buffer> <BS> <C-T> |
+      \ nnoremap <buffer> q :q<CR>
+    autocmd FileType man
       \ setlocal ro noma nonu cc=0 noet ts=8 sts=8 sw=8 nolist
+
+    " C/++ Settings
+    autocmd FileType c,cpp setlocal nosmartindent cindent
   augroup END
 endif
