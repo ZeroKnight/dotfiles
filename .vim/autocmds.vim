@@ -36,5 +36,12 @@ if has("autocmd")
 
     " C/++ Settings
     autocmd FileType c,cpp setlocal nosmartindent cindent
+
+    " Dirvish
+    autocmd FileType dirvish
+      \ nnoremap <buffer> t :call dirvish#open('tabedit', 0)<CR> |
+      \ xnoremap <buffer> t :call dirvish#open('tabedit', 0)<CR> |
+      \ call fugitive#detect(@%) |
+      \ nnoremap gh :keeppatterns g@\v/\.[^\/]+/?$@d<cr>
   augroup END
 endif

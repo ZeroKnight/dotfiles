@@ -29,17 +29,15 @@ Plugin 'vim-airline/vim-airline-themes'
 Plugin 'justinmk/vim-dirvish'
 Plugin 'mhinz/vim-startify'
 Plugin 'mbbill/undotree'
-"Plugin 'sjl/gundo'
 Plugin 'majutsushi/tagbar'
 Plugin 'hari-rangarajan/CCTree'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'vim-scripts/ShowMarks'
 Plugin 'Yggdroot/indentLine'
+Plugin 'chrisbra/NrrwRgn'
 "}}}
 
 " Commands/Mappings {{{
-Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-rhubarb'
 Plugin 'tpope/vim-unimpaired'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-eunuch'
@@ -53,6 +51,8 @@ Plugin 'moll/vim-bbye'
 "}}}
 
 " Helpers & Tools {{{
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-rhubarb'
 Plugin 'ervandew/supertab'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'rdnetto/YCM-Generator'
@@ -63,30 +63,16 @@ Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'bruno-/vim-man'
 Plugin 'alx741/vinfo'
 Plugin 'reedes/vim-wordy'
+Plugin 'wesQ3/vim-windowswap'
 "}}}
 
-" Color Schemes {{{
-Plugin 'vim-scripts/CSApprox'
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'Pychimp/vim-luna'
-Plugin 'tomasr/molokai'
-Plugin 'ciaranm/inkpot'
-Plugin 'nanotech/jellybeans.vim'
-"}}}
-
-" Language Additions/Extensions {{{
+" Syntax Files & Language Additions/Extensions {{{
+Plugin 'sheerun/vim-polyglot'
 Plugin 'othree/xml.vim'
 Plugin 'Valloric/MatchTagAlways'
 Plugin 'jeaye/color_coded'
 "Plugin 'octol/vim-cpp-enhanced-highlight'
-"}}}
-
-" Syntax Files {{{
 "Plugin 'ZeroKnight/vim-cubescript'
-Plugin 'plasticboy/vim-markdown'
-Plugin 'mutewinter/vim-tmux'
-"Plugin 'mutewinter/nginx.vim'
-Plugin 'kurayama/systemd-vim-syntax'
 Plugin 'xolox/vim-lua-ftplugin'
 Plugin 'withgod/vim-sourcepawn'
 "}}}

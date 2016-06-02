@@ -43,13 +43,6 @@ let g:indentLine_char = '│'
 let g:indentLine_fileTypeExclude = ['help', 'text', 'nerdtree', 'startify', 'man']
 "let g:indentLine_bufNameExclude = []
 
-" NERDTree {{{1
-let NERDChristmasTree = 1
-let NERDTreeHijackNetrw = 1
-let NERDTreeShowBookmarks = 1
-let NERDTreeShowHidden = 1
-let NERDTreeBookmarksFile = $VIMFILES . "/.NERDTreeBookmarks"
-
 " ShowMarks {{{1
 " Keep disabled on startup
 let showmarks_enable = 0
