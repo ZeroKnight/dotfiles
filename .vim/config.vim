@@ -105,25 +105,12 @@ if !exists("syntax on")
 endif
 
 " Set color scheme
+"if (!has("gui_running") && &term =~? '256')
+"  set t_Co=256
+"endif
+let g:onedark_termcolors=16
 set background=dark
-color molokai
-
-" Solarized Settings
-if exists("color solarized")
-    " Make listchars lightly colored
-    let g:solarized_visibility = low
-
-    " Do not use italics for comments
-    let g:solarized_italic = 0
-
-    " Set termcolors
-    if has("gui_running")
-        "let g:solarized_termcolors = 256
-    else
-        let g:solarized_termcolors = 256
-        set t_Co=256
-    endif
-endif
+colorscheme onedark
 
 " C Syntax Settings
 let c_gnu = 1

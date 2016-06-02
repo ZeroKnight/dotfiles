@@ -23,7 +23,8 @@ Plugin 'VundleVim/Vundle.vim'
 "================
 
 " Menus, UI Tweaks & Additions {{{
-Plugin 'bling/vim-airline'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 "Plugin 'scrooloose/nerdtree'
 Plugin 'justinmk/vim-dirvish'
 Plugin 'mhinz/vim-startify'
@@ -94,6 +95,17 @@ Plugin 'withgod/vim-sourcepawn'
 Plugin 'tpope/vim-repeat'
 Plugin 'xolox/vim-misc'
 Plugin 'tpope/vim-dispatch'
+"}}}
+
+" Color Schemes {{{
+Plugin 'joshdick/onedark.vim'
+Plugin 'joshdick/airline-onedark.vim'
+Plugin 'Pychimp/vim-luna'
+Plugin 'tomasr/molokai'
+Plugin 'sickill/vim-monokai'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'ciaranm/inkpot'
+Plugin 'nanotech/jellybeans.vim'
 "}}}
 
 " vim: fdm=marker
