@@ -18,7 +18,7 @@ let $VIMSESSIONS = $VIMFILES . '/session'
 set viminfo='50,:100,s256,n$VIMFILES/.viminfo
 
 " Session/View Options
-set sessionoptions=buffers,curdir,folds,globals,resize,slash,tabpages,unix,winpos,winsize
+set sessionoptions=buffers,curdir,folds,globals,help,resize,slash,tabpages,unix,winpos,winsize
 set viewoptions=cursor,folds,slash,unix
 
 " File/Directory Locations {{{1
@@ -55,7 +55,7 @@ set foldopen=block,hor,mark,percent,quickfix,search,tag,undo
 
 " Searching
 set ignorecase smartcase incsearch hls
-set wildignore+=*.o,*.obj,*.exe,*.so,*.dll,*.pyc,.svn,.hg,.bzr,.git
+set wildignore=*.o,*.obj,*.exe,*.so,*.dll,*.pyc,.svn,.hg,.bzr,.git
 
 " List mode
 set list

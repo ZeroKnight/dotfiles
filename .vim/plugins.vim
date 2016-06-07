@@ -117,11 +117,6 @@ let g:snips_author = "Alex \"ZeroKnight\" George"
 let g:UltiSnipsExpandTrigger = "<tab>"
 let g:UltiSnipsListSnippets = "<C-x>"
 
-" xolox Extended Sessions {{{1
-let g:session_directory = $VIMSESSIONS
-let g:session_autoload = 'no'
-let g:session_autosave_periodic = 10
-
 " YouCompleteMe {{{1
 let g:ycm_error_symbol = '✗'
 let g:ycm_warning_symbol = '!!'
