@@ -18,7 +18,7 @@ command! -nargs=? -complete=help Helpvert vert help <args>
 cnoreabbrev <expr> hv getcmdtype() == ':' && getcmdline() == 'hv' ? 'Helpvert' : 'hv'
 cnoreabbrev <expr> vh getcmdtype() == ':' && getcmdline() == 'vh' ? 'Helpvert' : 'vh'
 
-" Load Comment Tags into the Location List
+" Load Comment Tags into the Location List {{{1
 command! -nargs=0 Todo execute 'LAg -A ' . string(g:zeroknight_comment_tags)
 
 " vim: fdm=marker
