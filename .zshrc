@@ -97,5 +97,5 @@ if isAvailable tmuxifier; then
 fi
 
 # Powerline
-source /usr/share/zsh/site-contrib/powerline.zsh
+source /usr/lib/python3.5/site-packages/powerline/bindings/zsh/powerline.zsh
 
