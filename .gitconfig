@@ -1,6 +1,7 @@
 [user]
     name = ZeroKnight
     email = xzeroknightx@gmail.com
+    signingkey = 1F7E2A04
 [color]
     ui = auto
     status = auto
