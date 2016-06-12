@@ -11,6 +11,9 @@ set encoding=utf-8 termencoding=utf-8
 let $VIMFILES = expand('~/.vim')
 let $VIMSESSIONS = $VIMFILES . '/session'
 
+" Other variables
+let g:zeroknight_comment_tags = 'TODO|FIXME|XXX|NOTE|HACK|BUG|WARNING|ATTENTION|ALERT|DANGER|TBD|TASK|NOTICE|TEST|DEBUG|DEPRECATED|WTF'
+
 " viminfo Options
 " ' = Save marks; : = Save command history
 " Don't include '/' because we want all search/substitute pattern history

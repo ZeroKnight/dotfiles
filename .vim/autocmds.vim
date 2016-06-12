@@ -43,5 +43,10 @@ if has("autocmd")
       \ xnoremap <buffer> t :call dirvish#open('tabedit', 0)<CR> |
       \ call fugitive#detect(@%) |
       \ nnoremap gh :keeppatterns g@\v/\.[^\/]+/?$@d<cr>
+
+    " Comment Tags
+    autocmd Syntax * execute 'syn match ZeroCommentTags /\v(' .
+      \ g:zeroknight_comment_tags . '):?/ containedin=.*Comment.*' |
+      \ hi def link ZeroCommentTags Todo
   augroup END
 endif
