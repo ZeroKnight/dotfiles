@@ -4,26 +4,25 @@
 #font = Source Code Pro 9
 font = Office Code Pro 9
 
-# Molokai theme
+# OneDark Theme
 [colors]
-backgroun = #101010
-foreground = #d0d0d0
-#foreground = #66ff66
-#highlight = #505050
-cursor = #66ff66
-color0 = #101010
-color1 = #960050
-color2 = #66aa11
-color3 = #c47f2c
-color4 = #30309b
-color5 = #7e40a5
-color6 = #3579a8
-color7 = #9999aa
-color8 = #303030
-color9 = #ff0090
-color10 = #80ff00
-color11 = #ffba68
-color12 = #5f5fee
-color13 = #bb88dd
-color14 = #4eb4fa
-color15 = #d0d0d0
+foreground      = #9ba2b3
+foreground_bold = #9ba2b3
+cursor          = #9ba2b3
+background      = #1e2127
+color0          = #1e2127
+color1          = #d65562
+color2          = #88b966
+color3          = #deb468
+color4          = #519deb
+color5          = #b85dd5
+color6          = #48a8b5
+color7          = #9ba2b1
+color8          = #2f3441
+color9          = #ae3b36
+color10         = #88b966
+color11         = #c58853
+color12         = #519deb
+color13         = #b85dd5
+color14         = #48a8b5
+color15         = #4a535d
