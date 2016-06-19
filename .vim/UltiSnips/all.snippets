@@ -5,8 +5,8 @@ snippet sig "Insert signature"
 `!v g:snips_author`
 endsnippet
 
-snippet copyright "Copyright (c)"
-Copyright (c) `!v strftime("%Y")` `!v g:snips_author`
+snippet copyright "Copyright ©"
+Copyright © `!v strftime("%Y")` `!v g:snips_author`
 endsnippet
 
 snippet time "Insert time"
@@ -104,7 +104,7 @@ endsnippet
 # Ugly, I know
 snippet copyheader "Copyright info header" b
 `!p snip.rv = _get_comment_format()[0]`
-`!p snip.rv = ' ' if _get_comment_format()[1] == '*' else ''``!p snip.rv = _get_comment_format()[1]` Copyright (c) `!v strftime("%Y")` `!v g:snips_author`
+`!p snip.rv = ' ' if _get_comment_format()[1] == '*' else ''``!p snip.rv = _get_comment_format()[1]` Copyright © `!v strftime("%Y")` `!v g:snips_author`
 `!p snip.rv = ' ' if _get_comment_format()[1] == '*' else ''``!p snip.rv = _get_comment_format()[1]`
 `!p snip.rv = ' ' if _get_comment_format()[1] == '*' else ''``!p snip.rv = _get_comment_format()[1]` This file is licensed under the ${1:MIT} License. For details, please see the
 `!p snip.rv = ' ' if _get_comment_format()[1] == '*' else ''``!p snip.rv = _get_comment_format()[1]` LICENSE file that should be included with the source code, or
