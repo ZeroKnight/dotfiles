@@ -36,10 +36,6 @@ nnoremap [h :GitGutterPrevHunk<CR>
 " Move cursor to the middle of a line {{{1
 noremap <silent> gm :call cursor(0, virtcol('$')/2)<CR>
 
-" F3 - Toggle NERDtree {{{1
-nnoremap <silent> <F3> :NERDTreeToggle<CR>
-inoremap <silent> <F3> <C-o>:NERDTreeToggle<CR>
-
 " F4 - Toggle Tagbar {{{1
 nnoremap <silent> <F4> :TagbarToggle<CR>
 inoremap <silent> <F4> <C-o>:TagbarToggle<CR>
@@ -79,6 +75,9 @@ nnoremap <C-H> h
 nnoremap <C-J> j
 nnoremap <C-K> k
 nnoremap <C-L> l
+
+" Fugitive {{{1
+nnoremap <silent> <Leader>gs :Gstatus<CR>
 
 "}}}
 
