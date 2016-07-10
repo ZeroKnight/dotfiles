@@ -44,9 +44,9 @@ inoremap <silent> <F4> <C-o>:TagbarToggle<CR>
 nnoremap <silent> <F5> :UndotreeToggle<CR>
 inoremap <silent> <F5> <C-o>:UndotreeToggle<CR>
 
-" F6 - Toggle ShowMarks {{{1
-nnoremap <silent> <F6> :ShowMarksToggle<CR>
-inoremap <silent> <F6> <C-o>:ShowMarksToggle<CR>
+" F6 - Toggle Signature {{{1
+nnoremap <silent> <F6> :SignatureToggleSigns<CR>
+inoremap <silent> <F6> <C-o>:SignatureToggleSigns<CR>
 
 " C-F12 - Generate tags file {{{1
 "nnoremap <C-F12> :!ctags -R --c++-kinds=+p --fields=+liaS --extra=+q .<CR>

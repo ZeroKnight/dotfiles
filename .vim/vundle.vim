@@ -32,6 +32,7 @@ Plugin 'mbbill/undotree'
 Plugin 'majutsushi/tagbar'
 Plugin 'hari-rangarajan/CCTree'
 Plugin 'airblade/vim-gitgutter'
+Plugin 'kshenoy/vim-signature'
 Plugin 'vim-scripts/ShowMarks'
 Plugin 'Yggdroot/indentLine'
 Plugin 'chrisbra/NrrwRgn'
@@ -64,6 +65,7 @@ Plugin 'bruno-/vim-man'
 Plugin 'alx741/vinfo'
 Plugin 'reedes/vim-wordy'
 Plugin 'wesQ3/vim-windowswap'
+Plugin 'Konfekt/FastFold'
 "}}}
 
 " Syntax Files & Language Additions/Extensions {{{
