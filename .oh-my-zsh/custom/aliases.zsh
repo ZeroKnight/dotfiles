@@ -3,6 +3,9 @@ alias ta='tmux attach-session -t'
 alias md='mkdir -vp'
 alias sysc='systemctl'
 
+# Explicitly expand aliases when using sudo (see `man zshmisc`)
+alias sudo='sudo '
+
 # Implicit sudo shortcuts
 alias pacman='sudo pacman'
 alias apt='sudo apt'
