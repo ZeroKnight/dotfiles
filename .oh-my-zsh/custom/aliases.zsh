@@ -2,6 +2,7 @@ alias t='tmux'
 alias ta='tmux attach-session -t'
 alias md='mkdir -vp'
 alias sysc='systemctl'
+alias re.pl='re.pl --rcfile ~/.config/repl.rc'
 
 # Explicitly expand aliases when using sudo (see `man zshmisc`)
 alias sudo='sudo '

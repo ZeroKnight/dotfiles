@@ -10,3 +10,4 @@
 !.dircolors
 !/termite/config
 !/tmuxifier/**
+!repl.rc
