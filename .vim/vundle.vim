@@ -33,7 +33,6 @@ Plugin 'majutsushi/tagbar'
 Plugin 'hari-rangarajan/CCTree'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'kshenoy/vim-signature'
-Plugin 'vim-scripts/ShowMarks'
 Plugin 'Yggdroot/indentLine'
 Plugin 'chrisbra/NrrwRgn'
 "}}}
