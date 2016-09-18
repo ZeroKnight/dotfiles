@@ -67,6 +67,9 @@ set listchars=tab:▮▶,trail:∙,extends:▷,precedes:◁
 " Wild Menu
 set wildmenu
 
+" New splits will open more naturally
+set splitright splitbelow
+
 " Buffer Settings {{{1
 "==============================
 
