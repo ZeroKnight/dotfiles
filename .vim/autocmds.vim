@@ -11,6 +11,11 @@ if has("autocmd")
     autocmd BufWritePost .vimrc source $MYVIMRC
     autocmd BufWritePost ~/.vim/*.vim,~/dotfiles/.vim/*.vim source %
 
+    " Automatically create directories for new files when saving
+    autocmd BufWritePre,FileWritePre *
+      \ if !isdirectory(expand('<afile>:p:h')) |
+      \ silent! exec '!mkdir -p ' . expand('<afile>:p:h') | endif
+
     " Toggle Relative-Numbering in various cases
     autocmd WinLeave,InsertEnter *
       \ if &number | set norelativenumber | endif
