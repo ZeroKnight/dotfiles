@@ -1,8 +1,10 @@
 # termite Configuration
 
 [options]
-#font = Source Code Pro 9
 font = Office Code Pro 9
+cursor_blink = on
+dynamic_title = on
+mouse_autohide = on
 
 # OneDark Theme
 [colors]
