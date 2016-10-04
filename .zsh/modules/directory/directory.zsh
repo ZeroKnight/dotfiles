@@ -1,11 +1,29 @@
-alias df='df -h'    # Human-readable
-alias du='du -ch'   # Human-readable; total
+#
+# Directory settings, aliases and functions
+#
 
-###
-### ls Shortcuts
-###
+# Automatic directory stack management
+setopt auto_pushd pushd_ignore_dups pushdminus
 
-alias ls='ls -hAFH --color' # Baseline
+# cd Modifications
+setopt auto_cd # `foo` == `[-d 'foo'] && cd foo`
+setopt cdable_vars
+
+# Directory Aliases
+alias df='df -h'  # Human-readable
+alias du='du -ch' # Human-readable; total
+alias md='mkdir -vp'
+alias rd='rmdir'
+
+# Directory Stack Shortcuts
+alias pu='pushd'
+alias po='popd'
+alias -- -='cd -'
+
+# ls Shortcuts
+################################
+
+alias ls='ls -hAFH --color --group-directories-first'
 alias ll='ls -l'            # Long-list
 alias lr='ls -R'            # Recursive
 alias lx='ls -BX'           # Sort by Extension, omit backups

@@ -1,0 +1,11 @@
+#
+# Use Vim as our man page viewer with the help of a couple plugins and settings
+#
+
+vim -c "Man $* | only"
+
+if (( $? != 0 )); then
+    print "No manual entry for $*"
+fi
+
+# vim: ft=zsh

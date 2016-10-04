@@ -1,0 +1,9 @@
+#
+# Quickly clone from Github
+#
+
+for r ($@) {
+  git clone https://github.com/$r
+}
+
+# vim: ft=zsh

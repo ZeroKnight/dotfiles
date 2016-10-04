@@ -1,0 +1,7 @@
+#
+# ptpb pastebin client delete shortcut
+#
+
+curl -X DELETE "https://ptpb.pw/$1"
+
+# vim: ft=zsh

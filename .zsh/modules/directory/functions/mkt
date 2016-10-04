@@ -1,0 +1,6 @@
+# Create a temporary directory and `cd` to it
+# Will pass arguemnts to `mktemp`
+
+builtin cd $(mktemp -d $@)
+
+# vim: ft=zsh
