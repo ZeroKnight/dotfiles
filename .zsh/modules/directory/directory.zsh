@@ -2,12 +2,24 @@
 # Directory settings, aliases and functions
 #
 
+### dircolors
+
+# Set LS_COLORS
+eval $(dircolors -b $HOME/.config/.dircolors)
+
+# Enable dircolors in file completion
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+
+### Zsh options
+
 # Automatic directory stack management
 setopt auto_pushd pushd_ignore_dups pushdminus
 
 # cd Modifications
 setopt auto_cd # `foo` == `[-d 'foo'] && cd foo`
 setopt cdable_vars
+
+### Aliases
 
 # Directory Aliases
 alias df='df -h'  # Human-readable
@@ -21,8 +33,6 @@ alias po='popd'
 alias -- -='cd -'
 
 # ls Shortcuts
-################################
-
 alias ls='ls -hAFH --color --group-directories-first'
 alias ll='ls -l'            # Long-list
 alias lr='ls -R'            # Recursive
