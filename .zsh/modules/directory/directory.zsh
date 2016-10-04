@@ -59,3 +59,4 @@ alias llC='llc -r'          # Long Sort by CTime, reverse
 alias lss='ls | less'
 alias lls='ll | less'
 
+alias sl='ls' # Doh
