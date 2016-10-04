@@ -20,6 +20,9 @@ source ${0:h}/compdefs.zsh
 
 setopt always_to_end
 setopt auto_list auto_menu no_menu_complete
+setopt auto_param_slash
+setopt auto_param_keys
+setopt complete_in_word
 
 setopt case_glob case_match
 setopt extended_glob
