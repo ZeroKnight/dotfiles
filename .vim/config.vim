@@ -95,6 +95,7 @@ set autoread
 
 set textwidth=80 colorcolumn=+1
 set formatoptions=crqnj
+set nojoinspaces
 
 " Use spaces for tabs like a civilized person
 set expandtab softtabstop=2 shiftwidth=2
