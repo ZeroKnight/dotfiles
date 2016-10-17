@@ -31,13 +31,6 @@ if executable('ag')
   let g:ctrlp_use_caching = 0
 endif
 
-" GitGutter {{{1
-hi! link SignColumn LineNr
-hi! link GitGutterAdd           DiffAdd
-hi! link GitGutterChange        DiffChange
-hi! link GitGutterDelete        DiffDelete
-hi! link GitGutterChangeDelete  DiffDelete
-
 " Indent Guides {{{1
 let g:indentLine_char = '│'
 let g:indentLine_fileTypeExclude = ['help', 'text', 'nerdtree', 'startify', 'man']
