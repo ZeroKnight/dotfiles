@@ -86,7 +86,6 @@ Plugin 'tpope/vim-dispatch'
 
 " Color Schemes {{{
 Plugin 'joshdick/onedark.vim'
-Plugin 'joshdick/airline-onedark.vim'
 Plugin 'Pychimp/vim-luna'
 Plugin 'tomasr/molokai'
 Plugin 'sickill/vim-monokai'
