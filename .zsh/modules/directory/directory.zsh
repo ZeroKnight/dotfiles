@@ -19,6 +19,10 @@ setopt auto_pushd pushd_ignore_dups pushdminus
 setopt auto_cd # `foo` == `[-d 'foo'] && cd foo`
 setopt cdable_vars
 
+# Make named directories available immediately
+setopt auto_name_dirs
+: ~ZSH # Make available despite being being set before this option
+
 ### Aliases
 
 # Directory Aliases
