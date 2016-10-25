@@ -1,3 +1,6 @@
+#
+# List processes by pattern matching
+#
 # Like `ps | grep foo`, but shorter and less ugly
 
 local pids="$(pgrep -d, $1)"
