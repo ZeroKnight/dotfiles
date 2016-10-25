@@ -91,6 +91,22 @@ complete-word-with-indicator() {
 zle -N complete-word-with-indicator
 bindkey '^I' complete-word-with-indicator
 
+# Smart URL Pasting and escaping
+autoload -Uz is-at-least
+if [[ $ZSH_VERSION != 5.1.1 ]]; then
+  if is-at-least 5.2; then
+    autoload -Uz bracketed-paste-url-magic
+    zle -N bracketed-paste bracketed-paste-url-magic
+  else
+    if is-at-least 5.1; then
+      autoload -Uz bracketed-paste-magic
+      zle -N bracketed-paste bracketed-paste-magic
+    fi
+    autoload -Uz url-quote-magic
+    zle -N self-insert url-quote-magic
+  fi
+fi
+
 ### Options
 
 # Perform a path search even on command names with slashes in them.
