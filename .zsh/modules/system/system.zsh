@@ -34,7 +34,10 @@ alias -g NUL='&>/dev/null'
 
 ### Saftey Measures
 
-alias ln='ln -i'                    # Prompts to remove destination
-alias chown='chown --preserve-root' # Prevent recursive on /
-alias chmod='chmod --preserve-root'
-alias chgrp='chgrp --preserve-root'
+# Prompts to remove destination
+alias ln='ln -i'
+
+# Prevent recursive on /
+alias chown='chown -v --preserve-root'
+alias chmod='chmod -v --preserve-root'
+alias chgrp='chgrp -v --preserve-root'
