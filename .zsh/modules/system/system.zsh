@@ -38,6 +38,7 @@ alias -g NUL='&>/dev/null'
 alias ln='ln -i'
 
 # Prevent recursive on /
+alias rm='rm -I --preserve-root'
 alias chown='chown -v --preserve-root'
 alias chmod='chmod -v --preserve-root'
 alias chgrp='chgrp -v --preserve-root'
