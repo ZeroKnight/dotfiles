@@ -4,16 +4,24 @@ extends sh
 
 priority -49
 
-snippet #! "shebang" b
-`!p snip.rv = "#!/bin/"`${1:zsh}
-
-$0
+snippet forz "for i (words) { ... }"
+for ${1:i} (${2:words}) {
+	$0
+}
 endsnippet
 
-snippet #!e "#!/usr/bin/env" b
-`!p snip.rv = "#!/usr/bin/env"` ${1:zsh}
+snippet case "case ... esac"
+case ${1:word} in
+	(${2:pattern})
+		$0
+		;;
+esac
+endsnippet
 
-$0
+snippet casep "case pattern"
+(${1:pattern})
+	$0
+	;;
 endsnippet
 
 # vim: ft=snippets
