@@ -1,0 +1,55 @@
+#
+# Catch-all wrapper for compressing and/or archiving files
+#
+# Intended for quick, lazy results. Use the individual commands for flexibility
+
+single() {
+  [[ $#files > 1 ]] && print "Requested .$1; only compressing '$files[1]' ..."
+}
+
+compress() {
+  if [[ $# < 2 ]]; then
+    print "Usage: $0 <archive.ext> <file|dir>...
+  'ext' determines what compression method (if any) is used" >&2
+    return 1
+  fi
+
+  local file files aname
+
+  aname="$1"; shift
+  files=($*)
+
+  for file ($files) {
+    if [[ ! -e "$file" ]]; then
+      print "$0: No such file or directory: $file" >&2
+      return 1
+    fi
+  }
+
+  case $aname in
+    (*.tar.gz|*.tgz)      tar -zcvf "$aname" $files ;;
+    (*.tar.bz2|*.tbz(2|)) tar -jcvf "$aname" $files ;;
+    (*.tar.xz|*.txz)      tar -Jcvf "$aname" $files ;;
+    (*.tar.lzma|*.tlz)    tar --lzma -cvf "$aname" $files ;;
+    (*.tar.lzo|*.tzo)     tar --lzop -cvf "$aname" $files ;;
+    (*.tar.lz4|*.tz4)     tar --use-compress-program=lz4 -cvf "$aname" $files ;;
+    (*.tar)               tar -cvf "$aname" $files ;;
+    ((^*.tar).gz)         single ${aname:e}; gzip -ck $files[1] > "$aname" ;;
+    ((^*.tar).bz2)        single ${aname:e}; bzip2 -ck $files[1] > "$aname" ;;
+    ((^*.tar).xz)         single ${aname:e}; xz -ck $files[1] > "$aname" ;;
+    ((^*.tar).lzma)       single ${aname:e}; xz --lzma -ck $files[1] > "$aname" ;;
+    ((^*.tar).lzo)        single ${aname:e}; lzop -o "$aname" $files[1] ;;
+    ((^*.tar).lz4)        single ${aname:e}; lz4 "$aname" $files[1] ;;
+    (*.7z)                7za a "$aname" $files ;;
+    (*.zip)               zip -r "$aname" $files ;;
+    (*.rar)               rar a "$aname" $files ;;
+    (*)
+      print "$0: Could not determine strategy for $aname" >&2
+      return 1
+      ;;
+  esac
+}
+
+compress "$@"
+
+# vim: ft=zsh
