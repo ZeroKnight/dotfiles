@@ -26,6 +26,7 @@ function {
     autoload -Uz $func
   }
 }
+unset module func
 
 ### Run core programs
 
