@@ -37,6 +37,9 @@ zsh_key_info=(
   'BackTab'      "${terminfo[kcbt]}"
 )
 
+# Disable Flow Control
+stty -ixon
+
 # Set Vi-keys
 bindkey -v
 
