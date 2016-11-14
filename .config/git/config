@@ -13,29 +13,15 @@
     editor = vim
     pager = less -S
 [alias]
-    p = add --patch
-    co = checkout
-    ci = commit
-    ca = commit --amend
-    cA = commit --amend --reuse-message=HEAD
-    cv = commit --verbose
-    cva = commit --ammend --verbose
-    br = branch
-    brc = checkout -b
-    cob = checkout -b
-    st = status
-    sa = submodule add
-    su = submodule update
-    unstage = reset HEAD --
-    master = checkout master
     this = !git init && git add . && git commit -m 'Initial Commit'
     ignore = !([ ! -e .gitignore ] && touch .gitignore) | echo  >>.gitignore
     ctags = !.git/hooks/ctags
-    r = !git ls-files -z --deleted | xargs -0 git rm
-    alias = !git config --get-regexp '^alias\\.' | sed 's/^alias\\.\\(\\S\\+\\)/\\1\\t=>/' | sort | less -S
-    l = log --graph --full-history --all --color --pretty=format:"%x1b[31m%h%x09%x1b[32m%d%x1b[0m%x20%s"
-    lv = log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+    rmdel = !git ls-files -z --deleted | xargs -0 git rm
 [push]
     default = current
 [init]
     templatedir = ~/.git_template
+[pretty]
+    single = "format:%C(green)%<|(13)%h%C(reset) %s%C(bold)%C(magenta)%d%C(reset) %C(yellow)[%cd] %C(cyan)<%aN %aE>%C(reset)"
+    medinfo = "format:%C(bold)Commit:%C(reset) %C(green)%H%C(bold)%C(magenta)%d%C(reset)%n%C(bold)Author:%C(reset) %C(cyan)%aN <%aE>%C(reset) - %C(yellow)%ad (%ar)%C(reset)%n%GG%w(0,2,2)%+B"
+    fullinfo = "format:%C(bold)Commit:%C(reset) %C(green)%H%C(bold)%C(magenta)%d%C(reset)%n%C(bold)Author:%C(reset)    %C(cyan)%aN <%aE>%C(reset) - %C(yellow)%ad (%ar)%C(reset)%n%C(bold)Committer:%C(reset) %C(cyan)%cN <%aE>%C(reset) - %C(yellow)%cd (%cr)%C(reset)%n%GG%w(0,2,2)%+B"
