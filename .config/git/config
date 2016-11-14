@@ -4,23 +4,19 @@
     signingkey = 1F7E2A04
 [color]
     ui = auto
-    status = auto
-    branch = auto
-    diff = auto
-    interactive = auto
-    grep = auto
 [core]
     editor = vim
     pager = less -S
 [alias]
     this = !git init && git add . && git commit -m 'Initial Commit'
-    ignore = !([ ! -e .gitignore ] && touch .gitignore) | echo  >>.gitignore
     ctags = !.git/hooks/ctags
     rmdel = !git ls-files -z --deleted | xargs -0 git rm
 [push]
     default = current
 [init]
     templatedir = ~/.config/git/template_default
+[log]
+    mailmap = true
 [pretty]
     single = "format:%C(green)%<|(13)%h%C(reset) %s%C(bold)%C(magenta)%d%C(reset) %C(yellow)[%cd] %C(cyan)<%aN %aE>%C(reset)"
     medinfo = "format:%C(bold)Commit:%C(reset) %C(green)%H%C(bold)%C(magenta)%d%C(reset)%n%C(bold)Author:%C(reset) %C(cyan)%aN <%aE>%C(reset) - %C(yellow)%ad (%ar)%C(reset)%n%GG%w(0,2,2)%+B"
