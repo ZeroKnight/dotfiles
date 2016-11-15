@@ -2,9 +2,6 @@
 # Zsh Completion Settings
 #
 
-# Explicitly load complist to ensure menu-select can be re-defined by compinit
-zmodload zsh/complist
-
 # Load and initialize the completion system
 # $fpath MUST be set up BEFORE running compinit!
 autoload -Uz compinit && compinit

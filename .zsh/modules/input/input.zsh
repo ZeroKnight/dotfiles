@@ -2,6 +2,10 @@
 # Input settings and keybinds
 #
 
+# Explicitly load complist to ensure menu-select can be re-defined by compinit,
+# and that the `listscroll` and `menuselect` keymaps are available
+zmodload zsh/complist
+
 # Human-friendly key names
 zmodload zsh/terminfo
 typeset -gA zsh_key_info

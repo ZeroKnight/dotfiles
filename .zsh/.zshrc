@@ -14,19 +14,25 @@ zcompare() {
 
 ### Initialize zsh
 
-# Load configuration files
-for module ($ZDOTDIR/modules/*(N)) {
-  [[ -s "$module/${module:t}.zsh" ]] && source "$module/${module:t}.zsh"
-}
+# Modules
+zmodules=(archive directory fasd git history misc perl processes spectrum \
+          system tmux vman input syntax-highlighting prompt completion)
 
-# Autoload functions
-function {
-  setopt LOCAL_OPTIONS EXTENDED_GLOB
-  for func ($ZDOTDIR/modules/*/functions/^[._]*~*.zwc(-.N:t)) {
-    autoload -Uz $func
+for module ($zmodules) {
+  mpath="$ZDOTDIR/modules/$module"
+
+  # Load configuration files
+  [[ -s "$mpath/$module.zsh" ]] && source "$mpath/$module.zsh"
+
+  # Autoload functions
+  [[ -d "$mpath/functions" ]] || continue
+  function {
+    setopt LOCAL_OPTIONS EXTENDED_GLOB NULL_GLOB
+    local funcs="$(print $mpath/functions/^[._]*~*.zwc(-.:t))"
+    [[ -n "$funcs" ]] && autoload -Uz $funcs
   }
 }
-unset module func
+unset module mpath
 
 ### Run core programs
 
