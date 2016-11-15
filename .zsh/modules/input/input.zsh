@@ -2,7 +2,7 @@
 # Input settings and keybinds
 #
 
-# Explicitly load complist to ensure menu-select can be re-defined by compinit,
+# Explicitly load complist to ensure menu-select can be re-defined by compinit
 # and that the `listscroll` and `menuselect` keymaps are available
 zmodload zsh/complist
 
@@ -76,7 +76,12 @@ bindkey '^Xp' predict-on
 bindkey '^XP' predict-off
 
 # Go straight to menu completion if we hit <Tab> again with list-prompt
-bindkey -M listscroll '^I' 'send-break; self-insert'
+listscroll-skip() {
+  send-break
+  self-insert
+}
+zle -N listscroll-skip
+bindkey -M listscroll '^I' listscroll-skip
 
 # Very elegant trick from Zim
 double-dot-expand() {
