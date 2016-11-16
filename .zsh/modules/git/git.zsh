@@ -65,6 +65,8 @@ alias giX='git rm -rf --cached'
 alias gl='git log --all --graph --pretty=single'
 alias glv='git log --topo-order --stat --dirstat --pretty=fullinfo'
 alias gld='git log --topo-order --patch-with-stat --full-diff --pretty=medinfo'
+alias glS='git log --topo-order --patch-with-stat --full-diff --pretty=medinfo -S'
+alias glG='git log --topo-order --patch-with-stat --full-diff --pretty=medinfo -G'
 
 # Merge
 alias gm='git merge'
