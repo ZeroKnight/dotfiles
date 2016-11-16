@@ -8,9 +8,9 @@
     editor = vim
     pager = less -S
 [alias]
-    this = !git init && git add . && git commit -m 'Initial Commit'
+    setup = !git init && git add . && git commit -m 'Initial Commit'
     ctags = !.git/hooks/ctags
-    rmdel = !git ls-files -z --deleted | xargs -0 git rm
+    auto-rm = !git ls-files -z --deleted | xargs -0 git rm
 [push]
     default = current
 [init]
