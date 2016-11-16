@@ -28,8 +28,8 @@ for module ($zmodules) {
   [[ -d "$mpath/functions" ]] || continue
   function {
     setopt LOCAL_OPTIONS EXTENDED_GLOB NULL_GLOB
-    local funcs="$(print $mpath/functions/^[._]*~*.zwc(-.:t))"
-    [[ -n "$funcs" ]] && autoload -Uz $funcs
+    local funcs=( $(print $mpath/functions/^[._]*~*.zwc(-.:t)) )
+    (( $#funcs )) && autoload -Uz $funcs
   }
 }
 unset module mpath
