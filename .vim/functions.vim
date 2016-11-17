@@ -22,17 +22,17 @@ nnoremap <silent> <Home> :call SmartHome()<CR>
 inoremap <silent> <Home> <C-O>:call SmartHome()<CR>
 
 " Recompile YCM {{{1
-function! RecompileYCM()
+function! RecompileYCM(nJobs)
   let l:wd = getcwd()
   execute "cd " . system("mktemp -d")
   execute "silent !cmake -G \"Unix Makefiles\" -DUSE_SYSTEM_LIBCLANG=ON . ~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp"
-  execute "silent !cmake --build . --target ycm_core -- -j6"
+  execute "silent !cmake --build . --target ycm_core" . a:nJobs ? "-- -j".a:nJobs : ""
   execute "silent !rm -rf " . getcwd()
   execute "cd " . l:wd
   redraw!
   execute "YcmRestartServer"
 endfunction
-nnoremap <Leader>ycm :call RecompileYCM()<CR>
+nnoremap <Leader>ycm :<C-U>call RecompileYCM(v:count)<CR>
 
 " Quick Trim Trailing Space {{{1
 function! TrimTrailingWhiteSpace()
