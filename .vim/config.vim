@@ -34,7 +34,7 @@ set viewdir=$VIMFILES/view
 
 " Persistent Undo
 if has('persistent_undo')
-    set undofile undodir=$VIMFILES/undo
+  set undofile undodir=$VIMFILES/undo
 endif
 
 " Tell Vim where to look for tags
@@ -108,14 +108,22 @@ set cinkeys=0{,0},:,0#,!^F,o,O,e,0=break
 
 " Turn on Syntax Highlighting if not already on
 if !exists("syntax on")
-    syntax on
+  syntax on
 endif
 
-" Set color scheme
-"if (!has("gui_running") && &term =~? '256')
-"  set t_Co=256
-"endif
-let g:onedark_termcolors=16
+" Use 24-bit colors
+if (has('termguicolors'))
+  set termguicolors
+endif
+
+" Disable Background Color Erase (BCE) so that color schemes render properly
+" when inside 256-color tmux and GNU screen. See also
+" http://sunaku.github.io/vim-256color-bce.html
+if (!empty($TMUX) && &term =~ '256color')
+  set t_ut=
+endif
+
+" Set Colorscheme
 set background=dark
 colorscheme onedark
 
