@@ -33,6 +33,7 @@ endif
 
 " Indent Guides {{{1
 let g:indentLine_char = '│'
+let g:indentLine_color_gui = 'Grey40'
 let g:indentLine_fileTypeExclude = ['help', 'text', 'nerdtree', 'startify', 'man']
 "let g:indentLine_bufNameExclude = []
 
