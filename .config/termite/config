@@ -1,7 +1,7 @@
 # termite Configuration
 
 [options]
-font = Office Code Pro 9
+font = Office Code Pro 9.5
 cursor_blink = on
 dynamic_title = on
 mouse_autohide = on
