@@ -1,0 +1,155 @@
+#
+# 'zero' theme for Zsh - A personal theme by Alex "ZeroKnight" George
+#
+# Color defaults were designed around the One Dark colorscheme
+#
+# Created: Friday November 25, 2016
+#
+
+prompt_zero_help() {
+  cat <<EOF
+  prompt zero [colors...]
+
+  Colors are defined in the following order:
+  lsym user user2 host host2 rhead cwd gitud gitbr gitact paren gitsta gituns gitunt exit select head4 name
+
+  Descriptions:
+  lsym    - Symbols on the left side of the prompt: :: @ % 
+  user    - Username
+  user2   - Username (when root)
+  host    - Hostname
+  host2   - Hostname (on SSH connection)
+  rhead   - Head of the right prompt: ❮
+  cwd     - Current Working Directory
+  gitud   - Git upstream delta; commits ahead/behind upstream branch
+  gitbr   - Git current branch
+  gitact  - Git current action (merge, rebase, etc)
+  paren   - Parentheses surrounding git state information
+  gitsta  - Git staged files indicator
+  gituns  - Git unstaged (modified) files indicator
+  gitunt  - Git untracked files indicator
+  exit    - Exit status color
+  select  - PS3 head color
+  head4   - PS4 head color: !
+  name    - Script/function name in PS4
+EOF
+}
+
+# Tweak the way vcs_info returns %r and %S. If we're in the repository root,
+# just return the normal path. If we're in a subdirectory of the root, return
+# %r/%S as normal. This prevents a bare 'project' or 'project/.' being returned.
++vi-git-repo-dir-tweak() {
+  [[ $1 == 0 ]] || return
+  if [[ $hook_com[subdir] == '.' ]]; then
+    hook_com[base-name]=${hook_com[base]/$HOME/\~}
+    hook_com[subdir]=''
+  else
+    hook_com[subdir]="/$hook_com[subdir]"
+  fi
+}
+
+prompt_zero_setup() {
+  local -A seg col
+
+  ### Initialize colors
+  col[lsym]=${1:-'green'}
+  col[user]=${2:-'yellow'}
+  col[user2]=${3-'red'}
+  col[host]=${4:-'cyan'}
+  col[host2]=${5:-'magenta'}
+  col[rhead]=${6:-'blue'}
+  col[cwd]=${7:-243}
+  col[gitud]=${8:-'magenta'}
+  col[gitbr]=${9:-'magenta'}
+  col[gitact]=${10:-'cyan'}
+  col[paren]=${11:-'white'}
+  col[gitsta]=${12:-'green'}
+  col[gituns]=${13:-'yellow'}
+  col[gitunt]=${14:-'red'}
+  col[exit]=${15:-'red'}
+  col[select]=${16:-'yellow'}
+  col[head4]=${17:-'yellow'}
+  col[name]=${18:-'magenta'}
+
+  ### Initialize vcs_info
+
+  autoload -Uz vcs_info
+  zstyle ':vcs_info:*' enable git
+  zstyle ':vcs_info:*' max-exports 5
+  zstyle ':vcs_info:git:*' check-for-changes true
+  zstyle ':vcs_info:git+set-message:*' hooks git-repo-dir-tweak
+  zstyle ':vcs_info:git:*' formats '%r%S' '%b' '%c' '%u'
+  zstyle ':vcs_info:git:*' actionformats '%r%S' '%b' '%c' '%u' '%a'
+  zstyle ':vcs_info:git:*' stagedstr '+'
+  zstyle ':vcs_info:git:*' unstagedstr '!'
+
+  ### Define prompt segments
+
+  seg[head]="%F{${col[lsym]}}::%f "
+  seg[tail]="%F{${col[lsym]}}%#%f "
+  seg[tail2]='%f> '
+  seg[rhead]="%F{${col[rhead]}}❮%B❮%b%f "
+  seg[rtail]=''
+
+  # Username - Use a different color if we're root
+  seg[user]="%(!.%B%F{${col[user2]}}.%F{${col[user]}})%n%b%f"
+
+  # Hostname - Use a different color if we're on a remote shell
+  if (( $+SSH_CLIENT || $+SSH_CONNECTION || $+SSH_TTY )); then
+    seg[host]="%F{${col[host2]}}%m%f"
+  else
+    seg[host]="%F{${col[host]}}%m%f"
+  fi
+  seg[userhost]="$seg[user]%F{${col[lsym]}}@%f$seg[host]"
+
+  seg[cwd]="%F{${col[cwd]}}%(2V.%2v.%~)%f"
+  seg[exit]="%(?.. %F{${col[exit]}}%v↵%f)"
+  seg[git]="%(2v. %F{${col[gitbr]}}%3v%(6V.%F{${col[gitact]}}:%6v.)%(4v.%f(%F{${col[gitsta]}}%4v%F{${col[gituns]}}%5v%F{${col[gitunt]}}%7v%(8v.%f|%F{${col[gitud]}}%8v%9v.)%f).)%f.)"
+
+  # Assemble the segments
+  PS1="$seg[head]$seg[userhost] $seg[tail]"
+  PS2="%F{${col[lsym]}}%i $seg[tail2]"
+  PS3="%F{${col[select]}}#? $seg[tail2]"
+  PS4="%F{${col[head4]}}!%F{${col[name]}}%N:%F{${col[lsym]}}%I.%i$seg[tail2]"
+  RPS1="$seg[rhead]$seg[cwd]$seg[git]$seg[exit]$seg[rtail]"
+  RPS2="$seg[rhead]%F{${col[name]}}%^%f"
+
+  add-zsh-hook precmd prompt_zero_precmd
+}
+
+prompt_zero_precmd() {
+  local rc=$? nahead nbehind
+  psvar=()
+
+  # Show exit status if non-zero, or the name of the caught signal
+  if (( rc >= 128 )); then
+    psvar[1]=$signals[$rc-127]
+  elif (( rc != 0 )); then
+    psvar[1]=$rc
+  fi
+
+  # Don't bother with git info if we're not in a repository
+  [[ -n $(command git rev-parse --git-dir 2>/dev/null) ]] || return
+
+  vcs_info
+  [[ -n $vcs_info_msg_0_ ]] && psvar[2]=$vcs_info_msg_0_
+  [[ -n $vcs_info_msg_1_ ]] && psvar[3]=$vcs_info_msg_1_
+  [[ -n $vcs_info_msg_2_ ]] && psvar[4]=$vcs_info_msg_2_
+  [[ -n $vcs_info_msg_3_ ]] && psvar[5]=$vcs_info_msg_3_
+  [[ -n $vcs_info_msg_4_ ]] && psvar[6]=$vcs_info_msg_4_
+
+  # Check for untracked files
+  if [[ $(command git status --porcelain 2>/dev/null) =~ '\?\?' ]]; then
+    psvar[7]='?'
+  fi
+
+  # Get number of commits ahead/behind the upstream branch
+  nahead=$(command git rev-list --count @{upstream}..HEAD)
+  nbehind=$(command git rev-list --count HEAD..@{upstream})
+  (( nahead )) && psvar[8]="↑$nahead"
+  (( nbehind )) && psvar[9]="↓$nbehind"
+}
+
+prompt_zero_setup "$@"
+
+# vim: ft=zsh

@@ -1,9 +1,9 @@
-# SSH #########################
+### SSH
 /.ssh/*.key*
 /.ssh/known_hosts
 /.ssh/authorized_keys
 
-# Vim #########################
+### Vim
 /.vim/.viminf*
 /.vim/.netrwhist
 /.vim/.NERDTreeBookmarks
@@ -13,3 +13,8 @@
 /.vim/tmp/
 /.vim/undo/
 /.vim/view/
+
+### Zsh
+*.zwc
+/.zsh/.zcompdump
+/.zsh/.zhistory

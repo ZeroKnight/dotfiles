@@ -1,0 +1,7 @@
+#
+# ptpb pastebin client shortcut
+#
+
+curl -F "c=@${1:--}" https://ptpb.pw/
+
+# vim: ft=zsh

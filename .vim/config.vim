@@ -93,13 +93,16 @@ set autoread
 " Formatting Options {{{1
 "==============================
 
+filetype indent on
+
 set textwidth=80 colorcolumn=+1
 set formatoptions=crqnj
 set nojoinspaces
 
 " Use spaces for tabs like a civilized person
 set expandtab softtabstop=2 shiftwidth=2
-set smartindent " cindent set automatically based on filetype
+
+" cindent options
 set cinoptions=Ls,l1,b1,g0,N-s,t0,(0,U1,w1,Ws,m1,j1,J1
 set cinkeys=0{,0},:,0#,!^F,o,O,e,0=break
 

@@ -1,0 +1,44 @@
+#
+# Catch-all wrapper for decompressing and/or unarchiving files
+#
+# Intended for quick, lazy results. Use the individual commands for flexibility
+
+
+if [[ $# < 1 ]]; then
+  print "Usage: $0 <file>..." >&2
+  return 1
+fi
+
+local file
+local -a files=($*)
+
+for file ($files) {
+  if [[ ! -e "$file" ]]; then
+    print "$0: No such file or directory: $file; skipping..." >&2
+  fi
+
+  case $file in
+    (*.tar.gz|*.tgz)      tar -zxvf $file ;;
+    (*.tar.bz2|*.tbz(2|)) tar -jxvf $file ;;
+    (*.tar.xz|*.txz)      tar -Jxvf $file ;;
+    (*.tar.lzma|*.tlz)    tar --lzma -xvf $file ;;
+    (*.tar.lzo|*.tzo)     tar --lzop -xvf $file ;;
+    (*.tar.lz4|*.tz4)     tar --use-compress-program=lz4 -xvf $file ;;
+    (*.tar)               tar -xvf $file ;;
+    ((^*.tar).gz)         gunzip -kv $file ;;
+    ((^*.tar).bz2)        bunzip2 -kv $file ;;
+    ((^*.tar).xz)         unxz -kv $file ;;
+    ((^*.tar).lzma)       unxz --lzma -kv $file ;;
+    ((^*.tar).lzo)        lzop -vkd $file ;;
+    ((^*.tar).lz4)        unlz4 -v $file ;;
+    (*.7z)                7za x $file ;;
+    (*.zip)               unzip $file ;;
+    (*.rar)               unrar x -ad $file ;;
+    (*)
+      print "$0: Could not determine strategy for $aname" >&2
+      return 1
+      ;;
+  esac
+}
+
+# vim: ft=zsh

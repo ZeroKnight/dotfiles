@@ -1,0 +1,7 @@
+#
+# download files with curl ala wget
+#
+
+curl -fJOL --compressed "$@"
+
+# vim: ft=zsh

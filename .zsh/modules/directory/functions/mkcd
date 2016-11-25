@@ -1,0 +1,8 @@
+# Create a new directory and `cd` to it
+# If the directory already exists, just `cd` to it
+
+(( $# )) || return 1
+[[ -d $1 ]] || mkdir -vp "$1"
+[[ -d $1 ]] && builtin cd "$1"
+
+# vim: ft=zsh

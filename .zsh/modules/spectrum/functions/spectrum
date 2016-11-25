@@ -1,0 +1,37 @@
+#
+# Print a spectrum
+#
+# Usage: spectrum [columns]
+
+if [[ $1 != <-> && "$1" != '' ]]; then
+  print "Usage: $0 [columns]" >&2
+  return 1
+fi
+
+local i j line space color=1
+
+# Color preview
+for i in {0..15}; do space="$space "; done
+
+# Number of columns to display the spectrum
+local columns=${1:-1}
+
+# Represents each line of output with $columns colors each
+local row
+
+# Total lines of output. We use 255 because there's no need to print color 0,
+# the background
+local nlines=$(( 255 / columns ))
+(( 255 % columns )) && (( ++nlines ))
+
+for i in {1..$nlines}; do
+  for j in {1..$columns}; do
+    (( color > 255 )) && break;
+    row="$row  %{$FG[$color]%}#$(printf '%03d' $color)%{$FX[reset]%} %{$BG[$color]%}$space%{$FX[reset]%}"
+    (( ++color ))
+  done
+  print -P "$row"
+  row=''
+done
+
+# vim: ft=zsh

@@ -1,0 +1,23 @@
+[user]
+    name = ZeroKnight
+    email = xzeroknightx@gmail.com
+    signingkey = 1F7E2A04
+[color]
+    ui = auto
+[core]
+    editor = vim
+    pager = less -S
+[alias]
+    setup = !git init && git add . && git commit -m 'Initial Commit'
+    ctags = !.git/hooks/ctags
+    auto-rm = !git ls-files -z --deleted | xargs -0 git rm
+[push]
+    default = current
+[init]
+    templatedir = ~/.config/git/template_default
+[log]
+    mailmap = true
+[pretty]
+    single = "format:%C(green)%<|(13)%h%C(reset) %s%C(bold)%C(magenta)%d%C(reset) %C(yellow)[%cd] %C(cyan)<%aN %aE>%C(reset)"
+    medinfo = "format:%C(bold)Commit:%C(reset) %C(green)%H%C(bold)%C(magenta)%d%C(reset)%n%C(bold)Author:%C(reset) %C(cyan)%aN <%aE>%C(reset) - %C(yellow)%ad (%ar)%C(reset)%n%GG%w(0,2,2)%+B"
+    fullinfo = "format:%C(bold)Commit:%C(reset) %C(green)%H%C(bold)%C(magenta)%d%C(reset)%n%C(bold)Author:%C(reset)    %C(cyan)%aN <%aE>%C(reset) - %C(yellow)%ad (%ar)%C(reset)%n%C(bold)Committer:%C(reset) %C(cyan)%cN <%aE>%C(reset) - %C(yellow)%cd (%cr)%C(reset)%n%GG%w(0,2,2)%+B"

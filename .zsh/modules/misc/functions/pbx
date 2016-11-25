@@ -1,0 +1,10 @@
+#
+# ptpb pastebin client shortcut with automatic url copy
+#
+
+(( $+commands[xsel] )) || print 'xsel is not installed' 1>&2
+
+curl -sF "c=@${1:--}" -w "%{redirect_url}" 'https://ptpb.pw/?r=1' \
+  -o /dev/stderr | xsel -l /dev/null -b
+
+# vim: ft=zsh
