@@ -52,6 +52,7 @@ prompt_zero_setup() {
   local -A seg col
 
   ### Initialize colors
+
   col[lsym]=${1:-'green'}
   col[user]=${2:-'yellow'}
   col[user2]=${3-'red'}
