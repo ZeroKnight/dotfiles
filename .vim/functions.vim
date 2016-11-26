@@ -26,7 +26,7 @@ function! RecompileYCM(nJobs)
   let l:wd = getcwd()
   execute "cd " . system("mktemp -d")
   execute "silent !cmake -G \"Unix Makefiles\" -DUSE_SYSTEM_LIBCLANG=ON . ~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp"
-  execute "silent !cmake --build . --target ycm_core" . a:nJobs ? "-- -j".a:nJobs : ""
+  execute "silent !cmake --build . --target ycm_core" . a:nJobs ? " -- -j".a:nJobs : ""
   execute "silent !rm -rf " . getcwd()
   execute "cd " . l:wd
   redraw!
