@@ -37,10 +37,6 @@ let g:indentLine_color_gui = 'Grey40'
 let g:indentLine_fileTypeExclude = ['help', 'text', 'nerdtree', 'startify', 'man']
 "let g:indentLine_bufNameExclude = []
 
-" ShowMarks {{{1
-" Keep disabled on startup
-let showmarks_enable = 0
-
 " Startify {{{1
 function! PrettyVersion()
   let major = v:version / 100
