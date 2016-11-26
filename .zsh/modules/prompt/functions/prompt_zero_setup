@@ -145,8 +145,8 @@ prompt_zero_precmd() {
   fi
 
   # Get number of commits ahead/behind the upstream branch
-  nahead=$(command git rev-list --count @{upstream}..HEAD)
-  nbehind=$(command git rev-list --count HEAD..@{upstream})
+  nahead=$(command git rev-list --count @{upstream}..HEAD 2>/dev/null)
+  nbehind=$(command git rev-list --count HEAD..@{upstream} 2>/dev/null)
   (( nahead )) && psvar[8]="↑$nahead"
   (( nbehind )) && psvar[9]="↓$nbehind"
 }
