@@ -1,0 +1,20 @@
+#!/bin/zsh
+
+# Print colored load averages for tmux status line
+function () {
+  local ncores=$(cat /proc/cpuinfo | awk '/cpu cores/ {print $4}')
+  local -a loadavg=( $(cat /proc/loadavg | cut -d' ' -f1-3) )
+
+  for (( i=1; i <= $#loadavg; ++i )); do
+    if (( loadavg[i] >= ncores * 0.75 )); then
+      loadavg[$i]="#[fg=red]$loadavg[$i]"
+    elif (( loadavg[i] >= ncores * 0.5 )); then
+      loadavg[$i]="#[fg=yellow]$loadavg[$i]"
+    else
+      loadavg[$i]="#[fg=green]$loadavg[$i]"
+    fi
+  done
+
+  print "${loadavg}#[fg=default]"
+}
+
