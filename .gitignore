@@ -16,5 +16,6 @@
 
 ### Zsh
 *.zwc
+/.zsh/.zcompcache/
 /.zsh/.zcompdump
 /.zsh/.zhistory
