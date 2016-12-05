@@ -18,6 +18,7 @@ setopt no_beep no_list_beep
 ### Everything else
 
 # Quick-reference for zsh builtins
-autoload -Uz run-help && unalias run-help
+autoload -Uz run-help
+(( $+aliases[run-help] )) && unalias run-help
 alias zhelp='run-help'
 
