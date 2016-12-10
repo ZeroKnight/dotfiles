@@ -105,7 +105,7 @@ let g:tagbar_type_sourcepawn = {
 " UltiSnips {{{1
 let g:snips_author = "Alex \"ZeroKnight\" George"
 let g:UltiSnipsExpandTrigger = "<tab>"
-let g:UltiSnipsListSnippets = "<C-x>"
+let g:UltiSnipsListSnippets = "<C-l>"
 
 " YouCompleteMe {{{1
 let g:ycm_error_symbol = '✗'

@@ -22,6 +22,10 @@ if has("autocmd")
     autocmd WinEnter,BufWinEnter,VimEnter,InsertLeave *
       \ if &number | set relativenumber | endif
 
+    " Only show cursor(line|column) in the active window
+    autocmd WinLeave * set nocursorline nocursorcolumn
+    autocmd WinEnter * set cursorline cursorcolumn
+
     " Use actual TABs when editing UltiSnips snippets. This makes UltiSnips
     " dynamically use expandtab, softtabstop, shiftwidth, etc in snippets
     autocmd FileType snippets setlocal sts=0

@@ -1,6 +1,6 @@
 " ZeroKnight's Vim Config
 
-" Basic & Global Settings {{{1
+" Core Settings {{{1
 "==============================
 
 " Accept nothing less than unicode. NOTHING!
@@ -14,20 +14,12 @@ let $VIMSESSIONS = $VIMFILES . '/session'
 " Other variables
 let g:zeroknight_comment_tags = 'TODO|FIXME|XXX|NOTE|HACK|BUG|WARNING|ATTENTION|ALERT|DANGER|TBD|TASK|NOTICE|TEST|DEBUG|DEPRECATED|WTF'
 
-" viminfo Options
-" ' = Save marks; : = Save command history
-" Don't include '/' because we want all search/substitute pattern history
-" Don't include '<' because we want all register lines, but limit size with 's'
-set viminfo='50,:100,s256,n$VIMFILES/.viminfo
-
-" Session/View Options
-set sessionoptions=buffers,curdir,folds,globals,help,resize,slash,tabpages,unix,winpos,winsize
-set viewoptions=cursor,folds,slash,unix
-
-" File/Directory Locations {{{1
-"==============================
-
-" To avoid clutter, keep all file types in their own directory in .vim
+" To avoid clutter, keep vim files in their own directory in $VIMFILES
+for vdir in ['tmp', 'backup', 'view', 'undo', 'session']
+  if !isdirectory(expand("$VIMFILES/" . vdir))
+    silent! exec '!mkdir -p ' . vdir
+  endif
+endfor
 set dir=$VIMFILES/tmp
 set backup backupdir=$VIMFILES/backup
 set viewdir=$VIMFILES/view
@@ -37,12 +29,19 @@ if has('persistent_undo')
   set undofile undodir=$VIMFILES/undo
 endif
 
-" Tell Vim where to look for tags
-set tags=./tags,./TAGS,tags,TAGS,src/tags,src/TAGS,.git/tags,.git/TAGS
-set tags+=$VIMFILES/tags/cpp
-set tags+=$VIMFILES/tags/gl
-set tags+=$VIMFILES/tags/sdl
-set tags+=$VIMFILES/tags/qt
+" viminfo Options
+" ' = Save marks; : = Save command history
+" Don't include '/' because we want all search/substitute pattern history
+" Don't include '<' because we want all register lines, but limit size with 's'
+set viminfo='50,:100,s256,n$VIMFILES/.viminfo
+
+" Session/View Options
+set sessionoptions=buffers,curdir,folds,globals,help,localoptions,resize,slash,tabpages,unix,winpos,winsize
+set viewoptions=cursor,folds,slash,unix
+
+" Tell Vim where to look for tags. Prefer directory of file over CWD
+set tags=./tags,./TAGS,./src/**/tags,./src/**/TAGS,./.git/tags,./.git/TAGS,
+  \tags,TAGS,src/**/tags,src/**/TAGS,.git/tags,.git/TAGS
 
 " UI Settings {{{1
 "==============================
@@ -54,7 +53,7 @@ set cursorline cursorcolumn " Crosshairs
 
 " Fold Options
 set foldcolumn=2            " Minimal fold column
-set foldopen=block,hor,mark,percent,quickfix,search,tag,undo
+set foldopen=block,hor,jump,mark,percent,quickfix,search,tag,undo
 
 " Searching
 set ignorecase smartcase incsearch hls
@@ -64,14 +63,14 @@ set wildignore=*.o,*.obj,*.exe,*.so,*.dll,*.pyc,.svn,.hg,.bzr,.git
 set list
 set listchars=tab:▮▶,trail:∙,extends:▷,precedes:◁
 
+" Prefix wrapped lines
+let &showbreak = '> '
+
 " Wild Menu
 set wildmenu
 
 " New splits will open more naturally
 set splitright splitbelow
-
-" Buffer Settings {{{1
-"==============================
 
 set hidden      " Make buffers not annoying
 set scrolloff=3 " Make scrolling look nicer
