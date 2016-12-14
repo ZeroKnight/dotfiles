@@ -189,7 +189,6 @@ snippet sub "Subroutine (function)" b
 sub ${1:sub_name}
 {
 	my ${2/([^,])+(,)?.*/(?2:\()/}${2:\$foo}${2/([^,])+(,)?.*/(?2:\))/} = ${2/([^,])+(,)?.*/(?2:@_:shift)/};
-
 	$0
 }
 endsnippet
