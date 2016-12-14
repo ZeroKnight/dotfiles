@@ -43,8 +43,8 @@ alias gsh='git show'
 
 # Fetch/Pull/Clone
 alias gf='git fetch'
-alias gfm='git pull'
-alias gfr='git pull --rebase'
+alias gpl='git pull'
+alias gplr='git pull --rebase'
 alias gcl='git clone'
 
 # Index
