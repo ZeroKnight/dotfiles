@@ -105,7 +105,7 @@ prompt_zero_setup() {
 
   seg[cwd]="%F{${col[cwd]}}%(2V.%2v.%~)%f"
   seg[exit]="%(?.. %F{${col[exit]}}%v↵%f)"
-  seg[git]="%(2v. %F{${col[gitbr]}}%3v%(6V.%F{${col[gitact]}}:%6v.)%(4v.%f(%F{${col[gitsta]}}%4v%F{${col[gituns]}}%5v%F{${col[gitunt]}}%7v%(8v.%f|%F{${col[gitud]}}%8v%9v.)%f).)%f.)"
+  seg[git]="%(2v. %F{${col[gitbr]}}%3v%(6V.%F{${col[gitact]}}:%6v.)%(4v.%f(%F{${col[gitsta]}}%4v%F{${col[gituns]}}%5v%F{${col[gitunt]}}%7v%(8V.%f%8v.)%(9v.%F{${col[gitud]}}%9v%10v.)%f).)%f.)"
 
   # Assemble the segments
   PS1="$seg[head]$seg[userhost] $seg[tail]"
@@ -147,8 +147,14 @@ prompt_zero_precmd() {
   # Get number of commits ahead/behind the upstream branch
   nahead=$(command git rev-list --count @{upstream}..HEAD 2>/dev/null)
   nbehind=$(command git rev-list --count HEAD..@{upstream} 2>/dev/null)
-  (( nahead )) && psvar[8]="↑$nahead"
-  (( nbehind )) && psvar[9]="↓$nbehind"
+  (( nahead )) && psvar[9]="↑$nahead"
+  (( nbehind )) && psvar[10]="↓$nbehind"
+
+  if [[ -n $psvar[9] || -n $psvar[10] ]]; then
+    if [[ -n $psvar[4] || -n $psvar[5] || -n $psvar[7] ]]; then
+      psvar[8]='|'
+    fi
+  fi
 }
 
 prompt_zero_setup "$@"
