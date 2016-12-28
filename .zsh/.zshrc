@@ -16,13 +16,17 @@ zcompare() {
 
 # Modules
 zmodules=(archive directory fasd git history misc perl processes spectrum \
-          system tmux vman input syntax-highlighting prompt completion)
+          system tmux man input syntax-highlighting prompt completion)
 
 for module ($zmodules) {
   mpath="$ZDOTDIR/modules/$module"
 
   # Load configuration files
-  [[ -s "$mpath/$module.zsh" ]] && source "$mpath/$module.zsh"
+  if [[ -s "$mpath/$module.zsh" ]]; then
+    source "$mpath/$module.zsh"
+  else
+    print "** Module '$module' not found!"
+  fi
 
   # Autoload functions
   [[ -d "$mpath/functions" ]] || continue
