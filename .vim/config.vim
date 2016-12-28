@@ -43,6 +43,9 @@ set viewoptions=cursor,folds,slash,unix
 set tags=./tags,./TAGS,./src/**/tags,./src/**/TAGS,./.git/tags,./.git/TAGS,
   \tags,TAGS,src/**/tags,src/**/TAGS,.git/tags,.git/TAGS
 
+" K should show man pages inside Vim
+set keywordprg=:Man
+
 " UI Settings {{{1
 "==============================
 

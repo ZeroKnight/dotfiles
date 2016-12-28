@@ -26,9 +26,6 @@ nnoremap <silent> <Leader>/ :nohls<CR>
 " Highlight word under cursor without jumping {{{1
 nnoremap <Leader>hw *<C-o>
 
-" Quick-switch to last buffer {{{1
-nnoremap <Leader>, :b#<CR>
-
 " GitGutter hunk jumping {{{1
 nnoremap ]h :GitGutterNextHunk<CR>
 nnoremap [h :GitGutterPrevHunk<CR>
@@ -57,8 +54,8 @@ nnoremap gy :%y+<CR>
 " More logical Y {{{1
 noremap Y y$
 
-" Split line (thanks, /u/frumsfrums)
-nnoremap K f<space>r<CR>
+" Split line (thanks, /u/frumsfrums) {{{1
+nnoremap gK f<space>r<CR>
 
 " Yank/Paste Shortcuts {{{1
 nnoremap <C-Ins> "+y
