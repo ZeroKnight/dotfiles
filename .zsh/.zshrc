@@ -42,7 +42,7 @@ unset module mpath
 
 # Display a lovely fortune (but only if stdout is connected to a terminal)
 if (( $+commands[fortune] )) && [[ -t 1 ]]; then
-  fortune
+  fortune -a
   print
 fi
 
