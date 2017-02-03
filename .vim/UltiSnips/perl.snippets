@@ -22,6 +22,10 @@ use warnings;
 $0
 endsnippet
 
+snippet use "use ..." b
+use ${1:Foo::Bar};
+endsnippet
+
 snippet noex "no warnings 'experimental::foo'"
 no warnings 'experimental::$1';
 endsnippet
@@ -34,9 +38,17 @@ $0
 1;
 endsnippet
 
-snippet exporter "use parent 'Exporter' ..." b
-use parent 'Exporter';
-our @EXPORT = qw($1);
+snippet version "our $VERSION ..." b
+our $VERSION = "${1:0.001}";
+$VERSION = eval $VERSION;
+
+$0
+endsnippet
+
+snippet export "use Exporter qw(import) ..." b
+use Exporter qw(import);
+our @EXPORT    = qw($2);
+our @EXPORT_OK = qw($1);
 
 $0
 endsnippet
