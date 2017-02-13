@@ -23,7 +23,7 @@ $0
 endsnippet
 
 snippet use "use ..." b
-use ${1:Foo::Bar};
+use ${1:Foo::Bar} ${2:qw($3)};
 endsnippet
 
 snippet noex "no warnings 'experimental::foo'"
@@ -250,6 +250,10 @@ sub ${1:method_name}
 endsnippet
 
 ### Idioms and Shortcuts #######################################
+
+snippet open "open my $fh ..."
+open my $${3:fh}, '<', ${1:$fn} or die "\$0: can't open ${1/^(\$).*/(?1:')$0(?1:')/} for reading: $!";
+endsnippet
 
 snippet slurp "slurp"
 my $${1:var} = do { local $/; open my $fh, '<', ${2:$file}; <$fh> };
