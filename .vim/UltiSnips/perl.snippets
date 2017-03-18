@@ -31,7 +31,7 @@ no warnings 'experimental::$1';
 endsnippet
 
 snippet pack "package Foo::Bar ..." b
-package ${1:`!v expand('%:.:gs?/?::?:h')`}::${2:`!v expand('%:t:r')`};
+package ${1:`!v expand('%:.:h:gs?/?::?')`}::${2:`!v expand('%:t:r')`};
 
 $0
 
