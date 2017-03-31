@@ -1,0 +1,64 @@
+# Moo(se) related snippets for Perl
+
+priority -5
+
+global !p
+def moose_attr_opts():
+	return re.compile('^\s+(isa?|does|default|builder|required|lazy(_build)?|coerce|predicate|clearer|init_arg|traits|trigger|weak_ref|handles|documentation) =>')
+endglobal
+
+snippet moo "use Moo;" b
+use Moo;
+$0
+endsnippet
+
+snippet moor "use Moo::Role;" b
+use Moo::Role;
+$0
+endsnippet
+
+snippet moose "use Moose; ..." b
+use Moose;
+$0
+
+no Moose;
+__PACKAGE__->meta->make_immutable;
+endsnippet
+
+snippet has "Moo(se) class attribute (has ...)" b
+has ${1:attr} => (
+	is  => '${2:rw}',
+	isa => ${3:Any},$4
+);
+endsnippet
+
+# NOTE: For some reason, UltiSnips doesn't work with placeholder tab stops :/
+snippet '\bdef' "Moo(se) `default` attribute option" "re.match(moose_attr_opts(), snip.buffer[snip.line-1])" reA
+default => $1,
+endsnippet
+
+snippet '\breq' "Moo(se) `required` attribute option" "re.match(moose_attr_opts(), snip.buffer[snip.line-1])" reA
+required => 1,$0
+endsnippet
+
+snippet '\bclear' "Moo(se) `clearer` attribute option" "re.match(moose_attr_opts(), snip.buffer[snip.line-1])" reA
+clearer => $1,$0
+endsnippet
+
+snippet '\bbuild' "Moo(se) `builder` attribute option" "re.match(moose_attr_opts(), snip.buffer[snip.line-1])" reA
+builder => $1,$0
+endsnippet
+
+snippet '\bpred' "Moo(se) `predicate` attribute option" "re.match(moose_attr_opts(), snip.buffer[snip.line-1])" reA
+predicate => $1,$0
+endsnippet
+
+snippet '\binit' "Moo(se) `init_arg` attribute option" "re.match(moose_attr_opts(), snip.buffer[snip.line-1])" reA
+init_arg => $1,$0
+endsnippet
+
+snippet '\blazy' "Moo(se) `lazy` attribute option" "re.match(moose_attr_opts(), snip.buffer[snip.line-1])" reA
+lazy => $1,$0
+endsnippet
+
+# vim:ft=snippets:

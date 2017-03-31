@@ -22,8 +22,17 @@ use warnings;
 $0
 endsnippet
 
+snippet s2 "use strictures 2" b
+use strictures 2;
+$0
+endsnippet
+
 snippet use "use ..." b
 use ${1:Foo::Bar} ${2:qw($3)};
+endsnippet
+
+snippet req "requires ..."
+
 endsnippet
 
 snippet noex "no warnings 'experimental::foo'"
@@ -69,14 +78,6 @@ our @EXPORT_OK = qw($4);
 $0
 
 1;
-endsnippet
-
-snippet moose "use Moose; ..." b
-use Moose;
-$0
-
-no Moose;
-__PACKAGE__->meta->make_immutable;
 endsnippet
 
 ### Branch Statements and Loops ################################
@@ -231,77 +232,13 @@ sub new
 }
 endsnippet
 
-snippet has "Moose attribute (has ...)"
-has '${1:attr}' => (
-	is  => '${2:rw}',
-	isa => '${3:Any}',
-	${4:default => }$0
-);
-endsnippet
-
 snippet method "Class method: sub foo { my $self = shift; ..." b
 sub ${1:method_name}
 {
-	my $self = shift;
-	my ${2/([^,])+(,)?.*/(?2:\()/}${2:\$foo}${2/([^,])+(,)?.*/(?2:\))/} = ${2/([^,])+(,)?.*/(?2:@_:shift)/};
+	my ${2/([^,])+(,)?.*/(?2:\()/}${2:\$self}${2/([^,])+(,)?.*/(?2:\))/} = ${2/([^,])+(,)?.*/(?2:@_:shift)/};
 
 	$0
 }
-endsnippet
-
-### Idioms and Shortcuts #######################################
-
-snippet open "open my $fh ..."
-open my $${3:fh}, '<', ${1:$fn} or die "\$0: can't open ${1/^(\$).*/(?1:')$0(?1:')/} for reading: $!";
-endsnippet
-
-snippet slurp "slurp"
-my $${1:var} = do { local $/; open my $fh, '<', ${2:$file}; <$fh> };
-endsnippet
-
-snippet readf "Read file into array"
-open my $${3:fh}, '<', ${1:$fn} or die "\$0: can't open ${1/^(\$).*/(?1:')$0(?1:')/} for reading: $!";
-chomp(my @${2:lines} = <$$3>);
-close $$3;$0
-endsnippet
-
-snippet inlist "unless grep { $_ eq $foo } @bar"
-${1:unless} (grep { $_ eq $${2:foo} } ${3/(\S+)(\s)?/(?2:qw\(:@)/}${3:bar}${3/(\S+)(\s)?/(?2:\))/})
-{
-	$0
-}
-endsnippet
-
-snippet xinlist "... unless grep { $_ eq $foo } @bar"
-${1:unless} grep { $_ eq $${2:foo} } ${3/(\S+)(\s)?.*/(?2:qw\(:@)/}${3:bar}${3/(\S+)(\s)?.*/(?2:\);)/}
-endsnippet
-
-snippet hash "Hash definition"
-my %${1:hash} = (
-	$2
-);
-endsnippet
-
-snippet hashr "Hashref definition"
-my $${1:hashref} = {
-	$2
-};
-endsnippet
-
-snippet pair "Key/Value pair; foo => bar"
-${1:key} => ${2:value},$0
-endsnippet
-
-snippet pairh "Key/Value pair with hashref value"
-${1:key} => {
-	$2
-},
-endsnippet
-
-snippet paira "Key/Value pair with arrayref value"
-${1:key} => [
-	$2
-],
 endsnippet
 
 # vim:ft=snippets:
