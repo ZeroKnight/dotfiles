@@ -92,3 +92,6 @@ $RECYCLE.BIN/
 
 # Linux trash folder which can appear on any partition
 .Trash-*
+
+# Log files
+*.log
