@@ -4,7 +4,7 @@ priority -5
 
 global !p
 def moose_attr_opts():
-	return re.compile('^\s+(isa?|does|default|builder|required|lazy(_build)?|coerce|predicate|clearer|init_arg|traits|trigger|weak_ref|handles|documentation) =>')
+	return re.compile('^\s+(isa?|does|default|builder|required|lazy(_build)?|coerce|predicate|clearer|init_arg|traits|trigger|weak_ref|handles|documentation)\s+=>')
 endglobal
 
 snippet moo "use Moo;" b
@@ -23,6 +23,21 @@ $0
 
 no Moose;
 __PACKAGE__->meta->make_immutable;
+endsnippet
+
+snippet build "sub BUILD { ... }" b
+sub BUILD
+{
+	my ($self, $args) = @_;
+	$0
+}
+endsnippet
+
+snippet buildargs "sub BUILDARGS { ... }" b
+around BUILDARGS => sub {
+	my ($orig, $class, @args) = @_;
+	${1:return $class->$orig(@args);}
+};
 endsnippet
 
 snippet has "Moo(se) class attribute (has ...)" b

@@ -8,6 +8,14 @@ snippet #! "shebang" b
 $0
 endsnippet
 
+snippet use "use ..." b
+use ${1:Foo::Bar} ${2:qw($3)};
+endsnippet
+
+snippet req "requires ..."
+
+endsnippet
+
 snippet sw "use strict; use warnings;" b
 use strict;
 use warnings;
@@ -27,12 +35,9 @@ use strictures 2;
 $0
 endsnippet
 
-snippet use "use ..." b
-use ${1:Foo::Bar} ${2:qw($3)};
-endsnippet
-
-snippet req "requires ..."
-
+snippet feat "use feature 'foo'" b
+use feature '${1:say}';
+$0
 endsnippet
 
 snippet noex "no warnings 'experimental::foo'"
@@ -235,7 +240,7 @@ endsnippet
 snippet method "Class method: sub foo { my $self = shift; ..." b
 sub ${1:method_name}
 {
-	my ${2/([^,])+(,)?.*/(?2:\()/}${2:\$self}${2/([^,])+(,)?.*/(?2:\))/} = ${2/([^,])+(,)?.*/(?2:@_:shift)/};
+	my ${2/([^,])+(,)?.*/(?2:\()/}${2:\$self}$3${2/([^,])+(,)?.*/(?2:\))/} = ${2/([^,])+(,)?.*/(?2:@_:shift)/};
 
 	$0
 }
