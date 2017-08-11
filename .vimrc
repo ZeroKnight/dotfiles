@@ -17,7 +17,6 @@ set nocompatible
 source ~/.vim/vundle.vim
 
 " The oh-so-essential Filetype! (now that Vundle is done)
-"filetype plugin indent on
 filetype plugin on
 
 " Platform specific configuration
