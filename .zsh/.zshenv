@@ -1,10 +1,14 @@
 #
 # ZeroKnight's .zshenv
 #
-# Do NOT set PATH here. It will likely be overwritten by /etc/profile, etc
 
-# Enable 256 Colors. Only export outside of a tmux session, as tmux will set
-# its own TERM value
+# Declare *PATH variables
+# NOTE: Do NOT assign to PATH here. It will likely be overwritten by
+# /etc/profile
+typeset -gxU PATH FPATH CDPATH path fpath cdpath
+
+# Enable 256 Colors. Only export outside of a tmux session so we don't trample
+# over the TERM value that tmux sets
 (( $+TMUX )) || export TERM='xterm-256color'
 
 # Keep our zsh files nice and tidy in their own directory

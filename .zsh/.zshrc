@@ -14,7 +14,25 @@ zcompare() {
 
 ### Initialize zsh
 
+# Set up PATHs
+path=(
+  ~/bin
+  $path
+)
+
+fpath=(
+  $ZDOTDIR/modules/*/functions
+  $fpath
+)
+
+cdpath=(
+  $ZDOTDIR
+)
+
 # Modules
+# NOTE: 'prompt' and 'completion' should ALWAYS be loaded LAST to ensure that
+# all module functions/keywords are available to compinit and for the prompt
+# to make use of
 zmodules=(archive directory fasd git history misc perl processes spectrum \
           system tmux man input syntax-highlighting prompt completion)
 
@@ -37,6 +55,24 @@ for module ($zmodules) {
   }
 }
 unset module mpath
+
+### Compile configuration files in the background
+
+(
+  setopt EXTENDED_GLOB NULL_GLOB
+
+  # zcompile the completion cache; siginificant speedup.
+  for f ($ZDOTDIR/.zcomp^(*.zwc)(.)) zcompare $f
+
+  # zcompile .zshrc
+  zcompare $ZDOTDIR/.zshrc
+
+  # zcompile all module config files
+  for cfg ($ZDOTDIR/modules/**/*.zsh(.)) zcompare $cfg
+
+  # zcompile all autoloaded functions
+  for func ($ZDOTDIR/modules/*/functions/^(*.zwc)(.)) zcompare $func
+) &!
 
 ### Run core programs
 
