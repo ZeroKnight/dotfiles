@@ -20,8 +20,8 @@ alias jctl='journalctl'
 
 ### Misc
 
-alias userlist='cat /etc/passwd | cut -d":" -f1 | sort | column'
-alias grouplist='cat /etc/group | cut -d":" -f1 | sort | column'
+alias userlist='cut -d":" -f1 /etc/passwd | sort | column'
+alias grouplist='cut -d":" -f1 /etc/group | sort | column'
 
 # Pipe/Redirect shortcuts
 alias -g H='| head'
