@@ -3,37 +3,36 @@
 " Core Settings {{{1
 "==============================
 
-" Accept nothing less than unicode. NOTHING!
-setglobal fileencoding=utf-8
-set encoding=utf-8 termencoding=utf-8
-
 " Set some environment variables
-let $VIMFILES = expand('~/.vim')
-let $VIMSESSIONS = $VIMFILES . '/session'
+let $VIMFILES    = expand('~/.config/nvim')
+let $VIMDATA     = expand('~/.local/share/nvim')
+let $VIMSESSIONS = expand($VIMDATA.'/sessions')
 
 " Other variables
 let g:zeroknight_comment_tags = 'TODO|FIXME|XXX|NOTE|HACK|BUG|WARNING|ATTENTION|ALERT|DANGER|TBD|TASK|NOTICE|TEST|DEBUG|DEPRECATED|WTF'
 
-" To avoid clutter, keep vim files in their own directory in $VIMFILES
-for vdir in ['tmp', 'backup', 'view', 'undo', 'session']
-  if !isdirectory(expand("$VIMFILES/" . vdir))
-    silent! exec '!mkdir -p ' . vdir
+" Create any Vim state directories if needed
+for vdir in ['swap', 'backup', 'view', 'undo', 'session']
+  if !isdirectory(expand($VIMDATA.'/'.vdir))
+    silent! exec '!mkdir -p ' . expand($VIMDATA.'/'.vdir)
   endif
 endfor
-set dir=$VIMFILES/tmp
-set backup backupdir=$VIMFILES/backup
+set dir=$VIMDATA/swap
+set backup backupdir=$VIMDATA/backup
 set viewdir=$VIMFILES/view
 
 " Persistent Undo
 if has('persistent_undo')
-  set undofile undodir=$VIMFILES/undo
+  set undofile undodir=$VIMDATA/undo
 endif
 
-" viminfo Options
-" ' = Save marks; : = Save command history
-" Don't include '/' because we want all search/substitute pattern history
-" Don't include '<' because we want all register lines, but limit size with 's'
-set viminfo='50,:100,s256,n$VIMFILES/.viminfo
+" viminfo/shada Settings
+if has('shada')
+  set shada=!,'100
+else
+  " Older viminfo file isn't as efficient as ShaDA, so cut back on the sizes
+  set viminfo=!,'50,s1024,n$VIMDATA/shada/.viminfo
+endif
 
 " Session/View Options
 set sessionoptions=buffers,curdir,folds,globals,help,localoptions,resize,slash,tabpages,unix,winpos,winsize
@@ -67,7 +66,7 @@ set list
 set listchars=tab:▮▶,trail:∙,extends:▷,precedes:◁
 
 " Prefix wrapped lines
-let &showbreak = '> '
+let &showbreak = '↪ '
 
 " Wild Menu
 set wildmenu
