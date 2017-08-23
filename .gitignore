@@ -3,17 +3,6 @@
 /.ssh/known_hosts
 /.ssh/authorized_keys
 
-### Vim
-/.vim/.viminf*
-/.vim/.netrwhist
-/.vim/.NERDTreeBookmarks
-/.vim/backup/
-/.vim/bundle/
-/.vim/session/
-/.vim/tmp/
-/.vim/undo/
-/.vim/view/
-
 ### Zsh
 *.zwc
 /.zsh/.zcompcache/
