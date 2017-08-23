@@ -53,6 +53,11 @@ bindkey "$zsh_key_info[Home]" beginning-of-line
 bindkey "$zsh_key_info[End]" end-of-line
 bindkey '^Z' undo
 
+# Make Shift+Enter and Shift+Space just emit Enter and Space respectively in
+# ZLE, otherwise their corresponding escape codes are taken as actual input
+bindkey -s '^[[13;2u' '^M'
+bindkey -s '^[[32;2u' ' '
+
 # Shift+Tab to go backward in menu completion
 bindkey "$zsh_key_info[BackTab]" reverse-menu-complete
 
