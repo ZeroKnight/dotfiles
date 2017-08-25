@@ -1,4 +1,5 @@
 " ZeroKnight's init.vim
+" ------------------------------------------------------------------------------
 
 " Defines a variable if it hasn't already been defined. Especially useful for
 " environment variables
