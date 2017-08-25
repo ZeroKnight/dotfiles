@@ -8,8 +8,10 @@ if has("autocmd")
     autocmd!
 
     " Automatically source personal runtime files on modification
-    autocmd BufWritePost .vimrc source $MYVIMRC
-    autocmd BufWritePost ~/.vim/*.vim,~/dotfiles/.vim/*.vim source %
+    autocmd BufWritePost .{g,}vimrc,{g,}init.vim source %
+    autocmd BufWritePost
+      \ ~/{dotfiles/,}.vim/*.vim,~/{dotfiles/,}.config/nvim/*.vim
+      \ source %
 
     " Automatically create directories for new files when saving
     autocmd BufWritePre,FileWritePre *
