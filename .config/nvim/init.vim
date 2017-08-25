@@ -1,29 +1,35 @@
 " ZeroKnight's init.vim
 
-" Initialize Plugins
-source ~/.config/nvim/vundle.vim
+" Defines a variable if it hasn't already been defined. Especially useful for
+" environment variables
+function! s:SetDefault(name, default)
+  if !exists(a:name)
+    silent exec 'let ' . a:name . " = '" . a:default . "'"
+  endif
+endfunction
 
-" The oh-so-essential Filetype! (now that Vundle is done)
-filetype plugin on
-
-" Platform specific configuration
-source ~/.config/nvim/platform.vim
-
-" Vim Settings
-source ~/.config/nvim/config.vim
+call s:SetDefault('$VIMFILES',    expand('~/.config/nvim'))
+call s:SetDefault('$VIMDATA',     expand('~/.local/share/nvim'))
+call s:SetDefault('$VIMSESSIONS', $VIMDATA.'/sessions')
 
 " Plugin Configuration
-source ~/.config/nvim/plugins.vim
+source $VIMFILES/plugins.vim
+
+" Vim Settings
+source $VIMFILES/config.vim
+
+" Platform specific configuration
+source $VIMFILES/platform.vim
 
 " Custom Commands
-source ~/.config/nvim/commands.vim
+source $VIMFILES/commands.vim
 
 " Custom Mappings
-source ~/.config/nvim/mappings.vim
+source $VIMFILES/mappings.vim
 
 " Custom Functions
-source ~/.config/nvim/functions.vim
+source $VIMFILES/functions.vim
 
 " Auto Commands
-source ~/.config/nvim/autocmds.vim
+source $VIMFILES/autocmds.vim
 

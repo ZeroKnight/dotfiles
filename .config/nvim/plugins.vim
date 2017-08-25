@@ -1,5 +1,105 @@
-" Vim Plugin Settings
-"==============================
+" Vim Plugins
+" ------------------------------------------------------------------------------
+
+" Ensure that vim-plug is installed. {{{1
+let s:vimplug_path = $VIMDATA.'/site/autoload/vim-plug.vim'
+if !filereadable(s:vimplug_path)
+  if executable('curl')
+    let s:vimplug_url = 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+    call system('curl -fLo ' . shellescape(s:vimplug_path) . ' --create-dirs ' . s:vimplug_url)
+    if v:shell_error
+      echom 'Error downloading vim-plug; you may need to install it manually.'
+      exit
+    else
+      echom 'vim-plug installed successfully!'
+    endif
+  else
+    echom "Cannot download and install vim-plug as 'curl' is unavailable."
+    exit
+  endif
+endif " }}}1
+
+let g:plug_threads = 16
+let g:plug_shallow = 1
+
+" Initialize vim-plug and declare our plugins
+call plug#begin($VIMDATA.'/plugins')
+
+" Menus, UI Tweaks & Additions {{{
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+"Plug 'scrooloose/nerdtree'
+Plug 'justinmk/vim-dirvish'
+Plug 'mhinz/vim-startify'
+Plug 'mbbill/undotree', { 'on': ['UndotreeFocus', 'UndotreeHide', 'UndotreeShow', 'UndotreeToggle'] }
+Plug 'majutsushi/tagbar', { 'on': ['Tagbar', 'TagbarToggle', 'TagbarOpen', 'TagbarOpenAutoClose'] }
+Plug 'airblade/vim-gitgutter'
+Plug 'kshenoy/vim-signature'
+Plug 'Yggdroot/indentLine'
+Plug 'chrisbra/NrrwRgn'
+"}}}
+
+" Commands/Mappings {{{
+Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-eunuch'
+Plug 'tpope/vim-abolish'
+Plug 'tpope/vim-characterize'
+Plug 'tpope/vim-commentary'
+Plug 'godlygeek/tabular'
+Plug 'christoomey/vim-sort-motion'
+Plug 'wellle/targets.vim'
+Plug 'moll/vim-bbye'
+"}}}
+
+" Helpers & Tools {{{
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rhubarb'
+Plug 'ervandew/supertab'
+Plug 'Valloric/YouCompleteMe'
+Plug 'rdnetto/YCM-Generator'
+Plug 'SirVer/ultisnips'
+Plug 'rking/ag.vim'
+Plug 'tpope/vim-obsession'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'bruno-/vim-man'
+Plug 'alx741/vinfo'
+Plug 'reedes/vim-wordy'
+Plug 'wesQ3/vim-windowswap'
+Plug 'Konfekt/FastFold'
+"}}}
+
+" Syntax Files & Language Additions/Extensions {{{
+Plug 'sheerun/vim-polyglot'
+Plug 'othree/xml.vim'
+Plug 'Valloric/MatchTagAlways'
+Plug 'jeaye/color_coded'
+"Plugin 'octol/vim-cpp-enhanced-highlight'
+"Plugin 'ZeroKnight/vim-cubescript'
+Plug 'xolox/vim-lua-ftplugin'
+Plug 'withgod/vim-sourcepawn'
+"}}}
+
+" Libraries/APIs {{{
+Plug 'tpope/vim-repeat'
+Plug 'xolox/vim-misc'
+Plug 'tpope/vim-dispatch'
+"}}}
+
+" Color Schemes {{{
+Plug 'rakr/vim-one'
+Plug 'Pychimp/vim-luna'
+Plug 'tomasr/molokai'
+Plug 'sickill/vim-monokai'
+Plug 'altercation/vim-colors-solarized'
+Plug 'ciaranm/inkpot'
+Plug 'nanotech/jellybeans.vim'
+"}}}
+
+call plug#end()
+
+" Plugin Settings
+" ------------------------------------------------------------------------------
 
 " Airline {{{1
 if !exists('g:airline_symbols')
@@ -13,7 +113,7 @@ let g:airline_symbols.branch = ''
 let g:airline_symbols.linenr = ''
 
 " Extensions
-let g:airline_theme='onedark'
+let g:airline_theme='one'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#show_close_button = 0
 
@@ -38,7 +138,7 @@ let g:indentLine_fileTypeExclude = ['help', 'text', 'nerdtree', 'startify', 'man
 "let g:indentLine_bufNameExclude = []
 
 " Startify {{{1
-function! PrettyVersion()
+function! s:PrettyVersion()
   let major = v:version / 100
   let minor = v:version - (major * 100)
   return major . '.' . minor
@@ -56,7 +156,7 @@ let g:startify_custom_header = [
   \ '  \   \ /   /|__| _____  ',
   \ '   \   Y   / |  |/     \ ',
   \ '    \     /  |  |  Y Y  \',
-  \ '     \___/   |__|__|_|  /  ' . PrettyVersion(),
+  \ '     \___/   |__|__|_|  /  ' . s:PrettyVersion(),
   \ '                      \/ ',
   \ '',
   \ ] + map(split(system('fortune'), '\n'), '"   ". v:val') + ['']
@@ -67,16 +167,14 @@ let g:startify_list_order = [
   \ ['=== Bookmarks:'], 'bookmarks',
   \ ]
 let g:startify_bookmarks = [
-  \ '~/.vimrc',
-  \ '~/.vim/config.vim',
-  \ '~/.vim/vundle.vim',
-  \ '~/.vim/plugins.vim',
-  \ '~/.config/awesome/rc.lua',
+  \ '~/.config/nvim/init.vim',
+  \ '~/.config/nvim/config.vim',
+  \ '~/.config/nvim/plugins.vim',
   \ ]
 let g:startify_skiplist = [
   \ 'COMMIT_EDITMSG',
-  \ expand($VIMRUNTIME) . '/doc',
-  \ expand($VIMFILES) . 'bundle/.*/doc',
+  \ $VIMRUNTIME . '/doc',
+  \ $VIMDATA . 'bundle/.*/doc',
   \ ]
 
 " Tagbar {{{1
