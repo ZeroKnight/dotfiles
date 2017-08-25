@@ -16,7 +16,7 @@ if has("autocmd")
     " Automatically create directories for new files when saving
     autocmd BufWritePre,FileWritePre *
       \ if !isdirectory(expand('<afile>:p:h')) |
-      \ silent! exec '!mkdir -p ' . expand('<afile>:p:h') | endif
+      \ call system('mkdir -p ' . shellescape(expand('<afile>:p:h'))) | endif
 
     " Toggle Relative-Numbering in various cases
     autocmd WinLeave,InsertEnter *
@@ -25,8 +25,8 @@ if has("autocmd")
       \ if &number | set relativenumber | endif
 
     " Only show cursor(line|column) in the active window
-    autocmd WinLeave * set nocursorline nocursorcolumn
-    autocmd WinEnter * set cursorline cursorcolumn
+    autocmd WinLeave * setlocal nocursorline nocursorcolumn
+    autocmd WinEnter * setlocal cursorline cursorcolumn
 
     " Use actual TABs when editing UltiSnips snippets. This makes UltiSnips
     " dynamically use expandtab, softtabstop, shiftwidth, etc in snippets
