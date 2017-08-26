@@ -139,9 +139,9 @@ let g:indentLine_fileTypeExclude = ['help', 'text', 'nerdtree', 'startify', 'man
 
 " Startify {{{1
 function! s:PrettyVersion()
-  let major = v:version / 100
-  let minor = v:version - (major * 100)
-  return major . '.' . minor
+  let l:major = v:version / 100
+  let l:minor = v:version - (l:major * 100)
+  return l:major . '.' . l:minor
 endfunction
 
 hi! link StartifySpecial Comment
@@ -201,9 +201,9 @@ let g:tagbar_type_sourcepawn = {
 \ }
 
 " UltiSnips {{{1
-let g:snips_author = "Alex \"ZeroKnight\" George"
-let g:UltiSnipsExpandTrigger = "<tab>"
-let g:UltiSnipsListSnippets = "<C-l>"
+let g:snips_author = 'Alex "ZeroKnight" George'
+let g:UltiSnipsExpandTrigger = '<Tab>'
+let g:UltiSnipsListSnippets = '<C-l>'
 
 " YouCompleteMe {{{1
 let g:ycm_error_symbol = '✗'

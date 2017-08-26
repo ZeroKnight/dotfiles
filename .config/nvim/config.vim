@@ -133,7 +133,7 @@ set cinkeys=0{,0},:,0#,!^F,o,O,e,0=break
 
 " Enable Syntax Highlighting
 set background=dark
-if !exists("g:syntax_on")
+if !exists('g:syntax_on')
   syntax enable
 endif
 
@@ -154,14 +154,14 @@ endif
 " Disable Background Color Erase (BCE) so that color schemes render properly
 " when running Vim inside 256-color tmux and GNU screen. See also
 " http://sunaku.github.io/vim-256color-bce.html
-if !has('nvim') && !empty($TMUX) && &term =~ '256color'
+if !has('nvim') && !empty($TMUX) && &term =~# '256color'
   set t_ut=
 endif
 
 " C Syntax Settings
-let c_gnu = 1
-let c_comment_strings = 1
-let c_curly_error = 1
+let g:c_gnu = 1
+let g:c_comment_strings = 1
+let g:c_curly_error = 1
 " Load doxygen syntax
 let g:load_doxygen_syntax = 1
 

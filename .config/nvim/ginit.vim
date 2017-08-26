@@ -8,7 +8,7 @@ set columns=100
 set guioptions=eimgt
 
 " Font Settings
-if has("win32")
+if has('win32')
     set guifont=Source_Code_Pro_Semibold:h10:cANSI
 else
     set guifont=Source\ Code\ Pro\ Semibold\ 9

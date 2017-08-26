@@ -1,7 +1,7 @@
 " Auto Commands
 " ------------------------------------------------------------------------------
 
-if has("autocmd")
+if has('autocmd')
   augroup ZeroVimAutoCommands
     " Clear the auto command group so we don't define it multiple times
     " From http://learnvimscriptthehardway.stevelosh.com/chapters/14.html
