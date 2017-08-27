@@ -2,7 +2,7 @@
 " ------------------------------------------------------------------------------
 
 " Ensure that vim-plug is installed. {{{1
-let s:vimplug_path = $VIMDATA.'/site/autoload/vim-plug.vim'
+let s:vimplug_path = $VIMDATA.'/site/autoload/plug.vim'
 if !filereadable(s:vimplug_path)
   if executable('curl')
     let s:vimplug_url = 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
