@@ -31,12 +31,14 @@ vnoremap <silent> <Leader>ts :call TrimTrailingWhiteSpace()<CR>
 " Redirect the output of a Vim command into a Scratch buffer {{{1
 function! Redir(split_type, ...) abort
   redir => l:output
-  exec join(a:000)
+  call execute(join(a:000))
   redir END
   if a:split_type ==# 'vertical'
     vnew
   elseif a:split_type ==# 'tab'
     tabnew
+  else
+    new
   endif
   setlocal nobuflisted buftype=nofile bufhidden=wipe noswapfile
   call setline(1, split(l:output, "\n"))
