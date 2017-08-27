@@ -29,9 +29,21 @@ nnoremap <silent> <Leader>ts :call TrimTrailingWhiteSpace()<CR>
 vnoremap <silent> <Leader>ts :call TrimTrailingWhiteSpace()<CR>
 
 " Redirect the output of a Vim command into a Scratch buffer {{{1
-function! Redir(split_type, ...) abort
+function! Redir(split_type, ...)
+  if a:0 < 1
+    echoerr 'Not enough arguments. Must specify split_type, and a command with optional arguments.'
+    return
+  endif
   redir => l:output
-  call execute(join(a:000))
+  if a:1 =~# '^!'
+    " If given a :! command, run it through system(), as execute() on a :!
+    " command doesn't return the proper output
+    let l:args = deepcopy(a:000)
+    let l:args[0] = substitute(l:args[0], '^!', '', '')
+    echo system(join(l:args))
+  else
+    call execute(join(a:000))
+  endif
   redir END
   if a:split_type ==# 'vertical'
     vnew
