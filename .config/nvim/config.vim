@@ -54,14 +54,15 @@ set history=10000
 " ------------------------------------------------------------------------------
 
 set belloff=all                " Bells are evil, kill them with fire
+set cursorline cursorcolumn    " Crosshairs
+set display=lastline
+set fileignorecase             " I like to be lazy when tab-completing
 set hidden                     " Make buffers not annoying
-set showcmd                    " Let our last command stick around
 set laststatus=2               " Always show statusline
 set number relativenumber      " Hybrid line-numbering
-set cursorline cursorcolumn    " Crosshairs
 set scrolloff=3                " Make scrolling look nicer
+set showcmd                    " Let our last command stick around
 set splitright splitbelow      " New splits will open more naturally
-set fileignorecase             " I like to be lazy when tab-completing
 
 " Cursor style
 set guicursor=n-v-c-sm:block
@@ -124,7 +125,7 @@ set formatoptions=crqn1j
 set nojoinspaces
 
 " Use spaces for tabs like a civilized person
-set expandtab softtabstop=2 shiftwidth=2
+set expandtab smarttab softtabstop=2 shiftwidth=2
 
 " cindent options
 set cinoptions=Ls,l1,b1,g0,N-s,t0,(0,U1,w1,Ws,m1,j1,J1
