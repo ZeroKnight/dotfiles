@@ -91,6 +91,11 @@ vnoremap <silent> <Leader>ts :call zerofunc#TrimTrailingWhiteSpace()<CR>
 " }}}
 
 " Abbreviations
-"==============================
+" ------------------------------------------------------------------------------
+
+" Misspellings {{{1
+abbrev teh the
+abbrev cosnt const
+abbrev fucntion function
 
 " vim: fdm=marker
