@@ -3,6 +3,8 @@
 " General Settings {{{1
 " ------------------------------------------------------------------------------
 
+scriptencoding utf-8
+
 " Set up Vim state directories
 " Create any directories if needed
 for s:vdir in ['swap', 'backup', 'view', 'undo', 'session']
