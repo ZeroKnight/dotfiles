@@ -1,5 +1,5 @@
 " Mappings
-"==============================
+" ------------------------------------------------------------------------------
 
 " Simple, quick Esc alternative {{{1
 inoremap jk <Esc>
@@ -77,6 +77,18 @@ nnoremap <C-L> l
 nnoremap <silent> <Leader>gs :Gstatus<CR>
 
 "}}}
+
+" Function Mappings
+" ------------------------------------------------------------------------------
+
+" RecompileYCM() {{{1
+nnoremap <Leader>ycm :<C-U>call zerofunc#RecompileYCM(v:count)<CR>
+
+" TrimTrailingWhiteSpace() {{{1
+nnoremap <silent> <Leader>ts :call zerofunc#TrimTrailingWhiteSpace()<CR>
+vnoremap <silent> <Leader>ts :call zerofunc#TrimTrailingWhiteSpace()<CR>
+
+" }}}
 
 " Abbreviations
 "==============================

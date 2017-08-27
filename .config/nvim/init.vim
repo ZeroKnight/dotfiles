@@ -28,9 +28,6 @@ source $VIMFILES/commands.vim
 " Custom Mappings
 source $VIMFILES/mappings.vim
 
-" Custom Functions
-source $VIMFILES/functions.vim
-
 " Auto Commands
 source $VIMFILES/autocmds.vim
 
