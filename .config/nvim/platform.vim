@@ -8,16 +8,14 @@ if has('win32') || has('win64') "{{{1
   " DOS path separators can also go to hell
   set shellslash
 
-  " Make shell options behave more like Linux
-  " see :h 'shell'
-  "set shell=bash shellcmdflag=-c
-  " NOTE: Disabled for now as this causes all sorts of problems because
-  " system() is fucking lame.
   set shell=cmd shellcmdflag=/c
 
-  " Editing over scp
-  let g:netrw_cygwin = 1
-  let g:netrw_scp_cmd = 'bash -c "eval $(keychain --eval --agents ssh -Q --quiet ~/.ssh/*.key); scp -q'
+  " win32unix == Cygwin
+  if has('win32unix')
+    " Editing over scp
+    let g:netrw_cygwin = 1
+    let g:netrw_scp_cmd = 'bash -c "eval $(keychain --eval --agents ssh -Q --quiet ~/.ssh/*.key); scp -q'
+  endif
 else " Linux {{{1
   " blah
 endif
