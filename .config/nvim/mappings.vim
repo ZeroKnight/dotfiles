@@ -76,6 +76,9 @@ nnoremap <C-L> l
 " Fugitive {{{1
 nnoremap <silent> <Leader>gs :Gstatus<CR>
 
+" Enable . in visual mode {{{1
+vnoremap . :normal .<CR>
+
 "}}}
 
 " Function Mappings
