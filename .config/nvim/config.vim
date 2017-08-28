@@ -50,6 +50,9 @@ endif
 
 set history=10000
 
+" Set Neovim Python provider
+let g:python3_host_prog = '/usr/bin/python3'
+
 " UI Settings {{{1
 " ------------------------------------------------------------------------------
 
@@ -173,6 +176,5 @@ let g:load_doxygen_syntax = 1
 
 " Other variables
 let g:zeroknight_comment_tags = 'TODO|FIXME|XXX|NOTE|HACK|BUG|WARNING|ATTENTION|ALERT|DANGER|TBD|TASK|NOTICE|TEST|DEBUG|DEPRECATED|WTF'
-
 
 " vim: fdm=marker
