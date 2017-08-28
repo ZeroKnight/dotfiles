@@ -32,28 +32,8 @@ if has('autocmd')
     " dynamically use expandtab, softtabstop, shiftwidth, etc in snippets
     autocmd FileType snippets setlocal sts=0
 
-    " SourcePawn compilation
-    autocmd FileType sourcepawn
-      \ setlocal makeprg=/usr/local/bin/spc\ % |
-      \ setlocal commentstring=//%s
-
-    " Help/Man Page Viewer
-    autocmd FileType help,man
-      \ nnoremap <buffer> <CR> <C-]> |
-      \ nnoremap <buffer> <BS> <C-T> |
-      \ nnoremap <buffer> q :q<CR>
-    autocmd FileType man
-      \ setlocal ro noma nonu cc=0 noet ts=8 sts=8 sw=8 nolist
-
     " C/++ Settings
     autocmd FileType c,cpp setlocal nosmartindent cindent
-
-    " Dirvish
-    autocmd FileType dirvish
-      \ nnoremap <buffer> t :call dirvish#open('tabedit', 0)<CR> |
-      \ xnoremap <buffer> t :call dirvish#open('tabedit', 0)<CR> |
-      \ call fugitive#detect(@%) |
-      \ nnoremap gh :keeppatterns g@\v/\.[^\/]+/?$@d<cr>
 
     " Comment Tags
     autocmd Syntax * execute 'syn match ZeroCommentTags /\v(' .
