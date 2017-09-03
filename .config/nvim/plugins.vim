@@ -66,7 +66,7 @@ Plug 'mileszs/ack.vim'
 Plug 'neomake/neomake'
 Plug 'SirVer/ultisnips'
 Plug 'majutsushi/tagbar' " Don't defer, airline uses tagbar for a status item
-Plug 'Valloric/YouCompleteMe', { 'do': function('RecompileYCM') }
+Plug 'Valloric/YouCompleteMe', { 'do': function('zerofunc#RecompileYCM') }
 Plug 'rdnetto/YCM-Generator',  { 'branch': 'stable' }
 
 " Plug 'ervandew/supertab'
