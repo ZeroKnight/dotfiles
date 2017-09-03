@@ -137,8 +137,15 @@ set cinkeys=0{,0},:,0#,!^F,o,O,e,0=break
 " Color & Syntax {{{1
 " ------------------------------------------------------------------------------
 
+" Set initial background based on time of day
+let s:hour = system("date '+%H'")
+if s:hour >= 6 && s:hour < 19
+  set background=light
+else
+  set background=dark
+endif
+
 " Enable Syntax Highlighting
-set background=dark
 if !exists('g:syntax_on')
   syntax enable
 endif
