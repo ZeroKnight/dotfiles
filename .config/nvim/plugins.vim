@@ -25,80 +25,91 @@ let g:plug_shallow = 1
 " Initialize vim-plug and declare our plugins
 call plug#begin($VIMDATA.'/plugins')
 
-" Menus, UI Tweaks & Additions {{{
+" UI {{{
+Plug 'airblade/vim-gitgutter'
+Plug 'chrisbra/NrrwRgn'
+Plug 'justinmk/vim-dirvish'
+Plug 'kshenoy/vim-signature'
+Plug 'mbbill/undotree', { 'on': ['UndotreeFocus', 'UndotreeHide', 'UndotreeShow', 'UndotreeToggle'] }
+Plug 'mhinz/vim-startify'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-"Plug 'scrooloose/nerdtree'
-Plug 'justinmk/vim-dirvish'
-Plug 'mhinz/vim-startify'
-Plug 'mbbill/undotree', { 'on': ['UndotreeFocus', 'UndotreeHide', 'UndotreeShow', 'UndotreeToggle'] }
-Plug 'majutsushi/tagbar', { 'on': ['Tagbar', 'TagbarToggle', 'TagbarOpen', 'TagbarOpenAutoClose'] }
-Plug 'airblade/vim-gitgutter'
-Plug 'kshenoy/vim-signature'
+Plug 'wesQ3/vim-windowswap'
 Plug 'Yggdroot/indentLine'
-Plug 'chrisbra/NrrwRgn'
+"Plug 'scrooloose/nerdtree'
 "}}}
 
-" Commands/Mappings {{{
-Plug 'tpope/vim-unimpaired'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-eunuch'
+" Utilities {{{
+Plug 'alx741/vinfo'
+Plug 'christoomey/vim-sort-motion'
+Plug 'godlygeek/tabular'
+Plug 'Konfekt/FastFold'
+Plug 'moll/vim-bbye'
+Plug 'reedes/vim-wordy'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-characterize'
 Plug 'tpope/vim-commentary'
-Plug 'godlygeek/tabular'
-Plug 'christoomey/vim-sort-motion'
-Plug 'wellle/targets.vim'
-Plug 'moll/vim-bbye'
-"}}}
-
-" Helpers & Tools {{{
+Plug 'tpope/vim-dispatch'
+Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-obsession'
 Plug 'tpope/vim-rhubarb'
-Plug 'ervandew/supertab'
+Plug 'tpope/vim-scriptease'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-unimpaired'
+Plug 'wellle/targets.vim'
+
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'mhinz/vim-grepper'
+Plug 'mileszs/ack.vim'
+
+Plug 'neomake/neomake'
+Plug 'SirVer/ultisnips'
+Plug 'majutsushi/tagbar' " Don't defer, airline uses tagbar for a status item
 Plug 'Valloric/YouCompleteMe'
 Plug 'rdnetto/YCM-Generator'
-Plug 'SirVer/ultisnips'
-Plug 'rking/ag.vim'
-Plug 'tpope/vim-obsession'
-Plug 'ctrlpvim/ctrlp.vim'
-Plug 'alx741/vinfo'
-Plug 'reedes/vim-wordy'
-Plug 'wesQ3/vim-windowswap'
-Plug 'Konfekt/FastFold'
+
+" Plug 'ervandew/supertab'
 "}}}
 
-" Syntax Files & Language Additions/Extensions {{{
+" Syntax {{{
 Plug 'sheerun/vim-polyglot'
-Plug 'othree/xml.vim'
-Plug 'Valloric/MatchTagAlways'
-Plug 'jeaye/color_coded'
-"Plugin 'octol/vim-cpp-enhanced-highlight'
-"Plugin 'ZeroKnight/vim-cubescript'
-Plug 'xolox/vim-lua-ftplugin'
-Plug 'withgod/vim-sourcepawn'
-"}}}
+Plug 'othree/xml.vim',          { 'for': 'xml' }
+Plug 'withgod/vim-sourcepawn',  { 'for': 'sourcepawn' }
+Plug 'Valloric/MatchTagAlways', { 'for': ['html', 'xhtml', 'xml', 'jinja'] }
+Plug 'xolox/vim-lua-ftplugin',  { 'for': 'lua' }
 
-" Libraries/APIs {{{
-Plug 'tpope/vim-repeat'
-Plug 'xolox/vim-misc'
-Plug 'tpope/vim-dispatch'
+if has('nvim')
+  Plug 'arakashic/chromatica.nvim', { 'for': ['c', 'cpp', 'objc'] }
+else
+  Plug 'jeaye/color_coded', { 'for': ['c', 'cpp', 'objc'] }
+endif
 "}}}
 
 " Color Schemes {{{
-Plug 'rakr/vim-one'
-Plug 'Pychimp/vim-luna'
-Plug 'tomasr/molokai'
-Plug 'sickill/vim-monokai'
 Plug 'altercation/vim-colors-solarized'
 Plug 'ciaranm/inkpot'
 Plug 'nanotech/jellybeans.vim'
+Plug 'Pychimp/vim-luna'
+Plug 'rakr/vim-one'
+Plug 'sickill/vim-monokai'
+Plug 'tomasr/molokai'
+"}}}
+
+" Libraries & Misc {{{
+Plug 'tpope/vim-repeat'
+Plug 'xolox/vim-misc'
 "}}}
 
 call plug#end()
 
 " Plugin Settings
 " ------------------------------------------------------------------------------
+
+" Ack.vim (Ag in disguise) {{{1
+let g:ackprg = 'ag --vimgrep --smart-case'
+cnoreabbrev Ag  Ack
+cnoreabbrev LAg LAck
 
 " Airline {{{1
 if !exists('g:airline_symbols')
@@ -201,7 +212,7 @@ let g:tagbar_type_sourcepawn = {
 
 " UltiSnips {{{1
 let g:snips_author = 'Alex "ZeroKnight" George'
-let g:UltiSnipsExpandTrigger = '<Tab>'
+let g:UltiSnipsExpandTrigger = '<C-Tab>'
 let g:UltiSnipsListSnippets = '<C-l>'
 
 " YouCompleteMe {{{1
@@ -211,10 +222,8 @@ let g:ycm_complete_in_comments = 1
 let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_autoclose_preview_window_after_completion = 1
 let g:ycm_always_populate_location_list = 1
-" UltiSnips compatibility via SuperTab
-let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
-let g:SuperTabDefaultCompletionType = '<C-n>'
+" let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+" let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
 
 " xolox Lua ftplugin {{{1
 let g:lua_internal = 0
