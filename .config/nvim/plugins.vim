@@ -40,9 +40,9 @@ Plug 'Yggdroot/indentLine'
 "}}}
 
 " Utilities {{{
-Plug 'alx741/vinfo'
+Plug 'alx741/vinfo', { 'on': 'Vinfo' }
 Plug 'christoomey/vim-sort-motion'
-Plug 'godlygeek/tabular'
+Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
 Plug 'Konfekt/FastFold'
 Plug 'moll/vim-bbye'
 Plug 'reedes/vim-wordy'
@@ -66,8 +66,8 @@ Plug 'mileszs/ack.vim'
 Plug 'neomake/neomake'
 Plug 'SirVer/ultisnips'
 Plug 'majutsushi/tagbar' " Don't defer, airline uses tagbar for a status item
-Plug 'Valloric/YouCompleteMe'
-Plug 'rdnetto/YCM-Generator'
+Plug 'Valloric/YouCompleteMe', { 'do': function('RecompileYCM') }
+Plug 'rdnetto/YCM-Generator',  { 'branch': 'stable' }
 
 " Plug 'ervandew/supertab'
 "}}}
