@@ -206,7 +206,4 @@ let g:ycm_always_populate_location_list = 1
 " let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
 " let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
 
-" xolox Lua ftplugin {{{1
-let g:lua_internal = 0
-
 " vim: fdm=marker
