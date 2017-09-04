@@ -1,4 +1,6 @@
-snippet def "#define ..."
+priority -50
+
+snippet "def(ine)?" "#define ..." r
 #define $1
 endsnippet
 
@@ -9,9 +11,9 @@ $0
 #endif /* $1 */
 endsnippet
 
-snippet #if "#if .. #endif"
+snippet #if "#if ... #endif"
 #if ${1:0}
-${VISUAL}${0:${VISUAL/(.*)/(?1::code)/}}
+${VISUAL}$0
 #endif
 endsnippet
 
@@ -39,64 +41,57 @@ endsnippet
 snippet main "int main() { ... }"
 int main(int argc, char *argv[])
 {
-	${VISUAL}${0:${VISUAL/(.*)/(?1::\/* code *\/)/}}
+	${VISUAL}$0
 	return 0;
 }
 endsnippet
 
 snippet for "for loop"
-for (${2:i} = 0; $2 < ${1:count}; ${3:++$2})
-{
-	${VISUAL}${0:${VISUAL/(.*)/(?1::\/* code *\/)/}}
-}
-endsnippet
-
-snippet fori "for loop with declared init"
 for (${4:int} ${2:i} = 0; $2 < ${1:count}; ${3:++$2})
 {
-	${VISUAL}${0:${VISUAL/(.*)/(?1::\/* code *\/)/}}
+	${VISUAL}$0
 }
 endsnippet
 
-snippet wh "while loop"
-while(${1:/* condition */})
+snippet "wh(ile)?" "while loop" r
+while($1)
 {
-	${VISUAL}${0:${VISUAL/(.*)/(?1::\/* code *\/)/}}
+	${VISUAL}$0
 }
 endsnippet
 
-snippet do "do..while loop"
+snippet do "do/while loop"
 do
 {
-	${VISUAL}${0:${VISUAL/(.*)/(?1::\/* code *\/)/}}
-} while(${1:/* condition */});
+	${VISUAL}$0
+} while ($1);
 endsnippet
 
-snippet if "if ..."
+snippet if "if statement"
 if ($1)
 {
-	${VISUAL}
+	${VISUAL}$0
 }
 endsnippet
 
-snippet el "else ..."
+snippet el "else statement"
 else
 {
-	${VISUAL}
+	${VISUAL}$0
 }
 endsnippet
 
-snippet eli "else if ..."
+snippet eli "else if statement"
 else if ($1)
 {
-	${VISUAL}
+	${VISUAL}$0
 }
 endsnippet
 
-snippet ife "if .. else"
+snippet ife "if/else statement"
 if ($1)
 {
-	$2
+	${VISUAL}$2
 }
 else
 {
@@ -104,10 +99,10 @@ else
 }
 endsnippet
 
-snippet ifei "if .. else if"
+snippet ifei "if/else if statement"
 if ($1)
 {
-	$2
+	${VISUAL}$2
 }
 else if ($3)
 {
@@ -115,10 +110,10 @@ else if ($3)
 }
 endsnippet
 
-snippet ifee "if..else if..else"
+snippet ifee "if/else if/else statement"
 if ($1)
 {
-	$2
+	${VISUAL}$2
 }
 else if ($3)
 {
@@ -131,36 +126,36 @@ else
 endsnippet
 
 snippet enum "Enumeration"
-enum ${1:name} { $0 };
+enum $1 { $0 };
 endsnippet
 
 snippet td "Typedef"
 typedef ${1:int} ${2:typename};
 endsnippet
 
-snippet st "struct"
+snippet "st(ruct)?" "struct" r
 struct ${1:`!p snip.rv = (snip.basename or "name") + "_t"`}
 {
-	${0:/* data */}
+	$0
 };
 endsnippet
 
 snippet tds "typedef struct ..."
 typedef struct ${1:`!p snip.rv = (snip.basename or "name") + "_t"`}
 {
-	${0:/* data */}
+	$0
 } $1;
 endsnippet
 
 snippet fun "function definition" b
-${1:void} ${2:function_name}(${3})
+${1:void} $2($3)
 {
 	${VISUAL}$0
 }
 endsnippet
 
 snippet fund "function declaration" b
-${1:void} ${2:function_name}(${3});
+${1:void} $2($3);
 endsnippet
 
 snippet printf "printf ..."
@@ -171,7 +166,7 @@ snippet fprintf "fprintf ..."
 fprintf(${1:stderr}, "${2:%s}\n"${2/([^%]|%%)*(%.)?.*/(?2:, :\);)/}$3${2/([^%]|%%)*(%.)?.*/(?2:\);)/}
 endsnippet
 
-snippet section "Section Comment header" b
+snippet chead "Section Comment header" b
 /***************************************************************\
  * $1
 \***************************************************************/

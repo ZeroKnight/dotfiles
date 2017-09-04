@@ -1,97 +1,62 @@
-# sligthly lower priority since specialized snippets should overwrite.
+# This file contains snippets that are always defined.
+
+# Priority here is sligthly lower since specialized snippets should overwrite
+# these generic ones.
 priority -60
+
+# Import utility functions
+global !p
+from vimsnippets import foldmarker, get_comment_format
+endglobal
 
 snippet sig "Insert signature"
 `!v g:snips_author`
 endsnippet
 
 snippet copyright "Copyright ©"
-Copyright © `!v strftime("%Y")` `!v g:snips_author`
+Copyright © `!v strftime('%Y')` `!v g:snips_author`
 endsnippet
 
-snippet time "Insert time"
-`!v strftime("%H:%M:%S")`
+snippet time "HH:MM:SS" w
+`!v strftime('%T')`
 endsnippet
 
-snippet date "Insert date"
-`!v strftime("%B %d, %Y")`
+snippet date "YYYY-MM-DD" w
+`!v strftime('%F')`
 endsnippet
 
-snippet tdate "Insert date with time"
-`!v strftime("%B %d, %Y @ %H:%M:%S")`
+snippet ddate "Month DD, YYYY" w
+`!v strftime('%B %d, %Y')`
 endsnippet
 
-global !p
-import string, vim
+snippet tdate "YYYY-MM-DD @ HH:MM:SS" w
+`!v strftime('%F @ %T')`
+endsnippet
 
-def _parse_comments(s):
-	""" Parses vim's comments option to extract comment format """
-	i = iter(s.split(","))
-
-	rv = []
-	try:
-		while True:
-			# get the flags and text of a comment part
-			flags, text = next(i).split(':', 1)
-
-			if len(flags) == 0:
-				rv.append((text, text, text, ""))
-			# parse 3-part comment, but ignore those with O flag
-			elif flags[0] == 's' and 'O' not in flags:
-				ctriple = []
-				indent = ""
-
-				if flags[-1] in string.digits:
-					indent = " " * int(flags[-1])
-				ctriple.append(text)
-
-				flags,text = next(i).split(':', 1)
-				assert(flags[0] == 'm')
-				ctriple.append(text)
-
-				flags,text = next(i).split(':', 1)
-				assert(flags[0] == 'e')
-				ctriple.append(text)
-				ctriple.append(indent)
-
-				rv.append(ctriple)
-			elif flags[0] == 'b':
-				if len(text) == 1:
-					rv.insert(0, (text,text,text, ""))
-	except StopIteration:
-		return rv
-
-def _get_comment_format():
-	""" Returns a 4-element tuple representing the comment format for
-	the current file. """
-	return _parse_comments(vim.eval("&comments"))[0]
-
-def foldmarker():
-	"Return a tuple of (open fold marker, close fold marker)"
-	return vim.eval("&foldmarker").split(",")
-
-endglobal
+snippet tddate "Month DD, YYYY @ HH:MM:SS" w
+`!v strftime('%B %d, %Y @ %T')`
+endsnippet
 
 snippet fold "Vim Fold Marker" b
-`!p snip.rv = _get_comment_format()[0]` ${1:Fold description} `!p snip.rv = foldmarker()[0]`${2:1} `!p snip.rv = _get_comment_format()[2]`
+`!p snip.rv = get_comment_format()[0]` ${1:Fold description} `!p snip.rv = foldmarker()[0]`${2:1} `!p snip.rv = get_comment_format()[2]`
 endsnippet
 
 snippet foldc "Vim Fold Marker (Close)" b
-`!p snip.rv = _get_comment_format()[0]` ${2:1}`!p snip.rv = foldmarker()[1]` `!p snip.rv = _get_comment_format()[2]`
+`!p snip.rv = get_comment_format()[0]` ${2:1}`!p snip.rv = foldmarker()[1]` `!p snip.rv = get_comment_format()[2]`
 endsnippet
 
 snippet foldp "Vim Fold Marker (Pair)" b
-`!p snip.rv = _get_comment_format()[0]` ${1:Fold description} `!p snip.rv = foldmarker()[0]` `!p snip.rv = _get_comment_format()[2]`
+`!p snip.rv = get_comment_format()[0]` ${1:Fold description} `!p snip.rv = foldmarker()[0]` `!p snip.rv = get_comment_format()[2]`
 ${2:${VISUAL:Content}}
-`!p snip.rv = _get_comment_format()[0]` `!p snip.rv = foldmarker()[1]` $1 `!p snip.rv = _get_comment_format()[2]`
+`!p snip.rv = get_comment_format()[0]` `!p snip.rv = foldmarker()[1]` $1 `!p snip.rv = get_comment_format()[2]`
 endsnippet
 
 snippet foldi "Vim Fold Marker (Inline)"
-`!p snip.rv = _get_comment_format()[0] if vim.current.line.find(_get_comment_format()[0]) == -1 else foldmarker()[0]`${2:1}
+`!p snip.rv = get_comment_format()[0] if vim.current.line.find(get_comment_format()[0]) == -1 else foldmarker()[0]`${2:1}
 endsnippet
 
 snippet modeline "Vim modeline" b
-`!p snip.rv = _get_comment_format()[0]` vim: ${1:et sts=`!v eval('&sts')` sw=`!v eval('&sw')`} $0
+`!p snip.rv = get_comment_format()[0]` vim: ${1:et sts=`!v eval('&sts')` sw=`!v eval('&sw')`} $0
 endsnippet
 
 snippet lorem "Lorem Ipsum - 50 Words" b
@@ -103,14 +68,14 @@ endsnippet
 
 # Ugly, I know
 snippet copyheader "Copyright info header" b
-`!p snip.rv = _get_comment_format()[0]`
-`!p snip.rv = ' ' if _get_comment_format()[1] == '*' else ''``!p snip.rv = _get_comment_format()[1]` Copyright © `!v strftime("%Y")` `!v g:snips_author`
-`!p snip.rv = ' ' if _get_comment_format()[1] == '*' else ''``!p snip.rv = _get_comment_format()[1]`
-`!p snip.rv = ' ' if _get_comment_format()[1] == '*' else ''``!p snip.rv = _get_comment_format()[1]` This file is licensed under the ${1:MIT} License. For details, please see the
-`!p snip.rv = ' ' if _get_comment_format()[1] == '*' else ''``!p snip.rv = _get_comment_format()[1]` LICENSE file that should be included with the source code, or
-`!p snip.rv = ' ' if _get_comment_format()[1] == '*' else ''``!p snip.rv = _get_comment_format()[1]` ${2:<https://opensource.org/licenses/MIT>}
-`!p snip.rv = ' ' if _get_comment_format()[1] == '*' else ''``!p snip.rv = _get_comment_format()[2]`
+`!p snip.rv = get_comment_format()[0]`
+`!p snip.rv = ' ' if get_comment_format()[1] == '*' else ''``!p snip.rv = get_comment_format()[1]` Copyright © `!v strftime("%Y")` `!v g:snips_author`
+`!p snip.rv = ' ' if get_comment_format()[1] == '*' else ''``!p snip.rv = get_comment_format()[1]`
+`!p snip.rv = ' ' if get_comment_format()[1] == '*' else ''``!p snip.rv = get_comment_format()[1]` This file is licensed under the ${1:MIT} License. For details, please see the
+`!p snip.rv = ' ' if get_comment_format()[1] == '*' else ''``!p snip.rv = get_comment_format()[1]` LICENSE file that should be included with the source code, or
+`!p snip.rv = ' ' if get_comment_format()[1] == '*' else ''``!p snip.rv = get_comment_format()[1]` ${2:<https://opensource.org/licenses/MIT>}
+`!p snip.rv = ' ' if get_comment_format()[1] == '*' else ''``!p snip.rv = get_comment_format()[2]`
 endsnippet
 
-# vim:ft=snippets:
+# vim: ft=snippets
 

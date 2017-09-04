@@ -41,7 +41,7 @@ around BUILDARGS => sub {
 endsnippet
 
 snippet has "Moo(se) class attribute (has ...)" b
-has ${1:attr} => (
+has $1 => (
 	is  => '${2:rw}',
 	isa => ${3:Any},$4
 );

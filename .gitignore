@@ -8,3 +8,6 @@
 /.zsh/.zcompcache/
 /.zsh/.zcompdump
 /.zsh/.zhistory
+
+### Misc
+__pycache__/**

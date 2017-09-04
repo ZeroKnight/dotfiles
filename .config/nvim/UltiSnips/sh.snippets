@@ -1,12 +1,12 @@
 priority -50
 
-snippet #! "shebang" b
+snippet #! "shebang" bA
 `!p snip.rv = "#!/bin/"`${1:`!p snip.rv = snip.ft`}
 
 $0
 endsnippet
 
-snippet #!e "#!/usr/bin/env" b
+snippet e#! "#!/usr/bin/env" bA
 `!p snip.rv = "#!/usr/bin/env"` ${1:`!p snip.rv = snip.ft`}
 
 $0
@@ -50,15 +50,15 @@ elif [ $1 ]; then
 endsnippet
 
 snippet case "case ... esac"
-case ${1:word} in
-	${2:pattern})
+case $1 in
+	$2)
 		$0
 		;;
 esac
 endsnippet
 
 snippet casep "case pattern"
-${1:pattern})
+$1)
 	$0
 	;;
 endsnippet
@@ -76,13 +76,13 @@ done
 endsnippet
 
 snippet here "here document"
-<<-${2:'${1:TOKEN}'}
+<<-${2:'$1'}
 $0
 ${1/['"`](.+)['"`]/$1/}
 endsnippet
 
 snippet heres "here string"
-<<< ${2:"${1:string}"}
+<<< ${2:"$1"}
 endsnippet
 
 snippet until "until [[ ... ]] done"

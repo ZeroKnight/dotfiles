@@ -4,7 +4,7 @@ extends c
 priority 1
 
 snippet inc "#include local header"
-#include "${1:foo}.sp"
+#include "$1.sp"
 endsnippet
 
 snippet Inc "#include <foo>"
@@ -13,6 +13,15 @@ endsnippet
 
 snippet prag "#pragma"
 #pragma $1
+endsnippet
+
+snippet guard "Include Guard" b
+#if defined ${2:PATH_}${1:`!p snip.rv = re.sub(r'[^A-Za-z0-9]+', '_', snip.fn).upper()`}_INCLUDED
+#endinput
+#endif
+#define $2$1_INCLUDED
+
+$0
 endsnippet
 
 snippet pragmas "semicolon and newdecls pragmas" b
@@ -35,20 +44,21 @@ $0
 endsnippet
 
 snippet fun "function definition" b
-${1:public} ${2:void} ${3:function_name}(${4})
+${1:public} ${2:void} $3($4)
 {
 	${VISUAL}$0
 }
 endsnippet
 
 snippet callback "callback function"
-${1:public} ${2:Action} ${3:callback_name}(int client, int args)
+${1:public} ${2:Action} $3(int client, int args)
 {
 	${VISUAL}$0
 }
 endsnippet
 
-snippet vim "vim modeline" b
-// vim: filetype=sourcepawn
+snippet modeline "vim modeline" b
+// vim: ft=sourcepawn
 endsnippet
 
+# vim: ft=snippets

@@ -2,25 +2,41 @@ priority -50
 
 extends c
 
-# Overwrite duplicate C snips
+# Overwrite any C snippets
 priority -49
+
+global !p
+def write_docstring_args(arglist, snip):
+	args = str(arglist).split(',')
+
+	if len(args) > 1:
+		c = 0
+		for arg in args:
+			if c == 0:
+				snip.rv += arg
+				c = 1
+			else:
+				snip += '*       : %s' % arg.strip()
+	else:
+		snip.rv = args[0]
+endglobal
 
 snippet cl "class"
 class ${1:`!p snip.rv = snip.basename or "name"`}
 {
 public:
-	${1/(\w+).*/$1/} (${2:arguments});
+	${1/(\w+).*/$1/} ($2);
 	virtual ~${1/(\w+).*/$1/} ();
 
 private:
-	${0:/* data */}
+	$0
 };
 endsnippet
 
 snippet ns "namespace"
 namespace${1/.+/ /m}${1:`!p snip.rv = snip.basename or "name"`}
 {
-	${VISUAL}
+	${VISUAL}$0
 }${1/.+/ \/* /m}$1${1/.+/ *\/ /m}
 endsnippet
 
@@ -29,11 +45,29 @@ std::map<${1:key}, ${2:value}> ${0:map};
 endsnippet
 
 snippet vector "std::vector"
-std::vector<${1:char}> ${0:v};
+std::vector<${1:int}> ${0:v};
+endsnippet
+
+snippet beginend "$1.begin(), $1.end() (beginend)"
+${1:v}${1/^.*?(-)?(>)?$/(?2::(?1:>:.))/}begin(), $1${1/^.*?(-)?(>)?$/(?2::(?1:>:.))/}end()
 endsnippet
 
 snippet tp "template <typename ..>"
-template <typename ${1:_InputIter}>
+template <typename $1>
 endsnippet
 
-# vim: ft=snippets
+snippet fnc "Basic C++ Doxygen function template" b
+/**
+* @brief: $4
+*
+* @param: `!p write_docstring_args(t[3],snip)`
+*
+* @return: `!p snip.rv = t[1]`
+*/
+${1:void} $2($3)
+{
+	$0
+}
+endsnippet
+
+# vim: ft=snippets ts=4

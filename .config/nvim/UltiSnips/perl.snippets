@@ -2,14 +2,15 @@ priority -50
 
 ### Assorted Boilerplate #######################################
 
-snippet #! "shebang" b
-`!p snip.rv = '#!/usr/bin/env perl'`
+snippet #! "shebang" bA
+#!/usr/bin/env perl
 
 $0
 endsnippet
 
 snippet use "use ..." b
-use ${1:Foo::Bar} ${2:qw($3)};
+use $1 ${3:qw($2)};
+$0
 endsnippet
 
 snippet req "requires ..."
@@ -95,7 +96,7 @@ if ($1)
 endsnippet
 
 snippet ifx "if (modifier)"
-${1:expr} if $2;
+${1:${VISUAL/;//}} if $2;
 endsnippet
 
 snippet el "else ..."
@@ -157,7 +158,7 @@ unless ($1)
 endsnippet
 
 snippet unlx "unless (modifier)"
-${1:expr} unless $2;
+${1:${VISUAL/;//}} unless $2;
 endsnippet
 
 snippet wh "while"
@@ -168,7 +169,7 @@ while ($1)
 endsnippet
 
 snippet whx "while (modifier)"
-${1:expr} while $2;
+${1:${VISUAL/;//}} while $2;
 endsnippet
 
 snippet until "until"
@@ -179,7 +180,7 @@ until ($1)
 endsnippet
 
 snippet xuntil "until (modifier)"
-${1:expr} until $2;
+${1:${VISUAL/;//}} until $2;
 endsnippet
 
 snippet for "foreach"
@@ -190,7 +191,7 @@ foreach ${1:my $${2:i}} (${3:list})
 endsnippet
 
 snippet forx "foreach (modifier)"
-${1:expr} foreach ${2:list};
+${1:${VISUAL/;//}} foreach $2;
 endsnippet
 
 snippet forc "for (C-style)"
@@ -215,13 +216,13 @@ when ($1)
 endsnippet
 
 snippet whenx "when (modifier)"
-${1:expr} when $2;
+${1:${VISUAL/;//}} when $2;
 endsnippet
 
 ### Function/Object Constructs #################################
 
 snippet sub "Subroutine (function)" b
-sub ${1:sub_name}
+sub $1
 {
 	my ${2/([^,])+(,)?.*/(?2:\()/}${2:\$foo}${2/([^,])+(,)?.*/(?2:\))/} = ${2/([^,])+(,)?.*/(?2:@_:shift)/};
 	$0
@@ -238,7 +239,7 @@ sub new
 endsnippet
 
 snippet method "Class method: sub foo { my $self = shift; ..." b
-sub ${1:method_name}
+sub $1
 {
 	my ${2/([^,])+(,)?.*/(?2:\()/}${2:\$self}$3${2/([^,])+(,)?.*/(?2:\))/} = ${2/([^,])+(,)?.*/(?2:@_:shift)/};
 

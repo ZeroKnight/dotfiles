@@ -11,53 +11,81 @@ endsnippet
 
 snippet chead "Comment Header"
 " $1
-"==============================
+" ------------------------------------------------------------------------------
 
 $2
 endsnippet
 
-snippet gvar "Global / configuration variable"
-if !exists("g:${1:var}")
-	let g:$1 = ${2:"${3:value}"}
+snippet gvar "Global/Configuration variable"
+if !exists("g:$1")
+	let g:$1 = $2
 endif
 endsnippet
 
-snippet guard
+snippet guard "Script reload guard"
 if exists('${1:did_`!p snip.rv = snip.fn.replace('.','_')`}') || &cp${2: || version < 700}
 	finish
 endif
-let $1 = 1${3}
+let $1 = 1$3
 endsnippet
 
-snippet f
-fun ${1:function_name}(${2})
-	${3:" code}
-endf
+snippet "fun(ction)?" "Function definition" b
+function! $1($2) abort
+	$0
+endfunction
 endsnippet
 
-snippet for
-for ${1:needle} in ${2:haystack}
-	${3:" code}
+snippet for "for loop"
+for $1 in $2
+	${VISUAL}$0
 endfor
 endsnippet
 
-snippet wh
-while ${1:condition}
-	${2:" code}
+snippet "wh(ile)?" "while loop"
+while $1
+	${VISUAL}$0
 endw
 endsnippet
 
-snippet if
-if ${1:condition}
-	${2:" code}
+snippet if "if statement"
+if $1
+	${VISUAL}$0
 endif
 endsnippet
 
-snippet ife
-if ${1:condition}
-	${2}
+snippet el "else statement"
 else
-	${3}
+	${VISUAL}$0
+endsnippet
+
+snippet eli "elseif statement"
+elseif $1
+	${VISUAL}$0
+endsnippet
+
+snippet ife "if/else statement"
+if $1
+	${VISUAL}$2
+else
+	$3
+endif
+endsnippet
+
+snippet ifei "if/elseif statement"
+if ${1:condition}
+	${VISUAL}$2
+elseif ${3:condition}
+	$4
+endif
+endsnippet
+
+snippet ifee "if/elseif/else statement"
+if $1
+	${VISUAL}$2
+elseif $3
+	$4
+else
+	$5
 endif
 endsnippet
 

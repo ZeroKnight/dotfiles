@@ -1,12 +1,13 @@
 priority -50
 
-snippet #! "shebang" b
+snippet #! "shebang" bA
 #!/usr/bin/env lua
+
 $0
 endsnippet
 
-snippet !fun(ction)?! "Function definition" br
-function ${1:new_function}(${2:args})
+snippet "fun(ction)?" "Function definition" br
+function ${1:name}($2)
 	$0
 end
 endsnippet
@@ -29,7 +30,57 @@ for ${1:i}=${2:first},${3:last}${4/^..*/(?0:,:)/}${4:step} do
 end
 endsnippet
 
-snippet local "local x = 1"
+snippet repeat "repeat loop" b
+repeat
+	$1
+until $0
+endsnippet
+
+snippet "wh(ile)?" "while loop" br
+while $1 do
+	$0
+end
+endsnippet
+
+snippet if "if statement" b
+if $1 then
+	$0
+end
+endsnippet
+
+snippet ife "if/else statement" b
+if $1 then
+	$2
+else
+	$0
+end
+endsnippet
+
+snippet eif "if/elseif statement" b
+if $1 then
+	$2
+elseif $3 then
+	$0
+end
+endsnippet
+
+snippet eife "if/elseif/else statement" b
+if $1 then
+	$2
+elseif $3 then
+	$4
+else
+	$0
+end
+endsnippet
+
+snippet do "do block"
+do
+	$0
+end
+endsnippet
+
+snippet "lo(cal)?" "local x = 1" r
 local ${1:x} = ${0:1}
 endsnippet
 
