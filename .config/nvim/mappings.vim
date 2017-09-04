@@ -68,10 +68,10 @@ vnoremap <S-Ins> "-d"+P
 nnoremap <silent> <Leader>ig :IndentLinesToggle<CR>
 
 " Window Switching {{{1
-nnoremap <C-H> h
-nnoremap <C-J> j
-nnoremap <C-K> k
-nnoremap <C-L> l
+nnoremap <C-H> <C-w>h
+nnoremap <C-J> <C-w>j
+nnoremap <C-K> <C-w>k
+nnoremap <C-L> <C-w>l
 
 " Fugitive {{{1
 nnoremap <silent> <Leader>gs :Gstatus<CR>
