@@ -32,6 +32,7 @@ Plug 'justinmk/vim-dirvish'
 Plug 'kshenoy/vim-signature'
 Plug 'mbbill/undotree', { 'on': ['UndotreeFocus', 'UndotreeHide', 'UndotreeShow', 'UndotreeToggle'] }
 Plug 'mhinz/vim-startify'
+Plug 'ZeroKnight/quick-scope'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'wesQ3/vim-windowswap'
@@ -181,6 +182,9 @@ let g:tagbar_autoshowtag = 1
 let g:snips_author = 'Alex "ZeroKnight" George'
 let g:UltiSnipsExpandTrigger = '<C-Tab>'
 let g:UltiSnipsListSnippets = '<C-l>'
+
+" Quick-Scope {{{1
+let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 
 " YouCompleteMe {{{1
 let g:ycm_error_symbol = '✗'
