@@ -59,7 +59,7 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'wellle/targets.vim'
 
-Plug 'ctrlpvim/ctrlp.vim'
+Plug 'junegunn/fzf.vim'
 Plug 'mhinz/vim-grepper'
 Plug 'mileszs/ack.vim'
 
@@ -126,20 +126,6 @@ let g:airline_symbols.linenr = ''
 let g:airline_theme='one'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#show_close_button = 0
-
-" CtrlP {{{1
-let g:ctrlp_cmd = 'CtrlPBuffer'
-let g:ctrlp_extensions = ['mixed', 'line', 'dir', 'quickfix', 'buffertag', 'tag']
-let g:ctrlp_switch_buffer = 'et'
-let g:ctrlp_working_path_mode = 'ar'
-let g:ctrlp_open_new_file = 'r'
-
-if executable('ag')
-  " Enables CtrlP to search using Ag for listing files.
-  " Lightning fast, no need to cache and even respects .gitignore
-  let g:ctrlp_user_command = 'ag %s --nocolor -l -g ""'
-  let g:ctrlp_use_caching = 0
-endif
 
 " Indent Guides {{{1
 let g:indentLine_char = '│'
