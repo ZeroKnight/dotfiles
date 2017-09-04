@@ -45,9 +45,6 @@ inoremap <silent> <F5> <C-o>:UndotreeToggle<CR>
 nnoremap <silent> <F6> :SignatureToggleSigns<CR>
 inoremap <silent> <F6> <C-o>:SignatureToggleSigns<CR>
 
-" C-F12 - Generate tags file {{{1
-"nnoremap <C-F12> :!ctags -R --c++-kinds=+p --fields=+liaS --extra=+q .<CR>
-
 " Yank entire buffer {{{1
 nnoremap gy :%y+<CR>
 
