@@ -81,7 +81,7 @@ Plug 'Valloric/MatchTagAlways', { 'for': ['html', 'xhtml', 'xml', 'jinja'] }
 Plug 'xolox/vim-lua-ftplugin',  { 'for': 'lua' }
 
 if has('nvim')
-  Plug 'arakashic/chromatica.nvim', { 'for': ['c', 'cpp', 'objc'] }
+  Plug 'arakashic/chromatica.nvim', { 'for': ['c', 'cpp', 'objc'], 'do': ':UpdateRemotePlugins' }
 else
   Plug 'jeaye/color_coded', { 'for': ['c', 'cpp', 'objc'] }
 endif
