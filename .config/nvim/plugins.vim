@@ -70,6 +70,10 @@ Plug 'majutsushi/tagbar' " Don't defer, airline uses tagbar for a status item
 Plug 'Valloric/YouCompleteMe', { 'do': function('zerofunc#RecompileYCM') }
 Plug 'rdnetto/YCM-Generator',  { 'branch': 'stable' }
 
+if !has('nvim')
+  Plug 'bruno-/vim-man'
+endif
+
 " Plug 'ervandew/supertab'
 "}}}
 
