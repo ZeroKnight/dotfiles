@@ -184,7 +184,7 @@ let g:tagbar_autoshowtag = 1
 
 " UltiSnips {{{1
 let g:snips_author = 'Alex "ZeroKnight" George'
-let g:UltiSnipsExpandTrigger = '<C-Tab>'
+let g:UltiSnipsExpandTrigger = '<C-i>'
 let g:UltiSnipsListSnippets = '<C-l>'
 
 " Quick-Scope {{{1
