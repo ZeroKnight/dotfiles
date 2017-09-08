@@ -67,8 +67,12 @@ Plug 'mileszs/ack.vim'
 Plug 'neomake/neomake'
 Plug 'SirVer/ultisnips'
 Plug 'majutsushi/tagbar' " Don't defer, airline uses tagbar for a status item
-Plug 'Valloric/YouCompleteMe', { 'do': function('zerofunc#RecompileYCM') }
-Plug 'rdnetto/YCM-Generator',  { 'branch': 'stable' }
+
+Plug 'roxma/nvim-completion-manager'
+Plug 'roxma/clang_complete'
+Plug 'jsfaint/neoinclude.vim' " Plug 'Shougo/neoinclude.vim'
+Plug 'Shougo/neco-vim' | Plug 'Shougo/neco-syntax'
+Plug 'roxma/ncm-github'
 
 if !has('nvim')
   Plug 'bruno-/vim-man'
@@ -138,6 +142,16 @@ let g:indentLine_color_gui = 'Grey40'
 let g:indentLine_fileTypeExclude = ['help', 'text', 'nerdtree', 'startify', 'man']
 "let g:indentLine_bufNameExclude = []
 
+" Neovim Completion Manager {{{1
+let g:cm_matcher = { 'module': 'cm_matchers.abbrev_matcher', 'case': 'smartcase' }
+
+" Show completion menu after two characters like YCM
+let g:cm_refresh_length = [ [1,2], [7,2] ]
+
+" clang_complete
+let g:clang_library_path = '/usr/lib64/'
+let g:clang_user_options = '-std=c++11'
+
 " Startify {{{1
 function! s:PrettyVersion()
   let l:major = v:version / 100
@@ -184,20 +198,10 @@ let g:tagbar_autoshowtag = 1
 
 " UltiSnips {{{1
 let g:snips_author = 'Alex "ZeroKnight" George'
-let g:UltiSnipsExpandTrigger = '<C-i>'
+let g:UltiSnipsExpandTrigger = '<C-Space>'
 let g:UltiSnipsListSnippets = '<C-l>'
 
 " Quick-Scope {{{1
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
-
-" YouCompleteMe {{{1
-let g:ycm_error_symbol = '✗'
-let g:ycm_warning_symbol = '!!'
-let g:ycm_complete_in_comments = 1
-let g:ycm_collect_identifiers_from_tags_files = 1
-let g:ycm_autoclose_preview_window_after_completion = 1
-let g:ycm_always_populate_location_list = 1
-" let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
-" let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
 
 " vim: fdm=marker
