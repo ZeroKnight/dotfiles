@@ -37,8 +37,8 @@ set viewoptions=cursor,folds,slash,unix
 set tags=./tags,./TAGS,./src/**/tags,./src/**/TAGS,./.git/tags,./.git/TAGS,
 set tags+=tags,TAGS,src/**/tags,src/**/TAGS,.git/tags,.git/TAGS
 
-" Directories to search when using file commands (gf, [f, ]f, ^Wf, :*find, etc)
-set path=.;include,/usr/include/**,./**,$PWD/**
+" Directories to search when using file commands (gf, ^Wf, :*find, etc)
+set path=.,/usr/include,/usr/local/include,,
 
 " K should show man pages inside Vim
 set keywordprg=:Man
