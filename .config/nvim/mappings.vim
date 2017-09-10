@@ -76,6 +76,13 @@ nnoremap <silent> <Leader>gs :Gstatus<CR>
 " Enable . in visual mode {{{1
 vnoremap . :normal .<CR>
 
+" Insert a newline when closing the popup menu with <Enter> {{{1
+inoremap <expr> <CR> pumvisible() ? "\<C-y>\<CR>" : "\<CR>"
+
+" Allow <Tab> and <S-Tab> to cycle the popup menu {{{1
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
 "}}}
 
 " Function Mappings
