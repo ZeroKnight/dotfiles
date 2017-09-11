@@ -21,7 +21,11 @@ if (( $+SSH_CONNECTION || $+SSH_CLIENT || $+SSH_TTY )); then
 fi
 
 # Set program-related environment variables
-export VISUAL='vim'
+if (( $+commands[nvim] )); then
+  export VISUAL='nvim'
+else
+  export VISUAL='vim'
+fi
 export EDITOR="$VISUAL"
 export PAGER='less' LESS='-iMRS'
 if (( $+DISPLAY )); then
