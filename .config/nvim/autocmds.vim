@@ -7,6 +7,9 @@ if has('autocmd')
     " From http://learnvimscriptthehardway.stevelosh.com/chapters/14.html
     autocmd!
 
+    " Run NeoMake on write
+    autocmd BufWritePost * Neomake
+
     " Automatically source personal runtime files on modification
     autocmd BufWritePost .{g,}vimrc,{g,}init.vim source %
     autocmd BufWritePost
