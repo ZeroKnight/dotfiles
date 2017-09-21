@@ -11,7 +11,7 @@ endfunction
 
 call s:SetDefault('$VIMFILES',    expand('~/.config/nvim'))
 call s:SetDefault('$VIMDATA',     expand('~/.local/share/nvim'))
-call s:SetDefault('$VIMSESSIONS', $VIMDATA.'/sessions')
+call s:SetDefault('$VIMSESSIONS', $VIMDATA.'/session')
 
 " Plugin Configuration
 source $VIMFILES/plugins.vim
