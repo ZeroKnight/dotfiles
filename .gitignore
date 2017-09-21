@@ -10,4 +10,4 @@
 /.zsh/.zhistory
 
 ### Misc
-__pycache__/**
+__pycache__/
