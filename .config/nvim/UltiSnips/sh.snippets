@@ -1,13 +1,7 @@
-priority -50
+priority 30
 
 snippet #! "shebang" bA
-`!p snip.rv = "#!/bin/"`${1:`!p snip.rv = snip.ft`}
-
-$0
-endsnippet
-
-snippet e#! "#!/usr/bin/env" bA
-`!p snip.rv = "#!/usr/bin/env"` ${1:`!p snip.rv = snip.ft`}
+`!p snip.rv = "#!/usr/bin/env "`${1:`!p snip.rv = snip.ft`}
 
 $0
 endsnippet
@@ -18,35 +12,35 @@ endsnippet
 
 snippet if "if [[ ... ]] then"
 if [[ $1 ]]; then
-	$0
+	${VISUAL}$0
 fi
 endsnippet
 
 snippet ifa "if (( ... )) then"
 if (( $1 )); then
-	$0
+	${VISUAL}$0
 fi
 endsnippet
 
 snippet ifp "if [ .. ] then (posix)"
 if [ $1 ]; then
-	$0
+	${VISUAL}$0
 fi
 endsnippet
 
 snippet elif "elif [[ ... ]]"
 elif [[ $1 ]]; then
-	$0
+	${VISUAL}$0
 endsnippet
 
 snippet elifa "elif (( ... ))"
 elif (( $1 )); then
-	$0
+	${VISUAL}$0
 endsnippet
 
 snippet elifp "elifp [ ... ]"
 elif [ $1 ]; then
-	$0
+	${VISUAL}$0
 endsnippet
 
 snippet case "case ... esac"
@@ -59,19 +53,19 @@ endsnippet
 
 snippet casep "case pattern"
 $1)
-	$0
+	${VISUAL}$0
 	;;
 endsnippet
 
 snippet for "for ... in ... done"
 for ${1:i}${2/.+/ in /}${2:words}; do
-	$0
+	${VISUAL}$0
 done
 endsnippet
 
 snippet forc "for (( ; ; )) ... done"
 for (( i = 0; i < ${1:10}; ++i )); do
-	$0
+	${VISUAL}$0
 done
 endsnippet
 
@@ -87,25 +81,25 @@ endsnippet
 
 snippet until "until [[ ... ]] done"
 until [[ $1 ]]; do
-	$0
+	${VISUAL}$0
 done
 endsnippet
 
 snippet untila "until (( ... )) done"
 until (( $1 )); do
-	$0
+	${VISUAL}$0
 done
 endsnippet
 
 snippet while "while [[ ... ]] done"
 while [[ $1 ]]; do
-	$0
+	${VISUAL}$0
 done
 endsnippet
 
 snippet whilea "while (( ... )) done"
 while [[ $1 ]]; do
-	$0
+	${VISUAL}$0
 done
 endsnippet
 
@@ -117,4 +111,4 @@ ${3:${4/(.+)/trap "/}${4:rm -f '$${1/.*\s//}'}${4/(.+)/" 0 # EXIT\n/}${5/(.+)/tr
 
 endsnippet
 
-# vim: ft=snippets
+# vim: ft=snippets ts=4

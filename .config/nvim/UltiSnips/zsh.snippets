@@ -1,12 +1,11 @@
-priority -50
-
+priority 30
 extends sh
 
-priority -49
+priority 50
 
 snippet forz "for i (words) { ... }"
 for ${1:i} ($2) {
-	$0
+	${VISUAL}$0
 }
 endsnippet
 
@@ -24,4 +23,4 @@ snippet casep "case pattern"
 	;;
 endsnippet
 
-# vim: ft=snippets
+# vim: ft=snippets ts=4

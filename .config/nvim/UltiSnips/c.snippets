@@ -1,4 +1,4 @@
-priority -50
+priority 50
 
 snippet "def(ine)?" "#define ..." r
 #define $1
@@ -17,15 +17,15 @@ ${VISUAL}$0
 #endif
 endsnippet
 
-# C/C++ agnostic. Will mimic the '.c*' extension as '.h*'
-# Eg: foo.c -> foo.h, foo.cpp -> foo.hpp, foo.cxx -> foo.hxx, foo.cc -> foo.hh
-snippet inc "#include local header"
-#include "${1:`!v expand("%:t:r")`}.${2:`!p snip.rv = re.sub('c','h',re.sub(r'\w+\.','',snip.fn))`}"
+snippet inc "#include <foo>"
+#include <${1:iostream}>
 $0
 endsnippet
 
-snippet Inc "#include <foo>"
-#include <${1:iostream}>
+# C/C++ agnostic. Will mimic the '.c*' extension as '.h*'
+# Eg: foo.c -> foo.h, foo.cpp -> foo.hpp, foo.cxx -> foo.hxx, foo.cc -> foo.hh
+snippet Inc "#include local header"
+#include "${1:`!v expand("%:t:r")`}.${2:`!p snip.rv = re.sub('c','h',re.sub(r'\w+\.','',snip.fn))`}"
 $0
 endsnippet
 
@@ -174,4 +174,4 @@ snippet chead "Section Comment header" b
 $0
 endsnippet
 
-# vim: ft=snippets
+# vim: ft=snippets ts=4

@@ -1,4 +1,4 @@
-priority -50
+priority 50
 
 global !p
 def create_table(snip):
@@ -61,7 +61,7 @@ endsnippet
 
 snippet cbl "Codeblock" b
 \`\`\`
-$1
+${VISUAL}$1
 \`\`\`
 $0
 endsnippet
@@ -82,4 +82,4 @@ pre_expand "create_table(snip)"
 snippet "tb(\d+x\d+)" "Customizable table" br
 endsnippet
 
-# vim:ft=snippets:
+# vim: ft=snippets ts=4

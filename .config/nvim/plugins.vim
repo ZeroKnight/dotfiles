@@ -201,6 +201,7 @@ let g:tagbar_autoshowtag = 1
 let g:snips_author = 'Alex "ZeroKnight" George'
 let g:UltiSnipsExpandTrigger = '<C-Space>'
 let g:UltiSnipsListSnippets = '<C-l>'
+let g:ultisnips_java_brace_style = 'nl'
 
 " Quick-Scope {{{1
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
