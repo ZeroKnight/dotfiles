@@ -30,6 +30,67 @@ ${1:key} => [
 ],
 endsnippet
 
+### Testing ####################################################
+
+snippet subtest "subtest 'foo' => sub {}"
+subtest '$1' => sub {
+	${VISUAL}$0
+};
+endsnippet
+
+snippet is "is(foo, 42, 'foo is 42')"
+is($1, $2, '$3');$0
+endsnippet
+
+snippet isnt "isnt(foo, 42, 'foo is not 42')"
+is($1, $2, '$3');$0
+endsnippet
+
+snippet isd "is_deeply($got, $expected, $test_name)"
+is_deeply($1, $2, '$3');$0
+endsnippet
+
+snippet like "like(foo, qr/bar/, 'foo matches bar')"
+like($1, qr/$2/, '$3');$0
+endsnippet
+
+snippet unlike "unlike(foo, qr/bar/, 'foo does not match bar')"
+like($1, qr/$2/, '$3');$0
+endsnippet
+
+snippet ok "ok(foo, 'foo ok')"
+ok($1, '$2');$0
+endsnippet
+
+snippet newok "new_ok('Foo::Bar' => [])"
+new_ok('$1' => ${2:[]});$0
+endsnippet
+
+snippet cmpok "cmp_ok(foo, '>=', bar, 'foo >= bar')"
+cmp_ok($1, '${2:&&}', $3, '$4');$0
+endsnippet
+
+snippet canok "can_ok('Foo::Bar', qw/frobnicate bing fling/)"
+can_ok('$1', qw/$2/);$0
+endsnippet
+
+snippet isaok "isa_ok($obj, 'Foo::Obj', 'Foo object')"
+isa_ok($1, '$2'${3/.+/, /}${3:name});$0
+endsnippet
+
+snippet reqok "require_ok(module/file)"
+require_ok('$1');$0
+endsnippet
+
+snippet useok "use_ok('Foo::Bar', qw/imports/)" b
+BEGIN { use_ok('$1'${3/\S+/, qw\//}${3:imports}${3/\S+/\//}) }
+$0
+endsnippet
+
+snippet expl "diag explain $obj"
+diag explain $1;$0
+endsnippet
+
 ### Idioms and Shortcuts #######################################
 
 snippet open "open my $fh ..."
