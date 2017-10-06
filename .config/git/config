@@ -5,7 +5,7 @@
 [color]
     ui = auto
 [core]
-    editor = vim
+    editor = nvim
     pager = less -S
 [alias]
     setup = !git init && git add . && git commit -m 'Initial Commit'
