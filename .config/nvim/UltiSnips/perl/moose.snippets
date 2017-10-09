@@ -28,7 +28,7 @@ endsnippet
 snippet build "sub BUILD { ... }" b
 sub BUILD
 {
-	my ($self, $args) = @_;
+	my ${1/[^,]*(,)?.*/(?1:\()/}$self${1:, $args}${1/[^,]*(,)?.*/(?1:\))/} = ${1/[^,]*(,)?.*/(?1:@_:shift)/};
 	$0
 }
 endsnippet
