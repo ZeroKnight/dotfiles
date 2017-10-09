@@ -143,6 +143,9 @@ let g:indentLine_color_gui = 'Grey40'
 let g:indentLine_fileTypeExclude = ['help', 'text', 'nerdtree', 'startify', 'man']
 "let g:indentLine_bufNameExclude = []
 
+" Neomake
+let g:neomake_perl_args = ['PERL5LIB=.', '-c', '-X', '-Mwarnings']
+
 " Neovim Completion Manager {{{1
 let g:cm_matcher = { 'module': 'cm_matchers.abbrev_matcher', 'case': 'smartcase' }
 
