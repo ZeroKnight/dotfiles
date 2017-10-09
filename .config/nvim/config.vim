@@ -12,7 +12,7 @@ for s:vdir in ['swap', 'backup', 'view', 'undo', 'session']
     call system('mkdir -p ' . shellescape($VIMDATA.'/'.s:vdir))
   endif
 endfor
-set directory=$VIMDATA/swap
+set directory=$VIMDATA/swap//
 set backup backupdir=$VIMDATA/backup
 set viewdir=$VIMFILES/view
 
