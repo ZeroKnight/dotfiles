@@ -70,7 +70,7 @@ Plug 'majutsushi/tagbar' " Don't defer, airline uses tagbar for a status item
 
 Plug 'roxma/nvim-completion-manager'
 Plug 'roxma/clang_complete'
-Plug 'jsfaint/neoinclude.vim' " Plug 'Shougo/neoinclude.vim'
+Plug 'Shougo/neoinclude.vim'
 Plug 'Shougo/neco-vim' | Plug 'Shougo/neco-syntax'
 Plug 'roxma/ncm-github'
 
