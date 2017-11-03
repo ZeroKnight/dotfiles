@@ -49,7 +49,7 @@ endsnippet
 
 # NOTE: For some reason, UltiSnips doesn't work with placeholder tab stops :/
 snippet '\bdef' "Moo(se) `default` attribute option" "re.match(moose_attr_opts(), snip.buffer[snip.line-1])" reA
-default => $1,
+default => sub { $1 },
 endsnippet
 
 snippet '\breq' "Moo(se) `required` attribute option" "re.match(moose_attr_opts(), snip.buffer[snip.line-1])" reA
