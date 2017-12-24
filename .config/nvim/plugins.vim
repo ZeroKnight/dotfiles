@@ -2,14 +2,20 @@
 " ------------------------------------------------------------------------------
 
 " Ensure that vim-plug is installed. {{{1
-let s:vimplug_path = $VIMDATA.'/site/autoload/plug.vim'
-if !filereadable(s:vimplug_path)
+let s:vimplug_path      = $VIMDATA.'/site/autoload/plug.vim'
+let s:vimplug_docs_path = $VIMDATA.'/site/doc/plug.txt'
+if (!filereadable(s:vimplug_path) || !filereadable(s:vimplug_docs_path))
   if executable('curl')
-    let s:vimplug_url = 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-    call system('curl -fLo ' . shellescape(s:vimplug_path) . ' --create-dirs ' . s:vimplug_url)
+    let s:vimplug_url = 'https://raw.githubusercontent.com/junegunn/vim-plug/master/'
+    if !filereadable(s:vimplug_path)
+      call system('curl -fLo ' . shellescape(s:vimplug_path) . ' --create-dirs ' . s:vimplug_url.'plug.vim')
+    endif
+    if !filereadable(s:vimplug_docs_path)
+      call system('curl -fLo ' . shellescape(s:vimplug_docs_path) . ' --create-dirs ' . s:vimplug_url.'doc/plug.txt')
+      exec 'helptags' . fnamemodify(s:vimplug_docs_path, ':h')
+    endif
     if v:shell_error
       echom 'Error downloading vim-plug; you may need to install it manually.'
-      exit
     else
       echom 'vim-plug installed successfully!'
     endif
@@ -143,7 +149,7 @@ let g:indentLine_color_gui = 'Grey40'
 let g:indentLine_fileTypeExclude = ['help', 'text', 'nerdtree', 'startify', 'man']
 "let g:indentLine_bufNameExclude = []
 
-" Neomake
+" Neomake {{{1
 let g:neomake_perl_args = ['PERL5LIB=.', '-c', '-X', '-Mwarnings']
 
 " Neovim Completion Manager {{{1
