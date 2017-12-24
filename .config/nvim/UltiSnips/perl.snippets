@@ -41,6 +41,10 @@ use feature '${1:say}';
 $0
 endsnippet
 
+snippet const "use constant foo => bar" b
+use constant $1 => $2;
+endsnippet
+
 snippet noex "no warnings 'experimental::foo'"
 no warnings 'experimental::$1';
 endsnippet
@@ -64,7 +68,7 @@ snippet exporter "use Exporter qw(import) ..." b
 use Exporter qw(import);
 our @EXPORT    = qw($2);
 our @EXPORT_OK = qw($1);
-our %EXPORT_TAGs = ($3);
+our %EXPORT_TAGS = ($3);
 
 $0
 endsnippet
@@ -73,7 +77,7 @@ snippet exporter "use parent 'Exporter::Tiny'" b
 use parent 'Exporter::Tiny';
 our @EXPORT    = qw($2);
 our @EXPORT_OK = qw($1);
-our %EXPORT_TAGs = ($3);
+our %EXPORT_TAGS = ($3);
 endsnippet
 
 snippet module "New Module boilerplate" b
@@ -227,6 +231,17 @@ snippet whenx "when (modifier)"
 ${1:${VISUAL/;//}} when $2;
 endsnippet
 
+snippet try "try { ... } catch { ... }"
+try
+{
+	${VISUAL}$1
+}
+catch
+{
+	$0
+};
+endsnippet
+
 ### Function/Object Constructs #################################
 
 snippet sub "Subroutine (function)" b
@@ -249,7 +264,7 @@ endsnippet
 snippet method "Class method: sub foo { my $self = shift; ..." b
 sub $1
 {
-	my ${2/([^,])+(,)?.*/(?2:\()/}${2:\$self}$3${2/([^,])+(,)?.*/(?2:\))/} = ${2/([^,])+(,)?.*/(?2:@_:shift)/};
+	my ${2/[^,]*(,)?.*/(?1:\()/}\$self$2${2/[^,]*(,)?.*/(?1:\))/} = ${2/[^,]*(,)?.*/(?1:@_:shift)/};
 
 	$0
 }
