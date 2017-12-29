@@ -122,4 +122,12 @@ snippet inlistx "... unless grep { $_ eq $foo } @bar"
 ${1:unless} grep { $_ eq $${2:foo} } ${3/(\S+)(\s)?.*/(?2:qw\(:@)/}${3:bar}${3/(\S+)(\s)?.*/(?2:\);)/}
 endsnippet
 
+snippet nullstr "!defined $str || !length $str"
+!defined $${1:str} || !length $$1
+endsnippet
+
+snippet rnullstr "return if !defined $str || !length $str"
+return if !defined $${1:str} || !length $$1;
+endsnippet
+
 # vim: ft=snippets ts=4
