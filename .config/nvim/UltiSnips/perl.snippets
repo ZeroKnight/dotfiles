@@ -49,6 +49,17 @@ snippet noex "no warnings 'experimental::foo'"
 no warnings 'experimental::$1';
 endsnippet
 
+snippet begin "BEGIN { ... }" b
+BEGIN
+{
+	$1 
+}
+endsnippet
+
+snippet beginx "BEGIN { one line }" b
+BEGIN { $1 }
+endsnippet
+
 snippet pack "package Foo::Bar ..." b
 package ${1:`!v expand('%:.:h:gs?/?::?')`}::${2:`!v expand('%:t:r')`};
 

@@ -36,6 +36,14 @@ endsnippet
 
 ### Testing ####################################################
 
+snippet utest "use Test::More tests => #" b
+use Test::More tests => $1;
+endsnippet
+
+snippet plan "plan tests => #" b
+plan tests => $1;
+endsnippet
+
 snippet subtest "subtest 'foo' => sub {}"
 subtest '$1' => sub {
 	${VISUAL}$0
@@ -59,7 +67,7 @@ like($1, qr/$2/, '$3');$0
 endsnippet
 
 snippet unlike "unlike(foo, qr/bar/, 'foo does not match bar')"
-like($1, qr/$2/, '$3');$0
+unlike($1, qr/$2/, '$3');$0
 endsnippet
 
 snippet ok "ok(foo, 'foo ok')"
