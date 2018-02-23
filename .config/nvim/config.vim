@@ -67,6 +67,11 @@ set scrolloff=3                " Make scrolling look nicer
 set showcmd                    " Let our last command stick around
 set splitright splitbelow      " New splits will open more naturally
 
+" Enable the mouse. Being able to resize windows with the mouse is fantastic.
+if has('mouse')
+  set mouse=a
+endif
+
 " Cursor style
 set guicursor=n-v-c-sm:block
 set guicursor+=i-ci-ve:ver25
