@@ -1,12 +1,6 @@
 " Mappings
 " ------------------------------------------------------------------------------
 
-" Simple, quick Esc alternative {{{1
-inoremap jk <Esc>
-inoremap JK <Esc>
-inoremap Jk <Esc>
-inoremap jK <Esc>
-
 " Change (l)cwd to that of the current file {{{1
 nnoremap <Leader>cd :cd %:p:h<CR>:pwd<CR>
 nnoremap <Leader>lcd :lcd %:p:h<CR>:pwd<CR>
