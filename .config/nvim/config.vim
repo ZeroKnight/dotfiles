@@ -7,18 +7,22 @@ scriptencoding utf-8
 
 " Set up Vim state directories
 " Create any directories if needed
-for s:vdir in ['swap', 'backup', 'view', 'undo', 'session']
+for s:vdir in ['swap', 'view', 'undo', 'session']
   if !isdirectory($VIMDATA.'/'.s:vdir)
     call mkdir($VIMDATA.'/'.s:vdir, 'p')
   endif
 endfor
 set directory=$VIMDATA/swap//
-set backup backupdir=$VIMDATA/backup
 set viewdir=$VIMFILES/view
 
 " Persistent Undo
 if has('persistent_undo')
   set undofile undodir=$VIMDATA/undo
+else
+  if !isdirectory($VIMDATA.'/backup')
+    call mkdir($VIMDATA.'/backup')
+  endif
+  set backup backupdir=$VIMDATA/backup
 endif
 
 " viminfo/shada Settings
