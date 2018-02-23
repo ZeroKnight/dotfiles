@@ -9,7 +9,7 @@ scriptencoding utf-8
 " Create any directories if needed
 for s:vdir in ['swap', 'backup', 'view', 'undo', 'session']
   if !isdirectory($VIMDATA.'/'.s:vdir)
-    call system('mkdir -p ' . shellescape($VIMDATA.'/'.s:vdir))
+    call mkdir($VIMDATA.'/'.s:vdir, 'p')
   endif
 endfor
 set directory=$VIMDATA/swap//
