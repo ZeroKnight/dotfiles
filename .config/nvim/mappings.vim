@@ -18,6 +18,10 @@ xnoremap v <C-v>
 " Enable . in visual mode
 vnoremap . :normal .<CR>
 
+" Precise paragraph movement (thanks, /u/kshenoy42)
+nnoremap <expr> g{ len(getline(line('.')-1)) > 0 ? '{+' : '{-'
+nnoremap <expr> g} len(getline(line('.')+1)) > 0 ? '}-' : '}+'
+
 " Shortcuts {{{1
 " ------------------------------------------------------------------------------
 
@@ -52,10 +56,6 @@ vnoremap <S-Ins> "-d"+P
 
 " More logical Y
 noremap Y y$
-
-" Nicer paragraph movement (thanks, /u/kshenoy42)
-nnoremap <expr> { len(getline(line('.')-1)) > 0 ? '{+' : '{-'
-nnoremap <expr> } len(getline(line('.')+1)) > 0 ? '}-' : '}+'
 
 " Movement {{{1
 " ------------------------------------------------------------------------------
