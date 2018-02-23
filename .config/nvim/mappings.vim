@@ -83,8 +83,11 @@ inoremap <expr> <CR> pumvisible() ? "\<C-y>\<CR>" : "\<CR>"
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
-" tpope/vim-commentary - Comment a copy of the current line
+" tpope/vim-commentary - Comment a copy of the current line {{{1
 nmap gcy yyPgccj
+
+" Switch to Visual-Block mode from Visual mode a bit quicker
+xnoremap v <C-v>
 
 "}}}
 
