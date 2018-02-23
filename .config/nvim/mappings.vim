@@ -83,6 +83,10 @@ nmap gcy yyPgccj
 " Switch to Visual-Block mode from Visual mode a bit quicker
 xnoremap v <C-v>
 
+" Nicer paragraph movement (thanks, /u/kshenoy42)
+nnoremap <expr> { len(getline(line('.')-1)) > 0 ? '{+' : '{-'
+nnoremap <expr> } len(getline(line('.')+1)) > 0 ? '}-' : '}+'
+
 "}}}
 
 " Function Mappings
