@@ -25,6 +25,12 @@ else
   set backup backupdir=$VIMDATA/backup
 endif
 
+" Make a temporary backup before writing that will be deleted on a successful
+" write. Prevents total file loss in case Vim fails to write and then closes.
+if has('writebackup')
+  set writebackup
+endif
+
 " viminfo/shada Settings
 if has('shada')
   set shada=!,'100
