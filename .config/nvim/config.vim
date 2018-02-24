@@ -74,6 +74,8 @@ set hidden                     " Make buffers not annoying
 set laststatus=2               " Always show statusline
 set number relativenumber      " Hybrid line-numbering
 set scrolloff=3                " Make scrolling look nicer
+set sidescroll=15
+set sidescrolloff=5
 set showcmd                    " Let our last command stick around
 set splitright splitbelow      " New splits will open more naturally
 
