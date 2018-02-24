@@ -57,6 +57,12 @@ vnoremap <S-Ins> "-d"+P
 " More logical Y
 noremap Y y$
 
+" More sensible mark jumping. ` is at the beginning of the keyboard, so have its
+" behavior match its position. Also, ' is easier to reach and what I want more
+" often anyway.
+noremap ` '
+noremap ' `
+
 " Movement {{{1
 " ------------------------------------------------------------------------------
 
