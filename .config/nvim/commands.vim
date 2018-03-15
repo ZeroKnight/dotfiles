@@ -14,11 +14,22 @@ command! -nargs=? -complete=help Helpvert vert help <args>
 cnoreabbrev <expr> hv getcmdtype() == ':' && getcmdline() == 'hv' ? 'Helpvert' : 'hv'
 cnoreabbrev <expr> vh getcmdtype() == ':' && getcmdline() == 'vh' ? 'Helpvert' : 'vh'
 
-" Load Comment Tags into the Location List {{{1
+" Todo: Load Comment Tags into the Location List {{{1
 command! -nargs=0 Todo execute 'LAg -A ' . string(g:zeroknight_comment_tags)
 
-" Wrapper around tpope/vim-obsession that always saves to $VIMSESSIONS {{{1
+" Obsess: Wrapper around tpope/vim-obsession that always saves to $VIMSESSIONS {{{1
 command! -nargs=1 Obsess Obsession $VIMSESSIONS/<args>
+
+" Rg: ripgrep current directory via FZF {{{1
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --hidden --column --line-number --no-heading --color=always '
+  \   . shellescape(<q-args>), 1,
+  \   <bang>0 ? fzf#vim#with_preview('up:60%')
+  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \   <bang>0)
+
+" }}}
 
 " Function Commands
 " ------------------------------------------------------------------------------
