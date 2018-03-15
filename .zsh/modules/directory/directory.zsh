@@ -37,7 +37,6 @@ alias rd='rmdir'
 # Directory Stack Shortcuts
 alias pu='pushd'
 alias po='popd'
-alias -- -='cd -'
 
 # ls Shortcuts
 alias ls='ls -hAFH --color --group-directories-first'
