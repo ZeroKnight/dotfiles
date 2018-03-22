@@ -151,6 +151,9 @@ set expandtab smarttab softtabstop=2 shiftwidth=2
 set cinoptions=Ls,l1,b1,g0,N-s,t0,(0,U1,w1,Ws,m1,j1,J1
 set cinkeys=0{,0},:,0#,!^F,o,O,e,0=break
 
+" Sane default for 'commentstring'
+set commentstring=#\ %s
+
 " Color & Syntax {{{1
 " ------------------------------------------------------------------------------
 
