@@ -69,10 +69,6 @@ noremap ' `
 " Move cursor to the middle of a line
 noremap <silent> gm :call cursor(0, virtcol('$')/2)<CR>
 
-" GitGutter hunk jumping
-nnoremap ]h :GitGutterNextHunk<CR>
-nnoremap [h :GitGutterPrevHunk<CR>
-
 " UI Related {{{1
 " ------------------------------------------------------------------------------
 
