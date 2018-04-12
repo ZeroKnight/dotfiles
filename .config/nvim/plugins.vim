@@ -143,6 +143,9 @@ let g:airline_theme='one'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#show_close_button = 0
 
+" FastFold {{{1
+let g:fastfold_skip_filetypes = [ 'gitcommit', 'taglist' ]
+
 " fzf-vim {{{1
 let g:fzf_colors = {
   \ 'fg':      ['fg', 'Normal'],
