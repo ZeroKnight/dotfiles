@@ -1,0 +1,7 @@
+#
+# Quickly open a vim help page
+#
+
+${VIM_FLAVOR:-vim} -c ":h $1 | only"
+
+# vim: ft=zsh

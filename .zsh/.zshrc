@@ -34,7 +34,7 @@ cdpath=(
 # all module functions/keywords are available to compinit and for the prompt
 # to make use of
 zmodules=(archive directory fasd git history misc perl processes spectrum \
-          system tmux man input syntax-highlighting prompt completion)
+          system tmux vim man input syntax-highlighting prompt completion)
 
 for module ($zmodules) {
   mpath="$ZDOTDIR/modules/$module"
