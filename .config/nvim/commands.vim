@@ -18,7 +18,7 @@ cnoreabbrev <expr> vh getcmdtype() == ':' && getcmdline() == 'vh' ? 'Helpvert' :
 command! -nargs=0 Todo execute 'LAg -A ' . string(g:zeroknight_comment_tags)
 
 " Obsess: Wrapper around tpope/vim-obsession that always saves to $VIMSESSIONS {{{1
-command! -nargs=1 Obsess Obsession $VIMSESSIONS/<args>
+command! -nargs=1 Obsess Obsession $VIMSESSIONS/<args>.vim
 
 " Rg: ripgrep current directory via FZF {{{1
 command! -bang -nargs=* Rg
