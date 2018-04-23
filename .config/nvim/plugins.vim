@@ -38,6 +38,7 @@ Plug 'justinmk/vim-dirvish'
 Plug 'kshenoy/vim-signature'
 Plug 'mbbill/undotree', { 'on': ['UndotreeFocus', 'UndotreeHide', 'UndotreeShow', 'UndotreeToggle'] }
 Plug 'mhinz/vim-startify'
+Plug 'romainl/vim-qlist'
 Plug 'unblevable/quick-scope'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
