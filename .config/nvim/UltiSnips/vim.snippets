@@ -3,10 +3,16 @@ priority 50
 snippet head "Vim Script Header" b
 " File:        ${1:`!v expand('%:t')`}
 " Author:      ${2:`!v g:snips_author`}
-" Description: ${3}
-${4:" Last Modified: `!v strftime("%B %d, %Y")`}
+" Version:     ${3:0.1}
+" URL:         https://github.com/ZeroKnight/vim-${4:`!v expand('%:t:r')}
+
+" Description: $5
 
 $0
+endsnippet
+
+snippet enc "scriptencoding utf-8" b
+scriptencoding ${1:utf-8}
 endsnippet
 
 snippet chead "Comment Header"
@@ -23,13 +29,32 @@ endif
 endsnippet
 
 snippet guard "Script reload guard"
-if exists('${1:did_`!p snip.rv = snip.fn.replace('.','_')`}') || &cp${2: || version < 700}
+if exists('g:loaded_${1:`!p snip.rv = snip.basename.replace('.','_')`}') || &compatible || v:version < ${2:700}
 	finish
 endif
-let $1 = 1$3
+let g:loaded_$1 = 1
+
+$0
 endsnippet
 
-snippet "fun(ction)?" "Function definition" b
+snippet aguard "Autoload reload guard"
+if exists('g:autoloaded_${1:`!p snip.rv = snip.basename.replace('.','_')`}') || &compatible
+	finish
+endif
+let g:autoloaded_$1 = 1
+
+$0
+endsnippet
+
+snippet aug "augroup wrapper" b
+augroup ${1:Foo}AutoCmds
+	autocmd!
+
+	autocmd $0
+augroup END
+endsnippet
+
+snippet "fun(ction)?" "Function definition" br
 function! $1($2) abort
 	$0
 endfunction
