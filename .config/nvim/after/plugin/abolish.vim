@@ -10,3 +10,4 @@ Abolish function{,s} function{}
 Abolish {,un}nec{ce,ces,e}sar{y,ily} {}nec{es}sar{}
 Abolish doens doesn
 Abolish versoin version
+Abolish existant existent
