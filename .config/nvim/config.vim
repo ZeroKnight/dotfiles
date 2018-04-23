@@ -170,6 +170,8 @@ if !exists('g:syntax_on')
   syntax enable
 endif
 
+set synmaxcol=500
+
 " Set Colorscheme
 colorscheme one
 
