@@ -60,6 +60,10 @@ endif
 
 set history=10000
 
+" Map Leader
+let mapleader = '\'
+let maplocalleader = "\<Space>"
+
 " Set Neovim Python provider
 let g:python3_host_prog = '/usr/bin/python3'
 
