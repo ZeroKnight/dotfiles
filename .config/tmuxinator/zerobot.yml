@@ -1,0 +1,21 @@
+# ~/.tmuxinator/zerobot.yml
+
+name: zerobot
+root: ~/Projects/ZeroBot
+
+# Runs in each window and pane before window/pane specific commands. Useful for setting up interpreter versions.
+pre_window: export PERL5LIB='.'
+
+windows:
+  - nvim:
+      layout: main-vertical
+      panes:
+        - nvim
+  - zerobot:
+  - git:
+      layout: tiled
+      panes:
+        - git status --short --branch
+        - prove -rI. t/
+  - repl: re.pl
+  - log: tail -f logs/zerobot.log

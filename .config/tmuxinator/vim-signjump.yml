@@ -1,0 +1,11 @@
+# ~/.tmuxinator/signjump.yml
+
+name: vim-signjump
+root: ~/Projects/vim-signjump
+
+windows:
+  - nvim:
+      layout: main-vertical
+      panes:
+        - nvim
+  - git: git status --short --branch
