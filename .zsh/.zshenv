@@ -8,8 +8,11 @@
 typeset -gxU PATH FPATH CDPATH path fpath cdpath
 
 # Enable 256 Colors. Only export outside of a tmux session so we don't trample
-# over the TERM value that tmux sets
-(( $+TMUX )) || export TERM='xterm-256color'
+# over the TERM value that tmux sets. In addition, only export if we're not
+# using kitty.
+if (( !$+TMUX )) || [[ "$TERM" != 'xterm-kitty' ]]; then
+  export TERM='xterm-256color'
+fi
 
 # Keep our zsh files nice and tidy in their own directory
 export ZDOTDIR="$HOME/.zsh" ZSH="$HOME/.zsh"
