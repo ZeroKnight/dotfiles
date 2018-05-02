@@ -59,6 +59,7 @@ if !has('nvim') && &ttimeoutlen == -1
 endif
 
 set history=10000
+set updatetime=500
 
 " Map Leader
 let mapleader = '\'
