@@ -126,4 +126,10 @@ vnoremap <silent> <Leader>ts :call zerofunc#TrimTrailingWhiteSpace()<CR>
 " Abbreviations (See also: after/plugin/abolish.vim)
 " ------------------------------------------------------------------------------
 
+inoreabbrev afaik as far as I know
+inoreabbrev afaict as far as I can tell
+inoreabbrev idk I don't know
+inoreabbrev tbh to be honest
+inoreabbrev tbf to be fair
+
 " vim: fdm=marker
