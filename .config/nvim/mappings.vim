@@ -44,6 +44,9 @@ nnoremap <silent> <Leader>/ :nohls<CR>
 " Highlight word under cursor without jumping
 nnoremap <Leader>hw *<C-o>
 
+" Toggle Spellcheck
+nnoremap <silent> <Leader>s :setlocal spell!<CR>
+
 " Yank/Paste Shortcuts
 nnoremap <C-Ins> "+y
 vnoremap <C-Ins> "+y

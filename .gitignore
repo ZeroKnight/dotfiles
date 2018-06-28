@@ -9,5 +9,8 @@
 /.zsh/.zcompdump
 /.zsh/.zhistory
 
+### Vim
+/.config/nvim/en.utf-8.add.spl
+
 ### Misc
 __pycache__/

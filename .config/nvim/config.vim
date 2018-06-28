@@ -65,6 +65,9 @@ set updatetime=500
 let mapleader = '\'
 let maplocalleader = "\<Space>"
 
+" Spell-check
+set spellfile=$VIMFILES/en.utf-8.add
+
 " Set Neovim Python provider
 let g:python3_host_prog = '/usr/bin/python3'
 
@@ -204,6 +207,9 @@ let g:c_comment_strings = 1
 let g:c_curly_error = 1
 " Load doxygen syntax
 let g:load_doxygen_syntax = 1
+
+" Spellcheck colors
+hi SpellBad cterm=undercurl,bold
 
 " Miscellaneous {{{1
 " ------------------------------------------------------------------------------
