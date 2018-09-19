@@ -18,15 +18,13 @@ ${VISUAL}$0
 endsnippet
 
 snippet inc "#include <foo>"
-#include <${1:iostream}>
-$0
+#include <${1:iostream}>$0
 endsnippet
 
 # C/C++ agnostic. Will mimic the '.c*' extension as '.h*'
 # Eg: foo.c -> foo.h, foo.cpp -> foo.hpp, foo.cxx -> foo.hxx, foo.cc -> foo.hh
 snippet Inc "#include local header"
-#include "${1:`!v expand("%:t:r")`}.${2:`!p snip.rv = re.sub('c','h',re.sub(r'\w+\.','',snip.fn))`}"
-$0
+#include "${1:`!v expand("%:t:r")`}.${2:`!p snip.rv = re.sub('c','h',re.sub(r'\w+\.','',snip.fn))`}"$0
 endsnippet
 
 snippet guard "Header Guard" b
@@ -54,7 +52,7 @@ for (${4:int} ${2:i} = 0; $2 < ${1:count}; ${3:++$2})
 endsnippet
 
 snippet "wh(ile)?" "while loop" r
-while($1)
+while ($1)
 {
 	${VISUAL}$0
 }

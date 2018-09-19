@@ -38,6 +38,22 @@ namespace${1/.+/ /m}${1:`!p snip.rv = snip.basename or "name"`}
 }${1/.+/ \/* /m}$1${1/.+/ *\/ /m}
 endsnippet
 
+snippet cout "std::cout << ..."
+std::cout << $0
+endsnippet
+
+snippet coutl "std::cout << ... << std::endl;"
+std::cout << $1 << std::endl;$0
+endsnippet
+
+snippet cin "std::cin >> ..."
+std::cin >> $0
+endsnippet
+
+snippet endl "std::endl"
+std::endl
+endsnippet
+
 snippet map "std::map"
 std::map<${1:key}, ${2:value}> ${0:map};
 endsnippet
