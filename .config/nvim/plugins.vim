@@ -81,6 +81,7 @@ Plug 'roxma/clang_complete'
 Plug 'Shougo/neoinclude.vim'
 Plug 'Shougo/neco-vim' | Plug 'Shougo/neco-syntax'
 Plug 'roxma/ncm-github'
+Plug 'hotchpotch/perldoc-vim'
 
 if !has('nvim')
   Plug 'bruno-/vim-man'
