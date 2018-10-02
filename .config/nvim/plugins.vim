@@ -66,7 +66,8 @@ Plug 'tpope/vim-scriptease'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'wellle/targets.vim'
-Plug 'ZeroKnight/vim-signjump'
+" Plug 'ZeroKnight/vim-signjump'
+Plug '~/Projects/vim-signjump'
 
 Plug 'junegunn/fzf.vim'
 Plug 'mhinz/vim-grepper'
@@ -105,13 +106,16 @@ endif
 "}}}
 
 " Color Schemes {{{
-Plug 'altercation/vim-colors-solarized'
-Plug 'ciaranm/inkpot'
-Plug 'nanotech/jellybeans.vim'
-Plug 'Pychimp/vim-luna'
 Plug 'rakr/vim-one'
-Plug 'sickill/vim-monokai'
+Plug 'ciaranm/inkpot'
 Plug 'tomasr/molokai'
+Plug 'romainl/Apprentice'
+Plug 'arcticicestudio/nord-vim'
+Plug 'tyrannicaltoucan/vim-quantum'
+Plug 'tyrannicaltoucan/vim-deep-space'
+Plug 'mhartington/oceanic-next'
+Plug 'dracula/vim'
+Plug 'drewtempelmeyer/palenight.vim'
 "}}}
 
 " Libraries & Misc {{{
