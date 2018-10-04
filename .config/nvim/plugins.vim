@@ -114,7 +114,7 @@ Plug 'arcticicestudio/nord-vim'
 Plug 'tyrannicaltoucan/vim-quantum'
 Plug 'tyrannicaltoucan/vim-deep-space'
 Plug 'mhartington/oceanic-next'
-Plug 'dracula/vim'
+Plug 'dracula/vim', { 'as': 'vim-dracula' }
 Plug 'drewtempelmeyer/palenight.vim'
 "}}}
 
