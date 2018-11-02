@@ -10,6 +10,8 @@ alias zopts='set -o | grep --color=always'
 alias screenshot='maim -s "$HOME/Pictures/Screenshots/SCREENSHOT_$(date "+%F_%T").png"'
 alias screenshotf='maim "$HOME/Pictures/Screenshots/SCREENSHOT_$(date "+%F_%T").png"'
 
+alias rsync='rsync -h'
+
 ### Misc zsh options
 
 # BELL BEEPS ARE EVIL. DIE.
