@@ -36,7 +36,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'chrisbra/NrrwRgn'
 Plug 'justinmk/vim-dirvish'
 Plug 'kshenoy/vim-signature'
-Plug 'mbbill/undotree', { 'on': ['UndotreeFocus', 'UndotreeHide', 'UndotreeShow', 'UndotreeToggle'] }
+Plug 'mbbill/undotree', {'on': ['UndotreeFocus', 'UndotreeHide', 'UndotreeShow', 'UndotreeToggle']}
 Plug 'mhinz/vim-startify'
 Plug 'romainl/vim-qlist'
 Plug 'unblevable/quick-scope'
@@ -48,9 +48,10 @@ Plug 'Yggdroot/indentLine'
 "}}}
 
 " Utilities {{{
-Plug 'alx741/vinfo', { 'on': 'Vinfo' }
+Plug 'alx741/vinfo', {'on': 'Vinfo'}
 Plug 'christoomey/vim-sort-motion'
-Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
+Plug 'godlygeek/tabular', {'on': 'Tabularize'}
+Plug 'hotchpotch/perldoc-vim', {'for': ['perl', 'pod'], 'on': 'Perldoc'}
 Plug 'Konfekt/FastFold'
 Plug 'moll/vim-bbye'
 Plug 'reedes/vim-wordy'
@@ -77,12 +78,15 @@ Plug 'neomake/neomake'
 Plug 'SirVer/ultisnips'
 Plug 'majutsushi/tagbar' " Don't defer, airline uses tagbar for a status item
 
-Plug 'roxma/nvim-completion-manager'
-Plug 'roxma/clang_complete'
-Plug 'Shougo/neoinclude.vim'
-Plug 'Shougo/neco-vim' | Plug 'Shougo/neco-syntax'
-Plug 'roxma/ncm-github'
-Plug 'hotchpotch/perldoc-vim'
+" Neovim Completion Manager
+Plug 'ncm2/ncm2'
+Plug 'ncm2/ncm2-bufword'
+Plug 'ncm2/ncm2-github'
+Plug 'ncm2/ncm2-neoinclude', {'for': ['c', 'cpp']} | Plug 'Shougo/neoinclude.vim', {'for': ['c', 'cpp']}
+Plug 'ncm2/ncm2-path'
+Plug 'ncm2/ncm2-pyclang', {'for': ['c', 'cpp']}
+Plug 'ncm2/ncm2-tmux'
+Plug 'ncm2/ncm2-vim', {'for': 'vim'} | Plug 'Shougo/neco-vim', {'for': 'vim'}
 
 if !has('nvim')
   Plug 'bruno-/vim-man'
@@ -93,15 +97,15 @@ endif
 
 " Syntax {{{
 Plug 'sheerun/vim-polyglot'
-Plug 'othree/xml.vim',          { 'for': 'xml' }
-Plug 'withgod/vim-sourcepawn',  { 'for': 'sourcepawn' }
-Plug 'Valloric/MatchTagAlways', { 'for': ['html', 'xhtml', 'xml', 'jinja'] }
-Plug 'xolox/vim-lua-ftplugin',  { 'for': 'lua' }
+Plug 'othree/xml.vim',          {'for': 'xml'}
+Plug 'withgod/vim-sourcepawn',  {'for': 'sourcepawn'}
+Plug 'Valloric/MatchTagAlways', {'for': ['html', 'xhtml', 'xml', 'jinja']}
+Plug 'xolox/vim-lua-ftplugin',  {'for': 'lua'}
 
 if has('nvim')
-  Plug 'arakashic/chromatica.nvim', { 'for': ['c', 'cpp', 'objc'], 'do': ':UpdateRemotePlugins' }
+  Plug 'arakashic/chromatica.nvim', {'for': ['c', 'cpp', 'objc'], 'do': ':UpdateRemotePlugins'}
 else
-  Plug 'jeaye/color_coded', { 'for': ['c', 'cpp', 'objc'] }
+  Plug 'jeaye/color_coded', {'for': ['c', 'cpp', 'objc']}
 endif
 "}}}
 
@@ -114,13 +118,14 @@ Plug 'arcticicestudio/nord-vim'
 Plug 'tyrannicaltoucan/vim-quantum'
 Plug 'tyrannicaltoucan/vim-deep-space'
 Plug 'mhartington/oceanic-next'
-Plug 'dracula/vim', { 'as': 'vim-dracula' }
+Plug 'dracula/vim', {'as': 'vim-dracula'}
 Plug 'drewtempelmeyer/palenight.vim'
 "}}}
 
 " Libraries & Misc {{{
 Plug 'tpope/vim-repeat'
 Plug 'xolox/vim-misc'
+Plug 'roxma/nvim-yarp'
 "}}}
 
 call plug#end()
@@ -179,14 +184,14 @@ let g:indentLine_fileTypeExclude = ['help', 'text', 'nerdtree', 'startify', 'man
 let g:neomake_perl_args = ['PERL5LIB=.', '-c', '-X', '-Mwarnings']
 
 " Neovim Completion Manager {{{1
-let g:cm_matcher = { 'module': 'cm_matchers.abbrev_matcher', 'case': 'smartcase' }
+set shortmess+=c
+set completeopt=menuone,noinsert,noselect
+let g:ncm2#complete_delay = 100
 
 " Show completion menu after two characters like YCM
-let g:cm_refresh_length = [ [1,2], [7,2] ]
+let g:ncm2#complete_length = [ [1,2], [7,2] ]
 
-" clang_complete
-let g:clang_library_path = '/usr/lib64/'
-let g:clang_user_options = '-std=c++11'
+let g:ncm2_pyclang#library_path = '/usr/lib64/'
 
 " Startify {{{1
 function! s:PrettyVersion()

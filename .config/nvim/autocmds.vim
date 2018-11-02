@@ -10,6 +10,9 @@ if has('autocmd')
     " Run NeoMake on write
     autocmd BufWritePost * Neomake
 
+    " Enable NCM2
+    autocmd BufEnter * call ncm2#enable_for_buffer()
+
     " Automatically source personal runtime files on modification
     autocmd BufWritePost .{g,}vimrc,{g,}init.vim source %
     autocmd BufWritePost
