@@ -23,12 +23,26 @@ snippet cl "class"
 class ${1:`!p snip.rv = snip.basename or "name"`}
 {
 public:
-	${1/(\w+).*/$1/} ($2);
-	virtual ~${1/(\w+).*/$1/} ();
+	${1/(\w+).*/$1/}($2);
+	virtual ~${1/(\w+).*/$1/}();
 
 private:
 	$0
 };
+endsnippet
+
+snippet method "Class method definition" b
+${1:void} ${2:`!p snip.rv = snip.basename or "name"`}::${3:func}($4)
+{
+	${VISUAL}$0
+}
+endsnippet
+
+snippet cmethod "Class const method definition" b
+${1:void} ${2:`!p snip.rv = snip.basename or "name"`}::${3:func}($4) const
+{
+	${VISUAL}$0
+}
 endsnippet
 
 snippet ns "namespace"
@@ -84,4 +98,4 @@ ${1:void} $2($3)
 }
 endsnippet
 
-# vim: ft=snippets ts=4
+# vim: ft=snippets noet ts=4
