@@ -1,4 +1,7 @@
 " Define abbreviations via Abolish
+if !exists("g:loaded_abolish")
+  finish
+endif
 
 Abolish teh the
 Abolish cosnt const
