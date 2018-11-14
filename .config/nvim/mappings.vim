@@ -117,9 +117,8 @@ nnoremap <C-p> :Buffers<CR>
 " RecompileYCM() {{{1
 nnoremap <Leader>ycm :<C-U>call zerofunc#RecompileYCM(v:count)<CR>
 
-" TrimTrailingWhiteSpace() {{{1
-nnoremap <silent> <Leader>ts :call zerofunc#TrimTrailingWhiteSpace()<CR>
-vnoremap <silent> <Leader>ts :call zerofunc#TrimTrailingWhiteSpace()<CR>
+" TrimTrailingSpace() {{{1
+nnoremap <silent> <Leader>ts :call zerofunc#TrimTrailingSpace()<CR>
 
 " }}}
 

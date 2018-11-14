@@ -34,6 +34,9 @@ command! -bang -nargs=* Rg
 " Function Commands
 " ------------------------------------------------------------------------------
 
+" TrimTrailingSpace() {{{1
+command! -nargs=0 TrimTrailingSpace silent call zerofunc#TrimTrailingSpace()
+
 " Redir() {{{1
 command! -nargs=+ Redir silent call zerofunc#Redir('horizontal', <f-args>)
 command! -nargs=+ VRedir silent call zerofunc#Redir('vertical', <f-args>)

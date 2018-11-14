@@ -15,16 +15,12 @@ function! zerofunc#RecompileYCM(nJobs) abort
   exec 'YcmRestartServer'
 endfunction
 
-" Quick Trim Trailing Space {{{1
-function! zerofunc#TrimTrailingWhiteSpace() abort
-  let l:col = col('.')
-  let l:line = getline('.')
-  if l:line !~# '\s\+$'
-    return
-  endif
-  call setline('.', substitute(getline('.'), '\s\+$', '', ''))
-  nohls
-  call cursor(0, l:col)
+" Trim trailing whitespace while preserving buffer state {{{1
+" Courtesy Martin Tournoji
+function! zerofunc#TrimTrailingSpace() abort
+  let l:save = winsaveview()
+  keeppatterns %substitute/\s\+$//e
+  call winrestview(l:save)
 endfunction
 
 " Redirect the output of a Vim command into a Scratch buffer {{{1
