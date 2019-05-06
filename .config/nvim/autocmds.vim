@@ -45,5 +45,12 @@ if has('autocmd')
     autocmd Syntax * execute 'syn match ZeroCommentTags /\v(' .
       \ g:zeroknight.comment_tags . '):?/ containedin=.*Comment.* contained' |
       \ hi def link ZeroCommentTags Todo
+
+    " Neovim Terminal settings
+    if has('nvim')
+      autocmd TermOpen *
+        \ setlocal nonumber norelativenumber nocursorline nocursorcolumn
+        \ | if exists('g:indentLine_loaded') | exec 'IndentLinesDisable' | endif
+    endif
   augroup END
 endif
