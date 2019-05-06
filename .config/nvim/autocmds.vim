@@ -43,7 +43,7 @@ if has('autocmd')
 
     " Comment Tags
     autocmd Syntax * execute 'syn match ZeroCommentTags /\v(' .
-      \ g:zeroknight_comment_tags . '):?/ containedin=.*Comment.* contained' |
+      \ g:zeroknight.comment_tags . '):?/ containedin=.*Comment.* contained' |
       \ hi def link ZeroCommentTags Todo
   augroup END
 endif

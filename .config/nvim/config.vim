@@ -214,7 +214,12 @@ hi SpellBad cterm=undercurl,bold
 " Miscellaneous {{{1
 " ------------------------------------------------------------------------------
 
-" Other variables
-let g:zeroknight_comment_tags = 'TODO|FIXME|XXX|NOTE|HACK|BUG|WARNING|ATTENTION|ALERT|DANGER|TBD|TASK|NOTICE|TEST|DEBUG|DEPRECATED|WTF'
+" Namespace for misc variables
+if !exists('g:zeroknight')
+  let g:zeroknight = {
+    \ 'comment_tags':
+    \   'TODO|FIXME|XXX|NOTE|HACK|BUG|WARNING|ATTENTION|ALERT|DANGER|TBD|TASK|NOTICE|TEST|DEBUG|DEPRECATED|WTF',
+  \}
+endif
 
 " vim: fdm=marker
