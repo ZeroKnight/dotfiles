@@ -61,10 +61,16 @@ vnoremap <S-Ins> "-d"+P
 noremap Y y$
 
 " More sensible mark jumping. ` is at the beginning of the keyboard, so have its
-" behavior match its position. Also, ' is easier to reach and what I want more
-" often anyway.
+" behavior match its position. It also "points" toward the start of the line.
+" Also, ' is easier to reach and what I want more often anyway.
 noremap ` '
 noremap ' `
+
+" Always move by visual line
+nnoremap k gk
+nnoremap j gj
+nnoremap <Up> gk
+nnoremap <Down> gj
 
 " Movement {{{1
 " ------------------------------------------------------------------------------
