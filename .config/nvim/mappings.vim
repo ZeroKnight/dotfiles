@@ -54,6 +54,9 @@ nnoremap <S-Ins> "+p
 inoremap <S-Ins> <C-o>"+p
 vnoremap <S-Ins> "-d"+P
 
+" Rename word under cursor
+nnoremap <Leader>rw :%s/\<<C-r><C-w>\>/
+
 " Remappings {{{1
 " ------------------------------------------------------------------------------
 
