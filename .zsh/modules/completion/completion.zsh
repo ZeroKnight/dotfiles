@@ -2,6 +2,8 @@
 # Zsh Completion Settings
 #
 
+autoload -U is-at-least
+
 # Load and initialize the completion system
 # $fpath MUST be set up BEFORE running compinit!
 autoload -Uz compinit && compinit
@@ -23,7 +25,8 @@ setopt complete_in_word
 
 setopt case_glob case_match
 setopt extended_glob
-setopt glob_star_short
+
+is-at-least '5.2' && setopt glob_star_short
 
 ### zstyles - Fine tune completion
 
