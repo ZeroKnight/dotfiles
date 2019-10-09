@@ -32,14 +32,14 @@ private:
 endsnippet
 
 snippet method "Class method definition" b
-${1:void} ${2:`!p snip.rv = snip.basename or "name"`}::${3:func}($4)
+${1:void} `!p snip.rv = snip.basename or "name"`::${2:func}($3)
 {
 	${VISUAL}$0
 }
 endsnippet
 
 snippet cmethod "Class const method definition" b
-${1:void} ${2:`!p snip.rv = snip.basename or "name"`}::${3:func}($4) const
+${1:void} `!p snip.rv = snip.basename or "name"`::${2:func}($3) const
 {
 	${VISUAL}$0
 }
@@ -60,6 +60,22 @@ snippet coutl "std::cout << ... << std::endl;"
 std::cout << $1 << std::endl;$0
 endsnippet
 
+snippet cerr "std::cerr << ..."
+std::cerr << $0
+endsnippet
+
+snippet cerrl "std::cerr << ... << std::endl;"
+std::cerr << $1 << std::endl;$0
+endsnippet
+
+snippet clog "std::clog << ..."
+std::clog << $0
+endsnippet
+
+snippet clogl "std::clog << ... << std::endl;"
+std::clog << $1 << std::endl;$0
+endsnippet
+
 snippet cin "std::cin >> ..."
 std::cin >> $0
 endsnippet
@@ -68,12 +84,28 @@ snippet endl "std::endl"
 std::endl
 endsnippet
 
+snippet cr "const reference: const foo&" w
+const $1&$0
+endsnippet
+
+snippet s:: "std::" Aw
+std::
+endsnippet
+
+snippet str "std::string" w
+std::string ${0:s}
+endsnippet
+
+snippet csr "const std::string&" w
+const std::string& $0
+endsnippet
+
 snippet map "std::map"
-std::map<${1:key}, ${2:value}> ${0:map};
+std::map<${1:std::string}, $2> ${0:m}
 endsnippet
 
 snippet vec "std::vector"
-std::vector<${1:int}> ${0:v};
+std::vector<${1:int}> ${0:v}
 endsnippet
 
 snippet begend "$1.begin(), $1.end() (beginend)"
