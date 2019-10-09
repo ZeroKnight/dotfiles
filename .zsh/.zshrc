@@ -36,6 +36,7 @@ cdpath=(
 zmodules=(archive directory fasd git history misc perl processes spectrum \
           system tmux vim man input syntax-highlighting prompt completion)
 
+typeset -a ZCOMPILE_IGNORE_PATTERNS
 for module ($zmodules) {
   mpath="$ZDOTDIR/modules/$module"
 
@@ -68,7 +69,12 @@ unset module mpath
   zcompare $ZDOTDIR/.zshrc
 
   # zcompile all module config files
-  for cfg ($ZDOTDIR/modules/**/*.zsh(.)) zcompare $cfg
+  for ((i = 1; i <= $#ZCOMPILE_IGNORE_PATTERNS; ++i)) {
+    pattern=$ZCOMPILE_IGNORE_PATTERNS[i]
+    ZCOMPILE_IGNORE_PATTERNS[i]="~*$pattern"
+  }
+  for cfg ($ZDOTDIR/modules/**/*.zsh${(j::)~ZCOMPILE_IGNORE_PATTERNS}(.))
+    zcompare $cfg
 
   # zcompile all autoloaded functions
   for func ($ZDOTDIR/modules/*/functions/^(*.zwc)(.)) zcompare $func

@@ -4,6 +4,10 @@
 # This needs to be one of the last modules loaded so that all zle widgets can
 # be handled
 
+# Don't compile z-sy-h unit tests. It's unnecessary, and one test defines an ls
+# function that will conflict with our ls alias.
+ZCOMPILE_IGNORE_PATTERNS+=('external/**test*')
+
 ### Highlighter Settings
 
 # Highlighters to enable
