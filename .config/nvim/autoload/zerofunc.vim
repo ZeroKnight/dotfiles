@@ -51,4 +51,11 @@ function! zerofunc#Redir(split_type, ...)
   call setline(1, split(l:output, "\n"))
 endfunction
 
+function! zerofunc#Pcol(...) abort
+  let a:above = get(a:, 1, 0)
+  let l:col = virtcol('.')
+  execute 'normal!' a:above ? 'P' : 'p'
+  call cursor('.', l:col)
+endfunction
+
 " vim: fdm=marker
