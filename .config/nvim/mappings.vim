@@ -75,6 +75,9 @@ nnoremap j gj
 nnoremap <Up> gk
 nnoremap <Down> gj
 
+" Workaround for C-Space detection
+imap <C-@> <C-Space>
+
 " Movement {{{1
 " ------------------------------------------------------------------------------
 
