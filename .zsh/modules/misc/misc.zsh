@@ -6,6 +6,9 @@
 
 alias zopts='set -o | grep --color=always'
 
+# Enable colors
+alias diff='diff --color=always'
+
 # Quick Screenshot
 alias screenshot='maim -s "$HOME/Pictures/Screenshots/SCREENSHOT_$(date "+%F_%T").png"'
 alias screenshotf='maim "$HOME/Pictures/Screenshots/SCREENSHOT_$(date "+%F_%T").png"'
