@@ -25,6 +25,21 @@ else
   set backup backupdir=$VIMDATA/backup
 endif
 
+" Neovim Python provider
+if has('nvim')
+  let s:venv_dir = expand('$VIMDATA/pynvim-venv')
+  if !isdirectory(s:venv_dir)
+    call mkdir(s:venv_dir)
+    " TODO: Perform this automatically
+    echohl WarningMsg
+    echom "Created directory for Python provider virtualenvs at '"
+      \ . s:venv_dir . "'. You should create py2nvim and py3nvim venvs now."
+    echohl None
+  endif
+  let g:python_host_prog = expand('$VIMDATA/pynvim-venv/py2nvim/bin/python2.7')
+  let g:python3_host_prog = expand('$VIMDATA/pynvim-venv/py3nvim/bin/python3')
+endif
+
 " Make a temporary backup before writing that will be deleted on a successful
 " write. Prevents total file loss in case Vim fails to write and then closes.
 if has('writebackup')
@@ -67,9 +82,6 @@ let maplocalleader = "\<Space>"
 
 " Spell-check
 set spellfile=$VIMFILES/en.utf-8.add
-
-" Set Neovim Python provider
-let g:python3_host_prog = '/usr/bin/python3'
 
 " UI Settings {{{1
 " ------------------------------------------------------------------------------
