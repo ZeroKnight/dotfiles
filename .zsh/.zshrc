@@ -33,8 +33,8 @@ cdpath=(
 # NOTE: 'prompt' and 'completion' should ALWAYS be loaded LAST to ensure that
 # all module functions/keywords are available to compinit and for the prompt
 # to make use of
-zmodules=(archive directory ssh fasd git history misc perl processes spectrum \
-          system tmux vim man input syntax-highlighting prompt completion)
+zmodules=(archive directory ssh fasd git history misc perl python processes \
+          spectrum system tmux vim man input syntax-highlighting prompt completion)
 
 typeset -a ZCOMPILE_IGNORE_PATTERNS
 for module ($zmodules) {
