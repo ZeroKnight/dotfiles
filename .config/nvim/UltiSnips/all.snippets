@@ -77,4 +77,9 @@ snippet copyheader "Copyright info header" b
 `!p snip.rv = ' ' if get_comment_format()[1] == '*' else ''``!p snip.rv = get_comment_format()[2]`
 endsnippet
 
+snippet comheader "### Foo bar biz ##################" b
+`!p snip.rv = get_comment_format()[0][0] * 3` ${1:text} `!p
+snip.rv = get_comment_format()[0][0] * (snip.opt('tw', 80) - len(t[1]) - 5)`
+endsnippet
+
 # vim: ft=snippets ts=4

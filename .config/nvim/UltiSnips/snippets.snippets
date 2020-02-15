@@ -1,7 +1,15 @@
-# We use a little hack so that the snippet is expanded
-# and parsed correctly
+extends python
+
+priority 100
+
 snippet snip "Snippet definition" b
-`!p snip.rv = "snippet"` ${1:Trigger} "${2:Description}" ${3:b}
+snippet ${1:Trigger} "${2:Description}" ${3:b}
+${0:${VISUAL}}
+`!v 'endsnippet'`
+endsnippet
+
+snippet rsnip "Snippet definition (Regex)" b
+`!p snip.rv = "snippet"` "${1:Trigger}" "${2:Description}" r${3:b}
 ${0:${VISUAL}}
 `!p snip.rv = "endsnippet"`
 endsnippet
@@ -12,12 +20,36 @@ ${0:${VISUAL}}
 `!p snip.rv = "endglobal"`
 endsnippet
 
+snippet ts "Tabstop" i
+${1/(\d+:)?.*/(?1:${:$)/}${1:1}${1/(\d+:)?.*/(?1:}:)/}$0
+endsnippet
+
+snippet tr "Transformation" i
+\${${1:1}/${2:pattern}/${3:repl}/$4}$0
+endsnippet
+
+snippet trc "Transformation Conditional" i
+(?${1:1}:$2:$3)
+endsnippet
+
 snippet vis "${VISUAL}" i
-\$\{VISUAL${2::$1}\}$0
+\$\{VISUAL${1/.+/:/}${1:${VISUAL}}\}$0
 endsnippet
 
 snippet vist "${VISUAL/re/sub/}" i
 \$\{VISUAL/$1/$2/\}$0
+endsnippet
+
+snippet vi "`!v ...`" i
+\`!v $2\`$0
+endsnippet
+
+snippet py "`!p ...`" i
+\`!p ${2:snip.rv = ${1:foo}}\`$0
+endsnippet
+
+snippet gr "!p match.group()" w
+match.group(${1:1})
 endsnippet
 
 # vim: ft=snippets ts=4

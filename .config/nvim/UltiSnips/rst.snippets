@@ -1,0 +1,59 @@
+extends documentation
+
+priority 50
+
+# reStructuredText snippets
+
+### Inline Markup ##############################################################
+
+snippet : "Field list (:name: body)"
+:${1:field name}: ${0:field body}
+endsnippet
+
+snippet ` "Interpreted text (`foo`)"
+\`${1:${VISUAL:interpreted}}\`$0
+endsnippet
+
+snippet `` "Inline literal (``foo``)"
+\`\`${1:${VISUAL:literal}}\`\`$0
+endsnippet
+
+snippet .. "Directive (..)" b
+.. ${1:${VISUAL:directive}}::${2:directive body}$0
+endsnippet
+
+snippet | "Substitution reference (|foo|)"
+|${1:${VISUAL::ref}}|$0
+endsnippet
+
+snippet img "Image" b
+.. |${1:alias}| image:: ${2:img}$0
+endsnippet
+
+### Block Markup ###############################################################
+
+snippet :: "Literal block (::)"
+::
+
+	${1:${VISUAL:text}}
+endsnippet
+
+snippet "| " "Line block (| text)" rb
+| ${1:${VISUAL:text}}
+endsnippet
+
+snippet >>> "Doctest block (>>> 1 + 1)" bA
+>>> $1
+${2:`!p
+try:
+  snip.rv = eval(t[1]) if t[1] else ''
+except Exception as e:
+  snip.rv = e`}
+endsnippet
+
+snippet toc "Table of Contents (toctree)" b
+.. toctree::
+	:maxdepth: 2
+endsnippet
+
+# vim: ft=snippets ts=4

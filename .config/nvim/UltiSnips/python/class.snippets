@@ -1,0 +1,87 @@
+priority 50
+
+global !p
+from zeroknight.sniputils import *
+
+def get_parents(line: str):
+  parents = (p.lstrip() for p in line.split(',') if line)
+  return [p for p in filter(lambda x: x, parents)]
+
+def write_class_docstring_attrs(args, snip):
+  snip += 'Attributes'
+  snip += '----------'
+  for arg in args:
+    snip += f"{arg[0]} : {arg[1] if arg[1] is not None else 'TODO'}"
+    snip >> 1
+    snip += 'TODO: Description'
+    snip << 1
+  snip += '"""'
+
+def write_class_init_body(args, parents, snip):
+  if parents:
+    for p in parents:
+      snip += f"super({p}, self).__init__()"
+    snip.rv += '\n'
+  else:
+    snip.rv = ''
+  for arg in args:
+    snip += f"self.{arg[0]} = {arg[0]}"
+endglobal
+
+snippet clname "self.__class.__name__" w
+self.__class__.__name__$0
+endsnippet
+
+snippet "cl(ass)?" "class ..." rb
+class ${1:Foo}`!p if_ts(t[2], snip, '(')`${2:Bar}`!p if_ts(t[2], snip, ')')`:
+	"""${3:Documentation for $1.}`!p
+args = get_args(t[4])
+if args:
+  snip.rv = '\n'
+  snip >> 1
+  write_class_docstring_attrs(args, snip)
+else:
+  close_docstring(t[3], snip)`
+
+	def __init__(self, $4):`!p
+snip >> 2
+write_class_init_body(get_args(t[4]), get_parents(t[2]), snip)`$0
+endsnippet
+
+# TODO: variants for different invocations of @dataclass(...)
+snippet "dcl(ass)?" "@dataclass ..." rb
+@dataclass
+class ${1:Foo}:
+	"""${2:Documentation for $1.}`!p close_docstring(t[2], snip)`
+
+	$3
+endsnippet
+
+# TODO
+snippet field "dataclass.field" w
+field($1)
+endsnippet
+
+# TODO: account for InitVar?
+snippet pinit "__post_init__" b
+def __post_init__(self):
+	$1
+endsnippet
+
+snippet super "super(Foo, self).bar()"
+super($1, self).${2:__init__($3)}$0
+endsnippet
+
+snippet repr "__repr__" b
+def __repr__(self):
+	attrs = [$1]
+	repr_str = ' '.join(f'{a}={getattr(self, a)}' for a in attrs)
+	return f'{self.__class__.__name__}({repr_str})'$0
+endsnippet
+
+snippet str "__str__" b
+def __str__(self):
+	return $1
+endsnippet
+
+# vim: ft=snippets ts=4

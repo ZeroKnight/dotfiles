@@ -1,0 +1,41 @@
+priority 10
+
+# Assorted snippets for writing documentation. Some formats share similar
+# syntaxes, so this snippet file is intended to be included in others.
+
+snippet header "Markdown-like header with underline" b
+${1:Header}
+${2:-}`!p snip.rv = (t[2][0] if t[2] else '?') * (len(t[1]) - 1)`
+endsnippet
+
+snippet * "Emphasis (Italics)"
+*${1:${VISUAL:emphaisized}}*$0
+endsnippet
+
+snippet ** "Strong Emphasis (Bold)"
+**${1:${VISUAL:bolded}}**$0
+endsnippet
+
+snippet ` "Inline literal (`foo`)"
+\`${1:${VISUAL:literal}}\`$0
+endsnippet
+
+snippet /(rule|trans)/ "Transition (Horizontal Rule)" rb
+${2:-}`!p snip.rv = (t[2][0] if t[2] else '') * 16`
+
+$0
+endsnippet
+
+snippet ``` "Code fence (```)" b
+\`\`\`${1:lang}
+${2:${VISUAL}}
+\`\`\`$0
+endsnippet
+
+snippet > "Blockquote" b
+> ${1:${VISUAL:text}}$0
+endsnippet
+
+snippet link "[Link](https://example.com)"
+[${1:${VISUAL:text}}](${3:https://${2:example.com}})$0
+endsnippet
