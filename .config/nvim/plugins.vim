@@ -245,5 +245,25 @@ let g:ultisnips_java_brace_style = 'nl'
 
 " Quick-Scope {{{1
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
+"}}}
+
+" Plugin Autocommands
+" ------------------------------------------------------------------------------
+
+if has('autocmd')
+  augroup ZeroVimPluginAutoCommands
+    autocmd!
+
+    " Run NeoMake on write
+    autocmd BufWritePost * Neomake
+
+    " Enable NCM2
+    autocmd BufEnter * call ncm2#enable_for_buffer()
+
+    " Use actual TABs when editing UltiSnips snippets. This makes UltiSnips
+    " dynamically use expandtab, softtabstop, shiftwidth, etc in snippets
+    autocmd FileType snippets setlocal sts=0
+  augroup END
+endif
 
 " vim: fdm=marker

@@ -7,12 +7,6 @@ if has('autocmd')
     " From http://learnvimscriptthehardway.stevelosh.com/chapters/14.html
     autocmd!
 
-    " Run NeoMake on write
-    autocmd BufWritePost * Neomake
-
-    " Enable NCM2
-    autocmd BufEnter * call ncm2#enable_for_buffer()
-
     " Automatically source personal runtime files on modification
     autocmd BufWritePost .{g,}vimrc,{g,}init.vim source %
     autocmd BufWritePost
@@ -33,10 +27,6 @@ if has('autocmd')
     " Only show cursor(line|column) in the active window
     autocmd WinLeave * setlocal nocursorline nocursorcolumn
     autocmd WinEnter * setlocal cursorline cursorcolumn
-
-    " Use actual TABs when editing UltiSnips snippets. This makes UltiSnips
-    " dynamically use expandtab, softtabstop, shiftwidth, etc in snippets
-    autocmd FileType snippets setlocal sts=0
 
     " C/++ Settings
     autocmd FileType c,cpp setlocal nosmartindent cindent
