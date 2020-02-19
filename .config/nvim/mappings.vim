@@ -41,8 +41,10 @@ nnoremap <Leader>ue :UltiSnipsEdit<CR>
 " Clear search highlights
 nnoremap <silent> <Leader>/ :nohls<CR>
 
-" Highlight word under cursor without jumping
-nnoremap <Leader>hw *<C-o>
+" Highlight word or WORD under cursor without side-effects
+nnoremap <silent> <Leader>hw :let @/= '\<' . expand('<cword>') . '\>' <Bar>
+  \ set hls<CR>
+nnoremap <silent> <Leader>hW :let @/=expand('<cword>') <Bar> set hls<CR>
 
 " Toggle Spellcheck
 nnoremap <silent> <Leader>s :setlocal spell!<CR>
