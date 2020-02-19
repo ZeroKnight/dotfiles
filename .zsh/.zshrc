@@ -57,6 +57,14 @@ for module ($zmodules) {
 }
 unset module mpath
 
+# Local configuration
+if [[ -d "$HOME/.local/zsh" ]]; then
+  for script ($HOME/.local/zsh/*.zsh) {
+    source $script
+  }
+  unset script
+fi
+
 ### Compile configuration files in the background
 
 (
@@ -74,6 +82,8 @@ unset module mpath
     ZCOMPILE_IGNORE_PATTERNS[i]="~*$pattern"
   }
   for cfg ($ZDOTDIR/modules/**/*.zsh${(j::)~ZCOMPILE_IGNORE_PATTERNS}(.))
+    zcompare $cfg
+  for cfg ($HOME/.local/zsh/*.zsh)
     zcompare $cfg
 
   # zcompile all autoloaded functions
