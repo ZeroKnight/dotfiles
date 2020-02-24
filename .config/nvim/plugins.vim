@@ -47,6 +47,24 @@ Plug 'Yggdroot/indentLine'
 "Plug 'scrooloose/nerdtree'
 "}}}
 
+" Completion {{{
+" Neovim Completion Manager
+Plug 'ncm2/ncm2'
+Plug 'ncm2/ncm2-bufword'
+Plug 'ncm2/ncm2-github'
+" Plug 'ncm2/ncm2-neoinclude', {'for': ['c', 'cpp']} | Plug 'Shougo/neoinclude.vim', {'for': ['c', 'cpp']}
+Plug 'ncm2/ncm2-path'
+Plug 'ncm2/ncm2-pyclang', {'for': ['c', 'cpp']}
+Plug 'ncm2/ncm2-tmux'
+Plug 'ncm2/ncm2-vim', {'for': 'vim'} | Plug 'Shougo/neco-vim', {'for': 'vim'}
+"}}}
+
+" Language Server, Linting {{{
+Plug 'natebosch/vim-lsc'
+Plug 'dense-analysis/ale'
+" Plug 'neomake/neomake'
+"}}}
+
 " Utilities {{{
 Plug 'alx741/vinfo', {'on': 'Vinfo'}
 Plug 'christoomey/vim-sort-motion'
@@ -74,19 +92,8 @@ Plug 'junegunn/fzf.vim'
 Plug 'mhinz/vim-grepper'
 Plug 'mileszs/ack.vim'
 
-Plug 'neomake/neomake'
 Plug 'SirVer/ultisnips'
 Plug 'majutsushi/tagbar' " Don't defer, airline uses tagbar for a status item
-
-" Neovim Completion Manager
-Plug 'ncm2/ncm2'
-Plug 'ncm2/ncm2-bufword'
-Plug 'ncm2/ncm2-github'
-Plug 'ncm2/ncm2-neoinclude', {'for': ['c', 'cpp']} | Plug 'Shougo/neoinclude.vim', {'for': ['c', 'cpp']}
-Plug 'ncm2/ncm2-path'
-Plug 'ncm2/ncm2-pyclang', {'for': ['c', 'cpp']}
-Plug 'ncm2/ncm2-tmux'
-Plug 'ncm2/ncm2-vim', {'for': 'vim'} | Plug 'Shougo/neco-vim', {'for': 'vim'}
 
 if !has('nvim')
   Plug 'bruno-/vim-man'
@@ -155,6 +162,10 @@ let g:airline_theme='one'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#show_close_button = 0
 
+" ALE {{{1
+let g:ale_completion_enabled = 0
+let g:ale_disable_lsp = 1
+
 " FastFold {{{1
 let g:fastfold_skip_filetypes = [ 'gitcommit', 'taglist' ]
 
@@ -179,6 +190,19 @@ let g:indentLine_char = '│'
 let g:indentLine_color_gui = 'Grey40'
 let g:indentLine_fileTypeExclude = ['help', 'text', 'nerdtree', 'startify', 'man']
 "let g:indentLine_bufNameExclude = []
+
+" Language Server Client (vim-lsc) {{{1
+set shortmess-=F
+let g:lsc_autocomplete_length = 2
+let g:lsc_auto_map = {
+  \ 'defaults': v:true,
+  \ 'FindCodeActions': '<Leader>a',
+  \ 'SignatureHelp': '<C-s>',
+  \ 'Completion': 'omnifunc'
+  \ }
+let g:lsc_server_commands = {
+  \ 'python': 'pyls'
+  \ }
 
 " Neomake {{{1
 let g:neomake_perl_args = ['PERL5LIB=.', '-c', '-X', '-Mwarnings']
@@ -257,8 +281,11 @@ if has('autocmd')
     " Run NeoMake on write
     autocmd BufWritePost * Neomake
 
-    " Enable NCM2
+    " NCM2
     autocmd BufEnter * call ncm2#enable_for_buffer()
+
+    " Enable autocomplete for `<backspace>` and `<c-w>`
+    autocmd TextChangedI * call ncm2#auto_trigger()
 
     " Use actual TABs when editing UltiSnips snippets. This makes UltiSnips
     " dynamically use expandtab, softtabstop, shiftwidth, etc in snippets
