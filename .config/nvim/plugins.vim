@@ -58,11 +58,13 @@ Plug 'ncm2/ncm2-pyclang', {'for': ['c', 'cpp']}
 Plug 'ncm2/ncm2-ultisnips'
 Plug 'ncm2/ncm2-tmux'
 Plug 'ncm2/ncm2-vim', {'for': 'vim'} | Plug 'Shougo/neco-vim', {'for': 'vim'}
+Plug 'ncm2/ncm2-vim-lsp'
 "}}}
 
 " Language Server, Linting {{{
-Plug 'natebosch/vim-lsc'
 Plug 'dense-analysis/ale'
+" Plug 'natebosch/vim-lsc'
+Plug 'prabirshrestha/vim-lsp'
 " Plug 'neomake/neomake'
 "}}}
 
@@ -134,6 +136,7 @@ Plug 'drewtempelmeyer/palenight.vim'
 Plug 'tpope/vim-repeat'
 Plug 'xolox/vim-misc'
 Plug 'roxma/nvim-yarp'
+Plug 'prabirshrestha/async.vim'
 "}}}
 
 call plug#end()
@@ -206,6 +209,11 @@ let g:lsc_auto_map = {
 let g:lsc_server_commands = {
   \ 'python': 'pyls'
   \ }
+
+" Language Server Client (vim-lsp) {{{1
+source $VIMFILES/lsp.vim
+let g:lsp_diagnostics_enabled = 0 " Using ALE for this
+let g:lsp_highlight_references_enabled = 1
 
 " Neomake {{{1
 let g:neomake_perl_args = ['PERL5LIB=.', '-c', '-X', '-Mwarnings']
