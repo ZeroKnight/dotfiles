@@ -284,18 +284,23 @@ if has('autocmd')
   augroup ZeroVimPluginAutoCommands
     autocmd!
 
-    " Run NeoMake on write
-    autocmd BufWritePost * Neomake
+    if has_key(g:plugs, 'neomake')
+      " Run NeoMake on write
+      autocmd BufWritePost * Neomake
+    endif
 
-    " NCM2
-    autocmd BufEnter * call ncm2#enable_for_buffer()
+    if has_key(g:plugs, 'ncm2')
+      autocmd BufEnter * call ncm2#enable_for_buffer()
 
-    " Enable autocomplete for `<backspace>` and `<c-w>`
-    autocmd TextChangedI * call ncm2#auto_trigger()
+      " Enable autocomplete for `<backspace>` and `<c-w>`
+      autocmd TextChangedI * call ncm2#auto_trigger()
+    endif
 
-    " Use actual TABs when editing UltiSnips snippets. This makes UltiSnips
-    " dynamically use expandtab, softtabstop, shiftwidth, etc in snippets
-    autocmd FileType snippets setlocal sts=0
+    if has_key(g:plugs, 'ultisnips')
+      " Use actual TABs when editing UltiSnips snippets. This makes UltiSnips
+      " dynamically use expandtab, softtabstop, shiftwidth, etc in snippets
+      autocmd FileType snippets setlocal sts=0
+    endif
   augroup END
 endif
 
