@@ -166,6 +166,8 @@ let g:airline#extensions#tabline#show_close_button = 0
 " ALE {{{1
 let g:ale_completion_enabled = 0
 let g:ale_disable_lsp = 1
+let g:ale_sign_error = '✗'
+let g:ale_sign_warning = '‼'
 
 " FastFold {{{1
 let g:fastfold_skip_filetypes = [ 'gitcommit', 'taglist' ]
