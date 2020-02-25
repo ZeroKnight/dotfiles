@@ -55,6 +55,7 @@ Plug 'ncm2/ncm2-github'
 " Plug 'ncm2/ncm2-neoinclude', {'for': ['c', 'cpp']} | Plug 'Shougo/neoinclude.vim', {'for': ['c', 'cpp']}
 Plug 'ncm2/ncm2-path'
 Plug 'ncm2/ncm2-pyclang', {'for': ['c', 'cpp']}
+Plug 'ncm2/ncm2-ultisnips'
 Plug 'ncm2/ncm2-tmux'
 Plug 'ncm2/ncm2-vim', {'for': 'vim'} | Plug 'Shougo/neco-vim', {'for': 'vim'}
 "}}}
@@ -216,6 +217,9 @@ let g:ncm2#complete_delay = 100
 let g:ncm2#complete_length = [ [1,2], [7,2] ]
 
 let g:ncm2_pyclang#library_path = '/usr/lib64/'
+
+" Expand completed snippets
+inoremap <silent> <expr> <C-Space> ncm2_ultisnips#expand_or("\<C-Space>", 'n')
 
 " Startify {{{1
 function! s:PrettyVersion()
