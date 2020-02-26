@@ -30,7 +30,7 @@ nnoremap <Leader>cd :cd %:p:h<CR>:pwd<CR>
 nnoremap <Leader>lcd :lcd %:p:h<CR>:pwd<CR>
 
 " Quick :Bdelete (vim-bbye)
-nnoremap <Leader>d :Bdelete<CR>
+nnoremap <silent> <Leader>d :Bdelete<CR>
 
 " Quick-edit .vimrc
 nnoremap <Leader>vr :tabedit $MYVIMRC<CR>
@@ -121,8 +121,8 @@ inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 " fzf Mappings
-nnoremap <C-p> :Buffers<CR>
-nnoremap <Leader>f :Files<CR>
+nnoremap <silent> <C-p> :Buffers<CR>
+nnoremap <silent> <Leader>f :Files<CR>
 
 "}}}
 
