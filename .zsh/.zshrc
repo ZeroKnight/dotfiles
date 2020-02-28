@@ -30,11 +30,21 @@ cdpath=(
 )
 
 # Modules
+zmodules=(archive directory ssh fasd git history misc perl python processes \
+          spectrum system tmux vim man input syntax-highlighting)
+
+# Local configuration
+if [[ -d "$HOME/.local/zsh" ]]; then
+  for script ($HOME/.local/zsh/*.zsh) {
+    source $script
+  }
+  unset script
+fi
+
 # NOTE: 'prompt' and 'completion' should ALWAYS be loaded LAST to ensure that
 # all module functions/keywords are available to compinit and for the prompt
 # to make use of
-zmodules=(archive directory ssh fasd git history misc perl python processes \
-          spectrum system tmux vim man input syntax-highlighting prompt completion)
+zmodules+=(prompt completion)
 
 typeset -a ZCOMPILE_IGNORE_PATTERNS
 for module ($zmodules) {
@@ -56,14 +66,6 @@ for module ($zmodules) {
   }
 }
 unset module mpath
-
-# Local configuration
-if [[ -d "$HOME/.local/zsh" ]]; then
-  for script ($HOME/.local/zsh/*.zsh) {
-    source $script
-  }
-  unset script
-fi
 
 ### Compile configuration files in the background
 
