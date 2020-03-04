@@ -179,7 +179,7 @@ set commentstring=#\ %s
 
 " Set initial background based on time of day
 let s:hour = system("date '+%H'")
-if s:hour >= 6 && s:hour < 19
+if s:hour >= 6 && s:hour < 18
   set background=light
 else
   set background=dark
