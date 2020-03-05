@@ -4,8 +4,7 @@
 
 (( $+commands[fasd] )) || return 1
 
-# _fasd_config="${XDG_CONFIG_HOME:-"$HOME/.config"}/fasd/config"
-export _FASD_DATA="${XDG_CACHE_HOME:-"$HOME/.cache"}/fasd/fasd"
+export _FASD_DATA="${XDG_DATA_HOME:-"$HOME/.local/share"}/fasd"
 _fasd_cache="${XDG_CACHE_HOME:-"$HOME/.cache"}/fasd/init"
 _fasd_hooks="$(print zsh-{c,w}comp{,-install})"
 
