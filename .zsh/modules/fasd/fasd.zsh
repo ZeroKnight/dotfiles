@@ -10,6 +10,12 @@ _fasd_hooks="$(print zsh-{c,w}comp{,-install})"
 
 ### Initialize fasd
 
+# Need to explicitly export since we've separated the _fasd_preexec definition
+# from fasd's usual init process. fasd doesn't export its variables, so when
+# _fasd_preexec runs, $_FASD_SINK will be null and cause the redirection to
+# error out.
+export _FASD_SINK='/dev/null'
+
 for dir ($_FASD_DATA $_fasd_cache) {
   [[ -d ${dir:h} ]] || mkdir -p ${dir:h}
 }
@@ -21,6 +27,9 @@ if [[ "$commands[fasd]" -nt "$_fasd_cache" || ! -s "$_fasd_cache" ]]; then
 fi
 source "$_fasd_cache"
 unset _fasd_{cache,hooks}
+
+autoload -Uz add-zsh-hook
+add-zsh-hook preexec _fasd_preexec
 
 ### Aliases
 
