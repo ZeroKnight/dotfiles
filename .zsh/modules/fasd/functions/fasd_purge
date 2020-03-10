@@ -1,0 +1,18 @@
+#
+# Remove entries from the fasd database that no longer exist
+#
+
+zmodload zsh/mapfile
+
+local dbfile="${_FASD_DATA:-${XDG_DATA_HOME:-"$HOME/.local/share/fasd"}}"
+local quiet=0
+[[ $# > 0 && "$1" == '-q' ]] && quiet=1
+
+for entry ("${(f@)mapfile[$dbfile]}") {
+  [[ -n "$entry" ]] || continue
+  entry=${entry%%|*}
+  if [[ ! -e "$entry" ]]; then
+    (( $quiet )) || printf "Removing '%s'\n" "$entry"
+    fasd -D "$entry"
+  fi
+}
