@@ -16,6 +16,13 @@ _fasd_hooks="$(print zsh-{c,w}comp{,-install})"
 # error out.
 export _FASD_SINK="${XDG_CACHE_HOME:-"$HOME/.cache"}/fasd/fasd.log"
 
+# fasd inefficiently tries various versions of awk before falling back to `awk`
+# by attempting to run a fixed list of awk versions, stopping when one works;
+# this unnecessarily pollutes _FASD_SINK. We'll do things properly and check
+# for the existence of a particular version first, and set _FASD_AWK to avoid
+# fasd's awk loop altogether.
+export _FASD_AWK="${commands[(r)*awk*]}"
+
 for dir ($_FASD_SINK $_FASD_DATA $_fasd_cache) {
   [[ -d ${dir:h} ]] || mkdir -p ${dir:h}
 }
