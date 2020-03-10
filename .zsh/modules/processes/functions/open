@@ -1,0 +1,14 @@
+#
+# Open something with xdg-open, but completely removed from the terminal.
+# Vaguely similar to macOS's `open` command.
+#
+
+# Modified from: https://unix.stackexchange.com/a/470156/94176
+
+open() {
+  for prg ($*) {
+    setsid nohup xdg-open "$prg" &> /dev/null
+  }
+}
+
+# vim: ft=zsh
