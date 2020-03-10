@@ -14,9 +14,9 @@ _fasd_hooks="$(print zsh-{c,w}comp{,-install})"
 # from fasd's usual init process. fasd doesn't export its variables, so when
 # _fasd_preexec runs, $_FASD_SINK will be null and cause the redirection to
 # error out.
-export _FASD_SINK='/dev/null'
+export _FASD_SINK="${XDG_CACHE_HOME:-"$HOME/.cache"}/fasd/fasd.log"
 
-for dir ($_FASD_DATA $_fasd_cache) {
+for dir ($_FASD_SINK $_FASD_DATA $_fasd_cache) {
   [[ -d ${dir:h} ]] || mkdir -p ${dir:h}
 }
 
