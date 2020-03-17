@@ -2,6 +2,8 @@
 # Directory settings, aliases and functions
 #
 
+autoload -Uz z{mv,cp,ln}
+
 ### dircolors
 
 # Set LS_COLORS
