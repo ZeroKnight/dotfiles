@@ -1,0 +1,8 @@
+#
+# Find man pages with fzf
+#
+
+man -k . | fzf -1 --prompt 'man> ' --preview 'man {1}' --query "$*" \
+         | awk '{print $1}' | xargs -r man
+
+# vim: ft=zsh

@@ -1,0 +1,16 @@
+#
+# Filter fc through fzf
+#
+
+local cmd=$(fc -l -t '[%a %b %-d %T %Y]' 1 \
+            | fzf --tac --no-sort \
+            | sed 's/.\+\]\s\+//')
+
+if [[ -n "$1" && "$1" == '-z' ]]; then
+  print -Rz $cmd
+else
+  print -R $cmd
+  eval $cmd
+fi
+
+# vim: ft=zsh
