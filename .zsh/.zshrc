@@ -31,7 +31,7 @@ cdpath=(
 
 # Modules
 zmodules=(archive directory ssh fasd git history misc perl python processes \
-          spectrum system tmux vim man input syntax-highlighting)
+          spectrum system tmux vim man search input syntax-highlighting)
 
 # Local configuration
 if [[ -d "$HOME/.local/zsh" ]]; then
