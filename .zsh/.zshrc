@@ -35,7 +35,7 @@ zmodules=(archive directory ssh fasd git history misc perl python processes \
 
 # Local configuration
 if [[ -d "$HOME/.local/zsh" ]]; then
-  for script ($HOME/.local/zsh/*.zsh) {
+  for script ($HOME/.local/zsh/*.zsh(N)) {
     source $script
   }
   unset script
