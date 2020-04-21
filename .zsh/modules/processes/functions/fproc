@@ -1,0 +1,14 @@
+#
+# Choose a process to switch to its /proc directory
+#
+
+local format='euser:12,ruser:12,pid,ppid,ni,stat=STATE,tty=TTY,lstart,time=CPU_TIME,cmd=COMMAND'
+
+local proc=$(command ps -e -o $format --sort=+pid | \
+  fzf --no-sort --header-lines 1 --prompt 'inspect > ' --delimiter '\s+' \
+    --query="$@" --preview 'cat /proc/{3}/status' \
+    --bind 'enter:execute(echo {3})+abort')
+
+cd "/proc/$proc"
+
+# vim: ft=zsh
