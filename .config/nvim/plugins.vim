@@ -91,6 +91,7 @@ Plug 'wellle/targets.vim'
 " Plug 'ZeroKnight/vim-signjump'
 Plug '~/Projects/vim-signjump'
 
+Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'mhinz/vim-grepper'
 Plug 'mileszs/ack.vim'
