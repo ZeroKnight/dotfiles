@@ -66,6 +66,7 @@ Plug 'dense-analysis/ale'
 " Plug 'natebosch/vim-lsc'
 Plug 'prabirshrestha/vim-lsp'
 " Plug 'neomake/neomake'
+Plug 'liuchengxu/vista.vim'
 "}}}
 
 " Utilities {{{
