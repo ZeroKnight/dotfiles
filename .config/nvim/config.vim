@@ -27,17 +27,20 @@ endif
 
 " Neovim Python provider
 if has('nvim')
-  let s:venv_dir = expand('$VIMDATA/pynvim-venv')
-  if !isdirectory(s:venv_dir)
-    call mkdir(s:venv_dir)
-    " TODO: Perform this automatically
-    echohl WarningMsg
-    echom "Created directory for Python provider virtualenvs at '"
-      \ . s:venv_dir . "'. You should create py2nvim and py3nvim venvs now."
-    echohl None
-  endif
-  let g:python_host_prog = expand('$VIMDATA/pynvim-venv/py2nvim/bin/python2.7')
-  let g:python3_host_prog = expand('$VIMDATA/pynvim-venv/py3nvim/bin/python3')
+  call system("python -c 'import pynvim'") " Check for system install of pynvim
+  if v:shell_error
+    let s:venv_dir = expand('$VIMDATA/pynvim-venv')
+    if !isdirectory(s:venv_dir)
+      call mkdir(s:venv_dir)
+      " TODO: Perform this automatically
+      echohl WarningMsg
+      echom "Created directory for Python provider virtualenvs at '"
+        \ . s:venv_dir . "'. You should create py2nvim and py3nvim venvs now."
+      echohl None
+    endif
+    let g:python_host_prog = expand('$VIMDATA/pynvim-venv/py2nvim/bin/python2.7')
+    let g:python3_host_prog = expand('$VIMDATA/pynvim-venv/py3nvim/bin/python3')
+  end
 endif
 
 " Make a temporary backup before writing that will be deleted on a successful
