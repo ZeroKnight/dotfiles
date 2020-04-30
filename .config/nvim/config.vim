@@ -27,7 +27,7 @@ endif
 
 " Neovim Python provider
 if has('nvim')
-  call system("python -c 'import pynvim'") " Check for system install of pynvim
+  call system("python3 -c 'import pynvim'") " Check for system install of pynvim
   if v:shell_error
     let s:venv_dir = expand('$VIMDATA/pynvim-venv')
     if !isdirectory(s:venv_dir)
