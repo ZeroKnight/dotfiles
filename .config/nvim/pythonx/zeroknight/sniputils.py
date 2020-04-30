@@ -6,6 +6,14 @@ honza's vimsnippets.py.
 
 import vim
 
+def get_csv(line: str):
+    """Expand a string containing simple comma-separated values into a list.
+
+    Can be used as a generic "get arguments" function.
+    """
+    args = (arg.lstrip() for arg in line.split(',') if line)
+    return [arg for arg in filter(lambda x: x, args)]
+
 def get_args(line: str):
     """Expand a string containing Python function parameters into a list.
 
@@ -20,6 +28,24 @@ def get_args(line: str):
             if attr and attr != 'self':
                 args.append((attr, anno))
     return args
+
+def gen_list_of_tabstops(snip, n, delim=', '):
+    """Generates `n` tabstops in a delimited list format.
+
+    This function should be called via `post_jump` and triggered on a specific
+    tabstop that marks where the generated tabstops should be inserted, e.g.
+
+      post_jump "if snip.tabstop == 3: gen_list_of_tabstops(snip, 5, '|')"
+
+    Given ``n = 3`` and ``delim = ', '``, the snippet will then behave as if the
+    following was part of its definition:
+
+      $1, $2, $3
+    """
+    # Create one fewer tabstops and manually append a final ', ' since the
+    # initial tabstop in the snippet is preserved even after post_jump unless
+    # the line is nuked.
+    snip.expand_anon(delim.join([f'${i}' for i in range(1, n)]) + delim)
 
 def close_docstring(tabstop, snip, standalone: bool=False):
     """Closes the docstring in the given tabstop.
