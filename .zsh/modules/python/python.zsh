@@ -6,3 +6,5 @@
 alias python='python3'
 alias py='python'
 alias pip='pip3'
+
+alias ipy='ipython'
