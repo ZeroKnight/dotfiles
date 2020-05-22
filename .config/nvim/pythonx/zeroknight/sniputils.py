@@ -65,8 +65,10 @@ def close_docstring(tabstop, snip, standalone: bool=False):
         snip.rv = '"""'
 
 def if_ts(tabstop, snip, text):
-    """Sets ``snip.rv`` to `text` if the specified `tabstop` is not empty."""
-    snip.rv = text if tabstop else ''
+    """Sets ``snip.rv`` to `text` if the specified `tabstop` is not empty.
+
+    Tabstops are also considered empty if they contain only whitespace."""
+    snip.rv = text if tabstop and not tabstop.isspace() else ''
 
 def maybe_surround(tabstop, snip, text, opening, closing):
     """Surround `text` if the specified `tabstop` is not empty.
