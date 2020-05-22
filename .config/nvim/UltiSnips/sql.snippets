@@ -5,6 +5,10 @@ priority 40
 
 global !p
 from zeroknight.sniputils import *
+
+def join_const(snip, match, grp: int=1) -> str:
+  """Return 'ON' or 'USING' based on the given match group."""
+  snip.rv = 'ON' if match.group(grp) == 'o' else 'USING'
 endglobal
 
 ### Data Types
@@ -25,7 +29,7 @@ snippet nvc "NVARCHAR" w
 NVARCHAR($1)$0
 endsnippet
 
-snippet "(?i)\bint\b" "INTEGER" rA
+snippet "(?i)int" "INTEGER" rw
 INTEGER
 endsnippet
 
@@ -48,11 +52,11 @@ endsnippet
 
 ### Constraints
 
-snippet "(?i)\bpk\b" "PRIMARY KEY" rA
+snippet "(?i)pk" "PRIMARY KEY" rw
 PRIMARY KEY
 endsnippet
 
-snippet "(?i)\bfk\b" "FOREIGN KEY ... REFERENCES" rA
+snippet "(?i)fk" "FOREIGN KEY ... REFERENCES" rw
 FOREIGN KEY ${1:foo} REFERENCES ${2:table}(${3:id})$0
 endsnippet
 
@@ -62,6 +66,28 @@ endsnippet
 
 snippet def "DEFAULT" w
 DEFAULT $0
+endsnippet
+
+### Operators
+
+snippet "(?i)betw?" "BETWEEN expr AND expr" rw
+BETWEEN ${1:expr} AND ${2:expr}
+endsnippet
+
+snippet "(?i)\bin\b" "IN (a, b, c)" rw
+IN ($1)$0
+endsnippet
+
+snippet "(?i)isn" "IS NULL" rw
+IS NULL$0
+endsnippet
+
+snippet "(?i)isnn" "IS NOT NULL" rw
+IS NOT NULL$0
+endsnippet
+
+snippet "(?i)like" "LIKE ..." rw
+LIKE '$1'$0
 endsnippet
 
 ### DDL
@@ -75,7 +101,8 @@ endsnippet
 
 snippet cta "CREATE TABLE AS ... SELECT" b
 CREATE TABLE ${1:foo} AS
-  SELECT ${2:*} FROM ${3:src}`!p if_ts(t[4], snip, '\nWHERE ')`${4:expr};$0
+	SELECT ${2:*}
+	FROM ${3:src};$0
 endsnippet
 
 snippet ci "CREATE INDEX" b
@@ -88,21 +115,110 @@ CREATE UNIQUE INDEX ${1:foo}_idx
 	ON ${2:table}(${3:col});$0
 endsnippet
 
+snippet at "ALTER TABLE ..." b
+ALTER TABLE ${1:table}
+$2;$0
+endsnippet
+
+snippet ata "ALTER TABLE ... ADD" b
+ALTER TABLE ${1:table}
+ADD ($2);$0
+endsnippet
+
+snippet atm "ALTER TABLE ... MODIFY" b
+ALTER TABLE ${1:table}
+MODIFY ($2);$0
+endsnippet
+
+snippet atr "ALTER TABLE ... RENAME TO" b
+ALTER TABLE ${1:table}
+RENAME TO ${2:new};$0
+endsnippet
+
+snippet atrc "ALTER TABLE ... RENAME COLUMN" b
+ALTER TABLE ${1:table}
+RENAME COLUMN ${2:old} TO ${3:new};$0
+endsnippet
+
+snippet atd "ALTER TABLE ... DROP" b
+ALTER TABLE ${1:table}
+DROP $2;$0
+endsnippet
+
+snippet atdc "ALTER TABLE ... DROP COLUMN" b
+ALTER TABLE ${1:table}
+DROP COLUMN ${2:col};$0
+endsnippet
+
+snippet atds "ALTER TABLE ... DROP CONSTRAINT" b
+ALTER TABLE ${1:table}
+DROP CONSTRAINT ${2:constraint};$0
+endsnippet
+
+snippet "d([tv])" "DROP TABLE|VIEW foo" b
+DROP `!p
+snip.rv = {'t': 'TABLE', 'v': 'VIEW'}[match.group(1)]` ${2:IF EXISTS }${1:name};$0
+endsnippet
+
+snippet di "DROP INDEX ..." b
+DROP INDEX ${1:idx} ON ${2:table};$0
+endsnippet
+
+snippet trt "TRUNCATE TABLE foo" b
+TRUNCATE TABLE ${1:table};$0
+endsnippet
+
 ### DQL
 
-snippet "(?i)sel(ect)?" "SELECT ... FROM" rw
-SELECT ${1:*} FROM ${2:table}`!p if_ts(t[3], snip, '\nWHERE ')`${3:expr};$0
+snippet "(?i)sel(ect)?(d)?" "SELECT [DISTINCT] ... FROM" rw
+SELECT `!p if match.group(2): snip.rv = 'DISTINCT '`${1:*}
+FROM ${2:table};$0
+endsnippet
+
+snippet "(?i)\b(i)?join([ou])?" "[INNER] JOIN table ON|USING ..." rw
+`!p if match.group(1): snip.rv = 'INNER '`JOIN ${1:table} `!p
+join_const(snip, match, 2)` `!p
+if match.group(2) != 'o': snip.rv = '('`${2:expr}`!p
+if match.group(2) != 'o': snip.rv = ')'`$0
+endsnippet
+
+snippet "(?i)([lr])(o)?join([ou])?" "LEFT|RIGHT [OUTER] JOIN table ON|USING ..." rw
+`!p snip.rv = {'l': 'LEFT', 'r': 'RIGHT'}[match.group(1)]` `!p
+if match.group(2): snip.rv = 'OUTER '`JOIN ${1:table} `!p
+join_const(snip, match, 3)` `!p
+if match.group(3) != 'o': snip.rv = '('`${2:expr}`!p
+if match.group(3) != 'o': snip.rv = ')'`$0
+endsnippet
+
+snippet "(?i)njoin" "NATURAL JOIN table" rw
+NATURAL JOIN ${1:table}
+endsnippet
+
+snippet "(?i)cjoin" "CROSS JOIN" rw
+CROSS JOIN ${1:table}
 endsnippet
 
 snippet "(?i)gr(oup)?" "GROUP BY" rw
-GROUP BY ${1:cols}`!p if_ts(t[2], snip, '\nHAVING ')`${2:expr}
+GROUP BY ${1:cols}`!p snip.rv = '\nHAVING ' if re.match(r'[^\n;]', t[2]) else ''`${2:expr}
 endsnippet
 
 snippet "(?i)or(der)?" "ORDER BY" rw
 ORDER BY ${1:expr}
 endsnippet
 
+snippet "(?i)or(der)?d" "ORDER BY ... DESC" rw
+ORDER BY ${1:expr} DESC$0
+endsnippet
+
+snippet "(?i)dis" "DISTINCT" rw
+DISTINCT
+endsnippet
+
 ### DML
+
+snippet "(?i)wh(ere)?" "WHERE ..." rw
+WHERE ${1:expr}
+endsnippet
 
 post_jump "if snip.tabstop == 3: gen_list_of_tabstops(snip, len(get_csv(snip.tabstops[2].current_text)))"
 snippet "(?i)ins(ert)?" "INSERT INTO" rb
@@ -118,11 +234,25 @@ endsnippet
 # TODO: accept number and generate SET lines
 snippet "(?i)up(date)?" "UPDATE ... SET" rb
 UPDATE ${1:table}
-SET ${2:col} = ${3:expr}`!p if_ts(t[4], snip, '\nWHERE ')`${4:expr}
+SET ${2:col} = ${3:expr}
+WHERE ${4:expr};$0
 endsnippet
 
 snippet "(?i)set" "SET col = expr" rw
 SET ${1:col} = ${2:expr}
 endsnippet
+
+snippet "(?i)del(ete)?" "DELETE FROM ..." rb
+DELETE FROM ${1:table}
+WHERE ${2:expr};$0
+endsnippet
+
+### DCL
+
+# TODO
+
+### TCL
+
+# TODO
 
 # vim: ft=snippets ts=4
