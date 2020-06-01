@@ -109,8 +109,8 @@ snippet doc "Docstring" w
 """$1`!p close_docstring(t[1], snip, True)`
 endsnippet
 
-snippet def "def foo(...)" b
-def ${1:function}(`!p snip.rv = 'self' + (', ' if t[2] else '')`${2:foo})${4: -> $3}:
+snippet "(a)?def(m)?" "def foo(...)" br
+`!p if match.group(1): snip.rv = 'async '`def ${1:function}(`!p if match.group(2): snip.rv = 'self, '`${2:foo})${4: -> $3}:
 	"""${5:Documentation for $1}`!p
 args = get_args(t[2])
 rtype = t[3]
