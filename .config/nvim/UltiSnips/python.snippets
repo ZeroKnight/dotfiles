@@ -51,28 +51,14 @@ if $1:
 	${2:${VISUAL:pass}}$0
 endsnippet
 
-snippet "if " "if ..." rbA
-if $1:
-	${2:${VISUAL:pass}}$0
-endsnippet
-
 snippet el "else ..." b
 else:
 	${2:${VISUAL:pass}}$0
 endsnippet
 
-snippet "else" "else ..." rbA
-else:
-	${2:${VISUAL:pass}}$1
-endsnippet
-
 snippet eli "elif" b
 elif $1:
 	${2:${VISUAL:pass}}$0
-endsnippet
-
-snippet "elif " "elif" rbA
-elif $1: ${2:${VISUAL:pass}}$0
 endsnippet
 
 # ifn or elifn
@@ -92,17 +78,7 @@ while ${1:True}:
 	${2:${VISUAL:pass}}$0
 endsnippet
 
-snippet "while " "while ..." rbA
-while ${1:True}:
-	${2:${VISUAL:pass}}$0
-endsnippet
-
 snippet for "for x in y ..." b
-for ${1:_} in ${2:range(${3:10})}:
-	${4:${VISUAL:pass}}$0
-endsnippet
-
-snippet "for " "for x in y ..." rbA
 for ${1:_} in ${2:range(${3:10})}:
 	${4:${VISUAL:pass}}$0
 endsnippet
@@ -119,22 +95,12 @@ catch $1`!p snip.rv = maybe_as(2)`${2:e}
 	${3:${VISUAL:pass}}$0
 endsnippet
 
-snippet "catch " "catch Exception as e ..." rbA
-catch $1`!p snip.rv = maybe_as(2)`${2:e}
-	${3:${VISUAL:pass}}$0
-endsnippet
-
 snippet "fin?" "finally ..." rb
 finally:
 	${1:${VISUAL:pass}}$0
 endsnippet
 
 snippet with "with expr as foo ..." b
-with ${1:expr}`!p snip.rv = maybe_as(2)`${2:var}:
-	${3:${VISUAL:pass}}$0
-endsnippet
-
-snippet "with " "with expr as foo ..." rbA
 with ${1:expr}`!p snip.rv = maybe_as(2)`${2:var}:
 	${3:${VISUAL:pass}}$0
 endsnippet
