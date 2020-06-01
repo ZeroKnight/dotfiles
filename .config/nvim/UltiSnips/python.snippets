@@ -83,15 +83,15 @@ for ${1:_} in ${2:range(${3:10})}:
 	${4:${VISUAL:pass}}$0
 endsnippet
 
-snippet try "try ... catch" b
+snippet try "try ... except" b
 try:
 	${2:${VISUAL:pass}}$3
-catch $1:
+except $1:
 	$0
 endsnippet
 
-snippet catch "catch Exception as e ..." b
-catch $1`!p snip.rv = maybe_as(2)`${2:e}
+snippet except "except Exception as e ..." b
+except $1`!p snip.rv = maybe_as(2)`${2:e}
 	${3:${VISUAL:pass}}$0
 endsnippet
 
