@@ -85,8 +85,8 @@ endsnippet
 snippet repr "__repr__" b
 def __repr__(self):
 	attrs = [$1]
-	repr_str = ' '.join(f'{a}={getattr(self, a)}' for a in attrs)
-	return f'{self.__class__.__name__}({repr_str})'$0
+	repr_str = ' '.join(f'{a}={getattr(self, a)!r}' for a in attrs)
+	return f'<{self.__class__.__name__} {repr_str}>'$0
 endsnippet
 
 snippet str "__str__" b
