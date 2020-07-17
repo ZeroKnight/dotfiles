@@ -173,6 +173,13 @@ let g:ale_completion_enabled = 0
 let g:ale_disable_lsp = 1
 let g:ale_sign_error = '✗'
 let g:ale_sign_warning = '‼'
+let g:ale_fix_on_save = 1
+let g:ale_fixers = {
+  \ 'python': [
+  \   'autopep8',
+  \   'isort'
+  \ ]
+  \ }
 
 " FastFold {{{1
 let g:fastfold_skip_filetypes = [ 'gitcommit', 'taglist' ]
@@ -216,6 +223,7 @@ let g:lsc_server_commands = {
 source $VIMFILES/lsp.vim
 let g:lsp_diagnostics_enabled = 0 " Using ALE for this
 let g:lsp_highlight_references_enabled = 1
+let g:lsp_fold_enabled = 0 " Horrifically slow and annoying
 
 " Neomake {{{1
 let g:neomake_perl_args = ['PERL5LIB=.', '-c', '-X', '-Mwarnings']
