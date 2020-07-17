@@ -164,7 +164,7 @@ set keymodel=startsel,stopsel
 " Sane backspace functionality
 set backspace=indent,eol,start
 
-set textwidth=80 colorcolumn=+1
+set textwidth=79 colorcolumn=+1
 set formatoptions=crqn1j
 set nojoinspaces
 
