@@ -1,6 +1,28 @@
 # Global git ignore patterns
 # Most patterns taken from https://github.com/github/gitignore
 
+# Python ######################
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Rope project settings
+.ropeproject
+
+# mkdocs documentation
+/site
+
+
 # C/++ ########################
 # Compiled Object files
 *.slo
