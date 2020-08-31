@@ -1,0 +1,5 @@
+[flake8]
+exclude =
+    .git,
+    __pycache__
+ignore = F405, W503
