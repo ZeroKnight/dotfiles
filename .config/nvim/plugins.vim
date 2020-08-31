@@ -113,6 +113,7 @@ Plug 'othree/xml.vim',          {'for': 'xml'}
 Plug 'withgod/vim-sourcepawn',  {'for': 'sourcepawn'}
 Plug 'Valloric/MatchTagAlways', {'for': ['html', 'xhtml', 'xml', 'jinja']}
 Plug 'xolox/vim-lua-ftplugin',  {'for': 'lua'}
+Plug 'mitsuhiko/vim-jinja',     {'for': 'html'}
 
 if has('nvim')
   Plug 'arakashic/chromatica.nvim', {'for': ['c', 'cpp', 'objc'], 'do': ':UpdateRemotePlugins'}
