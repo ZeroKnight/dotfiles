@@ -9,7 +9,7 @@ Abolish anomol{y,ies} anomal{}
 Abolish {,in}consistant{,ly} {}consistent{}
 Abolish permanant{,ly} permanent{}
 Abolish competative{,ly} competitive{}
-Abolish function{,s} function{}
+Abolish fucntion{,s} function{}
 Abolish {,un}nec{ce,ces,e}sar{y,ily} {}nec{es}sar{}
 Abolish doens doesn
 Abolish versoin version
