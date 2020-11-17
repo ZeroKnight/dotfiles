@@ -2,7 +2,7 @@
 
 # Print colored load averages for tmux status line
 function () {
-  local ncores=$(awk '/cpu cores/ {print $4}' /proc/cpuinfo)
+  local ncores=$(awk '/siblings/ {print $3; exit}' /proc/cpuinfo)
   local -a loadavg=( $(cut -d ' ' -f 1-3 /proc/loadavg) )
 
   for (( i=1; i <= $#loadavg; ++i )); do
