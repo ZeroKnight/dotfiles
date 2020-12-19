@@ -1,0 +1,18 @@
+#
+# Automatically activate/deactive Python virtualenvs when changing directories
+#
+
+if [[ -n "$VIRTUAL_ENV" ]]; then
+  local parent="${$(readlink -f "$VIRTUAL_ENV"):h}"
+  if [[ "$PWD" != "$parent"/* ]]; then
+    deactivate
+  fi
+else
+  local venv_dir
+  for venv_dir ($python_venv_names) {
+    [[ -d "$PWD/$venv_dir" ]] && source "$PWD/$venv_dir/bin/activate"
+    return
+  }
+fi
+
+# vim: ft=zsh
