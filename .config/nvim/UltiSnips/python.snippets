@@ -147,4 +147,11 @@ else:
 	${6:${VISUAL:pass}}$0
 endsnippet
 
+snippet "prop(erty)?" "@property ..." br
+@property
+def ${1:function}(self)${3: -> $2}:
+	"""${4:Documentation for $1}`!p close_docstring(t[4], snip)`
+	${5:${VISUAL:pass}}$0
+endsnippet
+
 # vim: ft=snippets ts=4
