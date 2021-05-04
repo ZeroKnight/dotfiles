@@ -129,9 +129,6 @@ nnoremap <silent> <Leader>f :Files<CR>
 " Function Mappings
 " ------------------------------------------------------------------------------
 
-" RecompileYCM() {{{1
-nnoremap <Leader>ycm :<C-U>call zerofunc#RecompileYCM(v:count)<CR>
-
 " TrimTrailingSpace() {{{1
 nnoremap <silent> <Leader>ts :call zerofunc#TrimTrailingSpace()<CR>
 

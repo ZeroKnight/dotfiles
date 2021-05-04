@@ -1,20 +1,6 @@
 " ZeroKnight's Vim Functions
 " ------------------------------------------------------------------------------
 
-" Recompile YCM {{{1
-function! zerofunc#RecompileYCM(nJobs) abort
-  if !executable('cmake')
-    echoerr 'cmake not installed, aborting'
-    return
-  endif
-  let l:build_dir = '/tmp/ycm-build'
-  if !isdirectory('l:build_dir')
-    silent call system('mkdir -p ' . l:build_dir)
-  endif
-  exec 'Start -dir=' . l:build_dir . ' cmake -G "Unix Makefiles" -DUSE_PYTHON2=OFF -DUSE_SYSTEM_LIBCLANG=ON . ' . $VIMDATA.'/plugins/YouCompleteMe/third_party/ycmd/cpp && cmake --build . --target ycm_core'
-  exec 'YcmRestartServer'
-endfunction
-
 " Trim trailing whitespace while preserving buffer state {{{1
 " Courtesy Martin Tournoji
 function! zerofunc#TrimTrailingSpace() abort
