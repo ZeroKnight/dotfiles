@@ -44,7 +44,6 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'wesQ3/vim-windowswap'
 Plug 'Yggdroot/indentLine'
-"Plug 'scrooloose/nerdtree'
 "}}}
 
 " Completion {{{
@@ -63,7 +62,6 @@ Plug 'ncm2/ncm2-vim-lsp'
 
 " Language Server, Linting {{{
 Plug 'dense-analysis/ale'
-" Plug 'natebosch/vim-lsc'
 Plug 'prabirshrestha/vim-lsp'
 " Plug 'neomake/neomake'
 Plug 'liuchengxu/vista.vim'
@@ -95,7 +93,6 @@ Plug '~/Projects/vim-signjump'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'mhinz/vim-grepper'
-Plug 'mileszs/ack.vim'
 
 Plug 'SirVer/ultisnips'
 Plug 'majutsushi/tagbar' " Don't defer, airline uses tagbar for a status item
@@ -104,15 +101,12 @@ if !has('nvim')
   Plug 'bruno-/vim-man'
 endif
 
-" Plug 'ervandew/supertab'
 "}}}
 
 " Syntax {{{
 Plug 'sheerun/vim-polyglot'
-Plug 'othree/xml.vim',          {'for': 'xml'}
 Plug 'withgod/vim-sourcepawn',  {'for': 'sourcepawn'}
 Plug 'Valloric/MatchTagAlways', {'for': ['html', 'xhtml', 'xml', 'jinja']}
-Plug 'xolox/vim-lua-ftplugin',  {'for': 'lua'}
 Plug 'mitsuhiko/vim-jinja',     {'for': ['html', 'jinja']}
 Plug 'mattn/emmet-vim',         {'for': ['html', 'xhtml', 'xml', 'jinja']}
 
@@ -138,7 +132,6 @@ Plug 'drewtempelmeyer/palenight.vim'
 
 " Libraries & Misc {{{
 Plug 'tpope/vim-repeat'
-Plug 'xolox/vim-misc'
 Plug 'roxma/nvim-yarp'
 Plug 'prabirshrestha/async.vim'
 "}}}
@@ -147,11 +140,6 @@ call plug#end()
 
 " Plugin Settings
 " ------------------------------------------------------------------------------
-
-" Ack.vim (Ag in disguise) {{{1
-let g:ackprg = 'ag --vimgrep --smart-case'
-cnoreabbrev Ag  Ack
-cnoreabbrev LAg LAck
 
 " Airline {{{1
 if !exists('g:airline_symbols')
@@ -208,19 +196,6 @@ let g:indentLine_color_gui = 'Grey40'
 let g:indentLine_fileTypeExclude = ['help', 'text', 'nerdtree', 'startify', 'man']
 "let g:indentLine_bufNameExclude = []
 
-" Language Server Client (vim-lsc) {{{1
-set shortmess-=F
-let g:lsc_autocomplete_length = 2
-let g:lsc_auto_map = {
-  \ 'defaults': v:true,
-  \ 'FindCodeActions': '<Leader>a',
-  \ 'SignatureHelp': '<C-s>',
-  \ 'Completion': 'omnifunc'
-  \ }
-let g:lsc_server_commands = {
-  \ 'python': 'pyls'
-  \ }
-
 " Language Server Client (vim-lsp) {{{1
 source $VIMFILES/lsp.vim
 let g:lsp_diagnostics_enabled = 0 " Using ALE for this
@@ -231,7 +206,6 @@ let g:lsp_fold_enabled = 0 " Horrifically slow and annoying
 let g:neomake_perl_args = ['PERL5LIB=.', '-c', '-X', '-Mwarnings']
 
 " Neovim Completion Manager {{{1
-set shortmess+=c
 set completeopt=menuone,noinsert,noselect
 let g:ncm2#complete_delay = 100
 
