@@ -61,8 +61,12 @@ Plug 'ncm2/ncm2-vim-lsp'
 "}}}
 
 " Language Server, Linting {{{
+if has('nvim-0.5.0')
+  Plug 'neovim/nvim-lspconfig'
+else
+  Plug 'prabirshrestha/vim-lsp'
+endif
 Plug 'dense-analysis/ale'
-Plug 'prabirshrestha/vim-lsp'
 " Plug 'neomake/neomake'
 Plug 'liuchengxu/vista.vim'
 "}}}
@@ -134,6 +138,7 @@ Plug 'drewtempelmeyer/palenight.vim'
 Plug 'tpope/vim-repeat'
 Plug 'roxma/nvim-yarp'
 Plug 'prabirshrestha/async.vim'
+Plug 'nanotee/nvim-lua-guide'
 "}}}
 
 call plug#end()
