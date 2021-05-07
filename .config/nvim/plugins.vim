@@ -195,6 +195,9 @@ let g:fzf_colors = {
   \ 'spinner': ['fg', 'Label'],
   \ 'header':  ['fg', 'Comment'] }
 
+" GitGutter {{{1
+let g:gitgutter_grep = executable('rg') ? 'rg' : 'grep'
+
 " Indent Guides {{{1
 let g:indentLine_char = '│'
 let g:indentLine_color_gui = 'Grey40'
