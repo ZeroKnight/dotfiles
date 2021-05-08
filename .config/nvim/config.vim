@@ -103,6 +103,7 @@ set showcmd                    " Let our last command stick around
 set splitright splitbelow      " New splits will open more naturally
 set noequalalways
 set shortmess+=c
+set noshowmode                 " Our statusbar shows the mode
 
 " Enable the mouse. Being able to resize windows with the mouse is fantastic.
 if has('mouse')
