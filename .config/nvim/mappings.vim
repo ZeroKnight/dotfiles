@@ -74,8 +74,8 @@ noremap ' `
 " Always move by visual line
 nnoremap k gk
 nnoremap j gj
-nnoremap <Up> gk
-nnoremap <Down> gj
+nmap <Up> k
+nmap <Down> j
 
 " Workaround for C-Space detection
 imap <C-@> <C-Space>
