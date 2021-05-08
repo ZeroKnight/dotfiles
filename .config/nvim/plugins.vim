@@ -137,7 +137,6 @@ Plug 'drewtempelmeyer/palenight.vim'
 " Libraries & Misc {{{
 Plug 'tpope/vim-repeat'
 Plug 'roxma/nvim-yarp'
-Plug 'prabirshrestha/async.vim'
 Plug 'nanotee/nvim-lua-guide'
 "}}}
 
