@@ -47,17 +47,22 @@ Plug 'Yggdroot/indentLine'
 "}}}
 
 " Completion {{{
-" Neovim Completion Manager
-Plug 'ncm2/ncm2'
-Plug 'ncm2/ncm2-bufword'
-Plug 'ncm2/ncm2-github'
-" Plug 'ncm2/ncm2-neoinclude', {'for': ['c', 'cpp']} | Plug 'Shougo/neoinclude.vim', {'for': ['c', 'cpp']}
-Plug 'ncm2/ncm2-path'
-Plug 'ncm2/ncm2-pyclang', {'for': ['c', 'cpp']}
-Plug 'ncm2/ncm2-ultisnips'
-Plug 'ncm2/ncm2-tmux'
-Plug 'ncm2/ncm2-vim', {'for': 'vim'} | Plug 'Shougo/neco-vim', {'for': 'vim'}
-Plug 'ncm2/ncm2-vim-lsp'
+if has('nvim-0.5.0')
+  Plug 'nvim-lua/completion-nvim'
+  Plug 'steelsojka/completion-buffers'
+  Plug 'albertoCaroM/completion-tmux'
+else
+  " Neovim Completion Manager
+  Plug 'ncm2/ncm2'
+  Plug 'ncm2/ncm2-bufword'
+  Plug 'ncm2/ncm2-github'
+  Plug 'ncm2/ncm2-path'
+  Plug 'ncm2/ncm2-pyclang', {'for': ['c', 'cpp']}
+  Plug 'ncm2/ncm2-ultisnips'
+  Plug 'ncm2/ncm2-tmux'
+  Plug 'ncm2/ncm2-vim', {'for': 'vim'} | Plug 'Shougo/neco-vim', {'for': 'vim'}
+  Plug 'ncm2/ncm2-vim-lsp'
+endif
 "}}}
 
 " Language Server, Linting {{{
@@ -178,6 +183,34 @@ let g:ale_fixers = {
   \   'isort'
   \ ]
   \ }
+
+" Completion-Nvim {{{1
+let g:completion_enable_snippet = has_key(g:plugs, 'ultisnips') ? 'UltiSnips' : v:null
+let g:completion_enable_auto_paren = 1
+lua << EOF
+vim.g.completion_chain_complete_list = {
+  default = {
+    default = {
+      {complete_items = {'lsp', 'snippet'}},
+      {complete_items = {'buffers', 'tmux'}}
+    },
+    string = {
+      {complete_items = {'path', 'buffers', 'tmux'}}
+    }
+  }
+}
+vim.g.completion_items_priority = {
+  snippet = 2,
+  Variable = 1, Property = 1,
+  Buffer = -1, Buffers = -1
+}
+-- vim.g.completion_items_duplicate = {lsp = 0}
+vim.g.completion_matching_strategy_list = {'exact', 'substring', 'fuzzy', 'all'}
+EOF
+
+" Cycle completion chains
+imap <C-j> <Plug>(completion_next_source)
+imap <C-k> <Plug>(completion_prev_source)
 
 " FastFold {{{1
 let g:fastfold_skip_filetypes = [ 'gitcommit', 'taglist' ]
@@ -309,6 +342,10 @@ if has('autocmd')
 
     if has_key(g:plugs, 'nvim-lightbulb')
       autocmd CursorHold,CursorHoldI * lua require('nvim-lightbulb').update_lightbulb()
+    endif
+
+    if has_key(g:plugs, 'completion-nvim')
+      autocmd BufEnter * lua require('completion').on_attach()
     endif
   augroup END
 endif
