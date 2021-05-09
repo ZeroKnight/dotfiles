@@ -63,6 +63,9 @@ Plug 'ncm2/ncm2-vim-lsp'
 " Language Server, Linting {{{
 if has('nvim-0.5.0')
   Plug 'neovim/nvim-lspconfig'
+  Plug 'nvim-lua/lsp-status.nvim'
+  Plug 'kosayoda/nvim-lightbulb'
+  Plug 'gfanto/fzf-lsp.nvim'
 else
   Plug 'prabirshrestha/vim-lsp'
 endif
@@ -138,6 +141,7 @@ Plug 'drewtempelmeyer/palenight.vim'
 Plug 'tpope/vim-repeat'
 Plug 'roxma/nvim-yarp'
 Plug 'nanotee/nvim-lua-guide'
+Plug 'nvim-lua/plenary.nvim'
 "}}}
 
 call plug#end()
@@ -301,6 +305,10 @@ if has('autocmd')
       " Use actual TABs when editing UltiSnips snippets. This makes UltiSnips
       " dynamically use expandtab, softtabstop, shiftwidth, etc in snippets
       autocmd FileType snippets setlocal sts=0
+    endif
+
+    if has_key(g:plugs, 'nvim-lightbulb')
+      autocmd CursorHold,CursorHoldI * lua require('nvim-lightbulb').update_lightbulb()
     endif
   augroup END
 endif
