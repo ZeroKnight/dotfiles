@@ -50,7 +50,7 @@ Plug 'Yggdroot/indentLine'
 if has('nvim-0.5.0')
   Plug 'nvim-lua/completion-nvim'
   Plug 'steelsojka/completion-buffers'
-  Plug 'albertoCaroM/completion-tmux'
+  Plug '~/Projects/completion-tmux'
 else
   " Neovim Completion Manager
   Plug 'ncm2/ncm2'
