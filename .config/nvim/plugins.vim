@@ -40,8 +40,7 @@ Plug 'mbbill/undotree', {'on': ['UndotreeFocus', 'UndotreeHide', 'UndotreeShow',
 Plug 'mhinz/vim-startify'
 Plug 'romainl/vim-qlist'
 Plug 'unblevable/quick-scope'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+Plug 'itchyny/lightline.vim'
 Plug 'wesQ3/vim-windowswap'
 Plug 'Yggdroot/indentLine'
 "}}}
@@ -107,7 +106,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'mhinz/vim-grepper'
 
 Plug 'SirVer/ultisnips'
-Plug 'majutsushi/tagbar' " Don't defer, airline uses tagbar for a status item
+Plug 'majutsushi/tagbar'
 
 if !has('nvim')
   Plug 'bruno-/vim-man'
@@ -153,23 +152,6 @@ call plug#end()
 
 " Plugin Settings
 " ------------------------------------------------------------------------------
-
-" Airline {{{1
-if !exists('g:airline_symbols')
-  let g:airline_symbols = {}
-endif
-let g:airline_left_sep = ''
-let g:airline_left_alt_sep = ''
-let g:airline_right_sep = ''
-let g:airline_right_alt_sep = ''
-let g:airline_symbols.branch = ''
-let g:airline_symbols.linenr = ''
-let g:airline_symbols.maxlinenr = ''
-
-" Extensions
-let g:airline_theme='one'
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#show_close_button = 0
 
 " ALE {{{1
 let g:ale_completion_enabled = 0
@@ -245,6 +227,120 @@ source $VIMFILES/lsp.vim
 let g:lsp_diagnostics_enabled = 0 " Using ALE for this
 let g:lsp_highlight_references_enabled = 1
 let g:lsp_fold_enabled = 0 " Horrifically slow and annoying
+
+" LightLine {{{1
+lua << EOF
+vim.g.lightline = {
+  colorscheme = 'one',
+  separator = {left = '', right = ''},
+  subseparator = {left = '', right = ''},
+  active = {
+    left = {
+      {'Mode', 'paste'},
+      {'GitHunks', 'GitBranch'},
+      {'filename', 'ReadOnly', 'preview'}
+    },
+    right = {
+      {'lineinfo'}, {'FileInfo'}, {'filetype'}, {'spell'}
+    }
+  },
+  inactive = {
+    left = {
+      {'help'}, {},
+      {'filename', 'quickfix'}
+    },
+    right = {
+      {'lineinfo'}, {'FileInfo'}, {'filetype'},
+    }
+  },
+  component = {
+    filename = '%<%{ZeroLineFileName()}',
+    lineinfo = '%3l:%-2c [%p%%] ',
+    preview = '%w',
+    quickfix ='%q',
+    help = "%{&buftype ==# 'help' ? 'Help' : ''}"
+  },
+  component_visible_condition = {
+    filename = 1,
+    preview = '&previewwindow',
+    quickfix = "&buftype ==# 'quickfix'",
+    help = "&buftype ==# 'help'"
+  },
+  component_function = {
+    Mode = 'ZeroLineMode',
+    -- FileName = 'ZeroLineFileName',
+    FileInfo = 'ZeroLineFileInfo',
+    ReadOnly = 'ZeroLineReadOnly',
+    GitBranch = 'ZeroLineGitBranch',
+    GitHunks = 'ZeroLineGitHunks'
+  },
+  component_function_visible_condition = {
+    Mode = 1,
+    FileInfo = 1,
+    ReadOnly = "&readonly && &buftype ==# ''",
+    GitBranch = 'ZeroLineHasMinWidth() && !empty(FugitiveHead())',
+    GitHunks = 'ZeroLineHasMinWidth() && !empty(GitGutterGetHunks())'
+  }
+}
+EOF
+
+let s:minwidth = 80
+function! ZeroLineHasMinWidth() abort
+  return winwidth(0) >= s:minwidth
+endfunction
+
+let s:filetype_map = {'fugitive': 'Fugitive', 'dirvish': 'Dirvish'}
+function! ZeroLineMode() abort
+  if &buftype ==# 'help'
+    return 'Help'
+  endif
+  let l:wininfo = getwininfo(win_getid())[0]
+  if get(l:wininfo, 'quickfix', 0)
+    return get(l:wininfo, 'loclist', 0) ? 'Location' : 'Quickfix'
+  endif
+  let l:mode = get(s:filetype_map, &filetype, lightline#mode())
+  return ZeroLineHasMinWidth() ? l:mode : l:mode[:2]
+endfunction
+
+function! ZeroLineFileName() abort
+  if &buftype ==# 'help'
+    let l:filename = expand('%:t')
+  elseif &buftype ==# 'quickfix'
+    " Show Quickfix/LocList title as filename
+    if get(getwininfo(win_getid())[0], 'loclist', 0)
+      return getloclist(0, {'title': 1})['title']
+    endif
+    return getqflist({'title': 1})['title']
+  else
+    " Regular filename
+    let l:exp = expand('%')
+    let l:filename = l:exp !=# '' ? l:exp : '[No Name]'
+  endif
+  let l:mod = &modified ? ' [+]' : !&modifiable && (&buftype ==# '') ? ' [-]' : ''
+  return l:filename .. l:mod
+endfunction
+
+function! ZeroLineFileInfo() abort
+  let l:enc = &fenc !=# '' ? &fenc : &enc
+  return ZeroLineHasMinWidth() ? printf('%s [%s]', l:enc, &ff) : ''
+endfunction
+
+function! ZeroLineReadOnly() abort
+  return &readonly && (&buftype ==# '') ? 'RO' : ''
+endfunction
+
+function! ZeroLineGitBranch() abort
+  let l:branch = FugitiveHead()
+  return ZeroLineHasMinWidth() && l:branch !=# '' ? ' ' .. l:branch : ''
+endfunction
+
+function! ZeroLineGitHunks() abort
+  let l:stats = GitGutterGetHunkSummary()
+  if winwidth(0) < s:minwidth || l:stats == [0, 0, 0]
+    return ''
+  endif
+  return printf('+%d ~%d -%d', l:stats[0], l:stats[1], l:stats[2])
+endfunction
 
 " Neomake {{{1
 let g:neomake_perl_args = ['PERL5LIB=.', '-c', '-X', '-Mwarnings']
@@ -338,6 +434,18 @@ if has('autocmd')
       " Use actual TABs when editing UltiSnips snippets. This makes UltiSnips
       " dynamically use expandtab, softtabstop, shiftwidth, etc in snippets
       autocmd FileType snippets setlocal sts=0
+    endif
+
+    if has_key(g:plugs, 'lightline.vim')
+      function! s:ReloadLightlineColorScheme(name) abort
+        if !exists('g:loaded_lightline')
+          return
+        endif
+        let g:lightline.colorscheme = a:name
+        exec printf('runtime autoload/lightline/colorscheme/%s.vim', a:name)
+        call lightline#enable()
+      endfunction
+      autocmd ColorScheme * call s:ReloadLightlineColorScheme(expand('<amatch>'))
     endif
 
     if has_key(g:plugs, 'nvim-lightbulb')
