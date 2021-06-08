@@ -110,6 +110,12 @@ nnoremap <C-J> <C-w>j
 nnoremap <C-K> <C-w>k
 nnoremap <C-L> <C-w>l
 
+" Window Resizing
+nnoremap <M-Left> <C-w>5<
+nnoremap <M-Right> <C-w>5>
+nnoremap <M-Up> <C-w>5+
+nnoremap <M-Down> <C-w>5-
+
 " Fugitive
 nnoremap <silent> <Leader>gs :Gstatus<CR>
 
