@@ -106,8 +106,9 @@ set shortmess+=c
 set noshowmode                 " Our statusbar shows the mode
 
 " Enable the mouse. Being able to resize windows with the mouse is fantastic.
+" However, it gets annoying in insert mode with overly sensitive touchpads...
 if has('mouse')
-  set mouse=a
+  set mouse=nvch
 endif
 
 " Cursor style
@@ -141,14 +142,15 @@ set wildmenu
 set wildmode=longest,full
 set wildignorecase
 set wildignore+=*.jpg,*.jpeg,*.png,*.bmp,*.tiff,*.tga,*.gif
-set wildignore+=*.o,*.obj,*.exe,*.a,*.so,*.dll,*.pyc
+set wildignore+=*.o,*.obj,*.exe,*.a,*.so,*.dll,*.pyc,__pycache__
 set wildignore+=*/.svn,*/.hg,*/.bzr,*/.git
 set wildignore+=*.swp,*.swo,*.swn
 set wildignore+=tags,TAGS,*.tags,*.TAGS
 set wildignore+=*.db,*.sqlite
 
-" Prevent pop-up menus from taking up the entire screen height
-set pumheight=20
+" Pop-up Menu
+set pumheight=20  " Don't take up the entire screen height
+set pumblend=17   " Transparent pop-up menu
 
 " Fold Options
 set foldcolumn=2 " Minimal fold column
@@ -225,6 +227,9 @@ let g:c_comment_strings = 1
 let g:c_curly_error = 1
 " Load doxygen syntax
 let g:load_doxygen_syntax = 1
+
+" Embed Lua and Python syntax in vim files
+let g:vimsyn_embed = 'lP'
 
 " Spellcheck colors
 hi SpellBad cterm=undercurl,bold
