@@ -41,6 +41,8 @@ Plug 'mhinz/vim-startify'
 Plug 'romainl/vim-qlist'
 Plug 'unblevable/quick-scope'
 Plug 'itchyny/lightline.vim'
+" Plug 'mengelbrecht/lightline-bufferline'
+Plug '~/Projects/lightline-bufferline'
 Plug 'wesQ3/vim-windowswap'
 Plug 'Yggdroot/indentLine'
 "}}}
@@ -253,6 +255,10 @@ vim.g.lightline = {
       {'lineinfo'}, {'FileInfo'}, {'filetype'},
     }
   },
+  tabline = {
+    left = {{'tabs'}},
+    right = {{}, {'buffers'}}
+  },
   component = {
     filename = '%<%{ZeroLineFileName()}',
     lineinfo = '%3l:%-2c [%p%%] ',
@@ -280,9 +286,19 @@ vim.g.lightline = {
     ReadOnly = "&readonly && &buftype ==# ''",
     GitBranch = 'ZeroLineHasMinWidth() && !empty(FugitiveHead())',
     GitHunks = 'ZeroLineHasMinWidth() && !empty(GitGutterGetHunks())'
+  },
+  component_expand = {
+    buffers = 'lightline#bufferline#buffers'
+  },
+  component_type = {
+    buffers = 'tabsel'
   }
 }
 EOF
+
+set showtabline=2
+let g:lightline#bufferline#right_aligned = 1
+let g:lightline#bufferline#filter_by_tabpage = 1
 
 let s:minwidth = 80
 function! ZeroLineHasMinWidth() abort
