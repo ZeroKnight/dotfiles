@@ -16,6 +16,6 @@ inoremap <silent> <Leader>ig <Cmd>IndentLinesToggle<CR>
 
 augroup ZeroKnight_IndentLine
   autocmd!
-  autocmd TermOpen * IndentLinesDIsable
+  autocmd TermOpen * IndentLinesDisable
 augroup END
 
