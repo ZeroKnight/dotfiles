@@ -1,4 +1,5 @@
-" Define abbreviations via Abolish
+" tpope/vim-abolish
+
 if !exists("g:loaded_abolish")
   finish
 endif
@@ -14,6 +15,7 @@ Abolish cosnt const
 Abolish do{ens,sen} doesn
 Abolish versoin version
 Abolish aroudn around
+Abolish reutrn return
 
 " eh/æ mixups
 Abolish {,in}consistant{,ly} {}consistent{}
@@ -25,3 +27,4 @@ Abolish oc{,c}ur{,r}ance occurrence
 
 " Other mixups
 Abolish competative{,ly} competitive{}
+

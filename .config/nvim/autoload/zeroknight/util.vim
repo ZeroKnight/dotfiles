@@ -1,16 +1,16 @@
-" ZeroKnight's Vim Functions
+" ZeroKnight's Misc Vim Functions
 " ------------------------------------------------------------------------------
 
-" Trim trailing whitespace while preserving buffer state {{{1
+" Trim trailing whitespace while preserving buffer state
 " Courtesy Martin Tournoji
-function! zerofunc#TrimTrailingSpace() abort
+function! zeroknight#util#TrimTrailingSpace() abort
   let l:save = winsaveview()
   keeppatterns %substitute/\s\+$//e
   call winrestview(l:save)
 endfunction
 
-" Redirect the output of a Vim command into a Scratch buffer {{{1
-function! zerofunc#Redir(split_type, ...)
+" Redirect the output of a Vim command into a Scratch buffer
+function! zeroknight#util#Redir(split_type, ...)
   if a:0 < 1
     echoerr 'Not enough arguments. Must specify split_type, and a command with optional arguments.'
     return
@@ -37,11 +37,9 @@ function! zerofunc#Redir(split_type, ...)
   call setline(1, split(l:output, "\n"))
 endfunction
 
-function! zerofunc#Pcol(...) abort
+function! zeroknight#util#Pcol(...) abort
   let a:above = get(a:, 1, 0)
   let l:col = virtcol('.')
   execute 'normal!' a:above ? 'P' : 'p'
   call cursor('.', l:col)
 endfunction
-
-" vim: fdm=marker

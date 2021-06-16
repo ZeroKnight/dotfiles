@@ -1,16 +1,6 @@
 " Commands
 " ------------------------------------------------------------------------------
 
-" Common typos {{{1
-command! W w
-command! Q q
-
-" Open :help in a new tab {{{1
-cnoreabbrev <expr> ht getcmdtype() == ':' && getcmdline() == 'ht' ? 'tab help' : 'ht'
-
-" Open :help in a vertical split {{{1
-cnoreabbrev <expr> hv getcmdtype() == ':' && getcmdline() == 'hv' ? 'vert help' : 'hv'
-
 " Todo: Load Comment Tags into the Location List {{{1
 command! -nargs=0 Todo execute 'LAg -A ' . string(g:zeroknight.comment_tags)
 
@@ -32,11 +22,11 @@ command! -bang -nargs=* Rg
 " ------------------------------------------------------------------------------
 
 " TrimTrailingSpace() {{{1
-command! -nargs=0 TrimTrailingSpace silent call zerofunc#TrimTrailingSpace()
+command! -nargs=0 TrimTrailingSpace silent call zeroknight#util#TrimTrailingSpace()
 
 " Redir() {{{1
-command! -nargs=+ Redir silent call zerofunc#Redir('horizontal', <f-args>)
-command! -nargs=+ VRedir silent call zerofunc#Redir('vertical', <f-args>)
-command! -nargs=+ TRedir silent call zerofunc#Redir('tab', <f-args>)
+command! -nargs=+ Redir silent call zeroknight#util#Redir('horizontal', <f-args>)
+command! -nargs=+ VRedir silent call zeroknight#util#Redir('vertical', <f-args>)
+command! -nargs=+ TRedir silent call zeroknight#util#Redir('tab', <f-args>)
 
 " vim: fdm=marker
