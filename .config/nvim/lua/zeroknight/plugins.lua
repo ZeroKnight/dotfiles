@@ -82,20 +82,6 @@ return require('packer').startup{
     -- Completion {{{1
     use {'hrsh7th/nvim-compe', config = [[require('plugin.completion')]]}
 
-    -- use 'nvim-lua/completion-nvim'
-    -- use 'steelsojka/completion-buffers'
-    -- use '~/Projects/completion-tmux'
-
-    -- use 'ncm2/ncm2'
-    -- use 'ncm2/ncm2-bufword'
-    -- use 'ncm2/ncm2-github'
-    -- use 'ncm2/ncm2-path'
-    -- use 'ncm2/ncm2-pyclang', {'for': ['c', 'cpp']}
-    -- use 'ncm2/ncm2-ultisnips'
-    -- use 'ncm2/ncm2-tmux'
-    -- use 'ncm2/ncm2-vim', {'for': 'vim'} | use 'Shougo/neco-vim', {'for': 'vim'}
-    -- use 'ncm2/ncm2-vim-lsp'
-
     -- Editing {{{1
     use 'chrisbra/NrrwRgn'  -- TODO: experiment with this and find good use cases
     use 'christoomey/vim-sort-motion'
@@ -163,7 +149,6 @@ return require('packer').startup{
 
     -- Libraries & Misc {{{1
     use 'tpope/vim-repeat'
-    -- use 'roxma/nvim-yarp'
     use 'nanotee/nvim-lua-guide'
     use 'nvim-lua/plenary.nvim'
 
