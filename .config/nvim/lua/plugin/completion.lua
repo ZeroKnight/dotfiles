@@ -29,8 +29,12 @@ local function compe_keymap(lhs, compe_func)
   vim.api.nvim_set_keymap('i', lhs, 'compe#' .. compe_func, opts)
 end
 
+if packer_plugins['lexima.vim'] then
+  compe_keymap('<CR>', [[confirm(lexima#expand('<LT>CR>', 'i'))]])
+else
+  compe_keymap('<CR>', [[confirm('<CR>')]])
+end
 compe_keymap('<C-p>', [[complete()]])
-compe_keymap('<CR>',  [[confirm('<CR>')]])
 compe_keymap('<Esc>', [[close('<Esc>')]])
 compe_keymap('<C-f>', [[scroll({'delta': +4})]])  -- Documentation window scrolling
 compe_keymap('<C-b>', [[scroll({'delta': -4})]])

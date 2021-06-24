@@ -80,7 +80,11 @@ return require('packer').startup{
     use 'jbyuki/one-small-step-for-vimkind'
 
     -- Completion {{{1
-    use {'hrsh7th/nvim-compe', config = [[require('plugin.completion')]]}
+    use {
+      'hrsh7th/nvim-compe',
+      after = 'lexima.vim',
+      config = [[require('plugin.completion')]]
+    }
 
     -- Editing {{{1
     use 'chrisbra/NrrwRgn'  -- TODO: experiment with this and find good use cases
@@ -103,6 +107,22 @@ return require('packer').startup{
       setup = function()
         vim.g.UltiSnipsExpandTrigger = '<C-Space>'
         vim.g.UltiSnipsListSnippets = '<C-l>'
+      end
+    }
+
+    use {
+      'cohama/lexima.vim',
+      setup = function()
+        vim.g.lexima_enable_basic_rules = 1
+        vim.g.lexima_enable_newline_rules = 1
+        vim.g.lexima_enable_space_rules = 0
+        vim.g.lexima_enable_endwise_rules = 1
+        -- We need control over when the rules are defined to avoid mapping
+        -- conflicts, e.g. with compe
+        vim.g.lexima_no_default_rules = 1
+      end,
+      config = function()
+        vim.fn['lexima#set_default_rules']()
       end
     }
 
