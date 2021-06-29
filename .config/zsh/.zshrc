@@ -16,7 +16,7 @@ zcompare() {
 
 # Set up PATHs
 path=(
-  ~/bin
+  ~/.local/bin
   $path
 )
 
