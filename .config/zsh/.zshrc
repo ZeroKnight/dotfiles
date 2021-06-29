@@ -34,8 +34,8 @@ zmodules=(archive directory ssh fasd git history misc perl python processes \
           spectrum system tmux vim man search input syntax-highlighting)
 
 # Local configuration
-if [[ -d "$HOME/.local/zsh" ]]; then
-  for script ($HOME/.local/zsh/*.zsh(N)) {
+if [[ -d "$ZDATADIR/site" ]]; then
+  for script ($ZDATADIR/site/*.zsh(N)) {
     source $script
   }
   unset script
@@ -73,7 +73,7 @@ unset module mpath
   setopt EXTENDED_GLOB NULL_GLOB
 
   # zcompile the completion cache; siginificant speedup.
-  for f ($ZDOTDIR/.zcomp^(*.zwc)(.)) zcompare $f
+  for f ($ZCACHEDIR/zcomp^(*.zwc)(.)) zcompare $f
 
   # zcompile .zshrc
   zcompare $ZDOTDIR/.zshrc
@@ -85,7 +85,7 @@ unset module mpath
   }
   for cfg ($ZDOTDIR/modules/**/*.zsh${(j::)~ZCOMPILE_IGNORE_PATTERNS}(.))
     zcompare $cfg
-  for cfg ($HOME/.local/zsh/*.zsh)
+  for cfg ($ZDATADIR/site/*.zsh)
     zcompare $cfg
 
   # zcompile all autoloaded functions

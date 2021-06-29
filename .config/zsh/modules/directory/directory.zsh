@@ -23,7 +23,7 @@ setopt cdable_vars
 
 # Make named directories available immediately
 setopt auto_name_dirs
-: ~ZSH # Make available despite being set before this option
+: ~ZSH ~ZDATADIR ~ZCACHEDIR # Make available despite being set before this option
 
 NVIMC="$HOME/.config/nvim"
 NVIMD="$HOME/.local/share/nvim"

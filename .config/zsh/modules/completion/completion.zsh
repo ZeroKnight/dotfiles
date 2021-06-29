@@ -6,14 +6,14 @@ autoload -U is-at-least
 
 # Load and initialize the completion system
 # $fpath MUST be set up BEFORE running compinit!
-autoload -Uz compinit && compinit
+autoload -Uz compinit && compinit -d "$ZCACHEDIR/zcompdump"
 
 # XXX: There's got to be a better (modular) way
 # Load extra compdefs
 source ${0:h}/compdefs.zsh
 
 # Compile .zcompdump in the background
-{ zcompare $ZDOTDIR/.zcompdump } &!
+{ zcompare "$ZCACHEDIR/zcompdump" } &!
 
 ### Zsh completion options
 
@@ -42,6 +42,7 @@ zstyle ':completion::expand:*' group-order all-expansions expansions original
 zstyle ':completion:*:*:*:*:*' menu select
 zstyle ':completion:*:*:*:*:*' single-ignored menu
 zstyle ':completion::complete:*' use-cache true
+zstyle ':completion::complete:*' cache-path "$ZCACHEDIR/zcompcache"
 
 # Matcher - Case insensitive, then partial-word completion, then substring
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'

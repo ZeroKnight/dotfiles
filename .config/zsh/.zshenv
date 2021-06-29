@@ -14,9 +14,13 @@ if (( ! $+TMUX )) && [[ $TERM != 'xterm-kitty' ]]; then
   export TERM='xterm-256color'
 fi
 
-# Keep our zsh files nice and tidy in their own directory
-export ZDOTDIR="$HOME/.zsh" ZSH="$HOME/.zsh"
-[[ -d $ZDOTDIR ]] || mkdir -p $ZDOTDIR
+# Keep our zsh files nice and tidy in their own directories
+export ZDOTDIR="$HOME/.config/zsh" ZSH="$HOME/.config/zsh"
+export ZDATADIR="$HOME/.local/share/zsh" ZCACHEDIR="$HOME/.cache/zsh"
+
+for dir in "$ZDOTDIR" "$ZDATADIR" "$ZCACHEDIR"; do
+    [[ -d "$dir" ]] || mkdir -p "$dir"
+done
 
 # Are we on a remote connection?
 if (( $+SSH_CONNECTION || $+SSH_CLIENT || $+SSH_TTY )); then

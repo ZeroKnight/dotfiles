@@ -2,7 +2,7 @@
 # Command history configuration
 #
 
-(( $+HISTFILE )) || HISTFILE="$ZDOTDIR/.zhistory"
+HISTFILE="$ZDATADIR/zhistory"
 
 # HISTFILE should be larger than HISTSAVE to provide a buffer for
 # HIST_EXPIRE_DUPS_FIRST
