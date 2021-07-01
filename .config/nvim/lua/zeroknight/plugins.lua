@@ -30,6 +30,7 @@ return require('packer').startup{
         local function set(var, val) vim.g['lightline#bufferline#' .. var] = val end
         set('right_aligned', 1)
         set('filter_by_tabpage', 1)
+        vim.opt.showtabline = 2
       end
     }
 
