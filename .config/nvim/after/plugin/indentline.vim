@@ -7,7 +7,7 @@ endif
 let g:indentLine_char = '│'
 let g:indentLine_color_gui = 'Grey40'
 
-let g:indentLine_fileTypeExclude = ['help', 'text', 'markdown', 'startify', 'man']
+let g:indentLine_fileTypeExclude = ['help', 'text', 'markdown', 'startify', 'man', 'packer']
 " let g:indentLine_bufNameExclude = []
 
 " Toggle Indent Guides
