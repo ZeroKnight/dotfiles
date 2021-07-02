@@ -13,8 +13,6 @@ return require('packer').startup{
     use 'kshenoy/vim-signature'
     use 'wesQ3/vim-windowswap'
     use 'Yggdroot/indentLine'
-    use 'junegunn/fzf'
-    use 'junegunn/fzf.vim'
     use {
       'mbbill/undotree',
       cmd = {'UndotreeFocus', 'UndotreeHide', 'UndotreeShow', 'UndotreeToggle'}
@@ -34,6 +32,11 @@ return require('packer').startup{
       end
     }
 
+    use {
+      'nvim-telescope/telescope.nvim',
+      requires = {'nvim-lua/popup.nvim', 'nvim-lua/plenary.nvim'}
+    }
+
     -- Language Server Protocol (LSP) {{{1
     -- TODO: Configure pretty much this whole section
     use 'neovim/nvim-lspconfig'
@@ -41,7 +44,6 @@ return require('packer').startup{
     use 'folke/lsp-colors.nvim'
     use 'onsails/lspkind-nvim'
     use 'glepnir/lspsaga.nvim'
-    -- use 'gfanto/fzf-lsp.nvim'  -- FIXME: probably going to move to telescope
 
     use {
       'kosayoda/nvim-lightbulb',
