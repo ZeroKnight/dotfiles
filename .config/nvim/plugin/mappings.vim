@@ -52,11 +52,11 @@ nnoremap gy <Cmd>%y+<CR>
 nnoremap gK f<Space>r<CR>
 
 " Rename word/WORD under cursor
-nnoremap <Leader>rw :%s/\<<C-r><C-w>\>/
-nnoremap <Leader>rW :%s/\<<C-r><C-a>\>/
+nnoremap <Leader>rw <Cmd>%s/\<<C-r><C-w>\>/
+nnoremap <Leader>rW <Cmd>%s/\<<C-r><C-a>\>/
 
 " TrimTrailingSpace()
-nnoremap <silent> <Leader>ts :call zeroknight#util#TrimTrailingSpace()<CR>
+nnoremap <silent> <Leader>ts <Cmd>call zeroknight#util#TrimTrailingSpace()<CR>
 
 " Enable . in visual mode
 vnoremap . <Cmd>normal .<CR>
