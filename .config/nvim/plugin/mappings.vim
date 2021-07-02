@@ -42,6 +42,9 @@ xnoremap v <C-v>
 " Editing {{{1
 " -----------------------------------------------------------------------------
 
+" Save and execute file
+nnoremap <silent> <Leader>wx <Cmd>call zeroknight#util#save_and_exec()<CR>
+
 " Yank entire buffer to clipboard
 nnoremap gy <Cmd>%y+<CR>
 

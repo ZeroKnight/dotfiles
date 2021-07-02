@@ -1,6 +1,18 @@
 " ZeroKnight's Misc Vim Functions
 " ------------------------------------------------------------------------------
 
+" Save and execute file
+function! zeroknight#util#save_and_exec() abort
+  write
+  if &filetype == 'vim'
+    source %
+  elseif &filetype == 'lua'
+    luafile %
+  else
+    echo 'No execution strategy for filetype' &filetype
+  endif
+endfunction
+
 " Trim trailing whitespace while preserving buffer state
 " Courtesy Martin Tournoji
 function! zeroknight#util#TrimTrailingSpace() abort
