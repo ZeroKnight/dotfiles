@@ -35,8 +35,6 @@ local function download_packer()
   msg(vim.fn.system(string.format('git clone --depth=1 %s %s/packer.nvim', packer_url, packer_dir)))
   if vim.g.shell_error then
     err(string.format('Error downloading Packer:\n%s', vim.g.shell_error))
-  else
-    msg('Packer has been downloaded, restart Neovim to complete bootstrap.')
   end
 end
 
@@ -49,10 +47,25 @@ local function make_state_dirs()
   end
 end
 
+-- Load packer and download/install plugins
+local function install_plugins()
+  msg('Installing plugins...')
+  vim.cmd 'packloadall'
+  local has_packer, packer = pcall(require, 'packer')
+  if not has_packer then
+    err('Cannot install plugins, unable to require packer')
+    return
+  end
+  require('zeroknight.plugins')
+  packer.sync()
+end
+
 return function()
   if not pcall(require, 'packer') then
     make_state_dirs()
     download_packer()
+    install_plugins()
+    msg('Restart Neovim after packer sync to complete bootstrap.')
     return true
   end
 
@@ -67,7 +80,7 @@ return function()
   local providers = require('zeroknight.providers')
   local python_versions = {3}  -- TODO: For now, I only care about Python3
   for _, version in ipairs(python_versions) do
-    if not providers.get_python_venv(version) then
+    if not providers.get_python_venv(version):exists() then
       msg('Creating venv for Python', version, 'Provider')
       if not providers.create_python_venv(version) then
         return true

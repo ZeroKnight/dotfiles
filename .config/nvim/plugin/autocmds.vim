@@ -24,8 +24,10 @@ augroup ZeroVimAutoCommands
 
   " Comment Tags
   autocmd Syntax *
-    \ execute 'syn keyword ZeroKnightTodo contained ' . join(g:zeroknight.comment_tags, ' ') |
-    \ hi def link ZeroKnightTodo Todo
+    \ if exists('g:zeroknight.comment_tags') |
+    \   execute 'syn keyword ZeroKnightTodo contained ' . join(g:zeroknight.comment_tags, ' ') |
+    \   hi def link ZeroKnightTodo Todo |
+    \ endif
 
   " Terminal settings
   autocmd TermOpen * setlocal nonumber norelativenumber nocursorline nocursorcolumn
