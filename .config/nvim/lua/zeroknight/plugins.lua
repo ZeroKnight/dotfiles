@@ -34,7 +34,8 @@ return require('packer').startup{
 
     use {
       'nvim-telescope/telescope.nvim',
-      requires = {'nvim-lua/popup.nvim', 'nvim-lua/plenary.nvim'}
+      requires = {'nvim-lua/popup.nvim', 'nvim-lua/plenary.nvim'},
+      config = [[require('plugin.telescope')]]
     }
 
     -- Language Server Protocol (LSP) {{{1
@@ -55,7 +56,7 @@ return require('packer').startup{
     use {
       'folke/lsp-trouble.nvim',
       requires = 'kyazdani42/nvim-web-devicons',
-      config = function() 
+      config = function()
         require('trouble').setup {
           -- TODO: config here, or another lua file?
           -- if the latter, call it here, or just have astronauta or something call it

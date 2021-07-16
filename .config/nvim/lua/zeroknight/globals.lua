@@ -1,5 +1,8 @@
 -- Assorted utility functions, optionally in global scope
 
+-- Namespace for my global variables
+zeroknight = {}
+
 -- Convenient shortcut for printing lua objects
 function dump(...)
   local objects = vim.tbl_map(vim.inspect, {...})
