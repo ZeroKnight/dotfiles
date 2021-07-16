@@ -18,3 +18,13 @@ end
 function has(what)
   return vim.fn.has(what) == 1
 end
+
+-- Modded from tjdevries
+if pcall(require, "plenary") then
+  reload = require("plenary.reload").reload_module
+
+  rerequire = function(name)
+    reload(name)
+    return require(name)
+  end
+end

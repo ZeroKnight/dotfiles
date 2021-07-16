@@ -39,12 +39,10 @@ return require('packer').startup{
     }
 
     -- Language Server Protocol (LSP) {{{1
-    -- TODO: Configure pretty much this whole section
     use 'neovim/nvim-lspconfig'
     use 'nvim-lua/lsp-status.nvim'
     use 'folke/lsp-colors.nvim'
     use 'onsails/lspkind-nvim'
-    use 'glepnir/lspsaga.nvim'
 
     use {
       'kosayoda/nvim-lightbulb',
@@ -58,8 +56,11 @@ return require('packer').startup{
       requires = 'kyazdani42/nvim-web-devicons',
       config = function()
         require('trouble').setup {
-          -- TODO: config here, or another lua file?
-          -- if the latter, call it here, or just have astronauta or something call it
+          action_keys = {
+            close = {'q', 'gq'}  -- Other plugins use gq for closing
+          },
+          -- TODO: Set LspDiagnosticsSign* to what Trouble uses and enable this
+          -- use_lsp_diagnostic_signs = true
         }
       end
     }
