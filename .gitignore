@@ -1,3 +1,9 @@
+### Fonts
+*.ttf
+*.ttc
+fonts/Iosevka/dist/
+fonts/Iosevka/private-build-plans.toml
+
 ### SSH
 /.ssh/*.key*
 /.ssh/known_hosts
