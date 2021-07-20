@@ -22,7 +22,9 @@ function! zeroknight#lightline#mode() abort
 endfunction
 
 function! zeroknight#lightline#file_name() abort
+  let l:icon = ''
   if &buftype ==# 'help'
+    let l:icon = ''
     let l:filename = expand('%:t')
   elseif &buftype ==# 'quickfix'
     " Show Quickfix/LocList title as filename
@@ -33,10 +35,12 @@ function! zeroknight#lightline#file_name() abort
   else
     " Regular filename
     let l:exp = expand('%')
-    let l:filename = l:exp !=# '' ? l:exp : '[No Name]'
+    let l:icon = luaeval("require('nvim-web-devicons').get_icon(_A)", expand('%:e'))
+    let l:filename = len(l:exp) ? l:exp : '[No Name]'
   endif
+  let l:icon = len(l:icon) ? l:icon . ' ' : ''
   let l:mod = &modified ? ' [+]' : !&modifiable && (&buftype ==# '') ? ' [-]' : ''
-  return l:filename .. l:mod
+  return printf('%s%s %s', l:icon, l:filename, l:mod)
 endfunction
 
 function! zeroknight#lightline#file_info() abort

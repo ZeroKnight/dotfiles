@@ -19,8 +19,6 @@ end
 -- Load plugins
 require 'zeroknight.plugins'
 
--- TODO: astronauta?
-
 -- Neovim settings
 require 'zeroknight.config'
 

@@ -1,5 +1,9 @@
 -- Plugin Specification
 
+function packer_loaded(name)
+  return packer_plugins[name] and packer_plugins[name].loaded
+end
+
 return require('packer').startup{
   function(use)
 
@@ -36,6 +40,11 @@ return require('packer').startup{
       'nvim-telescope/telescope.nvim',
       requires = {'nvim-lua/popup.nvim', 'nvim-lua/plenary.nvim'},
       config = [[require('plugin.telescope')]]
+    }
+
+    use {
+      'kyazdani42/nvim-web-devicons',
+      config = function() require('nvim-web-devicons').setup {default = true} end
     }
 
     -- Language Server Protocol (LSP) {{{1

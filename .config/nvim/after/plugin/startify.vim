@@ -29,6 +29,17 @@ vim.g.startify_skiplist = {
 }
 EOF
 
+if v:lua.packer_loaded('nvim-web-devicons')
+  function! StartifyEntryFormat()
+    let chunks = [
+      \ "luaeval(\"",
+      \   "string.format('%s  %s', require('nvim-web-devicons').get_icon(_A[1]), _A[2])",
+      \ "\", [fnamemodify(absolute_path, ':e'), entry_path])",
+      \ ]
+    return join(chunks, '')
+  endfunction
+endif
+
 function! s:PrettyVersion()
   let l:major = v:version / 100
   let l:minor = v:version - (l:major * 100)
