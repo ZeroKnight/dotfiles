@@ -1,7 +1,7 @@
 " folke/trouble.nvim
 
 lua << EOF
-if not (packer_plugins and packer_plugins['lsp-trouble.nvim'].loaded) then
+if not packer_loaded('lsp-trouble.nvim') then
   return
 end
 EOF
