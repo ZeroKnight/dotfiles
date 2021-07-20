@@ -141,8 +141,8 @@ opt.expandtab = true  -- Use spaces for tabs like a civilized person
 opt.smarttab = true   -- TBD: Is this actually necessary?
 opt.autoindent = true
 opt.tabstop = 4
-opt.softtabstop = 4
 opt.shiftwidth = 4
+opt.softtabstop = -1
 
 opt.cinoptions = {
   'Ls', 'l1', 'b1', 'g0', 'N-s', 't0', '(0', 'U1', 'w1', 'Ws', 'm1', 'j1', 'J1'
