@@ -1,3 +1,8 @@
+if exists('s:loaded_man')
+  finish
+endif
+let s:loaded_man = 1
+
 " From bruno-/vim-man, with some edits
 function! man#move_to_section(direction, mode, count)
   norm! m'

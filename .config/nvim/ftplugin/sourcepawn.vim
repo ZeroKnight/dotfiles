@@ -1,8 +1,7 @@
-" Settings for SourcePawn
-" ------------------------------------------------------------------------------
+" SourcePawn filetype settings
 
 setlocal makeprg=/usr/local/bin/spc\ % |
-setlocal commentstring=//%s
+setlocal commentstring=//\ %s
 
 let g:tagbar_type_sourcepawn = {
   \ 'ctagstype' : 'c',

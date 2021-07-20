@@ -1,3 +1,3 @@
-" Lua Settings
+" Lua filetype settings
 
-setlocal ts=2 sw=2
+setlocal tabstop=2 shiftwidth=2

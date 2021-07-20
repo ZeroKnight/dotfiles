@@ -8,6 +8,9 @@ augroup ZeroVimAutoCommands
   " Automatically create directories for new files when saving
   autocmd BufWritePre,FileWritePre * call mkdir(expand('<afile>:p:h'), 'p')
 
+  " Many filetype plugins set `formatoptions+=o`. Undo this.
+  autocmd FileType * setlocal formatoptions-=o
+
   " Toggle Relative-Numbering in various cases
   autocmd WinLeave,InsertEnter *
     \ if &number | set norelativenumber | endif
@@ -18,9 +21,6 @@ augroup ZeroVimAutoCommands
   " The settings are restored to their global values, respecting config settings
   autocmd WinLeave * setlocal nocursorline nocursorcolumn
   autocmd WinEnter * setlocal cursorline< cursorcolumn<
-
-  " C/++ Settings
-  autocmd FileType c,cpp setlocal nosmartindent cindent
 
   " Comment Tags
   autocmd Syntax *

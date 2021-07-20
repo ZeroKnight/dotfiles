@@ -1,5 +1,4 @@
-" Extra settings and features for `help` buffers
-" ------------------------------------------------------------------------------
+" Help filetype settings
 
 noremap <buffer> q :q<CR>
 nnoremap <buffer> <CR> <C-]>

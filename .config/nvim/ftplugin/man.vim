@@ -1,5 +1,4 @@
-" Extra settings and features for `man` buffers
-" ------------------------------------------------------------------------------
+" Man filetype settings
 
 " These maps should be recursive so that it actually performs the rhs mapping
 " set by man.vim
