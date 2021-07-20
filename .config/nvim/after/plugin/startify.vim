@@ -17,7 +17,7 @@ vim.g.startify_list_order = {
 }
 
 vim.g.startify_bookmarks = {
-  as_stdpath('config', 'init.lua'), 
+  as_stdpath('config', 'init.lua'),
   as_stdpath('config', 'lua/zeroknight/plugins.lua'),
   as_stdpath('config', 'lua/zeroknight/lsp/init.lua')
 }
@@ -41,18 +41,16 @@ if v:lua.packer_loaded('nvim-web-devicons')
 endif
 
 function! s:PrettyVersion()
-  let l:major = v:version / 100
-  let l:minor = v:version - (l:major * 100)
-  return l:major . '.' . l:minor
+  let ver = v:lua.vim.version()
+  return printf('v%d.%d.%d%s', ver.major, ver.minor, ver.patch, ver.api_prerelease ? ' dev' : '')
 endfunction
 
 let g:startify_custom_header = [
-  \ '  ____   ____.__         ',
-  \ '  \   \ /   /|__| _____  ',
-  \ '   \   Y   / |  |/     \ ',
-  \ '    \     /  |  |  Y Y  \',
-  \ '     \___/   |__|__|_|  /  ' . s:PrettyVersion(),
-  \ '                      \/ ',
+  \ '       __                _           ',
+  \ '    /\ \ \___  _____   _(_)_ __ ___  ',
+  \ '   /  \/ / _ \/ _ \ \ / / | `_ ` _ \ ',
+  \ '  / /\  /  __/ (_) \ V /| | | | | | |',
+  \ '  \_\ \/ \___|\___/ \_/ |_|_| |_| |_|  ' . s:PrettyVersion(),
   \ '',
   \ ] + map(split(system('fortune'), '\n'), '"   ". v:val') + ['']
 
