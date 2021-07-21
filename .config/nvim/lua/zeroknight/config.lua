@@ -169,9 +169,9 @@ opt.writebackup = true
 
 opt.sessionoptions = {
   'buffers', 'curdir', 'folds', 'globals', 'help', 'localoptions',
-  'resize', 'slash', 'tabpages', 'unix', 'winpos', 'winsize'
+  'resize', 'skiprtp', 'tabpages', 'terminal', 'winpos', 'winsize'
 }
-opt.viewoptions = {'cursor', 'folds', 'slash', 'unix'}
+opt.viewoptions = {'cursor', 'curdir', 'folds', 'localoptions'}
 
 -- Neovim Providers {{{1
 -- vim.g.python_host_prog = providers.python(2) and providers.python(2) or nil
