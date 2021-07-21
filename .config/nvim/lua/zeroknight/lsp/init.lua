@@ -113,5 +113,8 @@ vim.cmd [[
   augroup END
 ]]
 
+-- Configure LSP Kinds
+require 'zeroknight.lsp.kinds'
+
 vim.cmd [[command! LspDiagnostics lua vim.lsp.diagnostic.set_loclist()]]
 
