@@ -67,8 +67,7 @@ return require('packer').startup{
           action_keys = {
             close = {'q', 'gq'}  -- Other plugins use gq for closing
           },
-          -- TODO: Set LspDiagnosticsSign* to what Trouble uses and enable this
-          -- use_lsp_diagnostic_signs = true
+          use_lsp_diagnostic_signs = true
         }
       end
     }

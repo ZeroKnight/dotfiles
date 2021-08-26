@@ -81,6 +81,12 @@ local function lsp_buffer_setup(client, bufnr)
   end
 end
 
+-- Set diagnostic signs
+vim.fn.sign_define('LspDiagnosticsSignError', {text = ''})
+vim.fn.sign_define('LspDiagnosticsSignWarning', {text = ''})
+vim.fn.sign_define('LspDiagnosticsSignInformation', {text = ''})
+vim.fn.sign_define('LspDiagnosticsSignHint', {text = ''})
+
 -- Configure Language Server settings
 local servers = {
   jsonls = {},
