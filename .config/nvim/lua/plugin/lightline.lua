@@ -8,10 +8,10 @@ vim.g.lightline = {
     left = {
       {'Mode', 'paste'},
       {'GitHunks', 'GitBranch'},
-      {'filename', 'ReadOnly', 'preview'}
+      {'diagnostics', 'filename', 'ReadOnly', 'preview'}
     },
     right = {
-      {'lineinfo'}, {'FileInfo'}, {'filetype'}, {'spell'}
+      {'lineinfo', 'LspProgress'}, {'FileInfo'}, {'CurrSymbol', 'filetype'}, {'spell'}
     }
   },
   inactive = {
@@ -32,27 +32,32 @@ vim.g.lightline = {
     lineinfo = '%3l:%-2c [%p%%] ',
     preview = '%w',
     quickfix ='%q',
-    help = "%{&buftype ==# 'help' ? 'Help' : ''}"
+    help = "%{&buftype ==# 'help' ? 'Help' : ''}",
+    diagnostics = '%{%zeroknight#lightline#diagnostics()%}%*'
   },
   component_visible_condition = {
     filename = 1,
     preview = '&previewwindow',
     quickfix = "&buftype ==# 'quickfix'",
-    help = "&buftype ==# 'help'"
+    help = "&buftype ==# 'help'",
+    diagnostics = 'zeroknight#util#has_lsp() && zeroknight#util#has_diagnostics()'
   },
   component_function = {
     Mode = 'zeroknight#lightline#mode',
     FileInfo = 'zeroknight#lightline#file_info',
     ReadOnly = 'zeroknight#lightline#readonly',
     GitBranch = 'zeroknight#lightline#git_branch',
-    GitHunks = 'zeroknight#lightline#git_hunks'
+    GitHunks = 'zeroknight#lightline#git_hunks',
+    CurrSymbol = 'zeroknight#lightline#current_symbol',
+    LspProgress = 'zeroknight#lightline#lsp_progress'
   },
   component_function_visible_condition = {
     Mode = 1,
     FileInfo = 1,
     ReadOnly = "&readonly && &buftype ==# ''",
     GitBranch = 'zeroknight#lightline#has_minwidth() && !empty(FugitiveHead())',
-    GitHunks = 'zeroknight#lightline#has_minwidth() && !empty(GitGutterGetHunks())'
+    GitHunks = 'zeroknight#lightline#has_minwidth() && !empty(GitGutterGetHunks())',
+    CurrSymbol = '!empty(zeroknight#lightline#current_symbol())'
   },
   component_expand = {
     buffers = 'lightline#bufferline#buffers'

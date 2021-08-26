@@ -4,6 +4,8 @@ local has_lspconfig, lspconfig = pcall(require, 'lspconfig')
 if not has_lspconfig then
   return
 end
+local lsp_status = require('lsp-status')
+local lsp_kinds = require('zeroknight.lsp.kinds')
 
 local function python_interpreter()
   if vim.env.VIRTUAL_ENV then
@@ -79,6 +81,8 @@ local function lsp_buffer_setup(client, bufnr)
       augroup END
     ]]
   end
+
+  lsp_status.on_attach(client)
 end
 
 -- Set diagnostic signs
@@ -86,6 +90,14 @@ vim.fn.sign_define('LspDiagnosticsSignError', {text = ''})
 vim.fn.sign_define('LspDiagnosticsSignWarning', {text = ''})
 vim.fn.sign_define('LspDiagnosticsSignInformation', {text = ''})
 vim.fn.sign_define('LspDiagnosticsSignHint', {text = ''})
+
+-- Set up lsp-status
+lsp_status.config {
+  current_function = true,
+  diagnostics = false,  -- Using my own function
+  kind_labels = lsp_kinds.symbols
+}
+lsp_status.register_progress()
 
 -- Configure Language Server settings
 local servers = {
@@ -118,9 +130,6 @@ vim.cmd [[
     autocmd ColorScheme * lua rerequire('zeroknight.lsp.highlight')
   augroup END
 ]]
-
--- Configure LSP Kinds
-require 'zeroknight.lsp.kinds'
 
 vim.cmd [[command! LspDiagnostics lua vim.lsp.diagnostic.set_loclist()]]
 

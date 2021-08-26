@@ -8,7 +8,7 @@ function! zeroknight#lightline#has_minwidth() abort
 endfunction
 let s:has_minwidth = function('zeroknight#lightline#has_minwidth')
 
-let s:filetype_map = {'fugitive': 'Fugitive', 'dirvish': 'Dirvish'}
+let s:filetype_map = #{fugitive: 'Fugitive', dirvish: 'Dirvish'}
 function! zeroknight#lightline#mode() abort
   if &buftype ==# 'help'
     return 'Help'
@@ -63,4 +63,33 @@ function! zeroknight#lightline#git_hunks() abort
     return ''
   endif
   return printf('+%d ~%d -%d', l:stats[0], l:stats[1], l:stats[2])
+endfunction
+
+function! zeroknight#lightline#diagnostics() abort
+  if !zeroknight#util#has_lsp()
+    return ''
+  endif
+  let segments = []
+  for severity in ['Error', 'Warning', 'Information', 'Hint']
+    let count = luaeval("vim.lsp.diagnostic.get_count(0, _A)", severity)
+    if count
+      let icon = sign_getdefined('LspDiagnosticsSign' .. severity)[0].text
+      call add(segments, printf('%%#LightlineLspDiagnostics%s#%s %d', severity, icon, count))
+    endif
+  endfor
+  return join(segments)
+endfunction
+
+function! zeroknight#lightline#current_symbol() abort
+  if !zeroknight#util#has_lsp()
+    return ''
+  endif
+  return get(b:, 'lsp_current_function', '')
+endfunction
+
+function! zeroknight#lightline#lsp_progress() abort
+  if !zeroknight#util#has_lsp()
+    return ''
+  endif
+  return luaeval("require('lsp-status').status_progress()")
 endfunction
