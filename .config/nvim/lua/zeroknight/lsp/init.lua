@@ -113,6 +113,7 @@ local servers = {
       }
     }
   },
+  vimls = {}
 }
 -- Run the setup for each server
 for ls, config in pairs(servers) do
