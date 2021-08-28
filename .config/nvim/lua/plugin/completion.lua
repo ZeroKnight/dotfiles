@@ -19,8 +19,11 @@ require('compe').setup {
     calc = true,
     nvim_lsp = true,
     nvim_lua = true,
-    ultisnips = true,
-    nvim_treesitter = false  -- TODO: test
+    nvim_treesitter = false,  -- TODO: test
+    ultisnips = {
+      priority = 900,  -- Just below LSP symbols in priority
+      kind = '  Snippet'
+    }
   }
 }
 
@@ -29,7 +32,7 @@ local function compe_keymap(lhs, compe_func)
   vim.api.nvim_set_keymap('i', lhs, 'compe#' .. compe_func, opts)
 end
 
-if packer_plugins['lexima.vim'] then
+if packer_loaded('lexima.vim') then
   compe_keymap('<CR>', [[confirm(lexima#expand('<LT>CR>', 'i'))]])
 else
   compe_keymap('<CR>', [[confirm('<CR>')]])
