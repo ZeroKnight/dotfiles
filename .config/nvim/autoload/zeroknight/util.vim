@@ -9,7 +9,7 @@ endfunction
 " Check if buffer has any LSP diagnostics available
 function! zeroknight#util#has_diagnostics(...) abort
   let buffer = get(a:, 1, bufnr())
-  return luaeval('not vim.tbl_isempty(vim.lsp.diagnostic.get_all()[_A])', buffer)
+  return !empty(luaeval('vim.lsp.diagnostic.get_all()[_A]', buffer))
 endfunction
 
 " Save and execute file
