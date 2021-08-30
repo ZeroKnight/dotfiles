@@ -8,14 +8,15 @@ local builtin = require('telescope.builtin')
 -- recreated every time the mapping is executed.
 zeroknight.telescope_map_opts = zeroknight.telescope_map_opts or {}
 
-local function map_telescope(lhs, picker, opts, buffer)
-  zeroknight.telescope_map_opts[lhs] = opts or {}
-  local rhs = string.format(
-    "<Cmd>lua require('plugin.telescope')['%s'](zeroknight.telescope_map_opts['%s'])<CR>",
-    picker, lhs
-  )
-  local mapping_opts = {noremap = true, silent = true}
+local mapping_opts = {noremap = true, silent = true}
 
+local function map_telescope(lhs, picker, opts, buffer)
+  local lhs_raw = vim.api.nvim_replace_termcodes(lhs, true, true, true)
+  local rhs = string.format(
+    "<Cmd>lua require('plugin.telescope')['%s'](zeroknight.telescope_map_opts[%q])<CR>",
+    picker, lhs_raw
+  )
+  zeroknight.telescope_map_opts[lhs_raw] = opts or {}
   if not buffer then
     vim.api.nvim_set_keymap('n', lhs, rhs, mapping_opts)
   else
