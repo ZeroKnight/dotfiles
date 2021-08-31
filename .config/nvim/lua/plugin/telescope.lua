@@ -1,6 +1,9 @@
 -- Telescope configuration and utilities
 -- Some parts taken/modified from tjdevries's config
 
+-- Reminder: Pickers determine *what* you're finding, Finders *get* what you're
+-- picking, and Sorters *order* what the Finder found.
+
 local telescope = require('telescope')
 local builtin = require('telescope.builtin')
 
@@ -26,14 +29,26 @@ end
 
 -- Telescope Mappings
 map_telescope('<C-p>',      'buffers')
+map_telescope('<Leader>F',  'file_browser')
 map_telescope('<Leader>ff', 'find_files')
 map_telescope('<Leader>fo', 'oldfiles')
-map_telescope('<Leader>fG', 'live_grep')
+
+map_telescope('<Leader><Leader>nc', 'nvim_config')
+map_telescope('<Leader><Leader>np', 'nvim_plugins')
+map_telescope('<Leader><Leader>zc', 'zsh_config')
+
 map_telescope('<Leader>fh', 'help_tags')
 map_telescope('<Leader>fm', 'man_pages')
+map_telescope('<Leader>fk', 'keymaps')
 map_telescope('<Leader>f:', 'command_history')
 map_telescope('<Leader>f/', 'search_history')
 map_telescope('<Leader>ft', 'treesitter')
+map_telescope('<Leader>fq', 'quickfix')
+map_telescope('<Leader>fl', 'loclist')
+
+map_telescope('<Leader>fG', 'live_grep')
+map_telescope('<Leader>fw', 'grep_string')
+map_telescope('<Leader>fb', 'current_buffer_fuzzy_find')
 
 map_telescope('<Leader>fgf', 'git_files')
 map_telescope('<Leader>fgc', 'git_commits')
@@ -83,7 +98,40 @@ telescope.setup {
 
 local M = {}
 
--- TODO: custom Telescope pickers, e.g. nvim/zsh config files
+-- Pick from neovim configuration files
+function M.nvim_config()
+  require('telescope.builtin').find_files {
+    prompt_title = 'Neovim Configuration',
+    cwd = vim.fn.stdpath('config'),
+    layout_strategy = 'flex',
+    layout_config = {
+      horizontal = {
+        preview_width = 0.6
+      }
+    }
+  }
+end
+
+-- Pick from installed neovim plugins
+function M.nvim_plugins()
+  require('telescope.builtin').find_files {
+    prompt_title = 'Neovim Plugin Files',
+    cwd = as_stdpath('data', 'site/pack/packer'),
+    layout_strategy = 'horizontal',
+    layout_config = {
+      preview_width = 0.6
+    }
+  }
+end
+
+-- Pick from Zsh configuration files
+function M.zsh_config()
+  require('telescope.builtin').find_files {
+    prompt_title = 'Zsh Configuration',
+    cwd = vim.fn.expand('$ZSH'),
+    layout_strategy = 'flex'
+  }
+end
 
 return setmetatable({map_telescope = map_telescope}, {
   __index = function(_, k)
