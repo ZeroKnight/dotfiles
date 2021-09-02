@@ -6,6 +6,9 @@
 
 local telescope = require('telescope')
 local builtin = require('telescope.builtin')
+local actions = require("telescope.actions")
+
+local trouble = require("trouble.providers.telescope")
 
 -- Store options used by mappings here so that the tables holding them aren't
 -- recreated every time the mapping is executed.
@@ -71,10 +74,12 @@ telescope.setup {
       i = {
         ['<C-j>'] = 'move_selection_next',
         ['<C-k>'] = 'move_selection_previous',
-        ['<C-s>'] = 'select_horizontal', ['<C-x>'] = false
+        ['<C-s>'] = 'select_horizontal',
+        ['<C-x>'] = trouble.smart_open_with_trouble
       },
       n = {
-        ['<C-s>'] = 'select_horizontal', ['<C-x>'] = false
+        ['<C-s>'] = 'select_horizontal',
+        ['<C-x>'] = trouble.smart_open_with_trouble
       }
     }
   },
