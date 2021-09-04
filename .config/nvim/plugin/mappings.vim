@@ -32,6 +32,7 @@ nnoremap <Leader>vr <Cmd>tabedit $MYVIMRC<CR>
 " Change (l)cwd to that of the current file
 nnoremap <Leader>cd <Cmd>cd %:p:h<Bar>pwd<CR>
 nnoremap <Leader>lcd <Cmd>lcd %:p:h<Bar>pwd<CR>
+nnoremap <Leader>tcd <Cmd>tcd %:p:h<Bar>pwd<CR>
 
 " Toggle Spellcheck
 nnoremap <silent> <LocalLeader>s <Cmd>setlocal spell!<CR>
