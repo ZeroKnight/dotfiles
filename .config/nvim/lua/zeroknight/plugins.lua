@@ -47,6 +47,37 @@ return require('packer').startup{
       config = function() require('nvim-web-devicons').setup {default = true} end
     }
 
+    use {
+      'folke/zen-mode.nvim',
+      config = function()
+        require('zen-mode').setup {
+          window = {
+            backdrop = 0.9,
+            width = vim.o.textwidth + 4,
+            height = vim.api.nvim_win_get_height(0) - 1,
+            options = {
+              cursorline = true,
+              number = true,
+              relativenumber = true,
+              signcolumn = 'no',
+              foldcolumn = '0'
+            }
+          }
+        }
+      end
+    }
+    use {
+      'folke/twilight.nvim',
+      config = function()
+        require('twilight').setup {
+          dimming = {
+            alpha = 0.25,
+            inactive = false
+          }
+        }
+      end
+    }
+
     -- Language Server Protocol (LSP) {{{1
     use 'neovim/nvim-lspconfig'
     use 'nvim-lua/lsp-status.nvim'
