@@ -109,6 +109,23 @@ return require('packer').startup{
     use 'wellle/targets.vim'  -- TODO: practice
 
     use {
+      'folke/todo-comments.nvim',
+      requires = 'nvim-lua/plenary.nvim',
+      config = function()
+        require('todo-comments').setup {
+          merge_keywords = false,  -- Just going to manually set everything
+          keywords = {
+            TODO = {alt = {'TBD', 'TEST'}},
+            FIX =  {alt = {'FIXME', 'FIXIT', 'BUG', 'DEBUG', 'ISSUE'}},
+            HACK = {alt = {'XXX'}},
+            NOTE = {alt = {'NOTICE', 'INFO'}},
+            WARN = {alt = {'WARNING', 'DEPRECATED', 'ATTENTION', 'ALERT', 'DANGER', 'WTF'}}
+          },
+        }
+      end
+    }
+
+    use {
       'unblevable/quick-scope',
       setup = [[vim.g.qs_highlight_on_keys = {'f', 'F', 't', 'T'}]]
     }

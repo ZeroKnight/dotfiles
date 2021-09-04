@@ -192,12 +192,7 @@ opt.path:append{'/usr/local/include'}
 
 -- Namespace for misc variables
 if not vim.g.zeroknight then
-  vim.g.zeroknight = {
-    comment_tags = {
-      'TODO', 'FIXME', 'BUG', 'NOTE', 'NOTICE', 'XXX', 'HACK', 'TBD', 'TEST', 'DEBUG',
-      'DEPRECATED', 'WARNING', 'ATTENTION', 'ALERT', 'DANGER', 'WTF'
-    }
-  }
+  vim.g.zeroknight = {}
 end
 
 -- }}}

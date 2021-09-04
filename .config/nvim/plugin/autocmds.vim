@@ -22,13 +22,6 @@ augroup ZeroVimAutoCommands
   autocmd WinLeave * setlocal nocursorline nocursorcolumn
   autocmd WinEnter * setlocal cursorline< cursorcolumn<
 
-  " Comment Tags
-  autocmd Syntax *
-    \ if exists('g:zeroknight.comment_tags') |
-    \   execute 'syn keyword ZeroKnightTodo contained ' . join(g:zeroknight.comment_tags, ' ') |
-    \   hi def link ZeroKnightTodo Todo |
-    \ endif
-
   " Terminal settings
   autocmd TermOpen * setlocal nonumber norelativenumber nocursorline nocursorcolumn
 augroup END

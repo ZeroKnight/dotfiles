@@ -1,9 +1,6 @@
 " Commands
 " ------------------------------------------------------------------------------
 
-" Todo: Load Comment Tags into the Location List {{{1
-command! -nargs=0 Todo execute 'LAg -A ' . string(g:zeroknight.comment_tags)
-
 " Obsess: Wrapper around tpope/vim-obsession that always saves to $VIMSESSIONS {{{1
 command! -nargs=1 Obsess Obsession $VIMSESSIONS/<args>.vim
 
