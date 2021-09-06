@@ -23,11 +23,12 @@ nnoremap j gj
 " Workaround for C-Space detection
 imap <C-@> <C-Space>
 
+" Stay in Visual mode after indenting
+vnoremap < <gv
+vnoremap > >gv
+
 " Simple Remappings and Shortcuts {{{1
 " -----------------------------------------------------------------------------
-
-" Quick edit .vimrc
-nnoremap <Leader>vr <Cmd>tabedit $MYVIMRC<CR>
 
 " Change (l)cwd to that of the current file
 nnoremap <Leader>cd <Cmd>cd %:p:h<Bar>pwd<CR>
