@@ -7,9 +7,6 @@ endif
 let g:snips_author = 'Alex "ZeroKnight" George'
 let g:ultisnips_java_brace_style = 'nl'
 
-" Quick edit UltiSnips for current filetype
-nnoremap <Leader>ue :UltiSnipsEdit<CR>
-
 augroup ZeroKnight_UltiSnips
   autocmd!
   " Use actual TABs when editing UltiSnips snippets. This makes UltiSnips

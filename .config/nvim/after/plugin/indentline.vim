@@ -11,9 +11,6 @@ let g:indentLine_bufTypeExclude = ['help', 'terminal']
 let g:indentLine_fileTypeExclude = ['text', 'markdown', 'startify', 'man', 'packer']
 " let g:indentLine_bufNameExclude = []
 
-" Toggle Indent Guides
-nnoremap <silent> <Leader>ig <Cmd>IndentLinesToggle<CR>
-
 augroup ZeroKnight_IndentLine
   autocmd!
   autocmd TermOpen * IndentLinesDisable

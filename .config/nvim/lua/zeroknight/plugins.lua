@@ -109,7 +109,11 @@ return require('packer').startup{
     use 'romainl/vim-qlist'
 
     -- TBD: can treesitter replace tagbar in some way?
-    use {'majutsushi/tagbar', cmd = {'Tagbar', 'TagbarOpen', 'TagbarToggle'}}
+    use {
+      'majutsushi/tagbar',
+      cmd = {'Tagbar', 'TagbarOpen', 'TagbarToggle'},
+      setup = [[vim.g.tagbar_autoshowtag = 1]]
+    }
 
     -- TODO: replace ALE with nvim-lint or diagnostic-languageserver
     use 'dense-analysis/ale'
@@ -194,14 +198,17 @@ return require('packer').startup{
       {'tpope/vim-fugitive'},
       {'tpope/vim-rhubarb', requires = 'tpope/vim-fugitive'}
     }
-    use 'airblade/vim-gitgutter'  -- TODO: try out lewis6991/gitsigns.nvim
+    use {
+      'airblade/vim-gitgutter',
+      config = [[vim.g.gitgutter_grep = vim.fn.executable('rg') and 'rg' or 'grep']]
+    }  -- TODO: try out lewis6991/gitsigns.nvim
 
     -- Utility Plugins {{{1
     use '~/Projects/vim-signjump'
-    use 'Konfekt/FastFold'
     use 'tpope/vim-eunuch'
     use 'tpope/vim-scriptease'
     use 'tpope/vim-unimpaired'
+    use {'Konfekt/FastFold', config = [[vim.g.fastfold_skip_filetypes = {'gitcommit', 'taglist'}]]}
     use {'moll/vim-bbye', cmd = {'Bdelete', 'Bwipeout'}}
     use {'tpope/vim-characterize', keys = 'ga'}
     use {'tpope/vim-dispatch', cmd = {'Dispatch', 'Make', 'FocusDispatch', 'Start'}}

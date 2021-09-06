@@ -21,6 +21,7 @@ require 'zeroknight.plugins'
 
 -- Neovim settings
 require 'zeroknight.config'
+require 'zeroknight.config.keymaps'
 
 -- Neovim LSP client
 require 'zeroknight.lsp'
