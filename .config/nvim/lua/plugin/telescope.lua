@@ -39,10 +39,16 @@ map_telescope('<Leader>fo', 'oldfiles')
 map_telescope('<Leader><Leader>nc', 'nvim_config')
 map_telescope('<Leader><Leader>np', 'nvim_plugins')
 map_telescope('<Leader><Leader>zc', 'zsh_config')
+map_telescope('<Leader><Leader>p',  'projects')
 
-map_telescope('<Leader>fh', 'help_tags')
-map_telescope('<Leader>fm', 'man_pages')
-map_telescope('<Leader>fk', 'keymaps')
+map_telescope('<Leader>hh', 'help_tags')
+map_telescope('<Leader>hm', 'man_pages')
+map_telescope('<Leader>hk', 'keymaps')
+map_telescope('<Leader>hc', 'commands')
+map_telescope('<Leader>hf', 'filetypes')
+map_telescope('<Leader>ha', 'autocommands')
+map_telescope('<Leader>ho', 'vim_options')
+
 map_telescope('<Leader>f:', 'command_history')
 map_telescope('<Leader>f/', 'search_history')
 map_telescope('<Leader>ft', 'treesitter')
@@ -58,7 +64,7 @@ map_telescope('<Leader>fgc', 'git_commits')
 map_telescope('<Leader>fgC', 'git_bcommits')
 map_telescope('<Leader>fgb', 'git_branches')
 map_telescope('<Leader>fgs', 'git_status')
-map_telescope('<Leader>fgt', 'git_stash')
+map_telescope('<Leader>fgS', 'git_stash')
 
 -- Fuzzy search command history
 vim.api.nvim_set_keymap(
@@ -105,7 +111,7 @@ local M = {}
 
 -- Pick from neovim configuration files
 function M.nvim_config()
-  require('telescope.builtin').find_files {
+  builtin.find_files {
     prompt_title = 'Neovim Configuration',
     cwd = vim.fn.stdpath('config'),
     layout_strategy = 'flex',
@@ -119,7 +125,7 @@ end
 
 -- Pick from installed neovim plugins
 function M.nvim_plugins()
-  require('telescope.builtin').find_files {
+  builtin.find_files {
     prompt_title = 'Neovim Plugin Files',
     cwd = as_stdpath('data', 'site/pack/packer'),
     layout_strategy = 'horizontal',
@@ -131,10 +137,18 @@ end
 
 -- Pick from Zsh configuration files
 function M.zsh_config()
-  require('telescope.builtin').find_files {
+  builtin.find_files {
     prompt_title = 'Zsh Configuration',
     cwd = vim.fn.expand('$ZSH'),
     layout_strategy = 'flex'
+  }
+end
+
+-- Browse ~/Projects
+function M.projects()
+  builtin.file_browser {
+    prompt_title = 'Projects',
+    cwd = '~/Projects'
   }
 end
 

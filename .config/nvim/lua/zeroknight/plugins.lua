@@ -79,6 +79,11 @@ return require('packer').startup{
       end
     }
 
+    use {
+      'folke/which-key.nvim',
+      config = [[require('plugin.which-key')]]
+    }
+
     -- Language Server Protocol (LSP) {{{1
     use 'neovim/nvim-lspconfig'
     use 'nvim-lua/lsp-status.nvim'

@@ -3,7 +3,41 @@
 -- These are my general, non-plugin-specific mappings. Plugin-related mappings
 -- are defined in the sibling `plugins.lua` file.
 
+local wk = require('which-key')
 local key = require('zeroknight.util.key')
+
+-- Leader Mappings {{{1
+local leader = {
+  cd =  {'<Cmd>cd %:p:h<Bar>pwd<CR>',  'CWD to current file'},
+  lcd = {'<Cmd>lcd %:p:h<Bar>pwd<CR>', 'CWD to current file (Buffer)'},
+  tcd = {'<Cmd>tcd %:p:h<Bar>pwd<CR>', 'CWD to current file (Tab)'},
+  r = {
+    w = {':%s/\\<<C-r><C-w>\\>/', 'Substitute cursor word'},
+    W = {':%s/\\<<C-r><C-a>\\>/', 'Substitute cursor WORD'}
+  },
+  ts = {'<Cmd>call zeroknight#util#TrimTrailingSpace()<CR>', 'Trim trailing spaces'},
+  wx = {'<Cmd>call zeroknight#util#save_and_exec()<CR>', 'Write and Execute'},
+  ['/'] = {'<Cmd>let v:hlsearch = !v:hlsearch<CR>', 'Toggle Search Highlighting'},
+}
+
+-- LocalLeader Mappings {{{1
+local localleader = {
+  s = {'<Cmd>setlocal spell!<CR>', 'Toggle Spellcheck'}
+}
+
+-- g Mappings {{{1
+local g = {
+  y = {'<Cmd>%y+<CR>', 'Yank buffer to clipboard'},
+  K = {'f<Space>r<CR>', 'Split line'},
+  ['{'] = {"len(getline(line('.')-1)) > 0 ? '{+' : '{-'", 'Smart paragraph backward', expr = true},
+  ['}'] = {"len(getline(line('.')+1)) > 0 ? '}-' : '}+'", 'Smart paragraph forward', expr = true},
+}
+
+-- }}}
+
+wk.register(leader, {prefix = '<Leader>'})
+wk.register(localleader, {prefix = '<LocalLeader>'})
+wk.register(g, {prefix = 'g'})
 
 -- Standard Behavior Overwrites {{{1
 
@@ -29,46 +63,13 @@ key.vnoremap('>', '>gv')
 
 -- Simple Remappings and Shortcuts {{{1
 
--- Change cwd to that of the current file
-key.nnoremap('<Leader>cd',  '<Cmd>cd %:p:h<Bar>pwd<CR>')
-key.nnoremap('<Leader>lcd', '<Cmd>lcd %:p:h<Bar>pwd<CR>')
-key.nnoremap('<Leader>tcd', '<Cmd>tcd %:p:h<Bar>pwd<CR>')
-
--- Toggle Spellcheck
-key.nnoremap('<LocalLeader>s', '<Cmd>setlocal spell!<CR>')
-
 -- Switch to Visual-Block mode from Visual mode a bit quicker
 key.xnoremap('v', '<C-v>')
-
--- Editing {{{1
-
--- Save and execute file
-key.nnoremap('<Leader>wx', '<Cmd>call zeroknight#util#save_and_exec()<CR>')
-
--- Yank entire buffer to clipboard
-key.nnoremap('gy', '<Cmd>%y+<CR>')
-
--- Split line (thanks, /u/frumsfrums)
-key.nnoremap('gK', 'f<Space>r<CR>')
-
--- Rename word/WORD under cursor
-key.nnoremap('<Leader>rw', ':%s/\\<<C-r><C-w>\\>/')
-key.nnoremap('<Leader>rW', ':%s/\\<<C-r><C-a>\\>/')
-
--- TrimTrailingSpace()
-key.nnoremap('<Leader>ts', '<Cmd>call zeroknight#util#TrimTrailingSpace()<CR>')
 
 -- Enable . in visual mode
 key.vnoremap('.', '<Cmd>normal .<CR>')
 
--- Precise paragraph movement (thanks, /u/kshenoy42)
-key.nnoremap('g{', "len(getline(line('.')-1)) > 0 ? '{+' : '{-'", {expr = true})
-key.nnoremap('g}', "len(getline(line('.')+1)) > 0 ? '}-' : '}+'", {expr = true})
-
 -- UI Related {{{1
-
--- Clear search highlights
-key.nnoremap('<Leader>/', '<Cmd>nohls<CR>')
 
 -- Window Switching
 key.nnoremap('<C-H>', '<C-w>h')
@@ -86,7 +87,10 @@ key.nnoremap('<M-Down>',  '<C-w>5-')
 key.inoremap('<Tab>',   'pumvisible() ? "\\<C-n>" : "\\<Tab>"', {expr =true})
 key.inoremap('<S-Tab>', 'pumvisible() ? "\\<C-p>" : "\\<S-Tab>"', {expr = true})
 
--- }}}
+-- }}
+
+-- Define plugin mappings
+require('zeroknight.config.keymaps.plugins')
 
 -- Abbreviations (See also: after/plugin/abolish.vim)
 
@@ -116,8 +120,5 @@ vim.cmd [[
 ]]
 
 -- }}}
-
--- Define plugin mappings
-require('zeroknight.config.keymaps.plugins')
 
 -- vim: fdm=marker

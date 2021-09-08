@@ -1,43 +1,98 @@
 -- ZeroKnight's Plugin Mappings
 
+local wk = require('which-key')
 local key = require('zeroknight.util.key')
 
--- moll/vim-bbye
+-- Leader Mappings {{{1
 
-key.nnoremap('<Leader>d', '<Cmd>Bdelete<CR>')
+local leader = {
+  d = {'<Cmd>Bdelete<CR>', 'Delete buffer (keep window)'},
+  f = {
+    name = 'find',
+    f = {'Find File'},
+    o = {'Find Old File'},
+    t = {'Find Treesitter'},
+    q = {'Find Quickfix'},
+    l = {'Find Location'},
+    G = {'Live Grep'},
+    w = {'Find Word'},
+    b = {'Find in Buffer'},
+    [':'] = {'Command History'},
+    ['/'] = {'Search History'},
+    g = {
+      name = 'git',
+      f = {'Find Git File'},
+      c = {'Find Commit'},
+      C = {'Find Commit (Buffer)'},
+      b = {'Find Branch'},
+      s = {'Git Status'},
+      S = {'Git Stash'},
+    },
+  },
+  F = {'Browse Files'},
+  g = {
+    name = 'git',
+    s = {'<Cmd>Git<CR>', 'Status'},
+    ce = {'<Cmd>Git commit --amend --reuse-message=HEAD<CR>', 'Amend last commit (no edit)'}
+  },
+  h = {
+    name = 'help',
+    h = {'Help Pages'},
+    m = {'Man Pages'},
+    k = {'Keymaps'},
+    c = {'Commands'},
+    f = {'Filetypes'},
+    a = {'AutoCommands'},
+    o = {'Vim Options'},
+  },
+  ig = {'<Cmd>IndentLinesToggle<CR>', 'Toggle indent guides'},
+  ue = {':UltiSnipsEdit<CR>', 'Edit snippets for current filetype'},
+  x = {
+    name = 'errors/diag',
+    x = {'<Cmd>TroubleToggle<CR>', 'Toggle Trouble window'},
+    w = {'<Cmd>Trouble lsp_workspace_diagnostics<CR>', 'Show workspace diagnostics (Trouble)'},
+    d = {'<Cmd>Trouble lsp_document_diagnostics<CR>', 'Show document diagnostics (Trouble)'},
+    q = {'<Cmd>Trouble quickfix<CR>', 'Show quickfix list (Trouble)'},
+    l = {'<Cmd>Trouble loclist<CR>', 'Show location list (Trouble)'},
+    t = {'<Cmd>TodoTrouble<CR>', 'Show Todo (Trouble)'},
+    T = {'<Cmd>TodoTelescope<CR>', 'Show Todo (Telescope)'}
+  },
+  ['<Leader>'] = {
+    name = 'Aux Leader',
+    n = {
+      name = 'neovim',
+      c = 'Find Neovim Config File',
+      p = 'Find Neovim Plugin File'
+    },
+    p = {'Browse Projects'},
+    z = {
+      name = 'zsh',
+      c = 'Find Zsh Config File'
+    }
+  }
+}
 
--- tpope/vim-commentary
+-- LocalLeader Mappings {{{1
 
-key.nmap('gcy', 'yyPgccj')
+local localleader = {
+}
 
--- tpope/vim-fugitive
+-- g Mappings {{{1
 
-key.nnoremap('<Leader>gs', '<Cmd>Git<CR>')
+local g = {
+  cy = {'yyPgccj', 'Comment a copy of the line'}
+}
 
--- Yggdroot/indentLine
+-- }}}
 
-key.nnoremap('<Leader>ig', '<Cmd>IndentLinesToggle<CR>')
-
--- majutsushi/tagbar
+wk.register(leader, {prefix = '<Leader>'})
+wk.register(localleader, {prefix = '<LocalLeader>'})
+wk.register(g, {prefix = 'g'})
 
 key.nnoremap('<F4>', '<Cmd>TagbarToggle<CR>')
 key.inoremap('<F4>', '<Cmd>TagbarToggle<CR>')
 
--- folke/trouble.nvim
-
-key.nnoremap('<Leader>xx', '<Cmd>TroubleToggle<CR>')
-key.nnoremap('<Leader>xw', '<Cmd>Trouble lsp_workspace_diagnostics<CR>')
-key.nnoremap('<Leader>xd', '<Cmd>Trouble lsp_document_diagnostics<CR>')
-key.nnoremap('<Leader>xq', '<Cmd>Trouble quickfix<CR>')
-key.nnoremap('<Leader>xl', '<Cmd>Trouble loclist<CR>')
-key.nnoremap('<Leader>xt', '<Cmd>TodoTrouble<CR>')
-
--- SirVer/ultisnips
-
--- Quick edit UltiSnips for current filetype
-key.nnoremap('<Leader>ue', ':UltiSnipsEdit<CR>')
-
--- mbbill/undotree
-
 key.nnoremap('<F5>', '<Cmd>UndotreeToggle<CR>')
 key.inoremap('<F5>', '<Cmd>UndotreeToggle<CR>')
+
+-- vim: fdm=marker
