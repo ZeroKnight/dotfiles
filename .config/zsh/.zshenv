@@ -15,8 +15,9 @@ if (( ! $+TMUX )) && [[ $TERM != 'xterm-kitty' ]]; then
 fi
 
 # Keep our zsh files nice and tidy in their own directories
-export ZDOTDIR="$HOME/.config/zsh" ZSH="$HOME/.config/zsh"
-export ZDATADIR="$HOME/.local/share/zsh" ZCACHEDIR="$HOME/.cache/zsh"
+export ZDOTDIR="${XDG_CONFIG_HOME:-"$HOME/.config"}/zsh" ZSH="$ZDOTDIR"
+export ZDATADIR="${XDG_DATA_HOME:-"$HOME/.local/share"}/zsh"
+export ZCACHEDIR="${XDG_CACHE_HOME:-"$HOME/.cache"}/zsh"
 
 for dir in "$ZDOTDIR" "$ZDATADIR" "$ZCACHEDIR"; do
     [[ -d "$dir" ]] || mkdir -p "$dir"
