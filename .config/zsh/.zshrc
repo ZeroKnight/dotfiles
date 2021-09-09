@@ -30,7 +30,7 @@ cdpath=(
 )
 
 # Modules
-zmodules=(archive directory ssh fasd git history misc perl python processes \
+zmodules=(archive directory ssh z git history misc perl python processes \
           spectrum system tmux vim man search input syntax-highlighting)
 
 # Local configuration

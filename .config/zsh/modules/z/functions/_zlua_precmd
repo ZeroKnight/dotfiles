@@ -1,0 +1,3 @@
+(zlua --add "${PWD:a}" &)
+
+# vim: ft=zsh

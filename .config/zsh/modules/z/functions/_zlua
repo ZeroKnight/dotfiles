@@ -1,0 +1,7 @@
+#compdef zlua
+
+(( $+compstate )) && compstate[insert]=menu # no expand
+local -a tmp=(${(f)"$(zlua --complete "${words/zlua/z}")"})
+_describe "directory" tmp -U
+
+# vim: ft=zsh

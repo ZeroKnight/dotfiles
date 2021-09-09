@@ -1,3 +1,6 @@
 [submodule "syntax-highlighting"]
 	path = .config/zsh/modules/syntax-highlighting/external
 	url = https://github.com/zsh-users/zsh-syntax-highlighting
+[submodule ".config/zsh/modules/z/external"]
+	path = .config/zsh/modules/z/external
+	url = https://github.com/skywind3000/z.lua
