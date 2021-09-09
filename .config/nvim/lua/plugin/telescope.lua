@@ -6,7 +6,10 @@
 
 local telescope = require('telescope')
 local builtin = require('telescope.builtin')
-local actions = require("telescope.actions")
+local actions = require('telescope.actions')
+local themes = require('telescope.themes')
+
+local extensions = telescope.extensions
 
 local trouble = require("trouble.providers.telescope")
 
@@ -16,7 +19,7 @@ zeroknight.telescope_map_opts = zeroknight.telescope_map_opts or {}
 
 local mapping_opts = {noremap = true, silent = true}
 
-local function map_telescope(lhs, picker, opts, buffer)
+local function _map_telescope(mode, lhs, picker, opts, buffer)
   local lhs_raw = vim.api.nvim_replace_termcodes(lhs, true, true, true)
   local rhs = string.format(
     "<Cmd>lua require('plugin.telescope')['%s'](zeroknight.telescope_map_opts[%q])<CR>",
@@ -24,10 +27,18 @@ local function map_telescope(lhs, picker, opts, buffer)
   )
   zeroknight.telescope_map_opts[lhs_raw] = opts or {}
   if not buffer then
-    vim.api.nvim_set_keymap('n', lhs, rhs, mapping_opts)
+    vim.api.nvim_set_keymap(mode, lhs, rhs, mapping_opts)
   else
-    vim.api.nvim_buf_set_keymap(0, 'n', lhs, rhs, mapping_opts)
+    vim.api.nvim_buf_set_keymap(0, mode, lhs, rhs, mapping_opts)
   end
+end
+
+local function map_telescope(lhs, picker, opts, buffer)
+  _map_telescope('n', lhs, picker, opts, buffer)
+end
+
+local function imap_telescope(lhs, picker, opts, buffer)
+  _map_telescope('i', lhs, picker, opts, buffer)
 end
 
 -- Telescope Mappings
@@ -35,6 +46,7 @@ map_telescope('<C-p>',      'buffers')
 map_telescope('<Leader>F',  'file_browser')
 map_telescope('<Leader>ff', 'find_files')
 map_telescope('<Leader>fo', 'oldfiles')
+map_telescope('<Leader>fz', 'z')
 
 map_telescope('<Leader><Leader>nc', 'nvim_config')
 map_telescope('<Leader><Leader>np', 'nvim_plugins')
@@ -48,6 +60,7 @@ map_telescope('<Leader>hc', 'commands')
 map_telescope('<Leader>hf', 'filetypes')
 map_telescope('<Leader>ha', 'autocommands')
 map_telescope('<Leader>ho', 'vim_options')
+map_telescope('<Leader>hp', 'packer')
 
 map_telescope('<Leader>f:', 'command_history')
 map_telescope('<Leader>f/', 'search_history')
@@ -65,6 +78,8 @@ map_telescope('<Leader>fgC', 'git_bcommits')
 map_telescope('<Leader>fgb', 'git_branches')
 map_telescope('<Leader>fgs', 'git_status')
 map_telescope('<Leader>fgS', 'git_stash')
+
+imap_telescope('<C-l>', 'ultisnips')
 
 -- Fuzzy search command history
 vim.api.nvim_set_keymap(
@@ -152,13 +167,36 @@ function M.projects()
   }
 end
 
-return setmetatable({map_telescope = map_telescope}, {
-  __index = function(_, k)
-    if M[k] then
-      return M[k]
-    else
-      return builtin[k]
+-- Pick a directory from z.lua
+function M.z()
+  extensions.z.list {
+    cmd = {vim.o.shell, '-c', string.format('%s %s -l', vim.env.ZLUA_LUAEXE, vim.env.ZLUA_SCRIPT)},
+  }
+end
+
+-- Choose an Ultisnips snippet to expand
+function M.ultisnips()
+  extensions.ultisnips.ultisnips(themes.get_ivy())
+end
+
+-- Packer Integration
+function M.packer()
+  extensions.packer.plugins()
+end
+
+return setmetatable(
+  {
+    map_telescope = map_telescope,
+    imap_telescope = imap_telescope
+  },
+  {
+    __index = function(_, k)
+      if M[k] then
+        return M[k]
+      else
+        return builtin[k]
+      end
     end
-  end
-})
+  }
+)
 

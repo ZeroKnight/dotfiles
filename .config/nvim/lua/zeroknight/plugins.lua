@@ -4,6 +4,10 @@ function packer_loaded(name)
   return packer_plugins[name] and packer_plugins[name].loaded
 end
 
+local function tele_extension(name)
+  return string.format([[require('telescope').load_extension('%s')]], name)
+end
+
 return require('packer').startup{
   function(use)
 
@@ -37,9 +41,15 @@ return require('packer').startup{
     }
 
     use {
-      'nvim-telescope/telescope.nvim',
-      requires = {'nvim-lua/popup.nvim', 'nvim-lua/plenary.nvim', 'kyazdani42/nvim-web-devicons'},
-      config = [[require('plugin.telescope')]]
+      {
+        'nvim-telescope/telescope.nvim',
+        requires = {'nvim-lua/popup.nvim', 'nvim-lua/plenary.nvim', 'kyazdani42/nvim-web-devicons'},
+        config = [[require('plugin.telescope')]]
+      },
+      -- Extensions
+      {'nvim-telescope/telescope-packer.nvim', config = tele_extension('packer')},
+      {'fhill2/telescope-ultisnips.nvim', config = tele_extension('ultisnips')},
+      {'nvim-telescope/telescope-z.nvim', config = tele_extension('z')}
     }
 
     use {
@@ -178,7 +188,6 @@ return require('packer').startup{
       'SirVer/ultisnips',
       setup = function()
         vim.g.UltiSnipsExpandTrigger = '<C-Space>'
-        vim.g.UltiSnipsListSnippets = '<C-l>'
       end
     }
 
