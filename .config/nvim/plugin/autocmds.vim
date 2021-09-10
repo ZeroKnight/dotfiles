@@ -24,4 +24,8 @@ augroup ZeroVimAutoCommands
 
   " Terminal settings
   autocmd TermOpen * setlocal nonumber norelativenumber nocursorline nocursorcolumn
+
+  " Highlight yanked text
+  autocmd TextYankPost * silent!
+    \ lua require('vim.highlight').on_yank{timeout = 300, higroup = 'LspReferenceWrite', on_visual = false}
 augroup END
