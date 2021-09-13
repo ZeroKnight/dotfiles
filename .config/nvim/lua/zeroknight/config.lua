@@ -66,7 +66,7 @@ opt.showbreak = '↪ '
 -- Show helpful meta-characters
 opt.list = true
 opt.listchars = {
-  tab = '→ ', trail = '∙', nbsp = '∙', eol = '¬',
+  tab = '→ ', trail = '∙', nbsp = '␣', eol = '¬',
   extends = '❯', precedes = '❮'
 }
 
