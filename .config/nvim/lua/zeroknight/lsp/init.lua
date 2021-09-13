@@ -7,19 +7,7 @@ end
 local lsp_status = require('lsp-status')
 local lsp_kinds = require('zeroknight.lsp.kinds')
 
-local function python_interpreter()
-  if vim.env.VIRTUAL_ENV then
-    return vim.env.VIRTUAL_ENV .. '/bin/python'
-  else
-    return vim.call('exepath', 'python3')
-  end
-end
 
-local function python_version(interpreter)
-  local ver_cmd = vim.call(
-    'shellescape', "import sys; print('.'.join(map(str, sys.version_info[:2])), end='')")
-  return vim.call('system', string.format('%s -c %s', interpreter, ver_cmd))
-end
 
 local function lsp_buffer_setup(client, bufnr)
   local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
