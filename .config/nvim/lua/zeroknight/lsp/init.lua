@@ -1,5 +1,6 @@
 -- Language Server Configuration
 
+local lsp = vim.lsp
 local has_lspconfig, lspconfig = pcall(require, 'lspconfig')
 if not has_lspconfig then
   return
@@ -7,37 +8,84 @@ end
 local lsp_status = require('lsp-status')
 local lsp_kinds = require('zeroknight.lsp.kinds')
 
+local wk = require('which-key')
 
+local function lsp_method(kind, method)
+  return string.format('<Cmd>lua vim.lsp.%s.%s()<CR>', kind, method)
+end
+
+local lsp_keymap = {
+  ['<LocalLeader>'] = {
+    c = {
+      name = 'code/calls',
+      a = {'[LSP] Code Actions'},
+      A = {'[LSP] Code Actions (Range)'},
+      i = {lsp_method('buf', 'incoming_calls'), '[LSP] Incoming Calls'},
+      o = {lsp_method('buf', 'outgoing_calls'), '[LSP] Outgoing Calls'}
+    },
+    d = {
+      name = 'document',
+      d = {'[LSP] Document Diagnostics'},
+      s = {'[LSP] Document Symbols'}
+    },
+    r = {
+      name = 'restart',
+      c = {
+        function()
+          vim.lsp.stop_client(vim.tbl_values(lsp.buf_get_clients(0)))
+          vim.cmd 'e'
+        end,
+        '[LSP] Restart buffer clients'
+      },
+      C = {
+        function()
+          vim.lsp.stop_client(lsp.get_active_clients())
+          vim.cmd 'e'
+        end,
+        '[LSP] Restart ALL clients'
+      },
+    },
+    td = {lsp_method('buf', 'type_definition'), '[LSP] Jump to Type Definition'},
+    w = {
+      name = 'workspace',
+      d = {'[LSP] Workspace Diagnostics'},
+      s = {'[LSP] Workspace Symbols'}
+    }
+  },
+  ['['] = {
+    name = 'prev',
+    d = {lsp_method('diagnostic', 'goto_prev'), '[LSP] Previous Diagnostic'}
+  },
+  [']'] = {
+    name = 'next',
+    d = {lsp_method('diagnostic', 'goto_next'), '[LSP] Next Diagnostic'}
+  },
+  ['<F2>'] = {lsp_method('buf', 'rename'), '[LSP] Rename Symbol'},
+  g = {
+    name = 'goto',
+    d = {lsp_method('buf', 'definition'), '[LSP] Jump to Definition'},
+    D = {lsp_method('buf', 'declaration'), '[LSP] Jump to Declaration'},
+    I = {lsp_method('buf', 'implementation'), '[LSP] Jump to Implementation'},
+    r = {'[LSP] Browse References'}
+  },
+  K = {lsp_method('buf', 'hover'), '[LSP] Show Hover'},
+}
+
+-- Mappings for both NORMAL and INSERT mode
+local lsp_keymap_ni = {
+  ['<C-s>'] = {lsp_method('buf', 'signature_help'), '[LSP] Signature Help'},
+  ['<M-d>'] = {lsp_method('diagnostic', 'show_line_diagnostics'), '[LSP] Show diagnostics for line'}
+}
 
 local function lsp_buffer_setup(client, bufnr)
   local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
   local map_telescope = require('plugin.telescope').map_telescope
 
-  -- Language Server method mappings
-  local function map_lsp_method(modes, kind, lhs, method)
-    for mode in vim.gsplit(modes, '') do
-      vim.api.nvim_buf_set_keymap(
-        bufnr, mode, lhs,
-        string.format('<Cmd>lua vim.lsp.%s.%s()<CR>', kind, method),
-        {noremap = true, silent = true}
-      )
-    end
-  end
-
   buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 
-  map_lsp_method('n',  'buf',        'gD',              'declaration')
-  map_lsp_method('n',  'buf',        'gd',              'definition')
-  map_lsp_method('n',  'buf',        'K',               'hover')
-  map_lsp_method('n',  'buf',        'gI',              'implementation')
-  map_lsp_method('n',  'buf',        ']C',              'incoming_calls')
-  map_lsp_method('n',  'buf',        '[C',              'outgoing_calls')
-  map_lsp_method('n',  'buf',        '<F2>',            'rename')
-  map_lsp_method('ni', 'buf',        '<C-s>',           'signature_help')
-  map_lsp_method('n',  'buf',        '<LocalLeader>td', 'type_definition')
-  map_lsp_method('ni', 'diagnostic', '<M-d>',           'show_line_diagnostics')
-  map_lsp_method('n',  'diagnostic', ']d',              'goto_next')
-  map_lsp_method('n',  'diagnostic', '[d',              'goto_prev')
+  wk.register(lsp_keymap, {buffer = bufnr})
+  wk.register(lsp_keymap_ni, {buffer = bufnr, mode = 'n'})
+  wk.register(lsp_keymap_ni, {buffer = bufnr, mode = 'i'})
 
   map_telescope('gr', 'lsp_references', {
     sorting_strategy = 'ascending',
@@ -51,13 +99,7 @@ local function lsp_buffer_setup(client, bufnr)
   map_telescope('<LocalLeader>wd', 'lsp_workspace_diagnostics', nil, true)
 
   -- TODO: Make signature help show up on open paren and comma like vim-lsp
-  -- TBD lsp formatting mappings and/or autocmds (BufWrite*)?
-
-  -- Reload buffer LSP settings
-  vim.api.nvim_buf_set_keymap(
-    bufnr, 'n', '<LocalLeader>rr',
-    "<Cmd>lua vim.lsp.stop_client(vim.lsp.get_active_clients()); vim.cmd('e')<CR>", {}
-  )
+  -- TBD: lsp formatting mappings and/or autocmds (BufWrite*)?
 
   -- Enable document highlights if supported
   if client.resolved_capabilities.document_highlight then
