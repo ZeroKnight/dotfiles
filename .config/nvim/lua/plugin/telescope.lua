@@ -41,6 +41,10 @@ local function imap_telescope(lhs, picker, opts, buffer)
   _map_telescope('i', lhs, picker, opts, buffer)
 end
 
+local function xmap_telescope(lhs, picker, opts, buffer)
+  _map_telescope('x', lhs, picker, opts, buffer)
+end
+
 -- Telescope Mappings
 map_telescope('<C-p>',      'buffers')
 map_telescope('<Leader>F',  'file_browser')

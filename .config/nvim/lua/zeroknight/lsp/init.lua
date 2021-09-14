@@ -19,7 +19,6 @@ local lsp_keymap = {
     c = {
       name = 'code/calls',
       a = {'[LSP] Code Actions'},
-      A = {'[LSP] Code Actions (Range)'},
       i = {lsp_method('buf', 'incoming_calls'), '[LSP] Incoming Calls'},
       o = {lsp_method('buf', 'outgoing_calls'), '[LSP] Outgoing Calls'}
     },
@@ -77,26 +76,38 @@ local lsp_keymap_ni = {
   ['<M-d>'] = {lsp_method('diagnostic', 'show_line_diagnostics'), '[LSP] Show diagnostics for line'}
 }
 
+local lsp_keymap_x = {
+  ['<LocalLeader>'] = {
+    c = {
+      name = 'code',
+      a = {'[LSP] Code Actions (Range)'}
+    }
+  }
+}
+
 local function lsp_buffer_setup(client, bufnr)
   local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
   local map_telescope = require('plugin.telescope').map_telescope
+  local xmap_telescope = require('plugin.telescope').xmap_telescope
 
   buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 
-  wk.register(lsp_keymap, {buffer = bufnr})
+  wk.register(lsp_keymap,    {buffer = bufnr})
   wk.register(lsp_keymap_ni, {buffer = bufnr, mode = 'n'})
   wk.register(lsp_keymap_ni, {buffer = bufnr, mode = 'i'})
+  wk.register(lsp_keymap_x,  {buffer = bufnr, mode = 'x'})
 
   map_telescope('gr', 'lsp_references', {
     sorting_strategy = 'ascending',
     ignore_filename = true
   }, true)
   map_telescope('<LocalLeader>ca', 'lsp_code_actions',          {sorting_strategy = 'ascending'}, true)
-  map_telescope('<LocalLeader>cA', 'lsp_range_code_actions',    {sorting_strategy = 'ascending'}, true)
   map_telescope('<LocalLeader>ds', 'lsp_document_symbols',      {ignore_filename = true}, true)
   map_telescope('<LocalLeader>ws', 'lsp_workspace_symbols',     {ignore_filename = true}, true)
   map_telescope('<LocalLeader>dd', 'lsp_document_diagnostics',  nil, true)
   map_telescope('<LocalLeader>wd', 'lsp_workspace_diagnostics', nil, true)
+
+  xmap_telescope('<LocalLeader>ca', 'lsp_range_code_actions', {sorting_strategy = 'ascending'}, true)
 
   -- TODO: Make signature help show up on open paren and comma like vim-lsp
   -- TBD: lsp formatting mappings and/or autocmds (BufWrite*)?

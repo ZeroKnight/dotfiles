@@ -17,6 +17,7 @@ local leader = {
   },
   ts = {'<Cmd>call zeroknight#util#TrimTrailingSpace()<CR>', 'Trim trailing spaces'},
   wx = {'<Cmd>call zeroknight#util#save_and_exec()<CR>', 'Write and Execute'},
+  ww = {'<Cmd>set wrap!<CR>', 'Toggle Word Wrap'},
   ['/'] = {'<Cmd>let v:hlsearch = !v:hlsearch<CR>', 'Toggle Search Highlighting'},
 }
 
