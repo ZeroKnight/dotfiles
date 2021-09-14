@@ -37,8 +37,6 @@ opt.relativenumber = true  -- Show relative line numbers
 opt.number = true          -- But show our current line number instead of 0
 opt.colorcolumn = '+1'     -- Show the boundary of textwidth
 opt.cursorline = true
--- NOTE: Disabled for now; see if we miss it.
--- opt.cursorcolumn = true    -- Make crosshairs!
 opt.inccommand = 'split'
 
 -- Buffer Behavior
