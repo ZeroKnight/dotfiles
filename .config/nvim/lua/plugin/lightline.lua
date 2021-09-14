@@ -55,8 +55,8 @@ vim.g.lightline = {
     Mode = 1,
     FileInfo = 1,
     ReadOnly = "&readonly && &buftype ==# ''",
-    GitBranch = 'zeroknight#lightline#has_minwidth() && !empty(FugitiveHead())',
-    GitHunks = 'zeroknight#lightline#has_minwidth() && !empty(GitGutterGetHunks())',
+    GitBranch = "zeroknight#lightline#has_minwidth() && !empty(get(b:, 'gitsigns_head', ''))",
+    GitHunks = "zeroknight#lightline#has_minwidth() && !empty(get(b:, 'gitsigns_status', ''))",
     CurrSymbol = '!empty(zeroknight#lightline#current_symbol())'
   },
   component_expand = {

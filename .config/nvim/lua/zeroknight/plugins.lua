@@ -213,9 +213,10 @@ return require('packer').startup{
       {'tpope/vim-rhubarb', requires = 'tpope/vim-fugitive'}
     }
     use {
-      'airblade/vim-gitgutter',
-      config = [[vim.g.gitgutter_grep = vim.fn.executable('rg') and 'rg' or 'grep']]
-    }  -- TODO: try out lewis6991/gitsigns.nvim
+      'lewis6991/gitsigns.nvim',
+      requires = 'nvim-lua/plenary.nvim',
+      config = [[require('gitsigns').setup()]]
+    }
 
     -- Utility Plugins {{{1
     use '~/Projects/vim-signjump'

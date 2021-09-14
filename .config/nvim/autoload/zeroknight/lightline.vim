@@ -53,16 +53,13 @@ function! zeroknight#lightline#readonly() abort
 endfunction
 
 function! zeroknight#lightline#git_branch() abort
-  let l:branch = FugitiveHead()
+  let l:branch = get(b:, 'gitsigns_head')
   return s:has_minwidth() && l:branch !=# '' ? ' ' .. l:branch : ''
 endfunction
 
 function! zeroknight#lightline#git_hunks() abort
-  let l:stats = GitGutterGetHunkSummary()
-  if winwidth(0) < s:minwidth || l:stats == [0, 0, 0]
-    return ''
-  endif
-  return printf('+%d ~%d -%d', l:stats[0], l:stats[1], l:stats[2])
+  let l:stats = get(b:, 'gitsigns_status')
+  return s:has_minwidth() && len(l:stats) ? l:stats : ''
 endfunction
 
 function! zeroknight#lightline#diagnostics() abort

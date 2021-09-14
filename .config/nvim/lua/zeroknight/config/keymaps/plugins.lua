@@ -37,7 +37,7 @@ local leader = {
     ce = {'<Cmd>Git commit --amend --reuse-message=HEAD<CR>', 'Amend last commit (no edit)'}
   },
   h = {
-    name = 'help',
+    name = 'help/hunks',
     h = {'Help Pages'},
     m = {'Man Pages'},
     k = {'Keymaps'},
@@ -45,7 +45,17 @@ local leader = {
     f = {'Filetypes'},
     a = {'AutoCommands'},
     o = {'Vim Options'},
-    p = {'Plugins'},
+    P = {'Plugins'},
+
+    -- Hunks (GitSigns)
+    s = {'Stage Hunk'},
+    u = {'Undo Stage Hunk'},
+    r = {'Reset Hunk'},
+    R = {'Reset Buffer (Git)'},
+    S = {'Stage Buffer'},
+    p = {'Preview Hunk'},
+    b = {'Toggle Hunk Blame'},
+    U = {'Reset Buffer Index (Git)'}
   },
   ig = {'<Cmd>IndentLinesToggle<CR>', 'Toggle indent guides'},
   ue = {':UltiSnipsEdit<CR>', 'Edit snippets for current filetype'},
@@ -90,6 +100,13 @@ local g = {
 wk.register(leader, {prefix = '<Leader>'})
 wk.register(localleader, {prefix = '<LocalLeader>'})
 wk.register(g, {prefix = 'g'})
+wk.register({
+  h = {
+    name = 'hunks',
+    s = {'Stage Hunk'},
+    r = {'Reset Hunk'}
+  }
+}, {prefix = '<Leader>', mode = 'v'})
 
 key.nnoremap('<F4>', '<Cmd>TagbarToggle<CR>')
 key.inoremap('<F4>', '<Cmd>TagbarToggle<CR>')
