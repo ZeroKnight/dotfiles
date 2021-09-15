@@ -20,11 +20,12 @@ local map = function(mode, key, cmd, opts, defaults)
   local key_raw = vim.api.nvim_replace_termcodes(key, true, true, true)
 
   if type(cmd) == "function" then
-    zeroknight.keymap_functions[key_raw] = cmd
+    local func_key = string.format('%s_%s', mode, key_raw)
+    zeroknight.keymap_functions[func_key] = cmd
     if opts.expr then
-      cmd = ([[luaeval('require("zeroknight.util.key").execute(%q)')]]):format(key_raw)
+      cmd = ([[luaeval('require("zeroknight.util.key").execute(%q)')]]):format(func_key)
     else
-      cmd = ("<Cmd>lua require('zeroknight.util.key').execute(%q)<CR>"):format(key_raw)
+      cmd = ("<Cmd>lua require('zeroknight.util.key').execute(%q)<CR>"):format(func_key)
     end
   end
   if opts.buffer ~= nil then
