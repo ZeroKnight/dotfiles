@@ -191,7 +191,8 @@ end
 return setmetatable(
   {
     map_telescope = map_telescope,
-    imap_telescope = imap_telescope
+    imap_telescope = imap_telescope,
+    xmap_telescope = xmap_telescope
   },
   {
     __index = function(_, k)
