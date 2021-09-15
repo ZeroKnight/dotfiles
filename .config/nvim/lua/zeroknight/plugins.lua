@@ -164,18 +164,7 @@ return require('packer').startup{
     use {
       'folke/todo-comments.nvim',
       requires = 'nvim-lua/plenary.nvim',
-      config = function()
-        require('todo-comments').setup {
-          merge_keywords = false,  -- Just going to manually set everything
-          keywords = {
-            TODO = {alt = {'TBD', 'TEST'}},
-            FIX =  {alt = {'FIXME', 'FIXIT', 'BUG', 'DEBUG', 'ISSUE'}},
-            HACK = {alt = {'XXX'}},
-            NOTE = {alt = {'NOTICE', 'INFO'}},
-            WARN = {alt = {'WARNING', 'DEPRECATED', 'ATTENTION', 'ALERT', 'DANGER', 'WTF'}}
-          },
-        }
-      end
+      config = [[require('plugin.todo-comments')]]
     }
 
     use {
