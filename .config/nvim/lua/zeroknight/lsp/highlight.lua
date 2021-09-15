@@ -18,5 +18,6 @@ vim.cmd 'hi link LspReferenceText Visual'
 
 vim.cmd [[
   hi link LspDiagnosticsDefaultError Error
+  hi link LspSignatureActiveParameter Visual
 ]]
 

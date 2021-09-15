@@ -9,6 +9,7 @@ local lsp_status = require('lsp-status')
 local lsp_kinds = require('zeroknight.lsp.kinds')
 
 local wk = require('which-key')
+local key = require('zeroknight.util.key')
 
 local function lsp_method(kind, method)
   return string.format('<Cmd>lua vim.lsp.%s.%s()<CR>', kind, method)
@@ -92,11 +93,6 @@ local function lsp_buffer_setup(client, bufnr)
 
   buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 
-  wk.register(lsp_keymap,    {buffer = bufnr})
-  wk.register(lsp_keymap_ni, {buffer = bufnr, mode = 'n'})
-  wk.register(lsp_keymap_ni, {buffer = bufnr, mode = 'i'})
-  wk.register(lsp_keymap_x,  {buffer = bufnr, mode = 'x'})
-
   map_telescope('gr', 'lsp_references', {
     sorting_strategy = 'ascending',
     ignore_filename = true
@@ -109,9 +105,6 @@ local function lsp_buffer_setup(client, bufnr)
 
   xmap_telescope('<LocalLeader>ca', 'lsp_range_code_actions', {sorting_strategy = 'ascending'}, true)
 
-  -- TODO: Make signature help show up on open paren and comma like vim-lsp
-  -- TBD: lsp formatting mappings and/or autocmds (BufWrite*)?
-
   -- Enable document highlights if supported
   if client.resolved_capabilities.document_highlight then
     vim.cmd [[
@@ -123,7 +116,26 @@ local function lsp_buffer_setup(client, bufnr)
     ]]
   end
 
+  -- Automatic signature help
+  for _, char in ipairs(client.resolved_capabilities.signature_help_trigger_characters) do
+    key.inoremap(char, function()
+      vim.defer_fn(vim.lsp.buf.signature_help, 0)
+      return char
+    end, {expr = true, buffer = bufnr})
+  end
+
+  -- Document formatting
+  if client.resolved_capabilities.document_formatting then
+    lsp_keymap['<LocalLeader>'].c.f = {lsp_method('buf', 'formatting'), '[LSP] Format Document'}
+    lsp_keymap_x['<LocalLeader>'].c.f = {lsp_method('buf', 'range_formatting'), '[LSP] Format Range'}
+  end
+
   lsp_status.on_attach(client)
+
+  wk.register(lsp_keymap,    {buffer = bufnr})
+  wk.register(lsp_keymap_ni, {buffer = bufnr, mode = 'n'})
+  wk.register(lsp_keymap_ni, {buffer = bufnr, mode = 'i'})
+  wk.register(lsp_keymap_x,  {buffer = bufnr, mode = 'x'})
 end
 
 -- Set diagnostic signs
