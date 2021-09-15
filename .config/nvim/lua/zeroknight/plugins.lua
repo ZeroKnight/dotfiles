@@ -201,6 +201,7 @@ return require('packer').startup{
       {'tpope/vim-fugitive'},
       {'tpope/vim-rhubarb', requires = 'tpope/vim-fugitive'}
     }
+    use 'rhysd/committia.vim'
     use {
       'lewis6991/gitsigns.nvim',
       requires = 'nvim-lua/plenary.nvim',
@@ -210,6 +211,7 @@ return require('packer').startup{
     -- Utility Plugins {{{1
     use '~/Projects/vim-signjump'
     use 'tpope/vim-eunuch'
+    use 'tpope/vim-projectionist'  -- TODO: Try this out
     use 'tpope/vim-scriptease'
     use 'tpope/vim-unimpaired'
     use {'Konfekt/FastFold', config = [[vim.g.fastfold_skip_filetypes = {'gitcommit', 'taglist'}]]}
@@ -217,6 +219,7 @@ return require('packer').startup{
     use {'tpope/vim-characterize', keys = 'ga'}
     use {'tpope/vim-dispatch', cmd = {'Dispatch', 'Make', 'FocusDispatch', 'Start'}}
     use {'tpope/vim-obsession', cmd = 'Obsession'}
+    use {'dstein64/vim-startuptime', cmd = 'StartupTime'}
 
     -- Language Support {{{1
     -- TBD: Dump this and just grab what we care about; I'm not using the vast majority of filetypes
@@ -231,7 +234,7 @@ return require('packer').startup{
     use {'mitsuhiko/vim-jinja',     ft = {'html', 'jinja'}}
     use {'mattn/emmet-vim',         ft = {'html', 'xhtml', 'xml', 'jinja'}}
     -- TODO: revisit this after trying an HTML language server
-    use {'Valloric/MatchTagAlways', disabled = true, ft = {'html', 'xhtml', 'xml', 'jinja'}}
+    use {'Valloric/MatchTagAlways', disable = true, ft = {'html', 'xhtml', 'xml', 'jinja'}}
 
     -- Color Schemes {{{1
     use 'rakr/vim-one'
@@ -249,6 +252,7 @@ return require('packer').startup{
     -- Libraries & Misc {{{1
     use 'tpope/vim-repeat'
     use 'nanotee/nvim-lua-guide'
+    use 'nanotee/luv-vimdocs'
     use 'nvim-lua/plenary.nvim'
 
   end,  -- }}}
