@@ -15,6 +15,7 @@ todo.setup {
     FIX =  {icon = ' ', color = 'error', alt = {'FIXME', 'FIXIT', 'BUG', 'DEBUG', 'ISSUE'}},
     HACK = {icon = ' ', color = 'warning', alt = {'XXX'}},
     NOTE = {icon = ' ', color = 'hint', alt = {'NOTICE', 'INFO'}},
+    IDEA = {icon = ' ', color = 'hint'},
     WARN = {icon = ' ', color = 'warning', alt = {'WARNING', 'DEPRECATED', 'ATTENTION', 'ALERT', 'DANGER', 'WTF'}},
     PERF = {icon = " ", color = 'default', alt = {'PERFORMANCE', 'OPTI', 'OPTIMIZE', 'OPTIMIZATION'}},
   }
