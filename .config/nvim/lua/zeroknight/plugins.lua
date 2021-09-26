@@ -172,8 +172,8 @@ return require('packer').startup{
       setup = [[vim.g.qs_highlight_on_keys = {'f', 'F', 't', 'T'}]]
     }
 
+    -- NOTE: Keep an eye out for Lua snippet plugins
     use {
-      -- TODO: check out vsnip or lua snippet plugins
       'SirVer/ultisnips',
       setup = function()
         vim.g.UltiSnipsExpandTrigger = '<C-Space>'

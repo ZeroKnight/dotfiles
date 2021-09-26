@@ -5,6 +5,7 @@ honza's vimsnippets.py.
 """
 
 import vim
+import vimsnippets as vs
 
 def get_csv(line: str):
     """Expand a string containing simple comma-separated values into a list.
@@ -83,3 +84,8 @@ def maybe_surround(tabstop, snip, text, opening, closing):
     Would expand to ``(foobar)`` *only if* ``t[2]`` was not empty or `None`.
     """
     snip.rv = f'{opening}{text}{closing}' if text else ''
+
+
+def comment_tag(tag: str, snip):
+    """Insert a comment tag."""
+    snip.rv = f'{vs.get_comment_format()[0]} {tag.upper()}:'

@@ -1,31 +1,69 @@
 priority 50
 
+global !p
+from zeroknight.sniputils import *
+endglobal
+
 snippet #! "shebang" bA
-#!/usr/bin/env lua
+#!/usr/bin/env ${1|lua,luajit|}
 
 $0
 endsnippet
 
-snippet "fun(ction)?" "Function definition" br
-function ${1:name}($2)
+snippet req "require" b
+`!p if_ts(t[2], snip, 'local ')`${2:${1/(\w+\.)+//}}`!p if_ts(t[2], snip, ' = ')`require('$1')
+endsnippet
+
+snippet luv "local uv = require('luv')" b
+local uv = require('luv')
+endsnippet
+
+snippet "loc(al)?" "local x = 1" r
+local ${1:x} = ${2:1}
+endsnippet
+
+snippet locs "local biz = foo.bar.biz" b
+local ${1/(\w+\.)+//} = $1
+endsnippet
+
+snippet fmt "string.format"
+string.format($1, $2)
+endsnippet
+
+snippet ins "table.insert"
+table.insert(${1:t}, $2)
+endsnippet
+
+snippet fn "Function definition"
+function${1/\w+/ /}$1($2)
+	${VISUAL}$3
+end$0
+endsnippet
+
+snippet ifn "Function definition (inline)"
+function${1/\w+/ /}$1($2) $3 end$0
+endsnippet
+
+snippet for "for loop (ipairs)" b
+for ${1:i}, ${2:v} in ipairs(${3:t}) do
 	${VISUAL}$0
 end
 endsnippet
 
-snippet forp "pair for loop" b
-for ${1:name},${2:val} in pairs(${3:table_name}) do
+snippet forp "for loop (pairs)" b
+for ${1:k}, ${2:v} in pairs(${3:t}) do
 	${VISUAL}$0
 end
 endsnippet
 
-snippet fori "ipair for foop" b
-for ${1:idx},${2:val} in ipairs(${3:table_name}) do
+snippet fori "for loop (numeric)" b
+for ${1:i} = ${2:1}, ${3:10}${4/^..*/(?0:, :)/}${4:step} do
 	${VISUAL}$0
 end
 endsnippet
 
-snippet for "numeric for loop" b
-for ${1:i}=${2:first},${3:last}${4/^..*/(?0:,:)/}${4:step} do
+snippet "wh(ile)?" "while loop" br
+while $1 do
 	${VISUAL}$0
 end
 endsnippet
@@ -36,39 +74,25 @@ repeat
 until $0
 endsnippet
 
-snippet "wh(ile)?" "while loop" br
-while $1 do
-	${VISUAL}$0
-end
-endsnippet
-
-snippet if "if statement" b
+snippet if "if ..." b
 if $1 then
 	${VISUAL}$0
 end
 endsnippet
 
-snippet ife "if/else statement" b
-if $1 then
-	${VISUAL}$2
+snippet el "else ..." b
 else
-	$0
-end
+	${VISUAL}$0
 endsnippet
 
-snippet eif "if/elseif statement" b
-if $1 then
-	${VISUAL}$2
-elseif $3 then
-	$0
-end
+snippet eli "elseif ..." b
+elseif $1
+	${VISUAL}$0
 endsnippet
 
-snippet eife "if/elseif/else statement" b
+snippet ife "if/else ..." b
 if $1 then
 	${VISUAL}$2
-elseif $3 then
-	$4
 else
 	$0
 end
@@ -80,8 +104,10 @@ do
 end
 endsnippet
 
-snippet "lo(cal)?" "local x = 1" r
-local ${1:x} = ${0:1}
+snippet bcom "Block comment"
+--[$1[
+${VISUAL}$0
+--]$1]
 endsnippet
 
 # vim: ft=snippets ts=4
