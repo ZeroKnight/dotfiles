@@ -123,13 +123,6 @@ return require('packer').startup{
     use {'mhinz/vim-grepper', cmd = 'Grepper'}
     use 'romainl/vim-qlist'
 
-    -- TBD: can treesitter replace tagbar in some way?
-    use {
-      'majutsushi/tagbar',
-      cmd = {'Tagbar', 'TagbarOpen', 'TagbarToggle'},
-      setup = [[vim.g.tagbar_autoshowtag = 1]]
-    }
-
     -- TODO: replace ALE with nvim-lint or diagnostic-languageserver
     use 'dense-analysis/ale'
 
@@ -222,17 +215,15 @@ return require('packer').startup{
     use {'dstein64/vim-startuptime', cmd = 'StartupTime'}
 
     -- Language Support {{{1
-    -- TBD: Dump this and just grab what we care about; I'm not using the vast majority of filetypes
     use {
-      'sheerun/vim-polyglot',
-      setup = function()
-        -- Don't mess with my configuration, please.
-        vim.g.polyglot_disabled = {'sensible', 'autoindent'}
-      end
+      'nvim-treesitter/nvim-treesitter',
+      config = [[require('plugin.treesitter')]],
+      run = ':TSUpdate'
     }
-    use {'withgod/vim-sourcepawn',  ft = 'sourcepawn'}
-    use {'mitsuhiko/vim-jinja',     ft = {'html', 'jinja'}}
-    use {'mattn/emmet-vim',         ft = {'html', 'xhtml', 'xml', 'jinja'}}
+    use {'euclidianAce/BetterLua.vim', ft = 'lua'}
+    use {'withgod/vim-sourcepawn',     ft = 'sourcepawn'}
+    use {'mitsuhiko/vim-jinja',        ft = {'html', 'jinja'}}
+    use {'mattn/emmet-vim',            ft = {'html', 'xhtml', 'xml', 'jinja'}}
     -- TODO: revisit this after trying an HTML language server
     use {'Valloric/MatchTagAlways', disable = true, ft = {'html', 'xhtml', 'xml', 'jinja'}}
 
