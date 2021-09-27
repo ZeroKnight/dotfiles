@@ -58,7 +58,7 @@ function! zeroknight#lightline#git_branch() abort
 endfunction
 
 function! zeroknight#lightline#git_hunks() abort
-  let l:stats = get(b:, 'gitsigns_status')
+  let l:stats = get(b:, 'gitsigns_status', '')
   return s:has_minwidth() && len(l:stats) ? l:stats : ''
 endfunction
 
