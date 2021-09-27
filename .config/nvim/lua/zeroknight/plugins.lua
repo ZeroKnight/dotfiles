@@ -8,6 +8,10 @@ local function tele_extension(name)
   return string.format([[require('telescope').load_extension('%s')]], name)
 end
 
+local function config(name)
+  return string.format([[require('plugin.%s')]], name)
+end
+
 return require('packer').startup{
   function(use)
 
@@ -27,7 +31,7 @@ return require('packer').startup{
 
     use {
       'itchyny/lightline.vim',
-      setup = [[require('plugin.lightline')]]
+      setup = config 'lightline'
     }
     use {
       'mengelbrecht/lightline-bufferline',
@@ -44,7 +48,7 @@ return require('packer').startup{
       {
         'nvim-telescope/telescope.nvim',
         requires = {'nvim-lua/popup.nvim', 'nvim-lua/plenary.nvim', 'kyazdani42/nvim-web-devicons'},
-        config = [[require('plugin.telescope')]]
+        config = config 'telescope'
       },
       -- Extensions
       {'nvim-telescope/telescope-packer.nvim', config = tele_extension('packer')},
@@ -91,7 +95,7 @@ return require('packer').startup{
 
     use {
       'folke/which-key.nvim',
-      config = [[require('plugin.which-key')]]
+      config = config 'which-key'
     }
 
     -- Language Server Protocol (LSP) {{{1
@@ -136,7 +140,7 @@ return require('packer').startup{
       -- Switch to hrsh7th/nvim-cmp once it's had time to mature.
       'hrsh7th/nvim-compe',
       after = 'lexima.vim',
-      config = [[require('plugin.completion')]]
+      config = config 'completion'
     }
 
     -- Editing {{{1
@@ -157,7 +161,7 @@ return require('packer').startup{
     use {
       'folke/todo-comments.nvim',
       requires = 'nvim-lua/plenary.nvim',
-      config = [[require('plugin.todo-comments')]]
+      config = config 'todo-comments'
     }
 
     use {
@@ -217,7 +221,7 @@ return require('packer').startup{
     -- Language Support {{{1
     use {
       'nvim-treesitter/nvim-treesitter',
-      config = [[require('plugin.treesitter')]],
+      config = config 'treesitter',
       run = ':TSUpdate'
     }
     use {'euclidianAce/BetterLua.vim', ft = 'lua'}
