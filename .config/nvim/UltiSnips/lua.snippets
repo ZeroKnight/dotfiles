@@ -44,6 +44,12 @@ snippet ifn "Function definition (inline)"
 function${1/\w+/ /}$1($2) $3 end$0
 endsnippet
 
+snippet tbl "new table"
+${1:t} = {
+	${VISUAL}$2
+},
+endsnippet
+
 snippet for "for loop (ipairs)" b
 for ${1:i}, ${2:v} in ipairs(${3:t}) do
 	${VISUAL}$0
