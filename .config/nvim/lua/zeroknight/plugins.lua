@@ -125,12 +125,12 @@ return require('packer').startup{
 
     use {'weilbith/nvim-code-action-menu', cmd = 'CodeActionMenu'}
 
-    -- Analysis and Debugging {{{1
+    -- Analysis, Linting, and Debugging {{{1
     use {'mhinz/vim-grepper', cmd = 'Grepper'}
     use 'romainl/vim-qlist'
 
-    -- TODO: replace ALE with nvim-lint or diagnostic-languageserver
-    use 'dense-analysis/ale'
+    use {'mfussenegger/nvim-lint', config = config 'linting'}
+    use {'lukas-reineke/format.nvim', config = config 'formatting'}
 
     -- Debug Adapter Protocol (DAP)
     use 'mfussenegger/nvim-dap'
