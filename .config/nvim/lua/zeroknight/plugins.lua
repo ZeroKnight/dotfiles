@@ -123,6 +123,8 @@ return require('packer').startup{
       end
     }
 
+    use {'weilbith/nvim-code-action-menu', cmd = 'CodeActionMenu'}
+
     -- Analysis and Debugging {{{1
     use {'mhinz/vim-grepper', cmd = 'Grepper'}
     use 'romainl/vim-qlist'

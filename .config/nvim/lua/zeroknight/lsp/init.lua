@@ -19,7 +19,8 @@ local lsp_keymap = {
   ['<LocalLeader>'] = {
     c = {
       name = 'code/calls',
-      a = {'[LSP] Code Actions'},
+      a = {'<Cmd>CodeActionMenu<CR>', '[LSP] Code Actions'},
+      A = {'[LSP] Code Actions (Telescope)'},
       i = {lsp_method('buf', 'incoming_calls'), '[LSP] Incoming Calls'},
       o = {lsp_method('buf', 'outgoing_calls'), '[LSP] Outgoing Calls'}
     },
@@ -97,7 +98,7 @@ local function lsp_buffer_setup(client, bufnr)
     sorting_strategy = 'ascending',
     ignore_filename = true
   }, true)
-  map_telescope('<LocalLeader>ca', 'lsp_code_actions',          {sorting_strategy = 'ascending'}, true)
+  map_telescope('<LocalLeader>cA', 'lsp_code_actions',          {sorting_strategy = 'ascending'}, true)
   map_telescope('<LocalLeader>ds', 'lsp_document_symbols',      {ignore_filename = true}, true)
   map_telescope('<LocalLeader>ws', 'lsp_workspace_symbols',     {ignore_filename = true}, true)
   map_telescope('<LocalLeader>dd', 'lsp_document_diagnostics',  nil, true)
