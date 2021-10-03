@@ -227,6 +227,7 @@ return require('packer').startup{
       run = ':TSUpdate'
     }
     use {'euclidianAce/BetterLua.vim', ft = 'lua'}
+    use {'cespare/vim-toml',           ft = 'toml'}
     use {'withgod/vim-sourcepawn',     ft = 'sourcepawn'}
     use {'mitsuhiko/vim-jinja',        ft = {'html', 'jinja'}}
     use {'mattn/emmet-vim',            ft = {'html', 'xhtml', 'xml', 'jinja'}}
