@@ -12,17 +12,17 @@ require('format').setup {
     }
   },
   lua = {
-    {cmd = {'stylua'}},
+    {cmd = {'lua-format -i'}},
   },
   markdown = {
-    {cmd = {'prettier'}},
+    {cmd = {'prettier -w'}},
   },
   python = {
-    {cmd = {'isort', 'yapf'}},
+    {cmd = {'isort', 'yapf -i'}},
   },
   vim = {
     {
-      cmd = {'stylua'},
+      cmd = {'lua-format -i'},
       start_pattern = '^lua << EOF$',
       end_pattern = '^EOF$'
     },
@@ -31,7 +31,7 @@ require('format').setup {
 
 local zeroknight = vim.g.zeroknight
 if zeroknight.format_on_write == nil then
-  zeroknight.format_on_write = true
+  zeroknight.format_on_write = false
   vim.g.zeroknight = zeroknight  -- XXX: Work around neovim issue #12544
 end
 

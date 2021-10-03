@@ -1,0 +1,42 @@
+# ZeroKnight's LuaFormatter configuration
+
+column_limit: 120
+
+use_tab: false
+indent_width: 2
+tab_width: 2
+continuation_indent_width: 2
+
+align_args: true
+align_parameter: true
+chop_down_parameter: true
+keep_simple_control_block_one_line: true
+keep_simple_function_one_line: true
+extra_sep_at_table_end: true
+spaces_inside_functiondef_parens: false
+spaces_inside_functioncall_parens: false
+spaces_inside_table_braces: false
+spaces_around_equals_in_field: true
+line_breaks_after_function_body: 1
+
+# Only when parentheses are omitted, e.g. require 'foo'
+spaces_before_call: 1
+
+# Only breaks when the line was >column_limit
+break_after_functiondef_lp: true
+break_after_functiondef_rp: true
+break_after_functioncall_lp: true
+break_after_functioncall_rp: true
+break_after_table_lb: true
+break_after_table_rb: true
+
+# Array-like tables look fine un-chopped
+chop_down_table: false
+chop_down_kv_table: true
+
+# Breaking before is more readable
+break_after_operator: false
+
+# No "smart" option that takes number of escape chars into consideration
+single_quote_to_double_quote: false
+double_quote_to_single_quote: false
