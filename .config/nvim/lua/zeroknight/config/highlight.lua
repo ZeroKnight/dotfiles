@@ -9,6 +9,16 @@ vim.cmd [[hi SpellBad cterm=undercurl,bold]]
 -- Make special characters stand out
 vim.cmd [[hi! link SpecialKey DiagnosticHint]]
 
+-- I don't like the way vim-one highlights diff headers
+vim.cmd [[
+  hi clear DiffFile
+  hi clear DiffNewFile
+  hi clear DiffOldFile
+  hi link  DiffFile Statement
+  hi link  DiffNewFile DiffAdded
+  hi link  DiffOldFile DiffRemoved
+]]
+
 -- Diagnostic Highlighting
 
 -- From folke/lsp-colors.nvim
