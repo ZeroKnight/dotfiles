@@ -19,11 +19,9 @@ function! zeroknight#util#save_and_exec() abort
 endfunction
 
 " Trim trailing whitespace while preserving buffer state
-" Courtesy Martin Tournoji
 function! zeroknight#util#TrimTrailingSpace() abort
-  let l:save = winsaveview()
-  keeppatterns %substitute/\s\+$//e
-  call winrestview(l:save)
+  let trimmed = map(nvim_buf_get_lines(0, 0, -1, v:true), {_, v -> substitute(v, '\s\+$', '', '')})
+  call nvim_buf_set_lines(0, 0, -1, v:true, trimmed)
 endfunction
 
 " Redirect the output of a Vim command into a Scratch buffer
