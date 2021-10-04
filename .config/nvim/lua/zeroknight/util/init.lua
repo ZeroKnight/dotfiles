@@ -6,6 +6,10 @@ function M.t(key)
   return vim.api.nvim_replace_termcodes(key, true, true, true)
 end
 
+function M.cmdf(cmd, ...)
+  vim.cmd(string.format(cmd, ...))
+end
+
 function M.python_interpreter()
   if vim.env.VIRTUAL_ENV then
     return vim.env.VIRTUAL_ENV .. '/bin/python'

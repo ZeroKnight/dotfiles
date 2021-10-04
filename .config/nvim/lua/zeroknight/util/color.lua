@@ -4,6 +4,14 @@ local band, bor, lshift, rshift = bit.band, bit.bor, bit.lshift, bit.rshift
 
 local M = {}
 
+function M.to_hex(color)
+  -- Convert an integer color into hexadecimal format
+  if type(color) == 'number' then
+    return string.format('#%06x', color)
+  end
+  error('color must be a number')
+end
+
 function M.extract_rgb(color)
   -- Break a given color into separate Red/Green/Blue values
   if type(color) == 'string' then
@@ -40,7 +48,7 @@ function Color:from_background()
 end
 
 function Color:__tostring()
-  return string.format('#%x', bor(lshift(self.r, 16), lshift(self.g, 8), self.b))
+  return M.to_hex(bor(lshift(self.r, 16), lshift(self.g, 8), self.b))
 end
 
 function Color:over(onto_color, alpha)
