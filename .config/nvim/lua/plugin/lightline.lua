@@ -40,7 +40,7 @@ vim.g.lightline = {
     preview = '&previewwindow',
     quickfix = "&buftype ==# 'quickfix'",
     help = "&buftype ==# 'help'",
-    diagnostics = 'zeroknight#util#has_lsp() && zeroknight#util#has_diagnostics()'
+    diagnostics = 'zeroknight#diagnostic#available()'
   },
   component_function = {
     Mode = 'zeroknight#lightline#mode',

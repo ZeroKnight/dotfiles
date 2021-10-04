@@ -7,10 +7,10 @@ endif
 " Diagnostics coloring hack
 function! s:DiagnosticsHack(name) abort
   let palette = get(g:, printf('lightline#colorscheme#%s#palette', a:name))
-  for severity in ['Error', 'Warning', 'Information', 'Hint']
-    let fg = printf('#%06x', nvim_get_hl_by_name('LspDiagnosticsDefault' .. severity, v:true).foreground)
+  for severity in ['Error', 'Warn', 'Info', 'Hint']
+    let fg = printf('#%06x', nvim_get_hl_by_name('Diagnostic' . severity, v:true).foreground)
     let bg = palette.normal.middle[0][1]
-    exec printf('hi LightlineLspDiagnostics%s guifg=%s guibg=%s', severity, fg, bg)
+    exec printf('hi DiagnosticLightline%s guifg=%s guibg=%s', severity, fg, bg)
   endfor
 endfunction
 

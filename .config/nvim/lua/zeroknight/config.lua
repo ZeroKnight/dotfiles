@@ -107,12 +107,6 @@ end
 
 vim.cmd 'colorscheme one'
 
--- Spellcheck colors
-vim.cmd [[hi SpellBad cterm=undercurl,bold]]
-
--- Make special characters stand out
-vim.cmd [[hi! link SpecialKey LspDiagnosticsDefaultHint]]
-
 -- Editing & Formatting {{{1
 
 -- Searching

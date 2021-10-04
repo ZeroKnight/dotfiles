@@ -14,10 +14,7 @@ for reftype, col in pairs(ref_cols) do
     'hi LspReference%s guibg=%s', reftype, col:over(Color:from_background(), 0.18)
   ))
 end
-vim.cmd 'hi link LspReferenceText Visual'
+vim.cmd [[hi link LspReferenceText Visual]]
 
-vim.cmd [[
-  hi link LspDiagnosticsDefaultError Error
-  hi link LspSignatureActiveParameter Visual
-]]
+vim.cmd [[hi link LspSignatureActiveParameter Visual]]
 

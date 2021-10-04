@@ -53,14 +53,6 @@ local lsp_keymap = {
       s = {'[LSP] Workspace Symbols'}
     }
   },
-  ['['] = {
-    name = 'prev',
-    d = {lsp_method('diagnostic', 'goto_prev'), '[LSP] Previous Diagnostic'}
-  },
-  [']'] = {
-    name = 'next',
-    d = {lsp_method('diagnostic', 'goto_next'), '[LSP] Next Diagnostic'}
-  },
   ['<F2>'] = {lsp_method('buf', 'rename'), '[LSP] Rename Symbol'},
   g = {
     name = 'goto',
@@ -75,7 +67,6 @@ local lsp_keymap = {
 -- Mappings for both NORMAL and INSERT mode
 local lsp_keymap_ni = {
   ['<C-s>'] = {lsp_method('buf', 'signature_help'), '[LSP] Signature Help'},
-  ['<M-d>'] = {lsp_method('diagnostic', 'show_line_diagnostics'), '[LSP] Show diagnostics for line'}
 }
 
 local lsp_keymap_x = {
@@ -139,12 +130,6 @@ local function lsp_buffer_setup(client, bufnr)
   wk.register(lsp_keymap_x,  {buffer = bufnr, mode = 'x'})
 end
 
--- Set diagnostic signs
-vim.fn.sign_define('LspDiagnosticsSignError', {text = ''})
-vim.fn.sign_define('LspDiagnosticsSignWarning', {text = ''})
-vim.fn.sign_define('LspDiagnosticsSignInformation', {text = ''})
-vim.fn.sign_define('LspDiagnosticsSignHint', {text = ''})
-
 -- Set up lsp-status
 lsp_status.config {
   current_function = true,
@@ -185,6 +170,3 @@ vim.cmd [[
     autocmd ColorScheme * lua rerequire('zeroknight.lsp.highlight')
   augroup END
 ]]
-
-vim.cmd [[command! LspDiagnostics lua vim.lsp.diagnostic.set_loclist()]]
-

@@ -63,15 +63,13 @@ function! zeroknight#lightline#git_hunks() abort
 endfunction
 
 function! zeroknight#lightline#diagnostics() abort
-  if !zeroknight#util#has_lsp()
-    return ''
-  endif
   let segments = []
-  for severity in ['Error', 'Warning', 'Information', 'Hint']
-    let count = luaeval("vim.lsp.diagnostic.get_count(0, _A)", severity)
+  for severity in ['Error', 'Warn', 'Info', 'Hint']
+    let count = luaeval(
+      \ '#vim.diagnostic.get(0, {severity = vim.diagnostic.severity[_A]})', toupper(severity))
     if count
-      let icon = sign_getdefined('LspDiagnosticsSign' .. severity)[0].text
-      call add(segments, printf('%%#LightlineLspDiagnostics%s#%s %d', severity, icon, count))
+      let icon = sign_getdefined('DiagnosticSign' .. severity)[0].text
+      call add(segments, printf('%%#DiagnosticLightline%s#%s %d', severity, icon, count))
     endif
   endfor
   return join(segments)

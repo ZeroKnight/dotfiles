@@ -101,7 +101,6 @@ return require('packer').startup{
     -- Language Server Protocol (LSP) {{{1
     use 'neovim/nvim-lspconfig'
     use 'nvim-lua/lsp-status.nvim'
-    use 'folke/lsp-colors.nvim'
 
     use {
       'kosayoda/nvim-lightbulb',

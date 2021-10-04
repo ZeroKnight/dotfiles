@@ -6,11 +6,23 @@
 local wk = require('which-key')
 local key = require('zeroknight.util.key')
 
+local function diag_method(method)
+  return string.format('<Cmd>lua vim.diagnostic.%s()<CR>', method)
+end
+
 -- Leader Mappings {{{1
 local leader = {
   cd =  {'<Cmd>cd %:p:h<Bar>pwd<CR>',  'CWD to current file'},
   lcd = {'<Cmd>lcd %:p:h<Bar>pwd<CR>', 'CWD to current file (Buffer)'},
   tcd = {'<Cmd>tcd %:p:h<Bar>pwd<CR>', 'CWD to current file (Tab)'},
+  d = {
+    name = 'diagnostic',
+    d = {diag_method('disable()'), 'Disable diagnostics for buffer'},
+    e = {diag_method('enable()'), 'Enable diagnostics for buffer'},
+    l = {diag_method('show_line_diagnostics()'), 'Show diagnostics for line'},
+    L = {diag_method('setloclist()'), 'Dump diagnostics to location list'},
+    q = {diag_method('setqflist()'), 'Dump diagnostics to quickfix list'},
+  },
   r = {
     w = {':%s/\\<<C-r><C-w>\\>/', 'Substitute cursor word'},
     W = {':%s/\\<<C-r><C-a>\\>/', 'Substitute cursor WORD'}
@@ -34,11 +46,31 @@ local g = {
   ['}'] = {"len(getline(line('.')+1)) > 0 ? '}-' : '}+'", 'Smart paragraph forward', expr = true},
 }
 
+-- Normal/Insert hybrid Mappings {{{1
+local ni = {
+  ['<M-d>'] = {diag_method('show_line_diagnostics'), 'Show diagnostics for line'}
+}
+
+-- Everything else {{{1
+local other = {
+  ['['] = {
+    name = 'prev',
+    d = {diag_method('goto_prev'), 'Previous Diagnostic'}
+  },
+  [']'] = {
+    name = 'next',
+    d = {diag_method('goto_next'), 'Next Diagnostic'}
+  },
+}
+
 -- }}}
 
 wk.register(leader, {prefix = '<Leader>'})
 wk.register(localleader, {prefix = '<LocalLeader>'})
 wk.register(g, {prefix = 'g'})
+wk.register(ni, {mode = 'n'})
+wk.register(ni, {mode = 'i'})
+wk.register(other)
 
 -- Standard Behavior Overwrites {{{1
 

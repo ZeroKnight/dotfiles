@@ -6,12 +6,6 @@ function! zeroknight#util#has_lsp(...) abort
   return luaeval('not vim.tbl_isempty(vim.lsp.buf_get_clients(_A))', buffer)
 endfunction
 
-" Check if buffer has any LSP diagnostics available
-function! zeroknight#util#has_diagnostics(...) abort
-  let buffer = get(a:, 1, bufnr())
-  return !empty(luaeval('vim.lsp.diagnostic.get_all()[_A]', buffer))
-endfunction
-
 " Save and execute file
 function! zeroknight#util#save_and_exec() abort
   write

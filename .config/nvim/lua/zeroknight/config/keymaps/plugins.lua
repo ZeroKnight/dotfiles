@@ -6,7 +6,10 @@ local key = require('zeroknight.util.key')
 -- Leader Mappings {{{1
 
 local leader = {
-  d = {'<Cmd>Bdelete<CR>', 'Delete buffer (keep window)'},
+  b = {
+    name = 'buffer',
+    d = {'<Cmd>Bdelete<CR>', 'Delete buffer (keep window)'},
+  },
   f = {
     name = 'find',
     f = {'Find File'},
