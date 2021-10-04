@@ -18,7 +18,7 @@ snippet luv "local uv = require('luv')" b
 local uv = require('luv')
 endsnippet
 
-snippet "loc(al)?" "local x = 1" r
+snippet "loc(al)?" "local x = 1" rb
 local ${1:x} = ${2:1}
 endsnippet
 
@@ -26,11 +26,11 @@ snippet locs "local biz = foo.bar.biz" b
 local ${1/(\w+\.)+//} = $1
 endsnippet
 
-snippet fmt "string.format"
+snippet fmt "string.format" w
 string.format($1, $2)
 endsnippet
 
-snippet ins "table.insert"
+snippet ins "table.insert" w
 table.insert(${1:t}, $2)
 endsnippet
 
@@ -40,7 +40,7 @@ function${1/\w+/ /}$1($2)
 end$0
 endsnippet
 
-snippet ifn "Function definition (inline)"
+snippet ifn "Function definition (inline)" w
 function${1/\w+/ /}$1($2) $3 end$0
 endsnippet
 
