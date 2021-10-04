@@ -6,7 +6,7 @@ require('lint').linters_by_ft = {
   bash = {'shellcheck'},
   lua = {'luacheck'},
   python = {'bandit', 'mypy', 'flake8'},
-  markdown = {'vale'},
+  markdown = {'markdownlint', 'vale'},
   sh = {'shellcheck'},
   vim = {'vint'},
 }
