@@ -9,9 +9,9 @@ endfunction
 " Save and execute file
 function! zeroknight#util#save_and_exec() abort
   write
-  if &filetype == 'vim'
+  if &filetype ==# 'vim'
     source %
-  elseif &filetype == 'lua'
+  elseif &filetype ==# 'lua'
     luafile %
   else
     echo 'No execution strategy for filetype' &filetype
@@ -25,7 +25,7 @@ function! zeroknight#util#TrimTrailingSpace() abort
 endfunction
 
 " Redirect the output of a Vim command into a Scratch buffer
-function! zeroknight#util#Redir(split_type, ...)
+function! zeroknight#util#Redir(split_type, ...) abort
   if a:0 < 1
     echoerr 'Not enough arguments. Must specify split_type, and a command with optional arguments.'
     return

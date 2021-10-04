@@ -8,7 +8,7 @@ endif
 " between the icon and filename, unfortunately.
 function! <SID>dirvish_get_icon(path) abort
   let devicon = luaeval("require('nvim-web-devicons').get_icon(_A)", fnamemodify(a:path, ':e'))
-  return a:path[-1:] == '/' ? '' : devicon
+  return a:path[-1:] ==# '/' ? '' : devicon
 endfunction
 
 call dirvish#add_icon_fn(funcref('<SID>dirvish_get_icon'))

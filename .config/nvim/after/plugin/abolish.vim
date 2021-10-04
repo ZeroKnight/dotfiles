@@ -1,6 +1,6 @@
 " tpope/vim-abolish
 
-if !exists("g:loaded_abolish")
+if !exists('g:loaded_abolish')
   finish
 endif
 

@@ -4,7 +4,7 @@
 " Last Change:  Mar 30, 2018
 
 " Quit when a syntax file was already loaded
-if exists("b:current_syntax")
+if exists('b:current_syntax')
   finish
 endif
 
@@ -24,6 +24,6 @@ hi def link qfFileName  Directory
 hi def link qfLineNr    LineNr
 hi def link qfError     Error
 
-let b:current_syntax = "qf"
+let b:current_syntax = 'qf'
 
 " vim: ts=8

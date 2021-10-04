@@ -1,13 +1,11 @@
 -- Linter Configuration
 
--- TBD: Use luacheck for linting and disable sumneko diagnostics? does that disable *all* of them? maybe use both?
-
 require('lint').linters_by_ft = {
-  bash = {'shellcheck'},
-  lua = {'luacheck'},
+  bash = {'shellcheck', 'bashate'},
+  lua = {'selene'},
   python = {'bandit', 'mypy', 'flake8'},
   markdown = {'markdownlint', 'vale'},
-  sh = {'shellcheck'},
+  sh = {'shellcheck', 'bashate'},
   vim = {'vint'},
 }
 

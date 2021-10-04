@@ -44,8 +44,8 @@ function! zeroknight#lightline#file_name() abort
 endfunction
 
 function! zeroknight#lightline#file_info() abort
-  let l:enc = &fenc !=# '' ? &fenc : &enc
-  return s:has_minwidth() ? printf('%s [%s]', l:enc, &ff) : ''
+  let l:enc = &fileencoding !=# '' ? &fileencoding : &encoding
+  return s:has_minwidth() ? printf('%s [%s]', l:enc, &fileformat) : ''
 endfunction
 
 function! zeroknight#lightline#readonly() abort
@@ -54,7 +54,7 @@ endfunction
 
 function! zeroknight#lightline#git_branch() abort
   let l:branch = get(b:, 'gitsigns_head')
-  return s:has_minwidth() && l:branch !=# '' ? ' ' .. l:branch : ''
+  return s:has_minwidth() && l:branch !=# '' ? ' ' . l:branch : ''
 endfunction
 
 function! zeroknight#lightline#git_hunks() abort
@@ -65,11 +65,11 @@ endfunction
 function! zeroknight#lightline#diagnostics() abort
   let segments = []
   for severity in ['Error', 'Warn', 'Info', 'Hint']
-    let count = luaeval(
+    let diag_count = luaeval(
       \ '#vim.diagnostic.get(0, {severity = vim.diagnostic.severity[_A]})', toupper(severity))
-    if count
-      let icon = sign_getdefined('DiagnosticSign' .. severity)[0].text
-      call add(segments, printf('%%#DiagnosticLightline%s#%s %d', severity, icon, count))
+    if diag_count
+      let icon = sign_getdefined('DiagnosticSign' . severity)[0].text
+      call add(segments, printf('%%#DiagnosticLightline%s#%s %d', severity, icon, diag_count))
     endif
   endfor
   return join(segments)

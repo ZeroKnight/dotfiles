@@ -1,5 +1,7 @@
 -- Assorted utility functions, optionally in global scope
 
+--# selene: allow(global_usage)
+
 -- Namespace for my global variables
 _G.zeroknight = _G.zeroknight or {}
 

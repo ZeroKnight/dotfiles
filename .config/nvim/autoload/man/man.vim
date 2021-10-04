@@ -4,7 +4,7 @@ endif
 let s:loaded_man = 1
 
 " From bruno-/vim-man, with some edits
-function! man#move_to_section(direction, mode, count)
+function! man#move_to_section(direction, mode, count) abort
   norm! m'
   if a:mode ==# 'v'
     norm! gv

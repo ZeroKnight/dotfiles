@@ -1,6 +1,9 @@
 -- Plugin Specification
 
-function packer_loaded(name)
+--# selene: allow(multiple_statements)
+
+-- selene: allow(global_usage)
+function _G.packer_loaded(name)
   return packer_plugins[name] and packer_plugins[name].loaded
 end
 

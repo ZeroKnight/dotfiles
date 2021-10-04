@@ -19,7 +19,6 @@ M.cmd = {
   tostring(M.bin_path), '-E', string.format('%s/main.lua', M.base_directory)
 }
 
--- TBD: What goes in runtime.path vs workspace.library?
 M.config = {
   cmd = M.cmd,
   settings = {
@@ -45,7 +44,7 @@ M.config = {
       },
       workspace = {
         -- Include Neovim runtime files
-        library = vim.api.nvim_get_runtime_file("", true)
+        library = vim.api.nvim_get_runtime_file('', true)
       },
       -- Sumneko's telemetry looks minimal and non-invasive.
       telemetry = {enable = true}
