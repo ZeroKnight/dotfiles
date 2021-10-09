@@ -28,4 +28,7 @@ augroup ZeroVimAutoCommands
   " Highlight yanked text
   autocmd TextYankPost * silent!
     \ lua require('vim.highlight').on_yank{timeout = 300, higroup = 'LspReferenceWrite', on_visual = false}
+
+  " Redefine highlights on colorscheme change
+  autocmd ColorScheme * echom 'autocmd fired' | silent runtime lua/zeroknight/config/highlight.lua
 augroup END
