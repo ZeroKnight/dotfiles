@@ -42,7 +42,7 @@ alias po='popd'
 alias -- -='cd -'
 
 # ls Shortcuts
-alias ls='ls -hAFH --color --group-directories-first'
+alias ls='ls -hAFH --color=auto --hyperlink=auto --group-directories-first'
 alias ll='ls -l'            # Long-list
 alias lr='ls -R'            # Recursive
 alias lx='ls -BX'           # Sort by Extension, omit backups

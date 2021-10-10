@@ -17,5 +17,8 @@ fonts/Iosevka/private-build-plans.toml
 /.config/nvim/plugin/packer_compiled.vim
 /.config/nvim/plugin/packer_compiled.lua
 
+### Kitty
+/.config/kitty/bg.png
+
 ### Misc
 __pycache__/
