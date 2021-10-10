@@ -238,17 +238,17 @@ return require('packer').startup{
     use {'Valloric/MatchTagAlways', disable = true, ft = {'html', 'xhtml', 'xml', 'jinja'}}
 
     -- Color Schemes {{{1
-    use 'rakr/vim-one'
-    use 'ciaranm/inkpot'
-    use 'tomasr/molokai'
-    use 'romainl/Apprentice'
-    use 'arcticicestudio/nord-vim'
-    use 'tyrannicaltoucan/vim-quantum'
-    use 'tyrannicaltoucan/vim-deep-space'
-    use 'mhartington/oceanic-next'
-    use {'dracula/vim', as = 'vim-dracula'}
-    use 'drewtempelmeyer/palenight.vim'
-    use 'folke/tokyonight.nvim'
+    use {'rakr/vim-one', cmd = 'colorscheme one'}
+    use {'ciaranm/inkpot', cmd = 'colorscheme inkpot'}
+    use {'tomasr/molokai', cmd = 'colorscheme molokai'}
+    use {'romainl/Apprentice', cmd = 'colorscheme apprentice'}
+    use {'arcticicestudio/nord-vim', cmd = 'colorscheme nord'}
+    use {'tyrannicaltoucan/vim-quantum', cmd = 'colorscheme quantum'}
+    use {'tyrannicaltoucan/vim-deep-space', cmd = 'colorscheme deep-space'}
+    use {'mhartington/oceanic-next', cmd = 'colorscheme OceanicNext'}
+    use {'dracula/vim', cmd = 'colorscheme dracula', as = 'vim-dracula'}
+    use {'drewtempelmeyer/palenight.vim', cmd = 'colorscheme palenight'}
+    use {'folke/tokyonight.nvim', cmd = 'colorscheme tokyonight'}
 
     -- Libraries & Misc {{{1
     use 'tpope/vim-repeat'
