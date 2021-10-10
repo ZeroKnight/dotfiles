@@ -11,7 +11,7 @@ require('lint').linters_by_ft = {
   python = {'bandit', 'mypy', 'flake8'},
   sh = sh_common,
   rst = {'rstcheck', 'vale'},
-  txt = {'vale'},
+  text = {'vale'},
   vim = {'vint'},
 }
 
