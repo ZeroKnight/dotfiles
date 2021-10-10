@@ -1,11 +1,17 @@
 -- Linter Configuration
 
+-- NOTE: Vale is highly extensible, so it can "include" other prose linters
+
+local sh_common = {'shellcheck', 'bashate'}
+
 require('lint').linters_by_ft = {
-  bash = {'shellcheck', 'bashate'},
+  bash = sh_common,
   lua = {'selene'},
-  python = {'bandit', 'mypy', 'flake8'},
   markdown = {'markdownlint', 'vale'},
-  sh = {'shellcheck', 'bashate'},
+  python = {'bandit', 'mypy', 'flake8'},
+  sh = sh_common,
+  rst = {'rstcheck', 'vale'},
+  txt = {'vale'},
   vim = {'vint'},
 }
 
