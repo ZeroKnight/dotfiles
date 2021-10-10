@@ -7,7 +7,7 @@ local M = {}
 -- Returns the module name of the calling function
 function M.get_module_name()
   local name
-  local info = debug.getinfo(3, 'S')
+  local info = debug.getinfo(4, 'S')
   local filename = string.match(info.source, '^@(.+)$')
   if filename ~= nil then
     name = filename:match('lua/(%S+)%.lua$'):gsub('/', '.'):gsub('%.init$', '')
