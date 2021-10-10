@@ -7,11 +7,15 @@
 local telescope = require('telescope')
 local builtin = require('telescope.builtin')
 local actions = require('telescope.actions')
+local action_state = require('telescope.actions.state')
+local from_entry = require('telescope.from_entry')
 local themes = require('telescope.themes')
 
 local extensions = telescope.extensions
 
 local trouble = require("trouble.providers.telescope")
+
+local util = require('zeroknight.util')
 
 -- Store options used by mappings here so that the tables holding them aren't
 -- recreated every time the mapping is executed.
@@ -43,6 +47,17 @@ end
 
 local function xmap_telescope(lhs, picker, opts, buffer)
   _map_telescope('x', lhs, picker, opts, buffer)
+end
+
+local function open_in_file_browser(prompt_bufnr)
+  local entry = action_state.get_selected_entry()
+  local dir = from_entry.path(entry)
+  if vim.fn.isdirectory(dir) == 1 then
+    actions.close(prompt_bufnr)
+    builtin.file_browser{cwd = dir}
+  else
+    util.msg('Not a directory: ', dir)
+  end
 end
 
 -- Telescope Mappings
@@ -100,11 +115,13 @@ telescope.setup {
         ['<C-j>'] = 'move_selection_next',
         ['<C-k>'] = 'move_selection_previous',
         ['<C-s>'] = 'select_horizontal',
-        ['<C-x>'] = trouble.smart_open_with_trouble
+        ['<C-x>'] = trouble.smart_open_with_trouble,
+        ['<C-b>'] = open_in_file_browser,
       },
       n = {
         ['<C-s>'] = 'select_horizontal',
-        ['<C-x>'] = trouble.smart_open_with_trouble
+        ['<C-x>'] = trouble.smart_open_with_trouble,
+        ['<C-b>'] = open_in_file_browser,
       }
     }
   },
