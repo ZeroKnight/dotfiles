@@ -35,7 +35,8 @@ local leader = {
 
 -- LocalLeader Mappings {{{1
 local localleader = {
-  s = {'<Cmd>setlocal spell!<CR>', 'Toggle Spellcheck'}
+  K = {'K', 'Run keywordprg on word'},
+  s = {'<Cmd>setlocal spell!<CR>', 'Toggle Spellcheck'},
 }
 
 -- g Mappings {{{1
