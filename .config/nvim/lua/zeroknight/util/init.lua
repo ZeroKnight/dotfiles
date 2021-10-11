@@ -48,6 +48,13 @@ function M.cmdf(cmd, ...)
   vim.cmd(format(cmd, ...))
 end
 
+function M.partial(func, ...)
+  local frozen_args = {...}
+  return function(...)
+    return func(unpack(frozen_args), ...)
+  end
+end
+
 function M.python_interpreter()
   if vim.env.VIRTUAL_ENV then
     return vim.env.VIRTUAL_ENV .. '/bin/python'
