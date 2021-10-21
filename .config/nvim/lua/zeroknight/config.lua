@@ -178,6 +178,10 @@ opt.fileignorecase = true  -- I like to be lazy when tab-completing
 opt.keywordprg = ':Man'    -- K should show man pages inside Vim
 opt.updatetime = 1000      -- Faster update time for swap writes and `CursorHold` events
 
+if vim.fn.executable('rg') then
+  opt.grepprg = 'rg -H --no-heading --vimgrep'
+end
+
 opt.spellfile = as_stdpath('config', 'en.utf-8.add')
 
 opt.tags:append{'src/**/tags', '.git/tags'}
