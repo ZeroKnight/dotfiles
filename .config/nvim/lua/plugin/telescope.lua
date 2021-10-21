@@ -10,44 +10,53 @@ local actions = require('telescope.actions')
 local action_state = require('telescope.actions.state')
 local from_entry = require('telescope.from_entry')
 local themes = require('telescope.themes')
-
 local extensions = telescope.extensions
 
 local trouble = require("trouble.providers.telescope")
 
 local util = require('zeroknight.util')
 
--- Store options used by mappings here so that the tables holding them aren't
--- recreated every time the mapping is executed.
-zeroknight.telescope_map_opts = zeroknight.telescope_map_opts or {}
+local M = {}
 
-local mapping_opts = {noremap = true, silent = true}
+-- Store a map of keymaps to a partial function that calls a picker with specific options.
+-- This way, the picker options tables aren't rebuilt every time the mapping is used.
+zeroknight.telescope_mapped_pickers = zeroknight.telescope_mapped_pickers or {}
 
-local function _map_telescope(mode, lhs, picker, opts, buffer)
-  local lhs_raw = vim.api.nvim_replace_termcodes(lhs, true, true, true)
-  local rhs = string.format(
-    "<Cmd>lua require('plugin.telescope')['%s'](zeroknight.telescope_map_opts[%q])<CR>",
-    picker, lhs_raw
-  )
-  zeroknight.telescope_map_opts[lhs_raw] = opts or {}
-  if not buffer then
+-- Create a mapping that opens Telescope in some fashion. Picker options, if
+-- given, are cached for the given mapping.
+function M.map_telescope(lhs, opts)
+  local picker
+  if type(opts) ~= 'table' then
+    opts = {picker = opts}
+  elseif opts.picker == nil then
+    opts.picker = opts[1]
+  end
+  if type(opts.picker) == 'function' then
+    picker = opts.picker
+  elseif type(opts.picker) == 'string' then
+    local a, b = unpack(vim.split(opts.picker, '.', true))
+    if b ~= nil then
+      picker = extensions[a][b]
+    else
+      picker = M[a] or builtin[a]
+    end
+  else
+    util.error('Unsupported type for opts.picker: ', type(opts.picker))
+    return
+  end
+
+  local key = util.t(lhs)
+  local rhs = string.format('<Cmd>lua zeroknight.telescope_mapped_pickers[%q]()<CR>', key)
+  local mode = opts.mode or 'n'
+  local mapping_opts = {noremap = true, silent = true}
+  zeroknight.telescope_mapped_pickers[key] = util.partial(picker, opts.opts)
+  if not opts.buffer then
     vim.api.nvim_set_keymap(mode, lhs, rhs, mapping_opts)
   else
     vim.api.nvim_buf_set_keymap(0, mode, lhs, rhs, mapping_opts)
   end
 end
-
-local function map_telescope(lhs, picker, opts, buffer)
-  _map_telescope('n', lhs, picker, opts, buffer)
-end
-
-local function imap_telescope(lhs, picker, opts, buffer)
-  _map_telescope('i', lhs, picker, opts, buffer)
-end
-
-local function xmap_telescope(lhs, picker, opts, buffer)
-  _map_telescope('x', lhs, picker, opts, buffer)
-end
+local map_telescope = M.map_telescope
 
 local function open_in_file_browser(prompt_bufnr)
   local entry = action_state.get_selected_entry()
@@ -61,7 +70,7 @@ local function open_in_file_browser(prompt_bufnr)
 end
 
 -- Telescope Mappings
-map_telescope('<C-p>',      'buffers')
+map_telescope('<C-p>',      {'buffers', opts = {sort_mru = true}})
 map_telescope('<Leader>F',  'file_browser')
 map_telescope('<Leader>ff', 'find_files')
 map_telescope('<Leader>fo', 'oldfiles')
@@ -72,6 +81,8 @@ map_telescope('<Leader><Leader>np', 'nvim_plugins')
 map_telescope('<Leader><Leader>zc', 'zsh_config')
 map_telescope('<Leader><Leader>p',  'projects')
 
+map_telescope('<F1>',       'help_tags')
+map_telescope('<F3>',       'resume')
 map_telescope('<Leader>hh', 'help_tags')
 map_telescope('<Leader>hm', 'man_pages')
 map_telescope('<Leader>hk', 'keymaps')
@@ -79,7 +90,7 @@ map_telescope('<Leader>hc', 'commands')
 map_telescope('<Leader>hf', 'filetypes')
 map_telescope('<Leader>ha', 'autocommands')
 map_telescope('<Leader>ho', 'vim_options')
-map_telescope('<Leader>hp', 'packer')
+map_telescope('<Leader>hp', 'packer.plugins')
 
 map_telescope('<Leader>f:', 'command_history')
 map_telescope('<Leader>f/', 'search_history')
@@ -97,8 +108,12 @@ map_telescope('<Leader>fgC', 'git_bcommits')
 map_telescope('<Leader>fgb', 'git_branches')
 map_telescope('<Leader>fgs', 'git_status')
 map_telescope('<Leader>fgS', 'git_stash')
+map_telescope('<Leader>fgi', 'gh.issues')
+map_telescope('<Leader>fgp', 'gh.pull_request')
+map_telescope('<Leader>fgg', 'gh.gist')
+map_telescope('<Leader>fgw', 'gh.run')
 
-imap_telescope('<C-l>', 'ultisnips')
+map_telescope('<C-l>', {'ultisnips.ultisnips', opts = themes.get_ivy(), mode = 'i'})
 
 -- Fuzzy search command history
 vim.api.nvim_set_keymap(
@@ -117,17 +132,20 @@ telescope.setup {
         ['<C-s>'] = 'select_horizontal',
         ['<C-x>'] = trouble.smart_open_with_trouble,
         ['<C-b>'] = open_in_file_browser,
+        ["<C-Down>"] = actions.cycle_history_next,
+        ["<C-Up>"] = actions.cycle_history_prev,
       },
       n = {
         ['<C-s>'] = 'select_horizontal',
         ['<C-x>'] = trouble.smart_open_with_trouble,
         ['<C-b>'] = open_in_file_browser,
+        ["<C-Down>"] = actions.cycle_history_next,
+        ["<C-Up>"] = actions.cycle_history_prev,
       }
     }
   },
   pickers = {
     buffers = {
-      sort_lastused = true,
       mappings = {
         i = {
           ['<M-d>'] = 'delete_buffer'
@@ -140,10 +158,14 @@ telescope.setup {
     search_history = {theme = 'dropdown'},
     colorscheme = {theme = 'dropdown'},
     vim_options = {theme = 'dropdown'}
-  }
+  },
+  extensions = {
+    fzy_native = {
+      override_generic_sorter = true,
+      override_file_sorter = true,
+    },
+  },
 }
-
-local M = {}
 
 -- Pick from neovim configuration files
 function M.nvim_config()
@@ -195,23 +217,7 @@ function M.z()
   }
 end
 
--- Choose an Ultisnips snippet to expand
-function M.ultisnips()
-  extensions.ultisnips.ultisnips(themes.get_ivy())
-end
-
--- Packer Integration
-function M.packer()
-  extensions.packer.plugins()
-end
-
-return setmetatable(
-  {
-    map_telescope = map_telescope,
-    imap_telescope = imap_telescope,
-    xmap_telescope = xmap_telescope
-  },
-  {
+return setmetatable({}, {
     __index = function(_, k)
       if M[k] then
         return M[k]

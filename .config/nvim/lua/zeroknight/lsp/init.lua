@@ -80,7 +80,6 @@ local lsp_keymap_x = {
 
 local function lsp_buffer_setup(client, bufnr)
   local map_telescope = require('plugin.telescope').map_telescope
-  local xmap_telescope = require('plugin.telescope').xmap_telescope
 
   local function buf_set_option(...)
     vim.api.nvim_buf_set_option(bufnr, ...)
@@ -88,17 +87,25 @@ local function lsp_buffer_setup(client, bufnr)
 
   buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 
-  map_telescope('gr', 'lsp_references', {
-    sorting_strategy = 'ascending',
-    ignore_filename = true
-  }, true)
-  map_telescope('<LocalLeader>cA', 'lsp_code_actions',          {sorting_strategy = 'ascending'}, true)
-  map_telescope('<LocalLeader>ds', 'lsp_document_symbols',      {ignore_filename = true}, true)
-  map_telescope('<LocalLeader>ws', 'lsp_workspace_symbols',     {ignore_filename = true}, true)
-  map_telescope('<LocalLeader>dd', 'lsp_document_diagnostics',  nil, true)
-  map_telescope('<LocalLeader>wd', 'lsp_workspace_diagnostics', nil, true)
+  map_telescope('gr', {
+    picker = 'lsp_references',
+    opts = {
+      sorting_strategy = 'ascending',
+      ignore_filename = true
+    },
+    buffer = true
+  })
+  map_telescope('<LocalLeader>cA', {
+    'lsp_code_actions', opts = {sorting_strategy = 'ascending'}, buffer = true
+  })
+  map_telescope('<LocalLeader>ca', {
+    'lsp_range_code_actions', opts = {sorting_strategy = 'ascending'}, buffer = true
+  })
+  map_telescope('<LocalLeader>ds', {'lsp_document_symbols', opts = {ignore_filename = true}, buffer = true})
+  map_telescope('<LocalLeader>ws', {'lsp_workspace_symbols', opts = {ignore_filename = true}, buffer = true})
+  map_telescope('<LocalLeader>dd', {'lsp_document_diagnostics', buffer = true})
+  map_telescope('<LocalLeader>wd', {'lsp_workspace_diagnostics', buffer = true})
 
-  xmap_telescope('<LocalLeader>ca', 'lsp_range_code_actions', {sorting_strategy = 'ascending'}, true)
 
   -- Enable document highlights if supported
   if client.resolved_capabilities.document_highlight then

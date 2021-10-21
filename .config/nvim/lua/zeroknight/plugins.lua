@@ -54,6 +54,8 @@ return require('packer').startup{
         config = config 'telescope'
       },
       -- Extensions
+      {'nvim-telescope/telescope-fzy-native.nvim', config = tele_extension('fzy_native')},
+      {'nvim-telescope/telescope-github.nvim', config = tele_extension('gh')},
       {'nvim-telescope/telescope-packer.nvim', config = tele_extension('packer')},
       {'fhill2/telescope-ultisnips.nvim', config = tele_extension('ultisnips')},
       {'nvim-telescope/telescope-z.nvim', config = tele_extension('z')}
