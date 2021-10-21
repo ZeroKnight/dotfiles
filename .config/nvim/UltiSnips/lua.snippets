@@ -40,6 +40,12 @@ function${1/\w+/ /}$1($2)
 end$0
 endsnippet
 
+snippet lfn "Function definition (local)" b
+local function${1/\w+/ /}$1($2)
+	${VISUAL}$3
+end$0
+endsnippet
+
 snippet ifn "Function definition (inline)" w
 function${1/\w+/ /}$1($2) $3 end$0
 endsnippet
