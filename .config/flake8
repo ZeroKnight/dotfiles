@@ -1,5 +1,8 @@
 [flake8]
 exclude =
     .git,
+    .venv,
+    venv,
     __pycache__
+extend-select = W504
 ignore = F405, W503
