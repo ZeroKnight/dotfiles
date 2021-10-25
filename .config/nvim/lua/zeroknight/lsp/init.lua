@@ -149,9 +149,11 @@ lsp_status.config {
 lsp_status.register_progress()
 
 -- Configure Language Server settings
+local disabled = {'pyright'}
 local servers = {
   jsonls = {},
   sumneko_lua = require('zeroknight.lsp.sumneko').config,
+  pylsp = {},
   pyright = {
     settings = {
       python = {
@@ -166,9 +168,11 @@ local servers = {
 }
 -- Run the setup for each server
 for ls, config in pairs(servers) do
-  lspconfig[ls].setup(
-    vim.tbl_extend('error', {on_attach = lsp_buffer_setup}, config)
-  )
+  if disabled[ls] == nil then
+    lspconfig[ls].setup(
+      vim.tbl_extend('error', {on_attach = lsp_buffer_setup}, config)
+    )
+  end
 end
 
 -- Set up highlighting
