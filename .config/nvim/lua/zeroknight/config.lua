@@ -86,7 +86,7 @@ opt.pumheight = 20  -- Don't take up the entire screen height
 opt.pumblend = 17   -- Transparent menu
 
 -- Fold Options
-opt.foldcolumn = 'auto:2'  -- Minimal fold column
+opt.foldcolumn = 'auto:3'  -- Minimal fold column
 opt.foldopen:append{'jump'}
 
 opt.belloff = 'all'              -- Bells are evil, kill them with fire
