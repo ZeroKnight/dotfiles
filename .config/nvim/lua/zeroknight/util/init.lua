@@ -49,6 +49,10 @@ function M.cmdf(cmd, ...)
 end
 
 function M.partial(func, ...)
+  if func == nil then
+    error('cannot make partial function out of nil', 2)
+    return
+  end
   local frozen_args = {...}
   return function(...)
     return func(unpack(frozen_args), ...)
