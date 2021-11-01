@@ -73,7 +73,8 @@ local lsp_keymap_x = {
   ['<LocalLeader>'] = {
     c = {
       name = 'code',
-      a = {'[LSP] Code Actions (Range)'}
+      a = {'<Cmd>CodeActionMenu<CR>', '[LSP] Code Actions'},
+      A = {'[LSP] Code Actions (Telescope)'},
     }
   }
 }
@@ -98,8 +99,8 @@ local function lsp_buffer_setup(client, bufnr)
   map_telescope('<LocalLeader>cA', {
     'lsp_code_actions', opts = {sorting_strategy = 'ascending'}, buffer = true
   })
-  map_telescope('<LocalLeader>ca', {
-    'lsp_range_code_actions', opts = {sorting_strategy = 'ascending'}, buffer = true
+  map_telescope('<LocalLeader>cA', {
+    'lsp_range_code_actions', opts = {sorting_strategy = 'ascending'}, buffer = true, mode = 'x'
   })
   map_telescope('<LocalLeader>ds', {'lsp_document_symbols', opts = {ignore_filename = true}, buffer = true})
   map_telescope('<LocalLeader>ws', {'lsp_workspace_symbols', opts = {ignore_filename = true}, buffer = true})
