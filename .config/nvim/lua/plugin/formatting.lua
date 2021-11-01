@@ -17,9 +17,6 @@ require('format').setup {
   markdown = {
     {cmd = {'prettier -w'}},
   },
-  python = {
-    {cmd = {'isort', 'yapf -i'}},
-  },
   vim = {
     {
       cmd = {'lua-format -i'},
@@ -28,12 +25,6 @@ require('format').setup {
     },
   },
 }
-
-local zeroknight = vim.g.zeroknight
-if zeroknight.format_on_write == nil then
-  zeroknight.format_on_write = false
-  vim.g.zeroknight = zeroknight  -- XXX: Work around neovim issue #12544
-end
 
 vim.cmd [[
   augroup ZeroKnight_Format

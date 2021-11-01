@@ -131,6 +131,14 @@ local function lsp_buffer_setup(client, bufnr)
   if client.resolved_capabilities.document_formatting then
     lsp_keymap['<LocalLeader>'].c.f = {lsp_method('buf', 'formatting'), '[LSP] Format Document'}
     lsp_keymap_x['<LocalLeader>'].c.f = {lsp_method('buf', 'range_formatting'), '[LSP] Format Range'}
+    vim.cmd [[
+      augroup ZeroKnight_LSP_buffer
+        autocmd BufWritePre <buffer>
+          \ if g:zeroknight.format_on_write |
+          \   execute 'lua vim.lsp.buf.formatting_sync(nil, 3000)' |
+          \ endif
+      augroup END
+    ]]
   end
 
   lsp_status.on_attach(client)
@@ -154,7 +162,15 @@ local disabled = {'pyright'}
 local servers = {
   jsonls = {},
   sumneko_lua = require('zeroknight.lsp.sumneko').config,
-  pylsp = {},
+  pylsp = {
+    configurationSources = {'flake8'},
+    plugins = {
+      flake8 = {
+        config = vim.env.HOME .. '/.config/flake8',
+      },
+      pydocstyle = {enabled = true},
+    },
+  },
   pyright = {
     settings = {
       python = {

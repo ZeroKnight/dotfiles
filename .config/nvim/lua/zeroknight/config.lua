@@ -191,7 +191,9 @@ opt.path:append{'/usr/local/include'}
 
 -- Namespace for misc variables
 if not vim.g.zeroknight then
-  vim.g.zeroknight = {}
+  vim.g.zeroknight = {
+    format_on_write = true,  -- Perform auto-formatting on write via LSP or plugins
+  }
 end
 
 -- }}}
