@@ -250,7 +250,7 @@ return require('packer').startup{
     use {'mhartington/oceanic-next', cmd = 'colorscheme OceanicNext'}
     use {'dracula/vim', cmd = 'colorscheme dracula', as = 'vim-dracula'}
     use {'drewtempelmeyer/palenight.vim', cmd = 'colorscheme palenight'}
-    use {'folke/tokyonight.nvim', cmd = 'colorscheme tokyonight'}
+    use {'folke/tokyonight.nvim'}
 
     -- Libraries & Misc {{{1
     use 'tpope/vim-repeat'
