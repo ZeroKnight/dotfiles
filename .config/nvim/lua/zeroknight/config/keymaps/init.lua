@@ -7,8 +7,10 @@ local wk = require('which-key')
 local key = require('zeroknight.util.key')
 
 local function diag_method(method)
-  return string.format('<Cmd>lua vim.diagnostic.%s()<CR>', method)
+  return string.format('<Cmd>lua vim.diagnostic.%s<CR>', method)
 end
+
+local show_line_diag = diag_method("open_float(0, {scope='line'})")
 
 -- Leader Mappings {{{1
 local leader = {
@@ -17,9 +19,10 @@ local leader = {
   tcd = {'<Cmd>tcd %:p:h<Bar>pwd<CR>', 'CWD to current file (Tab)'},
   d = {
     name = 'diagnostic',
+    c = {diag_method("open_float(0, {scope='cursor'})"), 'Show diagnostics for cursor position'},
     d = {diag_method('disable()'), 'Disable diagnostics for buffer'},
     e = {diag_method('enable()'), 'Enable diagnostics for buffer'},
-    l = {diag_method('show_line_diagnostics()'), 'Show diagnostics for line'},
+    l = {show_line_diag, 'Show diagnostics for line'},
     L = {diag_method('setloclist()'), 'Dump diagnostics to location list'},
     q = {diag_method('setqflist()'), 'Dump diagnostics to quickfix list'},
   },
@@ -49,7 +52,7 @@ local g = {
 
 -- Normal/Insert hybrid Mappings {{{1
 local ni = {
-  ['<M-d>'] = {diag_method('show_line_diagnostics'), 'Show diagnostics for line'}
+  ['<M-d>'] = {show_line_diag, 'Show diagnostics for line'}
 }
 
 -- Everything else {{{1
