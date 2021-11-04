@@ -12,6 +12,8 @@ let s:filetype_map = #{fugitive: 'Fugitive', dirvish: 'Dirvish'}
 function! zeroknight#lightline#mode() abort
   if &buftype ==# 'help'
     return 'Help'
+  elseif &filetype ==# 'Outline'
+    return 'Symbols'
   endif
   let l:wininfo = getwininfo(win_getid())[0]
   if get(l:wininfo, 'quickfix', 0)
@@ -32,6 +34,8 @@ function! zeroknight#lightline#file_name() abort
       return getloclist(0, {'title': 1})['title']
     endif
     return getqflist({'title': 1})['title']
+  elseif &filetype ==# 'Outline'
+    return ' '
   else
     " Regular filename
     let l:exp = expand('%')
@@ -46,6 +50,13 @@ endfunction
 function! zeroknight#lightline#file_info() abort
   let l:enc = &fileencoding !=# '' ? &fileencoding : &encoding
   return s:has_minwidth() ? printf('%s [%s]', l:enc, &fileformat) : ''
+endfunction
+
+function! zeroknight#lightline#file_type() abort
+  if &buftype ==# 'nofile'
+    return ''
+  endif
+  return &filetype !=# '' ? $filetype : '[no ft]'
 endfunction
 
 function! zeroknight#lightline#readonly() abort

@@ -129,6 +129,12 @@ return require('packer').startup{
 
     use {'weilbith/nvim-code-action-menu', cmd = 'CodeActionMenu'}
 
+    use {
+      'simrat39/symbols-outline.nvim',
+      setup = config('symbols-outline'),
+      cmd = {'SymbolsOutline', 'SymbolsOutlineOpen', 'SymbolsOutlineClose'}
+    }
+
     -- Analysis, Linting, and Debugging {{{1
     use {'mhinz/vim-grepper', cmd = 'Grepper'}
     use 'romainl/vim-qlist'

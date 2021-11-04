@@ -111,8 +111,8 @@ wk.register({
   }
 }, {prefix = '<Leader>', mode = 'v'})
 
-key.nnoremap('<F4>', '<Cmd>TagbarToggle<CR>')
-key.inoremap('<F4>', '<Cmd>TagbarToggle<CR>')
+key.nnoremap('<F4>', '<Cmd>SymbolsOutline<CR>')
+key.inoremap('<F4>', '<Esc><Cmd>SymbolsOutline<CR>')
 
 key.nnoremap('<F5>', '<Cmd>UndotreeToggle<CR>')
 key.inoremap('<F5>', '<Cmd>UndotreeToggle<CR>')

@@ -11,16 +11,16 @@ vim.g.lightline = {
       {'diagnostics', 'filename', 'ReadOnly', 'preview'}
     },
     right = {
-      {'lineinfo', 'LspProgress'}, {'FileInfo'}, {'CurrSymbol', 'filetype'}, {'spell'}
+      {'lineinfo', 'LspProgress'}, {'FileInfo'}, {'CurrSymbol', 'FileType'}, {'spell'}
     }
   },
   inactive = {
     left = {
-      {'help'}, {},
+      {'help', 'symbols'}, {},
       {'filename', 'quickfix'}
     },
     right = {
-      {'lineinfo'}, {'FileInfo'}, {'filetype'},
+      {'lineinfo'}, {'FileInfo'}, {'FileType'},
     }
   },
   tabline = {
@@ -33,6 +33,7 @@ vim.g.lightline = {
     preview = '%w',
     quickfix ='%q',
     help = "%{&buftype ==# 'help' ? 'Help' : ''}",
+    symbols = "%{&filetype ==# 'Outline' ? 'Symbols' : ''}",
     diagnostics = '%{%zeroknight#lightline#diagnostics()%}%*'
   },
   component_visible_condition = {
@@ -40,11 +41,13 @@ vim.g.lightline = {
     preview = '&previewwindow',
     quickfix = "&buftype ==# 'quickfix'",
     help = "&buftype ==# 'help'",
+    symbols = "&filetype ==# 'Outline'",
     diagnostics = 'zeroknight#diagnostic#available()'
   },
   component_function = {
     Mode = 'zeroknight#lightline#mode',
     FileInfo = 'zeroknight#lightline#file_info',
+    FileType = 'zeroknight#lightline#file_type',
     ReadOnly = 'zeroknight#lightline#readonly',
     GitBranch = 'zeroknight#lightline#git_branch',
     GitHunks = 'zeroknight#lightline#git_hunks',
@@ -54,6 +57,7 @@ vim.g.lightline = {
   component_function_visible_condition = {
     Mode = 1,
     FileInfo = 1,
+    FileType = "&filetype && &filetype !=# ''",
     ReadOnly = "&readonly && &buftype ==# ''",
     GitBranch = "zeroknight#lightline#has_minwidth() && !empty(get(b:, 'gitsigns_head', ''))",
     GitHunks = "zeroknight#lightline#has_minwidth() && !empty(get(b:, 'gitsigns_status', ''))",
