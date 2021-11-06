@@ -18,9 +18,13 @@ function M.get_module_name()
 end
 
 function M.log(hl, ...)
-  local args = {format('[%s] ', M.get_module_name()), ...}
+  local args = { format('[%s] ', M.get_module_name()), ... }
   vim.api.nvim_echo(
-    vim.tbl_map(function(x) return {x, hl} end, args), true, {}
+    vim.tbl_map(function(x)
+      return { x, hl }
+    end, args),
+    true,
+    {}
   )
 end
 
@@ -53,7 +57,7 @@ function M.partial(func, ...)
     error('cannot make partial function out of nil', 2)
     return
   end
-  local frozen_args = {...}
+  local frozen_args = { ... }
   return function(...)
     return func(unpack(frozen_args), ...)
   end
@@ -68,8 +72,7 @@ function M.python_interpreter()
 end
 
 function M.python_version(interpreter)
-  local ver_cmd = vim.call(
-    'shellescape', "import sys; print('.'.join(map(str, sys.version_info[:2])), end='')")
+  local ver_cmd = vim.call('shellescape', "import sys; print('.'.join(map(str, sys.version_info[:2])), end='')")
   return vim.call('system', format('%s -c %s', interpreter, ver_cmd))
 end
 

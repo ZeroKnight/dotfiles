@@ -9,21 +9,21 @@ require('format').setup {
         -- Trim trailing spaces
         [[sed -i 's/\s*$//']],
         -- Trim extra trailing newlines (but not the final newline)
-        [[sed -i -e ':a' -e '/^\n*$/{$d; N}' -e '/\n$/ba']]
-      }
-    }
+        [[sed -i -e ':a' -e '/^\n*$/{$d; N}' -e '/\n$/ba']],
+      },
+    },
   },
   lua = {
-    {cmd = {lua_cmd}},
+    { cmd = { lua_cmd } },
   },
   markdown = {
-    {cmd = {'prettier -w'}},
+    { cmd = { 'prettier -w' } },
   },
   vim = {
     {
-      cmd = {lua_cmd},
+      cmd = { lua_cmd },
       start_pattern = '^lua << EOF$',
-      end_pattern = '^EOF$'
+      end_pattern = '^EOF$',
     },
   },
 }

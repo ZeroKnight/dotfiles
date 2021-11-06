@@ -9,7 +9,7 @@ function M.to_hex(color)
   if type(color) == 'number' then
     return string.format('#%06x', color)
   end
-  error('color must be a number')
+  error 'color must be a number'
 end
 
 function M.extract_rgb(color)
@@ -19,8 +19,8 @@ function M.extract_rgb(color)
   end
   return {
     r = band(rshift(color, 16), 0xFF),
-    g = band(rshift(color, 8),  0xFF),
-    b = band(color,             0xFF)
+    g = band(rshift(color, 8), 0xFF),
+    b = band(color, 0xFF),
   }
 end
 
@@ -54,13 +54,12 @@ end
 function Color:over(onto_color, alpha)
   -- Return a new Color that is result of overlaying this color at the given
   -- alpha level onto another opaque color, i.e. a background.
-  return Color:new{
+  return Color:new {
     r = M.composite_over(self.r, onto_color.r, alpha),
     g = M.composite_over(self.g, onto_color.g, alpha),
-    b = M.composite_over(self.b, onto_color.b, alpha)
+    b = M.composite_over(self.b, onto_color.b, alpha),
   }
 end
 
 M.Color = Color
 return M
-

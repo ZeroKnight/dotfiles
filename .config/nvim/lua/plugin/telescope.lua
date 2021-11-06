@@ -4,40 +4,39 @@
 -- Reminder: Pickers determine *what* you're finding, Finders *get* what you're
 -- picking, and Sorters *order* what the Finder found.
 
-local telescope = require('telescope')
-local builtin = require('telescope.builtin')
-local actions = require('telescope.actions')
-local action_state = require('telescope.actions.state')
-local from_entry = require('telescope.from_entry')
-local themes = require('telescope.themes')
+local telescope = require 'telescope'
+local builtin = require 'telescope.builtin'
+local actions = require 'telescope.actions'
+local action_state = require 'telescope.actions.state'
+local from_entry = require 'telescope.from_entry'
+local themes = require 'telescope.themes'
 local extensions = telescope.extensions
 
-local trouble = require("trouble.providers.telescope")
+local trouble = require 'trouble.providers.telescope'
 
-local util = require('zeroknight.util')
+local util = require 'zeroknight.util'
 
 local function open_in_file_browser(prompt_bufnr)
   local entry = action_state.get_selected_entry()
   local dir = from_entry.path(entry)
   if vim.fn.isdirectory(dir) == 1 then
     actions.close(prompt_bufnr)
-    builtin.file_browser{cwd = dir}
+    builtin.file_browser { cwd = dir }
   else
     util.msg('Not a directory: ', dir)
   end
 end
 
 local M = setmetatable({}, {
-    __index = function(_, k)
-      local a, b = unpack(vim.split(k, '.', true))
-      if b ~= nil then
-        return extensions[a][b]
-      else
-        return builtin[k]
-      end
+  __index = function(_, k)
+    local a, b = unpack(vim.split(k, '.', true))
+    if b ~= nil then
+      return extensions[a][b]
+    else
+      return builtin[k]
     end
-  }
-)
+  end,
+})
 
 -- Store a map of keymaps to a partial function that calls a picker with specific options.
 -- This way, the picker options tables aren't rebuilt every time the mapping is used.
@@ -48,7 +47,7 @@ zeroknight.telescope_mapped_pickers = zeroknight.telescope_mapped_pickers or {}
 function M.map_telescope(lhs, opts)
   local picker
   if type(opts) ~= 'table' then
-    opts = {picker = opts}
+    opts = { picker = opts }
   elseif opts.picker == nil then
     opts.picker = opts[1]
   end
@@ -64,7 +63,7 @@ function M.map_telescope(lhs, opts)
   local key = util.t(lhs)
   local rhs = string.format('<Cmd>lua zeroknight.telescope_mapped_pickers[%q]()<CR>', key)
   local mode = opts.mode or 'n'
-  local mapping_opts = {noremap = true, silent = true}
+  local mapping_opts = { noremap = true, silent = true }
   zeroknight.telescope_mapped_pickers[key] = util.partial(picker, opts.opts)
   if not opts.buffer then
     vim.api.nvim_set_keymap(mode, lhs, rhs, mapping_opts)
@@ -78,13 +77,13 @@ local map_telescope = M.map_telescope
 function M.nvim_config()
   builtin.find_files {
     prompt_title = 'Neovim Configuration',
-    cwd = vim.fn.stdpath('config'),
+    cwd = vim.fn.stdpath 'config',
     layout_strategy = 'flex',
     layout_config = {
       horizontal = {
-        preview_width = 0.6
-      }
-    }
+        preview_width = 0.6,
+      },
+    },
   }
 end
 
@@ -95,8 +94,8 @@ function M.nvim_plugins()
     cwd = as_stdpath('data', 'site/pack/packer'),
     layout_strategy = 'horizontal',
     layout_config = {
-      preview_width = 0.6
-    }
+      preview_width = 0.6,
+    },
   }
 end
 
@@ -104,8 +103,8 @@ end
 function M.zsh_config()
   builtin.find_files {
     prompt_title = 'Zsh Configuration',
-    cwd = vim.fn.expand('$ZSH'),
-    layout_strategy = 'flex'
+    cwd = vim.fn.expand '$ZSH',
+    layout_strategy = 'flex',
   }
 end
 
@@ -113,14 +112,14 @@ end
 function M.projects()
   builtin.file_browser {
     prompt_title = 'Projects',
-    cwd = '~/Projects'
+    cwd = '~/Projects',
   }
 end
 
 -- Pick a directory from z.lua
 function M.z()
   extensions.z.list {
-    cmd = {vim.o.shell, '-c', string.format('%s %s -l', vim.env.ZLUA_LUAEXE, vim.env.ZLUA_SCRIPT)},
+    cmd = { vim.o.shell, '-c', string.format('%s %s -l', vim.env.ZLUA_LUAEXE, vim.env.ZLUA_SCRIPT) },
   }
 end
 
@@ -136,32 +135,32 @@ telescope.setup {
         ['<C-s>'] = 'select_horizontal',
         ['<C-x>'] = trouble.smart_open_with_trouble,
         ['<C-b>'] = open_in_file_browser,
-        ["<C-Down>"] = actions.cycle_history_next,
-        ["<C-Up>"] = actions.cycle_history_prev,
+        ['<C-Down>'] = actions.cycle_history_next,
+        ['<C-Up>'] = actions.cycle_history_prev,
       },
       n = {
         ['<C-s>'] = 'select_horizontal',
         ['<C-x>'] = trouble.smart_open_with_trouble,
         ['<C-b>'] = open_in_file_browser,
-        ["<C-Down>"] = actions.cycle_history_next,
-        ["<C-Up>"] = actions.cycle_history_prev,
-      }
-    }
+        ['<C-Down>'] = actions.cycle_history_next,
+        ['<C-Up>'] = actions.cycle_history_prev,
+      },
+    },
   },
   pickers = {
     buffers = {
       mappings = {
         i = {
-          ['<M-d>'] = 'delete_buffer'
+          ['<M-d>'] = 'delete_buffer',
         },
         n = {
-          ['<M-d>'] = 'delete_buffer'
-        }
-      }
+          ['<M-d>'] = 'delete_buffer',
+        },
+      },
     },
-    search_history = {theme = 'dropdown'},
-    colorscheme = {theme = 'dropdown'},
-    vim_options = {theme = 'dropdown'}
+    search_history = { theme = 'dropdown' },
+    colorscheme = { theme = 'dropdown' },
+    vim_options = { theme = 'dropdown' },
   },
   extensions = {
     fzy_native = {
@@ -172,8 +171,8 @@ telescope.setup {
 }
 
 -- Telescope Mappings
-map_telescope('<C-p>',      {'buffers', opts = {sort_mru = true}})
-map_telescope('<Leader>F',  'file_browser')
+map_telescope('<C-p>', { 'buffers', opts = { sort_mru = true } })
+map_telescope('<Leader>F', 'file_browser')
 map_telescope('<Leader>ff', 'find_files')
 map_telescope('<Leader>fo', 'oldfiles')
 map_telescope('<Leader>fz', 'z')
@@ -181,10 +180,10 @@ map_telescope('<Leader>fz', 'z')
 map_telescope('<Leader><Leader>nc', 'nvim_config')
 map_telescope('<Leader><Leader>np', 'nvim_plugins')
 map_telescope('<Leader><Leader>zc', 'zsh_config')
-map_telescope('<Leader><Leader>p',  'projects')
+map_telescope('<Leader><Leader>p', 'projects')
 
-map_telescope('<F1>',       'help_tags')
-map_telescope('<F3>',       'resume')
+map_telescope('<F1>', 'help_tags')
+map_telescope('<F3>', 'resume')
 map_telescope('<Leader>hh', 'help_tags')
 map_telescope('<Leader>hm', 'man_pages')
 map_telescope('<Leader>hk', 'keymaps')
@@ -215,11 +214,14 @@ map_telescope('<Leader>fgp', 'gh.pull_request')
 map_telescope('<Leader>fgg', 'gh.gist')
 map_telescope('<Leader>fgw', 'gh.run')
 
-map_telescope('<C-l>', {'ultisnips.ultisnips', opts = themes.get_ivy(), mode = 'i'})
+map_telescope('<C-l>', { 'ultisnips.ultisnips', opts = themes.get_ivy(), mode = 'i' })
 
 -- Fuzzy search command history
 vim.api.nvim_set_keymap(
-  'c', '<C-t>', "getcmdtype() == ':' ? '<Plug>(TelescopeFuzzyCommandSearch)' : '<C-t>'", {expr = true}
+  'c',
+  '<C-t>',
+  "getcmdtype() == ':' ? '<Plug>(TelescopeFuzzyCommandSearch)' : '<C-t>'",
+  { expr = true }
 )
 
 return M

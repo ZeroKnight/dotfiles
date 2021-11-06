@@ -16,10 +16,10 @@ function M.execute(key)
 end
 
 local map = function(mode, key, cmd, opts, defaults)
-  opts = vim.tbl_deep_extend("force", { silent = true }, defaults or {}, opts or {})
+  opts = vim.tbl_deep_extend('force', { silent = true }, defaults or {}, opts or {})
   local key_raw = vim.api.nvim_replace_termcodes(key, true, true, true)
 
-  if type(cmd) == "function" then
+  if type(cmd) == 'function' then
     local func_key = string.format('%s_%s', mode, key_raw)
     zeroknight.keymap_functions[func_key] = cmd
     if opts.expr then
@@ -42,44 +42,44 @@ function M.map(mode, key, cmd, opt, defaults)
 end
 
 function M.nmap(key, cmd, opts)
-  return map("n", key, cmd, opts)
+  return map('n', key, cmd, opts)
 end
 function M.vmap(key, cmd, opts)
-  return map("v", key, cmd, opts)
+  return map('v', key, cmd, opts)
 end
 function M.xmap(key, cmd, opts)
-  return map("x", key, cmd, opts)
+  return map('x', key, cmd, opts)
 end
 function M.imap(key, cmd, opts)
-  return map("i", key, cmd, opts)
+  return map('i', key, cmd, opts)
 end
 function M.omap(key, cmd, opts)
-  return map("o", key, cmd, opts)
+  return map('o', key, cmd, opts)
 end
 function M.smap(key, cmd, opts)
-  return map("s", key, cmd, opts)
+  return map('s', key, cmd, opts)
 end
 
 function M.noremap(mode, key, cmd, opts)
   return map(mode, key, cmd, opts, { noremap = true })
 end
 function M.nnoremap(key, cmd, opts)
-  return map("n", key, cmd, opts, { noremap = true })
+  return map('n', key, cmd, opts, { noremap = true })
 end
 function M.vnoremap(key, cmd, opts)
-  return map("v", key, cmd, opts, { noremap = true })
+  return map('v', key, cmd, opts, { noremap = true })
 end
 function M.xnoremap(key, cmd, opts)
-  return map("x", key, cmd, opts, { noremap = true })
+  return map('x', key, cmd, opts, { noremap = true })
 end
 function M.inoremap(key, cmd, opts)
-  return map("i", key, cmd, opts, { noremap = true })
+  return map('i', key, cmd, opts, { noremap = true })
 end
 function M.onoremap(key, cmd, opts)
-  return map("o", key, cmd, opts, { noremap = true })
+  return map('o', key, cmd, opts, { noremap = true })
 end
 function M.snoremap(key, cmd, opts)
-  return map("s", key, cmd, opts, { noremap = true })
+  return map('s', key, cmd, opts, { noremap = true })
 end
 
 return M

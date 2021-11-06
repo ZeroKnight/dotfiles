@@ -15,9 +15,8 @@ local function config(name)
   return string.format([[require('plugin.%s')]], name)
 end
 
-return require('packer').startup{
+return require('packer').startup {
   function(use)
-
     -- Let Packer keep itself up to date
     use 'wbthomason/packer.nvim'
 
@@ -29,41 +28,45 @@ return require('packer').startup{
     use 'Yggdroot/indentLine'
     use {
       'mbbill/undotree',
-      cmd = {'UndotreeFocus', 'UndotreeHide', 'UndotreeShow', 'UndotreeToggle'}
+      cmd = { 'UndotreeFocus', 'UndotreeHide', 'UndotreeShow', 'UndotreeToggle' },
     }
 
     use {
       'itchyny/lightline.vim',
-      setup = config 'lightline'
+      setup = config 'lightline',
     }
     use {
       'mengelbrecht/lightline-bufferline',
       requires = 'itchyny/lightline.vim',
       setup = function()
-        local function set(var, val) vim.g['lightline#bufferline#' .. var] = val end
+        local function set(var, val)
+          vim.g['lightline#bufferline#' .. var] = val
+        end
         set('right_aligned', 1)
         set('filter_by_tabpage', 1)
         vim.opt.showtabline = 2
-      end
+      end,
     }
 
     use {
       {
         'nvim-telescope/telescope.nvim',
-        requires = {'nvim-lua/popup.nvim', 'nvim-lua/plenary.nvim', 'kyazdani42/nvim-web-devicons'},
-        config = config 'telescope'
+        requires = { 'nvim-lua/popup.nvim', 'nvim-lua/plenary.nvim', 'kyazdani42/nvim-web-devicons' },
+        config = config 'telescope',
       },
       -- Extensions
-      {'nvim-telescope/telescope-fzy-native.nvim', config = tele_extension('fzy_native')},
-      {'nvim-telescope/telescope-github.nvim', config = tele_extension('gh')},
-      {'nvim-telescope/telescope-packer.nvim', config = tele_extension('packer')},
-      {'fhill2/telescope-ultisnips.nvim', config = tele_extension('ultisnips')},
-      {'nvim-telescope/telescope-z.nvim', config = tele_extension('z')}
+      { 'nvim-telescope/telescope-fzy-native.nvim', config = tele_extension 'fzy_native' },
+      { 'nvim-telescope/telescope-github.nvim', config = tele_extension 'gh' },
+      { 'nvim-telescope/telescope-packer.nvim', config = tele_extension 'packer' },
+      { 'fhill2/telescope-ultisnips.nvim', config = tele_extension 'ultisnips' },
+      { 'nvim-telescope/telescope-z.nvim', config = tele_extension 'z' },
     }
 
     use {
       'kyazdani42/nvim-web-devicons',
-      config = function() require('nvim-web-devicons').setup {default = true} end
+      config = function()
+        require('nvim-web-devicons').setup { default = true }
+      end,
     }
 
     use {
@@ -80,11 +83,11 @@ return require('packer').startup{
               number = true,
               relativenumber = true,
               signcolumn = 'no',
-              foldcolumn = '0'
-            }
-          }
+              foldcolumn = '0',
+            },
+          },
         }
-      end
+      end,
     }
     use {
       'folke/twilight.nvim',
@@ -92,15 +95,15 @@ return require('packer').startup{
         require('twilight').setup {
           dimming = {
             alpha = 0.25,
-            inactive = false
-          }
+            inactive = false,
+          },
         }
-      end
+      end,
     }
 
     use {
       'folke/which-key.nvim',
-      config = config 'which-key'
+      config = config 'which-key',
     }
 
     -- Language Server Protocol (LSP) {{{1
@@ -111,7 +114,7 @@ return require('packer').startup{
       'kosayoda/nvim-lightbulb',
       config = function()
         vim.cmd [[autocmd CursorHold,CursorHoldI * lua require('nvim-lightbulb').update_lightbulb()]]
-      end
+      end,
     }
 
     use {
@@ -120,27 +123,27 @@ return require('packer').startup{
       config = function()
         require('trouble').setup {
           action_keys = {
-            close = {'q', 'gq'}  -- Other plugins use gq for closing
+            close = { 'q', 'gq' }, -- Other plugins use gq for closing
           },
-          use_lsp_diagnostic_signs = true
+          use_lsp_diagnostic_signs = true,
         }
-      end
+      end,
     }
 
-    use {'weilbith/nvim-code-action-menu', cmd = 'CodeActionMenu'}
+    use { 'weilbith/nvim-code-action-menu', cmd = 'CodeActionMenu' }
 
     use {
       'simrat39/symbols-outline.nvim',
-      setup = config('symbols-outline'),
-      cmd = {'SymbolsOutline', 'SymbolsOutlineOpen', 'SymbolsOutlineClose'}
+      setup = config 'symbols-outline',
+      cmd = { 'SymbolsOutline', 'SymbolsOutlineOpen', 'SymbolsOutlineClose' },
     }
 
     -- Analysis, Linting, and Debugging {{{1
-    use {'mhinz/vim-grepper', cmd = 'Grepper'}
+    use { 'mhinz/vim-grepper', cmd = 'Grepper' }
     use 'romainl/vim-qlist'
 
-    use {'mfussenegger/nvim-lint', config = config 'linting'}
-    use {'lukas-reineke/format.nvim', config = config 'formatting'}
+    use { 'mfussenegger/nvim-lint', config = config 'linting' }
+    use { 'lukas-reineke/format.nvim', config = config 'formatting' }
 
     -- Debug Adapter Protocol (DAP)
     use 'mfussenegger/nvim-dap'
@@ -152,33 +155,41 @@ return require('packer').startup{
       -- Switch to hrsh7th/nvim-cmp once it's had time to mature.
       'hrsh7th/nvim-compe',
       after = 'lexima.vim',
-      config = config 'completion'
+      config = config 'completion',
     }
 
     -- Editing {{{1
-    use {  -- TODO: experiment with this and find good use cases
+    use { -- TODO: experiment with this and find good use cases
       'chrisbra/NrrwRgn',
       cmd = {
-        'NR', 'NW', 'NRV', 'NUD', 'NRP', 'NRL', 'NarrowRegion', 'NarrowWindow', 'NRPrepare'
-      }
+        'NR',
+        'NW',
+        'NRV',
+        'NUD',
+        'NRP',
+        'NRL',
+        'NarrowRegion',
+        'NarrowWindow',
+        'NRPrepare',
+      },
     }
     use 'christoomey/vim-sort-motion'
     use 'godlygeek/tabular'
-    use {'reedes/vim-wordy', cmd = 'Wordy'}
+    use { 'reedes/vim-wordy', cmd = 'Wordy' }
     use 'tpope/vim-abolish'
     use 'tpope/vim-commentary'
     use 'tpope/vim-surround'
-    use 'wellle/targets.vim'  -- TODO: practice
+    use 'wellle/targets.vim' -- TODO: practice
 
     use {
       'folke/todo-comments.nvim',
       requires = 'nvim-lua/plenary.nvim',
-      config = config 'todo-comments'
+      config = config 'todo-comments',
     }
 
     use {
       'unblevable/quick-scope',
-      setup = [[vim.g.qs_highlight_on_keys = {'f', 'F', 't', 'T'}]]
+      setup = [[vim.g.qs_highlight_on_keys = {'f', 'F', 't', 'T'}]],
     }
 
     -- NOTE: Keep an eye out for Lua snippet plugins
@@ -186,7 +197,7 @@ return require('packer').startup{
       'SirVer/ultisnips',
       setup = function()
         vim.g.UltiSnipsExpandTrigger = '<C-Space>'
-      end
+      end,
     }
 
     use {
@@ -202,76 +213,75 @@ return require('packer').startup{
       end,
       config = function()
         vim.fn['lexima#set_default_rules']()
-      end
+      end,
     }
 
     -- Git Integration {{{1
     use {
-      {'tpope/vim-fugitive'},
-      {'tpope/vim-rhubarb', requires = 'tpope/vim-fugitive'}
+      { 'tpope/vim-fugitive' },
+      { 'tpope/vim-rhubarb', requires = 'tpope/vim-fugitive' },
     }
     use 'rhysd/committia.vim'
     use {
       'lewis6991/gitsigns.nvim',
       requires = 'nvim-lua/plenary.nvim',
-      config = [[require('gitsigns').setup()]]
+      config = [[require('gitsigns').setup()]],
     }
 
     -- Utility Plugins {{{1
     use '~/Projects/vim-signjump'
     use 'tpope/vim-eunuch'
-    use 'tpope/vim-projectionist'  -- TODO: Try this out
+    use 'tpope/vim-projectionist' -- TODO: Try this out
     use 'tpope/vim-scriptease'
     use 'tpope/vim-unimpaired'
-    use {'Konfekt/FastFold', config = [[vim.g.fastfold_skip_filetypes = {'gitcommit', 'taglist'}]]}
-    use {'moll/vim-bbye', cmd = {'Bdelete', 'Bwipeout'}}
-    use {'tpope/vim-characterize', keys = 'ga'}
-    use {'tpope/vim-dispatch', cmd = {'Dispatch', 'Make', 'FocusDispatch', 'Start'}}
-    use {'tpope/vim-obsession', cmd = 'Obsession'}
-    use {'dstein64/vim-startuptime', cmd = 'StartupTime'}
-    use {'bfredl/nvim-luadev', cmd = 'Luadev'}
+    use { 'Konfekt/FastFold', config = [[vim.g.fastfold_skip_filetypes = {'gitcommit', 'taglist'}]] }
+    use { 'moll/vim-bbye', cmd = { 'Bdelete', 'Bwipeout' } }
+    use { 'tpope/vim-characterize', keys = 'ga' }
+    use { 'tpope/vim-dispatch', cmd = { 'Dispatch', 'Make', 'FocusDispatch', 'Start' } }
+    use { 'tpope/vim-obsession', cmd = 'Obsession' }
+    use { 'dstein64/vim-startuptime', cmd = 'StartupTime' }
+    use { 'bfredl/nvim-luadev', cmd = 'Luadev' }
 
     -- Language Support {{{1
     use {
       'nvim-treesitter/nvim-treesitter',
       config = config 'treesitter',
-      run = ':TSUpdate'
+      run = ':TSUpdate',
     }
-    use {'euclidianAce/BetterLua.vim', ft = 'lua'}
-    use {'cespare/vim-toml',           ft = 'toml'}
-    use {'withgod/vim-sourcepawn',     ft = 'sourcepawn'}
-    use {'mitsuhiko/vim-jinja',        ft = {'html', 'jinja'}}
-    use {'mattn/emmet-vim',            ft = {'html', 'xhtml', 'xml', 'jinja'}}
+    use { 'euclidianAce/BetterLua.vim', ft = 'lua' }
+    use { 'cespare/vim-toml', ft = 'toml' }
+    use { 'withgod/vim-sourcepawn', ft = 'sourcepawn' }
+    use { 'mitsuhiko/vim-jinja', ft = { 'html', 'jinja' } }
+    use { 'mattn/emmet-vim', ft = { 'html', 'xhtml', 'xml', 'jinja' } }
     -- TODO: revisit this after trying an HTML language server
-    use {'Valloric/MatchTagAlways', disable = true, ft = {'html', 'xhtml', 'xml', 'jinja'}}
+    use { 'Valloric/MatchTagAlways', disable = true, ft = { 'html', 'xhtml', 'xml', 'jinja' } }
 
     -- Color Schemes {{{1
-    use {'rakr/vim-one', cmd = 'colorscheme one'}
-    use {'ciaranm/inkpot', cmd = 'colorscheme inkpot'}
-    use {'tomasr/molokai', cmd = 'colorscheme molokai'}
-    use {'romainl/Apprentice', cmd = 'colorscheme apprentice'}
-    use {'arcticicestudio/nord-vim', cmd = 'colorscheme nord'}
-    use {'tyrannicaltoucan/vim-quantum', cmd = 'colorscheme quantum'}
-    use {'tyrannicaltoucan/vim-deep-space', cmd = 'colorscheme deep-space'}
-    use {'mhartington/oceanic-next', cmd = 'colorscheme OceanicNext'}
-    use {'dracula/vim', cmd = 'colorscheme dracula', as = 'vim-dracula'}
-    use {'drewtempelmeyer/palenight.vim', cmd = 'colorscheme palenight'}
-    use {'folke/tokyonight.nvim'}
+    use { 'rakr/vim-one', cmd = 'colorscheme one' }
+    use { 'ciaranm/inkpot', cmd = 'colorscheme inkpot' }
+    use { 'tomasr/molokai', cmd = 'colorscheme molokai' }
+    use { 'romainl/Apprentice', cmd = 'colorscheme apprentice' }
+    use { 'arcticicestudio/nord-vim', cmd = 'colorscheme nord' }
+    use { 'tyrannicaltoucan/vim-quantum', cmd = 'colorscheme quantum' }
+    use { 'tyrannicaltoucan/vim-deep-space', cmd = 'colorscheme deep-space' }
+    use { 'mhartington/oceanic-next', cmd = 'colorscheme OceanicNext' }
+    use { 'dracula/vim', cmd = 'colorscheme dracula', as = 'vim-dracula' }
+    use { 'drewtempelmeyer/palenight.vim', cmd = 'colorscheme palenight' }
+    use { 'folke/tokyonight.nvim' }
 
     -- Libraries & Misc {{{1
     use 'tpope/vim-repeat'
     use 'nanotee/nvim-lua-guide'
     use 'nanotee/luv-vimdocs'
     use 'nvim-lua/plenary.nvim'
-
-  end,  -- }}}
+  end, -- }}}
 
   config = {
     max_jobs = 32,
     display = {
-      open_fn = require('packer.util').float
-    }
-  }
+      open_fn = require('packer.util').float,
+    },
+  },
 }
 
 -- vim: fdm=marker

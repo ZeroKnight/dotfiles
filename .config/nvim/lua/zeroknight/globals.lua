@@ -7,7 +7,7 @@ _G.zeroknight = _G.zeroknight or {}
 
 -- Convenient shortcut for printing lua objects
 function _G.dump(...)
-  print(table.concat(vim.tbl_map(vim.inspect, {...}), '\n'))
+  print(table.concat(vim.tbl_map(vim.inspect, { ... }), '\n'))
   return ...
 end
 
@@ -22,8 +22,8 @@ function _G.has(what)
 end
 
 -- Modded from tjdevries
-if pcall(require, "plenary") then
-  _G.reload = require("plenary.reload").reload_module
+if pcall(require, 'plenary') then
+  _G.reload = require('plenary.reload').reload_module
 
   _G.rerequire = function(name)
     reload(name)

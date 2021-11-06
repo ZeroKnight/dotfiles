@@ -1,5 +1,5 @@
 -- Symbols Outline configuration
-local kinds = require('zeroknight.lsp.kinds')
+local kinds = require 'zeroknight.lsp.kinds'
 
 local symbol_hl = {
   Array = 'TSConstant',
@@ -32,7 +32,7 @@ local symbol_hl = {
 
 local symbols = {}
 for k, v in pairs(symbol_hl) do
-  symbols[k] = {icon = kinds.symbols[k], hl = v}
+  symbols[k] = { icon = kinds.symbols[k], hl = v }
 end
 
 vim.g.symbols_outline = {

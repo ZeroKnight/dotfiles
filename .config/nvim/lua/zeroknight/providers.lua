@@ -1,10 +1,10 @@
 -- Neovim Provider Settings and Functions
 
-local Path = require('plenary.path')
-local Job = require('plenary.job')
+local Path = require 'plenary.path'
+local Job = require 'plenary.job'
 
 local M = {
-  venv_root = Path:new(vim.fn.stdpath('data'), 'pynvim-venvs')
+  venv_root = Path:new(vim.fn.stdpath 'data', 'pynvim-venvs'),
 }
 
 local function job_stderr(job)
@@ -20,21 +20,19 @@ local function venv_maker(version, path)
   local opts = {}
   if version == 3 then
     opts.command = 'python3'
-    opts.args = {'-m', 'venv', tostring(path)}
+    opts.args = { '-m', 'venv', tostring(path) }
   elseif version == 2 then
     opts.command = 'virtualenv'
-    opts.args = {'-p', 'python2', tostring(path)}
+    opts.args = { '-p', 'python2', tostring(path) }
   else
     error(debug.traceback('Invalid Python version: ' .. version))
   end
   return Job:new(vim.tbl_extend('error', opts, {
     on_exit = function(j, ret)
       if ret ~= 0 then
-        error(string.format(
-            'Failed to create Python %d provider venv: %s', version, job_stderr(j)
-        ))
+        error(string.format('Failed to create Python %d provider venv: %s', version, job_stderr(j)))
       end
-    end
+    end,
   }))
 end
 
@@ -43,27 +41,25 @@ function M.create_python_venv(version)
   local venv = M.get_python_venv(version)
 
   if not M.venv_root:exists() then
-    M.venv_root:mkdir{parents = true}
+    M.venv_root:mkdir { parents = true }
   end
 
   local mkvenv = venv_maker(version, venv)
   if mkvenv then
-    mkvenv:and_then_on_success(Job:new({
+    mkvenv:and_then_on_success(Job:new {
       command = './pip',
-      args = {'install', 'pynvim'},
+      args = { 'install', 'pynvim' },
       cwd = tostring(venv / 'bin'),
-      skip_validation = true,  -- Necessary since pip doesn't exist yet
+      skip_validation = true, -- Necessary since pip doesn't exist yet
       on_exit = function(j, ret)
         if ret == 0 then
           ok = true
           print('Installed pynvim for Python ' .. version .. ' provider')
         else
-          error(string.format(
-              'Failed to install pynvim for Python %d provider: %s', version, job_stderr(j)
-          ))
+          error(string.format('Failed to install pynvim for Python %d provider: %s', version, job_stderr(j)))
         end
-      end
-    }))
+      end,
+    })
     mkvenv:sync()
   end
   return ok

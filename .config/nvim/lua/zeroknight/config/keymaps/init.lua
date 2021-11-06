@@ -3,77 +3,77 @@
 -- These are my general, non-plugin-specific mappings. Plugin-related mappings
 -- are defined in the sibling `plugins.lua` file.
 
-local wk = require('which-key')
-local key = require('zeroknight.util.key')
+local wk = require 'which-key'
+local key = require 'zeroknight.util.key'
 
 local function diag_method(method)
   return string.format('<Cmd>lua vim.diagnostic.%s<CR>', method)
 end
 
-local show_line_diag = diag_method("open_float(0, {scope='line'})")
+local show_line_diag = diag_method "open_float(0, {scope='line'})"
 
 -- Leader Mappings {{{1
 local leader = {
-  cd =  {'<Cmd>cd %:p:h<Bar>pwd<CR>',  'CWD to current file'},
-  lcd = {'<Cmd>lcd %:p:h<Bar>pwd<CR>', 'CWD to current file (Buffer)'},
-  tcd = {'<Cmd>tcd %:p:h<Bar>pwd<CR>', 'CWD to current file (Tab)'},
+  cd = { '<Cmd>cd %:p:h<Bar>pwd<CR>', 'CWD to current file' },
+  lcd = { '<Cmd>lcd %:p:h<Bar>pwd<CR>', 'CWD to current file (Buffer)' },
+  tcd = { '<Cmd>tcd %:p:h<Bar>pwd<CR>', 'CWD to current file (Tab)' },
   d = {
     name = 'diagnostic',
-    c = {diag_method("open_float(0, {scope='cursor'})"), 'Show diagnostics for cursor position'},
-    d = {diag_method('disable()'), 'Disable diagnostics for buffer'},
-    e = {diag_method('enable()'), 'Enable diagnostics for buffer'},
-    l = {show_line_diag, 'Show diagnostics for line'},
-    L = {diag_method('setloclist()'), 'Dump diagnostics to location list'},
-    q = {diag_method('setqflist()'), 'Dump diagnostics to quickfix list'},
+    c = { diag_method "open_float(0, {scope='cursor'})", 'Show diagnostics for cursor position' },
+    d = { diag_method 'disable()', 'Disable diagnostics for buffer' },
+    e = { diag_method 'enable()', 'Enable diagnostics for buffer' },
+    l = { show_line_diag, 'Show diagnostics for line' },
+    L = { diag_method 'setloclist()', 'Dump diagnostics to location list' },
+    q = { diag_method 'setqflist()', 'Dump diagnostics to quickfix list' },
   },
   r = {
-    w = {':%s/\\<<C-r><C-w>\\>/', 'Substitute cursor word'},
-    W = {':%s/\\<<C-r><C-a>\\>/', 'Substitute cursor WORD'}
+    w = { ':%s/\\<<C-r><C-w>\\>/', 'Substitute cursor word' },
+    W = { ':%s/\\<<C-r><C-a>\\>/', 'Substitute cursor WORD' },
   },
-  ts = {'<Cmd>call zeroknight#util#TrimTrailingSpace()<CR>', 'Trim trailing spaces'},
-  wx = {'<Cmd>call zeroknight#util#save_and_exec()<CR>', 'Write and Execute'},
-  ww = {'<Cmd>set wrap!<CR>', 'Toggle Word Wrap'},
-  ['/'] = {'<Cmd>let v:hlsearch = !v:hlsearch<CR>', 'Toggle Search Highlighting'},
+  ts = { '<Cmd>call zeroknight#util#TrimTrailingSpace()<CR>', 'Trim trailing spaces' },
+  wx = { '<Cmd>call zeroknight#util#save_and_exec()<CR>', 'Write and Execute' },
+  ww = { '<Cmd>set wrap!<CR>', 'Toggle Word Wrap' },
+  ['/'] = { '<Cmd>let v:hlsearch = !v:hlsearch<CR>', 'Toggle Search Highlighting' },
 }
 
 -- LocalLeader Mappings {{{1
 local localleader = {
-  K = {'K', 'Run keywordprg on word'},
-  s = {'<Cmd>setlocal spell!<CR>', 'Toggle Spellcheck'},
+  K = { 'K', 'Run keywordprg on word' },
+  s = { '<Cmd>setlocal spell!<CR>', 'Toggle Spellcheck' },
 }
 
 -- g Mappings {{{1
 local g = {
-  y = {'<Cmd>%y+<CR>', 'Yank buffer to clipboard'},
-  K = {'f<Space>r<CR>', 'Split line'},
-  ['{'] = {"len(getline(line('.')-1)) > 0 ? '{+' : '{-'", 'Smart paragraph backward', expr = true},
-  ['}'] = {"len(getline(line('.')+1)) > 0 ? '}-' : '}+'", 'Smart paragraph forward', expr = true},
+  y = { '<Cmd>%y+<CR>', 'Yank buffer to clipboard' },
+  K = { 'f<Space>r<CR>', 'Split line' },
+  ['{'] = { "len(getline(line('.')-1)) > 0 ? '{+' : '{-'", 'Smart paragraph backward', expr = true },
+  ['}'] = { "len(getline(line('.')+1)) > 0 ? '}-' : '}+'", 'Smart paragraph forward', expr = true },
 }
 
 -- Normal/Insert hybrid Mappings {{{1
 local ni = {
-  ['<M-d>'] = {show_line_diag, 'Show diagnostics for line'}
+  ['<M-d>'] = { show_line_diag, 'Show diagnostics for line' },
 }
 
 -- Everything else {{{1
 local other = {
   ['['] = {
     name = 'prev',
-    d = {diag_method('goto_prev'), 'Previous Diagnostic'}
+    d = { diag_method 'goto_prev', 'Previous Diagnostic' },
   },
   [']'] = {
     name = 'next',
-    d = {diag_method('goto_next'), 'Next Diagnostic'}
+    d = { diag_method 'goto_next', 'Next Diagnostic' },
   },
 }
 
 -- }}}
 
-wk.register(leader, {prefix = '<Leader>'})
-wk.register(localleader, {prefix = '<LocalLeader>'})
-wk.register(g, {prefix = 'g'})
-wk.register(ni, {mode = 'n'})
-wk.register(ni, {mode = 'i'})
+wk.register(leader, { prefix = '<Leader>' })
+wk.register(localleader, { prefix = '<LocalLeader>' })
+wk.register(g, { prefix = 'g' })
+wk.register(ni, { mode = 'n' })
+wk.register(ni, { mode = 'i' })
 wk.register(other)
 
 -- Standard Behavior Overwrites {{{1
@@ -115,19 +115,19 @@ key.nnoremap('<C-K>', '<C-w>k')
 key.nnoremap('<C-L>', '<C-w>l')
 
 -- Window Resizing
-key.nnoremap('<M-Left>',  '<C-w>5<')
+key.nnoremap('<M-Left>', '<C-w>5<')
 key.nnoremap('<M-Right>', '<C-w>5>')
-key.nnoremap('<M-Up>',    '<C-w>5+')
-key.nnoremap('<M-Down>',  '<C-w>5-')
+key.nnoremap('<M-Up>', '<C-w>5+')
+key.nnoremap('<M-Down>', '<C-w>5-')
 
 -- Allow <Tab> and <S-Tab> to cycle the popup menu
-key.inoremap('<Tab>',   'pumvisible() ? "\\<C-n>" : "\\<Tab>"', {expr =true})
-key.inoremap('<S-Tab>', 'pumvisible() ? "\\<C-p>" : "\\<S-Tab>"', {expr = true})
+key.inoremap('<Tab>', 'pumvisible() ? "\\<C-n>" : "\\<Tab>"', { expr = true })
+key.inoremap('<S-Tab>', 'pumvisible() ? "\\<C-p>" : "\\<S-Tab>"', { expr = true })
 
 -- }}
 
 -- Define plugin mappings
-require('zeroknight.config.keymaps.plugins')
+require 'zeroknight.config.keymaps.plugins'
 
 -- Abbreviations (See also: after/plugin/abolish.vim)
 

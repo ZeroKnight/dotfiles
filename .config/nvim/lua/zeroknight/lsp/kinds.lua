@@ -2,7 +2,7 @@
 
 local protocol = vim.lsp.protocol
 
-for kind, expected in pairs{CompletionItemKind = 25, SymbolKind = 26} do
+for kind, expected in pairs { CompletionItemKind = 25, SymbolKind = 26 } do
   local actual = #protocol[kind]
   assert(actual == expected, string.format('Unexpected length for %s; got %d', kind, actual))
 end
@@ -61,4 +61,4 @@ end
 --   protocol.SymbolKind[i] = string.format('%s  %s', symbols[kind], kind)
 -- end
 
-return {symbols = symbols}
+return { symbols = symbols }
