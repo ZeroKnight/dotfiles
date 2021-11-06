@@ -133,10 +133,7 @@ local function lsp_buffer_setup(client, bufnr)
     lsp_keymap_x['<LocalLeader>'].c.f = {lsp_method('buf', 'range_formatting'), '[LSP] Format Range'}
     vim.cmd [[
       augroup ZeroKnight_LSP_buffer
-        autocmd BufWritePre <buffer>
-          \ if g:zeroknight.format_on_write |
-          \   execute 'lua vim.lsp.buf.formatting_sync(nil, 3000)' |
-          \ endif
+        autocmd BufWritePre <buffer> lua require('plugin.formatting').lsp_format_on_write()
       augroup END
     ]]
   end
