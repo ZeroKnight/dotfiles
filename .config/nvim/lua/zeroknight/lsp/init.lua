@@ -162,7 +162,6 @@ lsp_status.config {
 lsp_status.register_progress()
 
 -- Configure Language Server settings
-local disabled = { 'pyright' }
 local servers = {
   jsonls = {},
   sumneko_lua = require('zeroknight.lsp.sumneko').config,
@@ -176,6 +175,7 @@ local servers = {
     },
   },
   pyright = {
+    disabled = true,
     settings = {
       python = {
         analysis = {
@@ -189,7 +189,7 @@ local servers = {
 }
 -- Run the setup for each server
 for ls, config in pairs(servers) do
-  if disabled[ls] == nil then
+  if not config.disabled then
     lspconfig[ls].setup(vim.tbl_extend('error', { on_attach = lsp_buffer_setup }, config))
   end
 end
