@@ -59,11 +59,11 @@ local ni = {
 local other = {
   ['['] = {
     name = 'prev',
-    d = { diag_method 'goto_prev', 'Previous Diagnostic' },
+    d = { diag_method 'goto_prev()', 'Previous Diagnostic' },
   },
   [']'] = {
     name = 'next',
-    d = { diag_method 'goto_next', 'Next Diagnostic' },
+    d = { diag_method 'goto_next()', 'Next Diagnostic' },
   },
 }
 
