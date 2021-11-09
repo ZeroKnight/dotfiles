@@ -236,11 +236,19 @@ return require('packer').startup {
     use 'tpope/vim-unimpaired'
     use { 'Konfekt/FastFold', config = [[vim.g.fastfold_skip_filetypes = {'gitcommit', 'taglist'}]] }
     use { 'moll/vim-bbye', cmd = { 'Bdelete', 'Bwipeout' } }
-    use { 'tpope/vim-characterize', keys = 'ga' }
     use { 'tpope/vim-dispatch', cmd = { 'Dispatch', 'Make', 'FocusDispatch', 'Start' } }
     use { 'tpope/vim-obsession', cmd = 'Obsession' }
     use { 'dstein64/vim-startuptime', cmd = 'StartupTime' }
     use { 'bfredl/nvim-luadev', cmd = 'Luadev' }
+
+    use {
+      'tpope/vim-characterize',
+      keys = 'ga',
+      config = function()
+        -- Explicitly set map or Which-Key will interfere with lazy load
+        vim.api.nvim_set_keymap('n', 'ga', '<Plug>(characterize)', {})
+      end,
+    }
 
     -- Language Support {{{1
     use {
