@@ -10,6 +10,25 @@
     editor = nvim
     pager = less -S
 
+[pager]
+    diff = delta
+    show = delta
+    log = delta
+    blame = delta
+    reflog = delta
+
+[interactive]
+    diffFilter = delta --color-only
+
+[delta]
+    features = decorations
+    line-numbers = true
+    hyperlinks = true
+    keep-plus-minus-markers = false
+
+[delta "decorations"]
+    syntax-theme = OneHalf
+
 [alias]
     setup = !git init && git add . && git commit -m 'Initial Commit'
     auto-rm = !git ls-files -z --deleted | xargs -0 git rm
