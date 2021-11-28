@@ -3,12 +3,65 @@
     email = xzeroknightx@gmail.com
     signingkey = 806D7D27AE1D33AA
 
-[color]
-    ui = auto
-
 [core]
     editor = nvim
     pager = less -S
+    autocrlf = input
+
+[alias]
+    setup = !git init && git add . && git commit -m 'Initial Commit'
+    auto-rm = !git ls-files -z --deleted | xargs -0 git rm
+
+### Command Options
+
+[blame]
+    coloring = highlightRecent
+    markUnblamableLines = true
+    markIgnoredLines = true
+
+[checkout]
+    defaultRemote = origin
+    guess = true
+    workers = -1
+
+[diff]
+    mnemonicPrefix = true
+
+[fetch]
+    prune = true
+    pruneTags = true
+
+[init]
+    templatedir = ~/.config/git/template_default
+
+[log]
+    mailmap = true
+    showSignature = true
+
+[push]
+    default = current
+    followTags = true
+
+[rebase]
+    autoSquash = true
+
+[status]
+    short = true
+    branch = true
+    showStash = true
+
+### Display and Formatting
+
+[color]
+    ui = auto
+
+[color "blame"]
+    # cool: 27  63  99  135 171 207 217
+    # warm: 223 227 220 214 208 202 196
+    highlightRecent = \
+        27,3 years ago,63,2 years 6 months ago,99,2 years ago,135,1 year 6 months ago,171,1 year ago,\
+        207,6 months ago,217,5 months ago,223,4 months ago,227,3 months ago,220,2 months ago,214,1 month ago,\
+        208,2 weeks ago,202,1 week ago,196
 
 [pager]
     diff = delta
@@ -28,19 +81,6 @@
 
 [delta "decorations"]
     syntax-theme = OneHalf
-
-[alias]
-    setup = !git init && git add . && git commit -m 'Initial Commit'
-    auto-rm = !git ls-files -z --deleted | xargs -0 git rm
-
-[push]
-    default = current
-
-[init]
-    templatedir = ~/.config/git/template_default
-
-[log]
-    mailmap = true
 
 [pretty]
     single = "format:%C(green)%<|(13)%h%C(reset) %s%C(bold)%C(magenta)%d%C(reset) %C(yellow)[%cd] %C(cyan)<%aN %aE>%C(reset)"

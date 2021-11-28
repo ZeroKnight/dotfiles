@@ -125,7 +125,7 @@ alias gt='git tag'
 alias gtv='git verify-tag'
 
 # Working Tree
-alias gst='git status --short --branch'
+alias gst='git status'
 alias gstv='git status --long'
 alias gwc='git clean -n'
 alias gwC='git clean -di'
