@@ -9,8 +9,25 @@
     autocrlf = input
 
 [alias]
-    setup = !git init && git add . && git commit -m 'Initial Commit'
+    br = branch
+    cm = commit --verbose
+    co = checkout
+    rb = rebase
+    re = restore
+    rs = reset
+    ss = stash
+    st = status
+    sw = switch
+    wt = worktree
+
+    diff-log = log --topo-order --patch-with-stat --full-diff --pretty=medinfo
+    fixup = cm --fixup
+    push-all = !git push --all && git push --tags
+    quickfix = cm --amend --reuse-message HEAD
+    undo = reset --soft HEAD^
+
     auto-rm = !git ls-files -z --deleted | xargs -0 git rm
+    setup = !git init && git add . && git commit -m 'Initial Commit'
 
 ### Command Options
 
