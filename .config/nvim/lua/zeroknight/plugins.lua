@@ -281,6 +281,7 @@ return require('packer').startup {
     use 'tpope/vim-repeat'
     use 'nanotee/nvim-lua-guide'
     use 'nanotee/luv-vimdocs'
+    use 'bfredl/luarefvim'
     use 'nvim-lua/plenary.nvim'
   end, -- }}}
 
