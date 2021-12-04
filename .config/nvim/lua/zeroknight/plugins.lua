@@ -177,9 +177,15 @@ return require('packer').startup {
     use 'godlygeek/tabular'
     use { 'reedes/vim-wordy', cmd = 'Wordy' }
     use 'tpope/vim-abolish'
-    use 'tpope/vim-commentary'
     use 'tpope/vim-surround'
     use 'wellle/targets.vim' -- TODO: practice
+
+    use {
+      'numToStr/Comment.nvim',
+      config = function()
+        require('Comment').setup()
+      end,
+    }
 
     use {
       'folke/todo-comments.nvim',
