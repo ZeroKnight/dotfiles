@@ -63,7 +63,7 @@ vim.g.lightline = {
   component_function_visible_condition = {
     Mode = 1,
     FileInfo = 1,
-    FileType = "&filetype && &filetype !=# ''",
+    FileType = "&buftype !=# 'nofile'",
     ReadOnly = "&readonly && &buftype ==# ''",
     GitBranch = "zeroknight#lightline#has_minwidth() && !empty(get(b:, 'gitsigns_head', ''))",
     GitHunks = "zeroknight#lightline#has_minwidth() && !empty(get(b:, 'gitsigns_status', ''))",

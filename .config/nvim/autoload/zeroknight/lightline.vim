@@ -56,7 +56,7 @@ function! zeroknight#lightline#file_type() abort
   if &buftype ==# 'nofile'
     return ''
   endif
-  return &filetype !=# '' ? $filetype : '[no ft]'
+  return &filetype !=# '' ? &filetype : '[no ft]'
 endfunction
 
 function! zeroknight#lightline#readonly() abort
