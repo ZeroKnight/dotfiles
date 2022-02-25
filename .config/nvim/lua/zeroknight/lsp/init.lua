@@ -166,12 +166,14 @@ local servers = {
   jsonls = {},
   sumneko_lua = require('zeroknight.lsp.sumneko').config,
   pylsp = {
-    configurationSources = { 'flake8' },
-    plugins = {
-      flake8 = {
-        config = vim.env.HOME .. '/.config/flake8',
+    settings = {
+      pylsp = {
+        configurationSources = { 'flake8' },
+        plugins = {
+          flake8 = { enabled = true },
+          pydocstyle = { enabled = true },
+        },
       },
-      pydocstyle = { enabled = true },
     },
   },
   pyright = {
