@@ -21,7 +21,7 @@ local function open_in_file_browser(prompt_bufnr)
   local dir = from_entry.path(entry)
   if vim.fn.isdirectory(dir) == 1 then
     actions.close(prompt_bufnr)
-    builtin.file_browser { cwd = dir }
+    extensions.file_browser.file_browser { cwd = dir }
   else
     util.msg('Not a directory: ', dir)
   end
@@ -57,6 +57,11 @@ function M.map_telescope(lhs, opts)
     picker = M[opts.picker]
   else
     util.error('Unsupported type for opts.picker: ', type(opts.picker))
+    return
+  end
+
+  if picker == nil then
+    util.error('Picker is nil for lhs: ', lhs)
     return
   end
 
@@ -110,7 +115,7 @@ end
 
 -- Browse ~/Projects
 function M.projects()
-  builtin.file_browser {
+  extensions.file_browser.file_browser {
     prompt_title = 'Projects',
     cwd = '~/Projects',
   }
@@ -163,6 +168,9 @@ telescope.setup {
     vim_options = { theme = 'dropdown' },
   },
   extensions = {
+    file_browser = {
+      theme = 'ivy',
+    },
     fzy_native = {
       override_generic_sorter = true,
       override_file_sorter = true,
@@ -172,7 +180,7 @@ telescope.setup {
 
 -- Telescope Mappings
 map_telescope('<C-p>', { 'buffers', opts = { sort_mru = true } })
-map_telescope('<Leader>F', 'file_browser')
+map_telescope('<Leader>F', 'file_browser.file_browser')
 map_telescope('<Leader>ff', 'find_files')
 map_telescope('<Leader>fo', 'oldfiles')
 map_telescope('<Leader>fz', 'z')
@@ -191,13 +199,14 @@ map_telescope('<Leader>hc', 'commands')
 map_telescope('<Leader>hf', 'filetypes')
 map_telescope('<Leader>ha', 'autocommands')
 map_telescope('<Leader>ho', 'vim_options')
-map_telescope('<Leader>hp', 'packer.plugins')
+map_telescope('<Leader>hp', 'packer.packer')
 
 map_telescope('<Leader>f:', 'command_history')
 map_telescope('<Leader>f/', 'search_history')
 map_telescope('<Leader>ft', 'treesitter')
 map_telescope('<Leader>fq', 'quickfix')
 map_telescope('<Leader>fl', 'loclist')
+map_telescope('<Leader>fd', 'diagnostics')
 
 map_telescope('<Leader>fG', 'live_grep')
 map_telescope('<Leader>fw', 'grep_string')

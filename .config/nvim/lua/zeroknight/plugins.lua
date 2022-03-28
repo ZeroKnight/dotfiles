@@ -55,6 +55,7 @@ return require('packer').startup {
         config = config 'telescope',
       },
       -- Extensions
+      { 'nvim-telescope/telescope-file-browser.nvim', config = tele_extension 'file_browser' },
       { 'nvim-telescope/telescope-fzy-native.nvim', config = tele_extension 'fzy_native' },
       { 'nvim-telescope/telescope-github.nvim', config = tele_extension 'gh' },
       { 'nvim-telescope/telescope-packer.nvim', config = tele_extension 'packer' },
