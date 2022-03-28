@@ -125,7 +125,7 @@ return require('packer').startup {
           action_keys = {
             close = { 'q', 'gq' }, -- Other plugins use gq for closing
           },
-          use_lsp_diagnostic_signs = true,
+          use_diagnostic_signs = true,
         }
       end,
     }

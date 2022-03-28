@@ -26,7 +26,6 @@ local lsp_keymap = {
     },
     d = {
       name = 'document',
-      d = { '[LSP] Document Diagnostics' },
       s = { '[LSP] Document Symbols' },
     },
     r = {
@@ -49,7 +48,6 @@ local lsp_keymap = {
     td = { lsp_method('buf', 'type_definition'), '[LSP] Jump to Type Definition' },
     w = {
       name = 'workspace',
-      d = { '[LSP] Workspace Diagnostics' },
       s = { '[LSP] Workspace Symbols' },
     },
   },
@@ -109,8 +107,6 @@ local function lsp_buffer_setup(client, bufnr)
   })
   map_telescope('<LocalLeader>ds', { 'lsp_document_symbols', opts = { ignore_filename = true }, buffer = true })
   map_telescope('<LocalLeader>ws', { 'lsp_workspace_symbols', opts = { ignore_filename = true }, buffer = true })
-  map_telescope('<LocalLeader>dd', { 'lsp_document_diagnostics', buffer = true })
-  map_telescope('<LocalLeader>wd', { 'lsp_workspace_diagnostics', buffer = true })
 
   -- Enable document highlights if supported
   if client.resolved_capabilities.document_highlight then
