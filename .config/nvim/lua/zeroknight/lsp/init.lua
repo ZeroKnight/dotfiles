@@ -8,8 +8,8 @@ end
 local lsp_status = require 'lsp-status'
 local lsp_kinds = require 'zeroknight.lsp.kinds'
 
-local wk = require 'which-key'
 local key = require 'zeroknight.util.key'
+local wk = require 'which-key'
 
 local function lsp_method(kind, method)
   return string.format('<Cmd>lua vim.lsp.%s.%s()<CR>', kind, method)
@@ -77,7 +77,10 @@ local lsp_keymap_x = {
   },
 }
 
-local function lsp_buffer_setup(client, bufnr)
+local M = {}
+
+-- Main `on_attach` callback
+function M.lsp_buffer_setup(client, bufnr)
   local map_telescope = require('plugin.telescope').map_telescope
 
   local function buf_set_option(...)
@@ -149,55 +152,31 @@ local function lsp_buffer_setup(client, bufnr)
   wk.register(lsp_keymap_x, { buffer = bufnr, mode = 'x' })
 end
 
--- Set up lsp-status
-lsp_status.config {
-  current_function = true,
-  diagnostics = false, -- Using my own function
-  kind_labels = lsp_kinds.symbols,
-}
-lsp_status.register_progress()
+function M.init()
+  -- Set up lsp-status
+  lsp_status.config {
+    current_function = true,
+    diagnostics = false, -- Using my own function
+    kind_labels = lsp_kinds.symbols,
+  }
+  lsp_status.register_progress()
 
--- Configure Language Server settings
-local servers = {
-  jsonls = {},
-  sumneko_lua = require('zeroknight.lsp.sumneko').config,
-  pylsp = {
-    settings = {
-      pylsp = {
-        configurationSources = { 'flake8' },
-        plugins = {
-          flake8 = { enabled = true },
-          pydocstyle = { enabled = true },
-        },
-      },
-    },
-  },
-  pyright = {
-    disabled = true,
-    settings = {
-      python = {
-        analysis = {
-          autoImportCompletions = true,
-        },
-        venvPath = { 'venv', '.venv' },
-      },
-    },
-  },
-  vimls = {},
-}
--- Run the setup for each server
-for ls, config in pairs(servers) do
-  if not config.disabled then
-    lspconfig[ls].setup(vim.tbl_extend('error', { on_attach = lsp_buffer_setup }, config))
+  -- Run the setup for each server
+  for ls, config in pairs(require 'zeroknight.lsp.servers') do
+    if not config.disabled then
+      lspconfig[ls].setup(vim.tbl_extend('error', { on_attach = M.lsp_buffer_setup }, config))
+    end
   end
+
+  -- Set up highlighting
+  require 'zeroknight.lsp.highlight'
+
+  vim.cmd [[
+    augroup ZeroKnight_LSP
+      autocmd!
+      autocmd ColorScheme * lua rerequire('zeroknight.lsp.highlight')
+    augroup END
+  ]]
 end
 
--- Set up highlighting
-require 'zeroknight.lsp.highlight'
-
-vim.cmd [[
-  augroup ZeroKnight_LSP
-    autocmd!
-    autocmd ColorScheme * lua rerequire('zeroknight.lsp.highlight')
-  augroup END
-]]
+return M

@@ -26,4 +26,4 @@ require 'zeroknight.config.keymaps'
 require 'zeroknight.config.diagnostic'
 
 -- Neovim LSP client
-require 'zeroknight.lsp'
+require('zeroknight.lsp').init()
