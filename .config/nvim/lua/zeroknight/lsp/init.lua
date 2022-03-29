@@ -114,7 +114,7 @@ function M.lsp_buffer_setup(client, bufnr)
   -- Enable document highlights if supported
   if client.resolved_capabilities.document_highlight then
     vim.cmd [[
-      augroup ZeroKnight_LSP_buffer
+      augroup ZeroKnight_LSP_Highlighting
         autocmd! * <buffer>
         autocmd CursorHold,CursorHoldI,BufEnter <buffer> lua vim.lsp.buf.document_highlight()
         autocmd CursorMoved,BufLeave <buffer> lua vim.lsp.buf.clear_references()
@@ -138,8 +138,8 @@ function M.lsp_buffer_setup(client, bufnr)
     lsp_keymap['<LocalLeader>'].c.f = { lsp_method('buf', 'formatting'), '[LSP] Format Document' }
     lsp_keymap_x['<LocalLeader>'].c.f = { lsp_method('buf', 'range_formatting'), '[LSP] Format Range' }
     vim.cmd [[
-      augroup ZeroKnight_LSP_buffer
-        autocmd BufWritePre <buffer> lua require('plugin.formatting').lsp_format_on_write()
+      augroup ZeroKnight_LSP_Formatting
+        autocmd BufWritePre <buffer> lua require('zeroknight.util.formatting').lsp_format_on_write()
       augroup END
     ]]
   end
@@ -166,6 +166,11 @@ function M.init()
     if not config.disabled then
       lspconfig[ls].setup(vim.tbl_extend('error', { on_attach = M.lsp_buffer_setup }, config))
     end
+  end
+
+  -- null-ls
+  if not vim.g.null_ls_disable then
+    require 'zeroknight.lsp.servers.null-ls'
   end
 
   -- Set up highlighting

@@ -139,12 +139,14 @@ return require('packer').startup {
       cmd = { 'SymbolsOutline', 'SymbolsOutlineOpen', 'SymbolsOutlineClose' },
     }
 
+    use {
+      'jose-elias-alvarez/null-ls.nvim',
+      requires = 'nvim-lua/plenary.nvim',
+    }
+
     -- Analysis, Linting, and Debugging {{{1
     use { 'mhinz/vim-grepper', cmd = 'Grepper' }
     use 'romainl/vim-qlist'
-
-    use { 'mfussenegger/nvim-lint', config = config 'linting' }
-    use { 'lukas-reineke/format.nvim', config = config 'formatting' }
 
     -- Debug Adapter Protocol (DAP)
     use 'mfussenegger/nvim-dap'
