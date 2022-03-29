@@ -1,3 +1,7 @@
+[selene]
+base = 'lua51'
+name = 'zeroknight'
+
 [vim]
 any = true
 

@@ -5,6 +5,14 @@ local builtins = null_ls.builtins
 
 local lsp_buffer_setup = require('zeroknight.lsp').lsp_buffer_setup
 
+local function nvim_root(params)
+  local nvim_cfg = vim.fn.stdpath 'config'
+  local rel_home = vim.fn.fnamemodify(nvim_cfg, ':~:s?\\~/??')
+  if string.match(params.bufname, string.format('%s/lua', rel_home)) then
+    return nvim_cfg
+  end
+end
+
 -- NOTE: Vale is highly extensible, so it can "include" other prose linters
 
 null_ls.setup {
@@ -18,7 +26,9 @@ null_ls.setup {
     builtins.diagnostics.gitlint,
     builtins.diagnostics.markdownlint,
     builtins.diagnostics.rstcheck,
-    builtins.diagnostics.selene,
+    builtins.diagnostics.selene.with {
+      cwd = nvim_root,
+    },
     builtins.diagnostics.shellcheck,
     builtins.diagnostics.vale,
     builtins.diagnostics.vint,
@@ -30,12 +40,7 @@ null_ls.setup {
     builtins.formatting.markdownlint,
     builtins.formatting.prettier,
     builtins.formatting.stylua.with {
-      cwd = function(params)
-        local nvim_cfg = vim.fn.stdpath('config')
-        if string.match(params.bufname, nvim_cfg) then
-          return nvim_cfg
-        end
-      end,
+      cwd = nvim_root,
     },
     builtins.formatting.trim_newlines,
     builtins.formatting.trim_whitespace,
