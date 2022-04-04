@@ -23,7 +23,9 @@ null_ls.setup {
   update_in_insert = false,
   sources = {
     -- Diagnostics
-    builtins.diagnostics.gitlint,
+    builtins.diagnostics.gitlint.with {
+      extra_args = { '--contrib', 'contrib-title-conventional-commits' },
+    },
     builtins.diagnostics.markdownlint,
     builtins.diagnostics.rstcheck,
     builtins.diagnostics.selene.with {
