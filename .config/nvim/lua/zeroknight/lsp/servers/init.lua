@@ -17,6 +17,11 @@ local servers = {
         },
       },
     },
+    on_attach = function(client)
+      -- Using either null-ls or external tools for formatting
+      client.resolved_capabilities.document_formatting = false
+      client.resolved_capabilities.document_range_formatting = false
+    end,
   },
   pyright = {
     disabled = true,

@@ -164,7 +164,17 @@ function M.init()
   -- Run the setup for each server
   for ls, config in pairs(require 'zeroknight.lsp.servers') do
     if not config.disabled then
-      lspconfig[ls].setup(vim.tbl_extend('error', { on_attach = M.lsp_buffer_setup }, config))
+      if config.on_attach ~= nil then
+        -- Server-specific `on_attach` additions
+        local override = config.on_attach
+        config.on_attach = function(...)
+          override(...)
+          M.lsp_buffer_setup(...)
+        end
+      else
+        config.on_attach = M.lsp_buffer_setup
+      end
+      lspconfig[ls].setup(config)
     end
   end
 
