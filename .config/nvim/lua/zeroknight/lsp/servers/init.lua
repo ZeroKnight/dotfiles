@@ -13,6 +13,7 @@ local servers = {
         configurationSources = { 'flake8' },
         plugins = {
           flake8 = { enabled = true },
+          pyflakes = { enabled = false },
           pydocstyle = { enabled = true },
         },
       },
