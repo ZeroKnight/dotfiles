@@ -104,6 +104,18 @@ function M.nvim_plugins()
   }
 end
 
+-- Pick from neovim logs
+function M.nvim_logs()
+  builtin.find_files {
+    prompt_title = 'Neovim Log Files',
+    cwd = vim.fn.stdpath 'cache',
+    layout_strategy = 'horizontal',
+    layout_config = {
+      preview_width = 0.6,
+    },
+  }
+end
+
 -- Pick from Zsh configuration files
 function M.zsh_config()
   builtin.find_files {
@@ -187,6 +199,7 @@ map_telescope('<Leader>fz', 'z')
 
 map_telescope('<Leader><Leader>nc', 'nvim_config')
 map_telescope('<Leader><Leader>np', 'nvim_plugins')
+map_telescope('<Leader><Leader>nl', 'nvim_logs')
 map_telescope('<Leader><Leader>zc', 'zsh_config')
 map_telescope('<Leader><Leader>p', 'projects')
 

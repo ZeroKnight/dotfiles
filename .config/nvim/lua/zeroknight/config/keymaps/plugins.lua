@@ -15,6 +15,7 @@ local leader = {
     f = { 'Find File' },
     o = { 'Find Old File' },
     z = { 'Find Directory via z' },
+    d = { 'Find Diagnostic' },
     t = { 'Find Treesitter' },
     q = { 'Find Quickfix' },
     l = { 'Find Location' },
@@ -78,6 +79,7 @@ local leader = {
       name = 'neovim',
       c = 'Find Neovim Config File',
       p = 'Find Neovim Plugin File',
+      l = 'Find Neovim Log File',
     },
     p = { 'Browse Projects' },
     z = {
