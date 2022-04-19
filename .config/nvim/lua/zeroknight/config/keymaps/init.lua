@@ -4,7 +4,6 @@
 -- are defined in the sibling `plugins.lua` file.
 
 local wk = require 'which-key'
-local key = require 'zeroknight.util.key'
 
 local function diag_method(method)
   return string.format('<Cmd>lua vim.diagnostic.%s<CR>', method)
@@ -79,50 +78,50 @@ wk.register(other)
 -- Standard Behavior Overwrites {{{1
 
 -- More logical Y
-key.noremap('', 'Y', 'y$')
+vim.keymap.set('', 'Y', 'y$')
 
 -- More sensible mark jumping. ` is at the beginning of the keyboard, so have its
 -- behavior match its position. It also "points" toward the start of the line.
 -- Also, ' is easier to reach and what I want more often anyway.
-key.noremap('', '`', "'")
-key.noremap('', "'", '`')
+vim.keymap.set('', '`', "'")
+vim.keymap.set('', "'", '`')
 
 -- Always move by visual line
-key.nnoremap('k', 'gk')
-key.nnoremap('j', 'gj')
+vim.keymap.set('n', 'k', 'gk')
+vim.keymap.set('n', 'j', 'gj')
 
 -- Workaround for C-Space detection
-key.imap('<C-@>', '<C-Space>')
+vim.keymap.set('i', '<C-@>', '<C-Space>', { remap = true })
 
 -- Stay in Visual mode after indenting
-key.vnoremap('<', '<gv')
-key.vnoremap('>', '>gv')
+vim.keymap.set('v', '<', '<gv')
+vim.keymap.set('v', '>', '>gv')
 
 -- Simple Remappings and Shortcuts {{{1
 
 -- Switch to Visual-Block mode from Visual mode a bit quicker
-key.xnoremap('v', '<C-v>')
+vim.keymap.set('x', 'v', '<C-v>')
 
 -- Enable . in visual mode
-key.vnoremap('.', '<Cmd>normal .<CR>')
+vim.keymap.set('v', '.', '<Cmd>normal .<CR>')
 
 -- UI Related {{{1
 
 -- Window Switching
-key.nnoremap('<C-H>', '<C-w>h')
-key.nnoremap('<C-J>', '<C-w>j')
-key.nnoremap('<C-K>', '<C-w>k')
-key.nnoremap('<C-L>', '<C-w>l')
+vim.keymap.set('n', '<C-H>', '<C-w>h')
+vim.keymap.set('n', '<C-J>', '<C-w>j')
+vim.keymap.set('n', '<C-K>', '<C-w>k')
+vim.keymap.set('n', '<C-L>', '<C-w>l')
 
 -- Window Resizing
-key.nnoremap('<M-Left>', '<C-w>5<')
-key.nnoremap('<M-Right>', '<C-w>5>')
-key.nnoremap('<M-Up>', '<C-w>5+')
-key.nnoremap('<M-Down>', '<C-w>5-')
+vim.keymap.set('n', '<M-Left>', '<C-w>5<')
+vim.keymap.set('n', '<M-Right>', '<C-w>5>')
+vim.keymap.set('n', '<M-Up>', '<C-w>5+')
+vim.keymap.set('n', '<M-Down>', '<C-w>5-')
 
 -- Allow <Tab> and <S-Tab> to cycle the popup menu
-key.inoremap('<Tab>', 'pumvisible() ? "\\<C-n>" : "\\<Tab>"', { expr = true })
-key.inoremap('<S-Tab>', 'pumvisible() ? "\\<C-p>" : "\\<S-Tab>"', { expr = true })
+vim.keymap.set('i', '<Tab>', 'pumvisible() ? "\\<C-n>" : "\\<Tab>"', { expr = true })
+vim.keymap.set('i', '<S-Tab>', 'pumvisible() ? "\\<C-p>" : "\\<S-Tab>"', { expr = true })
 
 -- }}
 

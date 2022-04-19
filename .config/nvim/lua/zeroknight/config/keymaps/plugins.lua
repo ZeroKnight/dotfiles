@@ -1,7 +1,6 @@
 -- ZeroKnight's Plugin Mappings
 
 local wk = require 'which-key'
-local key = require 'zeroknight.util.key'
 
 -- Leader Mappings {{{1
 
@@ -115,10 +114,7 @@ wk.register({
   mode = 'v',
 })
 
-key.nnoremap('<F4>', '<Cmd>SymbolsOutline<CR>')
-key.inoremap('<F4>', '<Esc><Cmd>SymbolsOutline<CR>')
-
-key.nnoremap('<F5>', '<Cmd>UndotreeToggle<CR>')
-key.inoremap('<F5>', '<Cmd>UndotreeToggle<CR>')
+vim.keymap.set({ 'n', 'i' }, '<F4>', '<Esc><Cmd>SymbolsOutline<CR>')
+vim.keymap.set({ 'n', 'i' }, '<F5>', '<Cmd>UndotreeToggle<CR>')
 
 -- vim: fdm=marker

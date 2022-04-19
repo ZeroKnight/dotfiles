@@ -8,7 +8,6 @@ end
 local lsp_status = require 'lsp-status'
 local lsp_kinds = require 'zeroknight.lsp.kinds'
 
-local key = require 'zeroknight.util.key'
 local wk = require 'which-key'
 
 local function lsp_method(kind, method)
@@ -118,7 +117,7 @@ function M.lsp_buffer_setup(client, bufnr)
 
   -- Automatic signature help
   for _, char in ipairs(client.resolved_capabilities.signature_help_trigger_characters) do
-    key.inoremap(char, function()
+    vim.keymap.set('i', char, function()
       vim.defer_fn(vim.lsp.buf.signature_help, 0)
       return char
     end, {
