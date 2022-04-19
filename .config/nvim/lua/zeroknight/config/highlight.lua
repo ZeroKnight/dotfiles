@@ -19,6 +19,9 @@ vim.cmd [[
   hi link  DiffOldFile DiffRemoved
 ]]
 
+-- Alias for Struct LSP kind
+vim.cmd [[hi link Struct Structure]]
+
 -- Diagnostic Highlighting
 
 -- From folke/lsp-colors.nvim

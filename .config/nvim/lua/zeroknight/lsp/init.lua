@@ -83,12 +83,6 @@ local M = {}
 function M.lsp_buffer_setup(client, bufnr)
   local map_telescope = require('plugin.telescope').map_telescope
 
-  local function buf_set_option(...)
-    vim.api.nvim_buf_set_option(bufnr, ...)
-  end
-
-  buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
-
   map_telescope('gr', {
     picker = 'lsp_references',
     opts = {
@@ -161,6 +155,11 @@ function M.init()
   }
   lsp_status.register_progress()
 
+  local capabilities = vim.lsp.protocol.make_client_capabilities()
+  -- if packer_loaded 'nvim-cmp' and packer_loaded 'cmp-nvim-lsp' then
+  capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+  -- end
+
   -- Run the setup for each server
   for ls, config in pairs(require 'zeroknight.lsp.servers') do
     if not config.disabled then
@@ -174,6 +173,7 @@ function M.init()
       else
         config.on_attach = M.lsp_buffer_setup
       end
+      config.capabilities = capabilities
       lspconfig[ls].setup(config)
     end
   end

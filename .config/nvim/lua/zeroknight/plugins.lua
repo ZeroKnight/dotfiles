@@ -154,11 +154,21 @@ return require('packer').startup {
 
     -- Completion {{{1
     use {
-      -- NOTE: Compe has been deprecated (just as I started using it, go figure...).
-      -- Switch to hrsh7th/nvim-cmp once it's had time to mature.
-      'hrsh7th/nvim-compe',
-      after = 'lexima.vim',
-      config = config 'completion',
+      {
+        'hrsh7th/nvim-cmp',
+        -- after = 'lexima.vim',
+        config = config 'completion',
+      },
+      -- Sources
+      -- TODO: Dadbod completion
+      { 'hrsh7th/cmp-buffer' },
+      { 'hrsh7th/cmp-calc' },
+      { 'hrsh7th/cmp-cmdline' },
+      { 'petertriho/cmp-git', config = [[require('cmp_git').setup()]] },
+      { 'hrsh7th/cmp-path' },
+      { 'hrsh7th/cmp-nvim-lsp' },
+      { 'hrsh7th/cmp-nvim-lua' },
+      { 'quangnguyen30192/cmp-nvim-ultisnips' },
     }
 
     -- Editing {{{1
@@ -205,7 +215,8 @@ return require('packer').startup {
     use {
       'SirVer/ultisnips',
       setup = function()
-        vim.g.UltiSnipsExpandTrigger = '<C-Space>'
+        -- NOTE: 'e' for 'expand'
+        vim.g.UltiSnipsExpandTrigger = '<M-e>'
       end,
     }
 
