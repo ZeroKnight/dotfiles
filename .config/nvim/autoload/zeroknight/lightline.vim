@@ -8,7 +8,7 @@ function! zeroknight#lightline#has_minwidth() abort
 endfunction
 let s:has_minwidth = function('zeroknight#lightline#has_minwidth')
 
-let s:filetype_map = #{fugitive: 'Fugitive', dirvish: 'Dirvish'}
+let s:filetype_map = #{fugitive: 'Fugitive'}
 function! zeroknight#lightline#mode() abort
   if &buftype ==# 'help'
     return 'Help'

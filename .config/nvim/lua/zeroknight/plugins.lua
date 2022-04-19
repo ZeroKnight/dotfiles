@@ -21,7 +21,6 @@ return require('packer').startup {
     use 'wbthomason/packer.nvim'
 
     -- UI Plugins {{{1
-    use 'justinmk/vim-dirvish'
     use 'mhinz/vim-startify'
     use 'kshenoy/vim-signature'
     use 'wesQ3/vim-windowswap'
