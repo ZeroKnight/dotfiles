@@ -106,6 +106,21 @@ return require('packer').startup {
       config = config 'which-key',
     }
 
+    use {
+      'norcalli/nvim-colorizer.lua',
+      config = function()
+        require('colorizer').setup({
+          '*',
+          css = { css = true },
+          html = { names = true },
+        }, {
+          -- Defaults
+          mode = 'background',
+          names = false,
+        })
+      end,
+    }
+
     -- Language Server Protocol (LSP) {{{1
     use 'neovim/nvim-lspconfig'
     use 'nvim-lua/lsp-status.nvim'
@@ -302,6 +317,7 @@ return require('packer').startup {
     use 'nanotee/luv-vimdocs'
     use 'bfredl/luarefvim'
     use 'nvim-lua/plenary.nvim'
+    use 'tjdevries/colorbuddy.nvim'
   end, -- }}}
 
   config = {
