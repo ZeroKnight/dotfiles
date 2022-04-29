@@ -1,5 +1,8 @@
 -- null-ls Configuration
 
+local format = string.format
+local match = string.match
+
 local null_ls = require 'null-ls'
 local builtins = null_ls.builtins
 
@@ -8,7 +11,7 @@ local lsp_buffer_setup = require('zeroknight.lsp').lsp_buffer_setup
 local function nvim_root(params)
   local nvim_cfg = vim.fn.stdpath 'config'
   local rel_home = vim.fn.fnamemodify(nvim_cfg, ':~:s?\\~/??')
-  if string.match(params.bufname, string.format('%s/lua', rel_home)) then
+  if match(params.bufname, format('%s/lua', rel_home)) or match(params.bufname, format('%s/.-%%.lua$', rel_home)) then
     return nvim_cfg
   end
 end
