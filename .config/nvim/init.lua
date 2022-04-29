@@ -5,7 +5,7 @@ vim.g.mapleader = '\\'
 vim.g.maplocalleader = ' '
 
 -- Handle initial setup for fresh installs
-if require('zeroknight.bootstrap')() then
+if require 'zeroknight.bootstrap'() then
   return
 end
 
@@ -21,6 +21,7 @@ require 'zeroknight.plugins'
 
 -- Neovim settings
 require 'zeroknight.config'
+require 'zeroknight.config.colorscheme'
 require 'zeroknight.config.highlight'
 require 'zeroknight.config.keymaps'
 require 'zeroknight.config.diagnostic'

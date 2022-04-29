@@ -121,20 +121,9 @@ opt.foldopen:append { 'jump' }
 opt.belloff = 'all' -- Bells are evil, kill them with fire
 opt.whichwrap:append '<,>,[,]'
 
--- Colors & Theme Settings {{{1
-
+-- Color & Syntax Settings
 opt.termguicolors = true -- 24-bit Colors
 opt.synmaxcol = 500 -- Don't bother highlighting obnoxious lines
-
--- Set initial background based on time of day
-local hour = tonumber(os.date '%H')
-if hour >= 6 and hour < 18 then
-  opt.background = 'light'
-else
-  opt.background = 'dark'
-end
-
-vim.cmd 'colorscheme one'
 
 -- Editing & Formatting {{{1
 
