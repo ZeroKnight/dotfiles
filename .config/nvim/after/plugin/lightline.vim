@@ -16,6 +16,7 @@ endfunction
 
 function! s:ReloadLightlineColorScheme(name) abort
   let g:lightline.colorscheme = a:name
+  lua zeroknight.lightline_reload_hook(name)
   exec printf('runtime autoload/lightline/colorscheme/%s.vim', a:name)
   call s:DiagnosticsHack(a:name)
   call lightline#enable()

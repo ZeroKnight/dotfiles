@@ -31,4 +31,9 @@ vim.g.tokyonight_sidebars = {
   'undotree',
 }
 
+function _G.zeroknight.lightline_reload_hook(name)
+  package.loaded['tokyonight.colors'] = nil
+  package.loaded['lightline.colorscheme.tokyonight'] = nil
+end
+
 vim.cmd 'colorscheme tokyonight'
