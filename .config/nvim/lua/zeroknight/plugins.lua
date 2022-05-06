@@ -289,6 +289,8 @@ return require('packer').startup {
       'nvim-treesitter/nvim-treesitter',
       config = config 'treesitter',
       run = ':TSUpdate',
+      -- WTF: Treesitter sometimes causes a segfault on startup from packer_compiled when not deferred
+      event = 'VimEnter',
     }
     use { 'euclidianAce/BetterLua.vim', ft = 'lua' }
     use { 'cespare/vim-toml', ft = 'toml' }
