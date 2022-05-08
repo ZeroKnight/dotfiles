@@ -170,7 +170,6 @@ return require('packer').startup {
     use {
       {
         'hrsh7th/nvim-cmp',
-        -- after = 'lexima.vim',
         config = config 'completion',
       },
       -- Sources
@@ -235,19 +234,9 @@ return require('packer').startup {
     }
 
     use {
-      'cohama/lexima.vim',
-      setup = function()
-        vim.g.lexima_enable_basic_rules = 1
-        vim.g.lexima_enable_newline_rules = 1
-        vim.g.lexima_enable_space_rules = 0
-        vim.g.lexima_enable_endwise_rules = 1
-        -- We need control over when the rules are defined to avoid mapping
-        -- conflicts, e.g. with compe
-        vim.g.lexima_no_default_rules = 1
-      end,
-      config = function()
-        vim.fn['lexima#set_default_rules']()
-      end,
+      'windwp/nvim-autopairs',
+      after = 'nvim-cmp',
+      config = config 'autopairs',
     }
 
     -- Git Integration {{{1
