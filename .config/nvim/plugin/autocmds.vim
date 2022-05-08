@@ -8,6 +8,9 @@ augroup ZeroVimAutoCommands
   " Automatically create directories for new files when saving
   autocmd BufWritePre,FileWritePre * call mkdir(expand('<afile>:p:h'), 'p')
 
+  " Automatically recompile packer schema on write
+  autocmd BufWritePost lua/zeroknight/plugins.lua source <afile> | PackerCompile
+
   " Many filetype plugins set `formatoptions+=o`. Undo this.
   autocmd FileType * setlocal formatoptions-=o
 
