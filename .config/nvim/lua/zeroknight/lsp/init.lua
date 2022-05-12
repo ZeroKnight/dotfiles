@@ -105,7 +105,7 @@ function M.lsp_buffer_setup(client, bufnr)
   map_telescope('<LocalLeader>ws', { 'lsp_workspace_symbols', opts = { ignore_filename = true }, buffer = true })
 
   -- Enable document highlights if supported
-  if client.resolved_capabilities.document_highlight then
+  if client.server_capabilities.documentHighlightProvider then
     vim.cmd [[
       augroup ZeroKnight_LSP_Highlighting
         autocmd! * <buffer>
@@ -116,7 +116,8 @@ function M.lsp_buffer_setup(client, bufnr)
   end
 
   -- Automatic signature help
-  for _, char in ipairs(client.resolved_capabilities.signature_help_trigger_characters) do
+  local trigger_chars = vim.tbl_get(client.server_capabilities, 'signatureHelpProvider', 'triggerCharacters') or {}
+  for _, char in ipairs(trigger_chars) do
     vim.keymap.set('i', char, function()
       vim.defer_fn(vim.lsp.buf.signature_help, 0)
       return char
@@ -127,14 +128,16 @@ function M.lsp_buffer_setup(client, bufnr)
   end
 
   -- Document formatting
-  if client.resolved_capabilities.document_formatting then
+  if client.server_capabilities.documentFormattingProvider then
     lsp_keymap['<LocalLeader>'].c.f = { lsp_method('buf', 'formatting'), '[LSP] Format Document' }
-    lsp_keymap_x['<LocalLeader>'].c.f = { lsp_method('buf', 'range_formatting'), '[LSP] Format Range' }
     vim.cmd [[
       augroup ZeroKnight_LSP_Formatting
         autocmd BufWritePre <buffer> lua require('zeroknight.util.formatting').lsp_format_on_write()
       augroup END
     ]]
+  end
+  if client.server_capabilities.documentRangeFormattingProvider then
+    lsp_keymap_x['<LocalLeader>'].c.f = { lsp_method('buf', 'range_formatting'), '[LSP] Format Range' }
   end
 
   lsp_status.on_attach(client)
