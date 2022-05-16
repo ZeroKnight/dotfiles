@@ -2,6 +2,7 @@
 
 local util = require 'zeroknight.util'
 local color = require 'zeroknight.util.color'
+local diag = require 'zeroknight.config.diagnostic'
 
 -- Spellcheck colors
 vim.cmd [[hi SpellBad cterm=undercurl,bold]]
@@ -24,19 +25,7 @@ vim.cmd [[hi link Struct Structure]]
 
 -- Diagnostic Highlighting
 
--- From folke/lsp-colors.nvim
-local folke_colors = { Error = '#db4b4b', Warn = '#e0af68', Info = '#0db9d7', Hint = '#10b981' }
-local diag_colors = vim.tbl_extend(
-  'force',
-  folke_colors,
-  { Error = color.to_hex(vim.api.nvim_get_hl_by_name('Error', true).foreground) }
-)
-
-for severity, col in pairs(diag_colors) do
-  util.cmdf('hi Diagnostic%s guifg=%s', severity, col)
-  util.cmdf('hi DiagnosticUnderline%s gui=undercurl guisp=%s', severity, col)
+for severity, col in pairs(diag.colors()) do
+  util.cmdf('hi def Diagnostic%s guifg=%s', severity, col)
+  util.cmdf('hi def DiagnosticUnderline%s gui=undercurl guisp=%s', severity, col)
 end
-vim.cmd [[
-  hi clear DiagnosticError
-  hi link DiagnosticError Error
-]]
