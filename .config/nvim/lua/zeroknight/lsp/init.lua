@@ -19,6 +19,7 @@ local lsp_keymap = {
     c = {
       name = 'code/calls',
       a = { '<Cmd>CodeActionMenu<CR>', '[LSP] Code Actions' },
+      A = { lsp_method('buf', 'code_action'), '[LSP] Code Actions (Native)' },
       i = { lsp_method('buf', 'incoming_calls'), '[LSP] Incoming Calls' },
       o = { lsp_method('buf', 'outgoing_calls'), '[LSP] Outgoing Calls' },
     },

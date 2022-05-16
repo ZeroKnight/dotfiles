@@ -121,6 +121,11 @@ return require('packer').startup {
       end,
     }
 
+    use {
+      'stevearc/dressing.nvim',
+      config = config 'dressing',
+    }
+
     -- Language Server Protocol (LSP) {{{1
     use 'neovim/nvim-lspconfig'
     use 'nvim-lua/lsp-status.nvim'
