@@ -126,6 +126,11 @@ return require('packer').startup {
       config = config 'dressing',
     }
 
+    use {
+      'rcarriga/nvim-notify',
+      config = config 'notify',
+    }
+
     -- Language Server Protocol (LSP) {{{1
     use 'neovim/nvim-lspconfig'
     use 'nvim-lua/lsp-status.nvim'
