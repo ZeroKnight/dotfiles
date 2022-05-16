@@ -78,7 +78,7 @@ function M.map_telescope(lhs, opts)
 end
 local map_telescope = M.map_telescope
 
--- Pick from neovim configuration files
+-- Pick from Neovim configuration files
 function M.nvim_config()
   builtin.find_files {
     prompt_title = 'Neovim Configuration',
@@ -92,7 +92,7 @@ function M.nvim_config()
   }
 end
 
--- Pick from installed neovim plugins
+-- Pick from installed Neovim plugins
 function M.nvim_plugins()
   builtin.find_files {
     prompt_title = 'Neovim Plugin Files',
@@ -104,11 +104,23 @@ function M.nvim_plugins()
   }
 end
 
--- Pick from neovim logs
+-- Pick from Neovim logs
 function M.nvim_logs()
   builtin.find_files {
     prompt_title = 'Neovim Log Files',
     cwd = vim.fn.stdpath 'cache',
+    layout_strategy = 'horizontal',
+    layout_config = {
+      preview_width = 0.6,
+    },
+  }
+end
+
+-- Pick from Neovim runtime
+function M.nvim_runtime()
+  builtin.find_files {
+    prompt_title = 'Neovim Runtime Files',
+    cwd = vim.fn.expand '$VIMRUNTIME',
     layout_strategy = 'horizontal',
     layout_config = {
       preview_width = 0.6,
@@ -200,6 +212,7 @@ map_telescope('<Leader>fz', 'z')
 map_telescope('<Leader><Leader>nc', 'nvim_config')
 map_telescope('<Leader><Leader>np', 'nvim_plugins')
 map_telescope('<Leader><Leader>nl', 'nvim_logs')
+map_telescope('<Leader><Leader>nr', 'nvim_runtime')
 map_telescope('<Leader><Leader>zc', 'zsh_config')
 map_telescope('<Leader><Leader>p', 'projects')
 
