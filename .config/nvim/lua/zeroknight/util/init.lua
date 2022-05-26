@@ -5,43 +5,57 @@ local format = string.format
 local M = {}
 
 -- Returns the module name of the calling function
-function M.get_module_name()
+function M.get_module_name(level)
+  if level == nil then
+    level = 2
+  end
   local name
-  local info = debug.getinfo(4, 'S')
-  local filename = string.match(info.source, '^@(.+)$')
-  if filename ~= nil then
-    name = filename:match('lua/(%S+)%.lua$'):gsub('/', '.'):gsub('%.init$', '')
-  else
-    name = info.source
+  local info = debug.getinfo(level, 'S')
+  if info ~= nil then
+    local filename = string.match(info.source, '^@(.+)$')
+    if filename ~= nil then
+      name = filename:match 'lua/(%S+)%.lua$'
+      if name ~= nil then
+        name = name:gsub('/', '.'):gsub('%.init$', '')
+      end
+    end
   end
   return name
 end
 
-function M.log(hl, ...)
-  local args = { format('[%s] ', M.get_module_name()), ... }
-  vim.api.nvim_echo(
-    vim.tbl_map(function(x)
-      return { x, hl }
-    end, args),
-    true,
-    {}
-  )
+function M._log(hl, ...)
+  local args = vim.tbl_flatten { ... }
+  local mod_name = M.get_module_name(4)
+  if mod_name ~= nil and #mod_name > 0 then
+    table.insert(args, 1, format('[%s] ', mod_name))
+  end
+  vim.schedule(function()
+    vim.api.nvim_echo(
+      vim.tbl_map(function(x)
+        return { x, hl }
+      end, args),
+      true,
+      {}
+    )
+  end)
 end
 
 function M.msg(...)
-  M.log('Normal', ...)
+  M._log('Normal', ...)
 end
 
 function M.info(...)
-  M.log('DiagnosticInfo', 'Info: ', ...)
+  M._log('DiagnosticInfo', 'Info: ', ...)
 end
 
 function M.warn(...)
-  M.log('DiagnosticWarn', 'Warning: ', ...)
+  M._log('DiagnosticWarn', 'Warning: ', ...)
 end
 
 function M.error(...)
-  M.log('DiagnosticError', 'Error: ', ...)
+  local args = { ... }
+  table.insert(args, debug.traceback('', 2))
+  M._log('DiagnosticError', 'Error: ', args)
 end
 
 function M.t(key)
