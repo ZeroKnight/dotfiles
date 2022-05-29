@@ -79,6 +79,7 @@ local leader = {
       c = 'Find Neovim Config File',
       p = 'Find Neovim Plugin File',
       l = 'Find Neovim Log File',
+      r = 'Find Neovim Runtime File',
     },
     p = { 'Browse Projects' },
     z = {
