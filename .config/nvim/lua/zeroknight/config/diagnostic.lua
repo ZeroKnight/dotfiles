@@ -1,6 +1,7 @@
 -- Neovim Diagnostics configuration
 
 local D = vim.diagnostic
+local command = vim.api.nvim_create_user_command
 
 D.config {
   underline = true,
@@ -9,6 +10,18 @@ D.config {
   update_in_insert = false,
   severity_sort = true,
 }
+
+command('Diagnostics', function(ctx)
+  vim.fn['zeroknight#diagnostic#set_list'](ctx.bang, ctx.args)
+end, {
+  desc = 'Send diagnostics to the quickfix or location list',
+  bang = true,
+  force = true,
+  nargs = '?',
+  complete = function()
+    return { 'error', 'warn', 'info', 'hint' }
+  end,
+})
 
 -- Colors from folke/lsp-colors.nvim
 local M = {
