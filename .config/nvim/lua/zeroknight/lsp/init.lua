@@ -1,6 +1,9 @@
 -- Language Server Configuration
 
 local lsp = vim.lsp
+local autocmd = vim.api.nvim_create_autocmd
+local augroup = vim.api.nvim_create_augroup
+
 local has_lspconfig, lspconfig = pcall(require, 'lspconfig')
 if not has_lspconfig then
   return
@@ -94,13 +97,20 @@ function M.lsp_buffer_setup(client, bufnr)
 
   -- Enable document highlights if supported
   if client.server_capabilities.documentHighlightProvider then
-    vim.cmd [[
-      augroup ZeroKnight_LSP_Highlighting
-        autocmd! * <buffer>
-        autocmd CursorHold,CursorHoldI,BufEnter <buffer> lua vim.lsp.buf.document_highlight()
-        autocmd CursorMoved,BufLeave <buffer> lua vim.lsp.buf.clear_references()
-      augroup END
-    ]]
+    local lsp_hl_augroup = augroup('ZeroKnight_LSP_Highlighting', { clear = false })
+    vim.api.nvim_clear_autocmds { group = lsp_hl_augroup, buffer = bufnr }
+    autocmd({ 'CursorHold', 'CursorHoldI', 'BufEnter', 'CursorMoved', 'BufLeave' }, {
+      desc = 'LSP Document Highlighting',
+      buffer = bufnr,
+      group = lsp_hl_augroup,
+      callback = function(ctx)
+        if vim.tbl_contains({ 'CursorHold', 'CursorHoldI', 'BufEnter' }, ctx.event) then
+          vim.lsp.buf.document_highlight()
+        elseif vim.tbl_contains({ 'CursorMoved', 'BufLeave' }, ctx.event) then
+          vim.lsp.buf.clear_references()
+        end
+      end,
+    })
   end
 
   -- Automatic signature help
@@ -118,11 +128,15 @@ function M.lsp_buffer_setup(client, bufnr)
   -- Document formatting
   if client.server_capabilities.documentFormattingProvider then
     lsp_keymap['<LocalLeader>'].c.f = { lsp_method('buf', 'formatting'), '[LSP] Format Document' }
-    vim.cmd [[
-      augroup ZeroKnight_LSP_Formatting
-        autocmd BufWritePre <buffer> lua require('zeroknight.util.formatting').lsp_format_on_write()
-      augroup END
-    ]]
+    local lsp_fmt_augroup = augroup('ZeroKnight_LSP_Formatting', { clear = false })
+    autocmd('BufWritePre', {
+      desc = 'Format document on write',
+      buffer = bufnr,
+      group = lsp_fmt_augroup,
+      callback = function()
+        require('zeroknight.util.formatting').lsp_format_on_write()
+      end,
+    })
   end
   if client.server_capabilities.documentRangeFormattingProvider then
     lsp_keymap_x['<LocalLeader>'].c.f = { lsp_method('buf', 'range_formatting'), '[LSP] Format Range' }
@@ -176,12 +190,14 @@ function M.init()
   -- Set up highlighting
   require 'zeroknight.lsp.highlight'
 
-  vim.cmd [[
-    augroup ZeroKnight_LSP
-      autocmd!
-      autocmd ColorScheme * lua rerequire('zeroknight.lsp.highlight')
-    augroup END
-  ]]
+  local lsp_augroup = augroup('ZeroKnight_LSP', {})
+  autocmd('ColorScheme', {
+    desc = 'Reload LSP highlighting on colorscheme change',
+    group = lsp_augroup,
+    callback = function()
+      rerequire 'zeroknight.lsp.highlight'
+    end,
+  })
 end
 
 return M
