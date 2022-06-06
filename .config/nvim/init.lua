@@ -16,6 +16,10 @@ if not vim.env.VIMSESSIONS then
   vim.env.VIMSESSIONS = as_stdpath('data', 'session')
 end
 
+-- Opt-in to filetype.lua
+vim.g.do_filetype_lua = 1
+vim.g.did_load_filetypes = 0
+
 -- Load plugins
 require 'zeroknight.plugins'
 
