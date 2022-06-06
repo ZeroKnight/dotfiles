@@ -60,7 +60,7 @@ local leader = {
     b = { 'Toggle Hunk Blame' },
     U = { 'Reset Buffer Index (Git)' },
   },
-  ig = { '<Cmd>IndentLinesToggle<CR>', 'Toggle indent guides' },
+  ig = { '<Cmd>IndentBlanklineToggle<CR>', 'Toggle indent guides' },
   ue = { ':UltiSnipsEdit<CR>', 'Edit snippets for current filetype' },
   x = {
     name = 'errors/diag',

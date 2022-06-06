@@ -24,7 +24,10 @@ return require('packer').startup {
     use 'mhinz/vim-startify'
     use 'kshenoy/vim-signature'
     use 'wesQ3/vim-windowswap'
-    use 'Yggdroot/indentLine'
+    use {
+      'lukas-reineke/indent-blankline.nvim',
+      config = config 'indentline',
+    }
     use {
       'mbbill/undotree',
       cmd = { 'UndotreeFocus', 'UndotreeHide', 'UndotreeShow', 'UndotreeToggle' },
