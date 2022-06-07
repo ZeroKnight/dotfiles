@@ -15,7 +15,7 @@ end
 
 function M.lsp_format_on_write()
   if M.should_format() then
-    vim.lsp.buf.formatting_sync()
+    vim.lsp.buf.format()
   end
 end
 

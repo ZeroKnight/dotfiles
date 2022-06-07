@@ -13,18 +13,29 @@ local lsp_kinds = require 'zeroknight.lsp.kinds'
 
 local wk = require 'which-key'
 
-local function lsp_method(kind, method)
-  return string.format('<Cmd>lua vim.lsp.%s.%s()<CR>', kind, method)
-end
-
 local lsp_keymap = {
   ['<LocalLeader>'] = {
     c = {
       name = 'code/calls',
       a = { '<Cmd>CodeActionMenu<CR>', '[LSP] Code Actions' },
-      A = { lsp_method('buf', 'code_action'), '[LSP] Code Actions (Native)' },
-      i = { lsp_method('buf', 'incoming_calls'), '[LSP] Incoming Calls' },
-      o = { lsp_method('buf', 'outgoing_calls'), '[LSP] Outgoing Calls' },
+      A = {
+        function()
+          lsp.buf.code_action()
+        end,
+        '[LSP] Code Actions (Native)',
+      },
+      i = {
+        function()
+          lsp.buf.incoming_calls()
+        end,
+        '[LSP] Incoming Calls',
+      },
+      o = {
+        function()
+          lsp.buf.outgoing_calls()
+        end,
+        '[LSP] Outgoing Calls',
+      },
     },
     d = {
       name = 'document',
@@ -47,26 +58,61 @@ local lsp_keymap = {
         '[LSP] Restart ALL clients',
       },
     },
-    td = { lsp_method('buf', 'type_definition'), '[LSP] Jump to Type Definition' },
+    td = {
+      function()
+        lsp.buf.type_definition()
+      end,
+      '[LSP] Jump to Type Definition',
+    },
     w = {
       name = 'workspace',
       s = { '[LSP] Workspace Symbols' },
     },
   },
-  ['<F2>'] = { lsp_method('buf', 'rename'), '[LSP] Rename Symbol' },
+  ['<F2>'] = {
+    function()
+      lsp.buf.rename()
+    end,
+    '[LSP] Rename Symbol',
+  },
   g = {
     name = 'goto',
-    d = { lsp_method('buf', 'definition'), '[LSP] Jump to Definition' },
-    D = { lsp_method('buf', 'declaration'), '[LSP] Jump to Declaration' },
-    I = { lsp_method('buf', 'implementation'), '[LSP] Jump to Implementation' },
+    d = {
+      function()
+        lsp.buf.definition()
+      end,
+      '[LSP] Jump to Definition',
+    },
+    D = {
+      function()
+        lsp.buf.declaration()
+      end,
+      '[LSP] Jump to Declaration',
+    },
+    I = {
+      function()
+        lsp.buf.implementation()
+      end,
+      '[LSP] Jump to Implementation',
+    },
     r = { '[LSP] Browse References' },
   },
-  K = { lsp_method('buf', 'hover'), '[LSP] Show Hover' },
+  K = {
+    function()
+      lsp.buf.hover()
+    end,
+    '[LSP] Show Hover',
+  },
 }
 
 -- Mappings for both NORMAL and INSERT mode
 local lsp_keymap_ni = {
-  ['<C-s>'] = { lsp_method('buf', 'signature_help'), '[LSP] Signature Help' },
+  ['<C-s>'] = {
+    function()
+      lsp.buf.signature_help()
+    end,
+    '[LSP] Signature Help',
+  },
 }
 
 local lsp_keymap_x = {
@@ -127,7 +173,12 @@ function M.lsp_buffer_setup(client, bufnr)
 
   -- Document formatting
   if client.server_capabilities.documentFormattingProvider then
-    lsp_keymap['<LocalLeader>'].c.f = { lsp_method('buf', 'formatting'), '[LSP] Format Document' }
+    lsp_keymap['<LocalLeader>'].c.f = {
+      function()
+        lsp.buf.format { async = true }
+      end,
+      '[LSP] Format Document',
+    }
     local lsp_fmt_augroup = augroup('ZeroKnight_LSP_Formatting', { clear = false })
     autocmd('BufWritePre', {
       desc = 'Format document on write',
@@ -139,7 +190,12 @@ function M.lsp_buffer_setup(client, bufnr)
     })
   end
   if client.server_capabilities.documentRangeFormattingProvider then
-    lsp_keymap_x['<LocalLeader>'].c.f = { lsp_method('buf', 'range_formatting'), '[LSP] Format Range' }
+    lsp_keymap_x['<LocalLeader>'].c.f = {
+      function()
+        lsp.buf.range_formatting()
+      end,
+      '[LSP] Format Range',
+    }
   end
 
   lsp_status.on_attach(client)
