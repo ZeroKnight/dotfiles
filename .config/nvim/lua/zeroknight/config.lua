@@ -168,11 +168,6 @@ opt.cinkeys = {
 
 -- Neovim State/Persistence Settings {{{1
 
--- Set state directories
-opt.directory = as_stdpath('data', 'swap//')
-opt.undodir = as_stdpath('data', 'undo')
-opt.viewdir = as_stdpath('data', 'view')
-
 opt.history = 10000
 opt.shada = { '!', 'h', "'100", '<1000' }
 opt.undofile = true

@@ -24,7 +24,7 @@ type = '...'
 required = true
 
 [[as_stdpath.args]]
-type = ['cache', 'config', 'config_dirs', 'data', 'data_dirs']
+type = ['cache', 'config', 'config_dirs', 'data', 'data_dirs', 'log', 'state']
 required = true
 
 [[as_stdpath.args]]

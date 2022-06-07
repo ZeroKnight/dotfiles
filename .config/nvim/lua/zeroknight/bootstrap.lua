@@ -29,7 +29,7 @@ end
 local function make_state_dirs()
   util.msg 'Creating Neovim state directories'
   for _, dir in ipairs { 'swap', 'undo', 'view', 'session' } do
-    local path = format('%s/%s', vim.fn.stdpath 'data', dir)
+    local path = format('%s/%s', vim.fn.stdpath 'state', dir)
     vim.fn.mkdir(path, 'p')
   end
 end
