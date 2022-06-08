@@ -78,7 +78,7 @@ wk.register(other)
 -- Standard Behavior Overwrites {{{1
 
 -- More logical Y
-vim.keymap.set('', 'Y', 'y$')
+vim.keymap.set('', 'Y', 'y$', { desc = 'Yank to end of line' })
 
 -- More sensible mark jumping. ` is at the beginning of the keyboard, so have its
 -- behavior match its position. It also "points" toward the start of the line.
@@ -90,20 +90,15 @@ vim.keymap.set('', "'", '`')
 vim.keymap.set('n', 'k', 'gk')
 vim.keymap.set('n', 'j', 'gj')
 
--- Workaround for C-Space detection
-vim.keymap.set('i', '<C-@>', '<C-Space>', { remap = true })
+vim.keymap.set('i', '<C-@>', '<C-Space>', { remap = true }, { desc = 'Workaround for C-Space detection' })
 
--- Stay in Visual mode after indenting
-vim.keymap.set('v', '<', '<gv')
-vim.keymap.set('v', '>', '>gv')
+vim.keymap.set('v', '<', '<gv', { desc = 'Stay in Visual mode after unindenting' })
+vim.keymap.set('v', '>', '>gv', { desc = 'Stay in Visual mode after indenting' })
 
 -- Simple Remappings and Shortcuts {{{1
 
--- Switch to Visual-Block mode from Visual mode a bit quicker
-vim.keymap.set('x', 'v', '<C-v>')
-
--- Enable . in visual mode
-vim.keymap.set('v', '.', '<Cmd>normal .<CR>')
+vim.keymap.set('x', 'v', '<C-v>', { desc = 'Switch to Visual-Block mode from Visual mode a bit quicker' })
+vim.keymap.set('v', '.', '<Cmd>normal .<CR>', { desc = 'Enable . in visual mode' })
 
 -- UI Related {{{1
 
@@ -120,10 +115,20 @@ vim.keymap.set('n', '<M-Up>', '<C-w>5+')
 vim.keymap.set('n', '<M-Down>', '<C-w>5-')
 
 -- Allow <Tab> and <S-Tab> to cycle the popup menu
-vim.keymap.set('i', '<Tab>', 'pumvisible() ? "\\<C-n>" : "\\<Tab>"', { expr = true })
-vim.keymap.set('i', '<S-Tab>', 'pumvisible() ? "\\<C-p>" : "\\<S-Tab>"', { expr = true })
+vim.keymap.set(
+  'i',
+  '<Tab>',
+  'pumvisible() ? "\\<C-n>" : "\\<Tab>"',
+  { expr = true, desc = 'Cycle popup menu forward if open' }
+)
+vim.keymap.set(
+  'i',
+  '<S-Tab>',
+  'pumvisible() ? "\\<C-p>" : "\\<S-Tab>"',
+  { expr = true, desc = 'Cycle popup menu backward if open' }
+)
 
--- }}
+-- }}}
 
 -- Define plugin mappings
 require 'zeroknight.config.keymaps.plugins'
