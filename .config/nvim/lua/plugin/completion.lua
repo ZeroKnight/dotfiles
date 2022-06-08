@@ -102,12 +102,18 @@ cmp.setup {
       i = cmp.mapping.abort(),
       c = cmp.mapping.close(),
     },
-    ['<Tab>'] = wrap_visible(function()
-      cmp.select_next_item()
-    end),
-    ['<S-Tab>'] = wrap_visible(function()
-      cmp.select_prev_item()
-    end),
+    ['<Tab>'] = cmp.mapping {
+      i = wrap_visible(function()
+        cmp.select_next_item()
+      end),
+      c = cmp.mapping.select_next_item(),
+    },
+    ['<S-Tab>'] = cmp.mapping {
+      i = wrap_visible(function()
+        cmp.select_prev_item()
+      end),
+      c = cmp.mapping.select_prev_item(),
+    },
     ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
     ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
     ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
