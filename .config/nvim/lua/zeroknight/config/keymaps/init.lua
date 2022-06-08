@@ -56,13 +56,27 @@ local ni = {
 
 -- Everything else {{{1
 local other = {
-  ['['] = {
-    name = 'prev',
-    d = { diag_method 'goto_prev()', 'Previous Diagnostic' },
+  n = {
+    ['['] = {
+      name = 'prev',
+      c = { '<Cmd>copy -<CR>', 'Copy line up' },
+      d = { diag_method 'goto_prev()', 'Previous Diagnostic' },
+    },
+    [']'] = {
+      name = 'next',
+      c = { '<Cmd>copy .<CR>', 'Copy line down' },
+      d = { diag_method 'goto_next()', 'Next Diagnostic' },
+    },
   },
-  [']'] = {
-    name = 'next',
-    d = { diag_method 'goto_next()', 'Next Diagnostic' },
+  v = {
+    ['['] = {
+      name = 'prev',
+      c = { ':copy -<CR>', 'Copy line up' },
+    },
+    [']'] = {
+      name = 'next',
+      c = { ':copy +<CR>', 'Copy line down' },
+    },
   },
 }
 
@@ -73,7 +87,9 @@ wk.register(localleader, { prefix = '<LocalLeader>' })
 wk.register(g, { prefix = 'g' })
 wk.register(ni, { mode = 'n' })
 wk.register(ni, { mode = 'i' })
-wk.register(other)
+for mode, mappings in pairs(other) do
+  wk.register(mappings, { mode = mode })
+end
 
 -- Standard Behavior Overwrites {{{1
 
@@ -99,6 +115,15 @@ vim.keymap.set('v', '>', '>gv', { desc = 'Stay in Visual mode after indenting' }
 
 vim.keymap.set('x', 'v', '<C-v>', { desc = 'Switch to Visual-Block mode from Visual mode a bit quicker' })
 vim.keymap.set('v', '.', '<Cmd>normal .<CR>', { desc = 'Enable . in visual mode' })
+
+-- Copy/Move the current line while in Insert mode like in other editors.
+-- A nice pair to tpope/unimpaired
+vim.keymap.set('i', '<M-Up>', '<Cmd>move --<CR>', { desc = 'Move line up' })
+vim.keymap.set('i', '<M-Down>', '<Cmd>move +<CR>', { desc = 'Move line down' })
+vim.keymap.set('i', '<M-S-Up>', '<Cmd>copy -<CR>', { desc = 'Copy line up' })
+vim.keymap.set('i', '<M-S-Down>', '<Cmd>copy .<CR>', { desc = 'Copy line down' })
+vim.keymap.set('v', '<M-S-Up>', ':copy -<CR>', { desc = 'Copy line up' })
+vim.keymap.set('v', '<M-S-Down>', ':copy +<CR>', { desc = 'Copy line down' })
 
 -- UI Related {{{1
 
