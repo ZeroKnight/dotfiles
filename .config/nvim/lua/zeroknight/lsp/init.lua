@@ -13,6 +13,8 @@ local lsp_kinds = require 'zeroknight.lsp.kinds'
 
 local wk = require 'which-key'
 
+local M = {}
+
 local lsp_keymap = {
   ['<LocalLeader>'] = {
     c = {
@@ -40,6 +42,21 @@ local lsp_keymap = {
     d = {
       name = 'document',
       s = { '[LSP] Document Symbols' },
+    },
+    p = {
+      name = 'preview/peek',
+      d = {
+        function()
+          M.peek 'definition'
+        end,
+        '[LSP] Peek Definition',
+      },
+      D = {
+        function()
+          M.peek 'declaration'
+        end,
+        '[LSP] Peek Declaration',
+      },
     },
     r = {
       name = 'restart',
@@ -123,8 +140,6 @@ local lsp_keymap_x = {
     },
   },
 }
-
-local M = {}
 
 -- Main `on_attach` callback
 function M.lsp_buffer_setup(client, bufnr)
@@ -254,6 +269,23 @@ function M.init()
       rerequire 'zeroknight.lsp.highlight'
     end,
   })
+end
+
+local function preview_location_callback(_, result)
+  if result == nil or vim.tbl_isempty(result) then
+    require('vim.lsp.log').info 'No location found for preview'
+    return nil
+  end
+  if vim.tbl_islist(result) then
+    vim.lsp.util.preview_location(result[1])
+  else
+    vim.lsp.util.preview_location(result)
+  end
+end
+
+function M.peek(what)
+  local params = vim.lsp.util.make_position_params()
+  return vim.lsp.buf_request(0, 'textDocument/' .. what, params, preview_location_callback)
 end
 
 return M
