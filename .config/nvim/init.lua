@@ -13,7 +13,7 @@ end
 require 'zeroknight.globals'
 
 if not vim.env.VIMSESSIONS then
-  vim.env.VIMSESSIONS = as_stdpath('data', 'session')
+  vim.env.VIMSESSIONS = as_stdpath('state', 'session')
 end
 
 -- Opt-in to filetype.lua
