@@ -16,6 +16,8 @@ Abolish do{ens,sen} doesn
 Abolish versoin version
 Abolish aroudn around
 Abolish reutrn return
+Abolish ture true
+Abolish f{las,asl}e false
 
 " eh/æ mixups
 Abolish {,in}consistant{,ly} {}consistent{}
@@ -27,4 +29,3 @@ Abolish oc{,c}ur{,r}ance occurrence
 
 " Other mixups
 Abolish competative{,ly} competitive{}
-
