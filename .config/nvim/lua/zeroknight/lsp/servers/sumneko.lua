@@ -42,7 +42,7 @@ M.config = {
         enable = true,
         globals = { 'vim', 'packer_plugins' },
         -- Disabled diagnostic categories
-        disable = {},
+        disable = { 'undefined-field', 'undefined-global' },
       },
       workspace = {
         -- Include Neovim runtime files
