@@ -151,10 +151,21 @@ opt.backspace = { 'indent', 'eol', 'start' } -- Sane backspace functionality
 
 -- Tabs
 opt.expandtab = true -- Use spaces for tabs like a civilized person
-opt.smarttab = true -- TBD: Is this actually necessary?
+opt.smarttab = true -- Redundant when sts=-1, but useful when sts=0
 opt.autoindent = true
-opt.tabstop = 4
-opt.shiftwidth = 4
+opt.smartindent = false -- Explicitly disable this legacy behavior
+opt.tabstop = 4 -- 4 spaces by default, 2 on a per-filetype basis
+opt.shiftwidth = opt.tabstop:get()
+
+-- My preference is to set 'sts' one of two ways: either 0 or -1 and always with
+-- 'smarttab' set. When -1, <BS> will always delete enough spaces to reach
+-- a tabstop, even between words. When 0, <BS> will only delete more than one
+-- space when at the start of a line, not in between words; this is due to
+-- 'smarttab' being active.
+--
+-- My general default is -1, as that's the behavior I want most of the time.
+-- I may switch to 0 on a per-file or per-filetype basis if I need to do a lot
+-- of text alignment.
 opt.softtabstop = -1
 
 -- stylua: ignore start
