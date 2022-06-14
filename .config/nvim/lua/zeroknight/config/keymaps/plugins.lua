@@ -61,7 +61,6 @@ local leader = {
     U = { 'Reset Buffer Index (Git)' },
   },
   ig = { '<Cmd>IndentBlanklineToggle<CR>', 'Toggle indent guides' },
-  ue = { ':UltiSnipsEdit<CR>', 'Edit snippets for current filetype' },
   x = {
     name = 'errors/diag',
     x = { '<Cmd>TroubleToggle<CR>', 'Toggle Trouble window' },
@@ -82,6 +81,21 @@ local leader = {
       r = 'Find Neovim Runtime File',
     },
     p = { 'Browse Projects' },
+    s = {
+      name = 'snippets',
+      e = {
+        function()
+          require('luasnip.loaders').edit_snippet_files()
+        end,
+        'Edit snippets for current filetype(s)',
+      },
+      r = {
+        function()
+          rerequire 'plugin.luasnip'
+        end,
+        'Reload LuaSnip',
+      },
+    },
     z = {
       name = 'zsh',
       c = 'Find Zsh Config File',

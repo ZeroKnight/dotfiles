@@ -20,7 +20,7 @@ local menu_text = {
   nvim_lsp = 'LSP',
   nvim_lua = 'vim.api',
   path = 'path',
-  ultisnips = 'snip',
+  luasnip = 'snip',
 }
 
 local compare = setmetatable({}, {
@@ -54,7 +54,7 @@ cmp.setup {
 
   snippet = {
     expand = function(args)
-      vim.fn['UltiSnips#Anon'](args.body)
+      require('luasnip').lsp_expand(args.body)
     end,
   },
 
@@ -123,7 +123,7 @@ cmp.setup {
     { name = 'nvim_lua' },
     { name = 'nvim_lsp' },
     { name = 'path' },
-    { name = 'ultisnips' },
+    { name = 'luasnip' },
     { name = 'calc' },
     { name = 'buffer', keyword_length = 5 },
   },
@@ -135,7 +135,7 @@ cmp.setup.filetype('gitcommit', {
     { name = 'cmp_git' },
   }, {
     { name = 'path' },
-    { name = 'ultisnips' },
+    { name = 'luasnip' },
     { name = 'calc' },
     { name = 'buffer' },
   }),

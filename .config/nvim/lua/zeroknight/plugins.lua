@@ -60,8 +60,8 @@ return require('packer').startup {
       { 'nvim-telescope/telescope-file-browser.nvim', config = tele_extension 'file_browser' },
       { 'nvim-telescope/telescope-fzy-native.nvim', config = tele_extension 'fzy_native' },
       { 'nvim-telescope/telescope-github.nvim', config = tele_extension 'gh' },
+      { 'benfowler/telescope-luasnip.nvim', config = tele_extension 'luasnip' },
       { 'nvim-telescope/telescope-packer.nvim', config = tele_extension 'packer' },
-      { 'fhill2/telescope-ultisnips.nvim', config = tele_extension 'ultisnips' },
       { 'nvim-telescope/telescope-z.nvim', config = tele_extension 'z' },
     }
 
@@ -196,10 +196,10 @@ return require('packer').startup {
       { 'hrsh7th/cmp-calc' },
       { 'hrsh7th/cmp-cmdline' },
       { 'petertriho/cmp-git', config = [[require('cmp_git').setup()]] },
+      { 'saadparwaiz1/cmp_luasnip' },
       { 'hrsh7th/cmp-path' },
       { 'hrsh7th/cmp-nvim-lsp' },
       { 'hrsh7th/cmp-nvim-lua' },
-      { 'quangnguyen30192/cmp-nvim-ultisnips' },
     }
 
     -- Editing {{{1
@@ -242,13 +242,9 @@ return require('packer').startup {
       setup = [[vim.g.qs_highlight_on_keys = {'f', 'F', 't', 'T'}]],
     }
 
-    -- NOTE: Keep an eye out for Lua snippet plugins
     use {
-      'SirVer/ultisnips',
-      setup = function()
-        -- NOTE: 'e' for 'expand'
-        vim.g.UltiSnipsExpandTrigger = '<M-e>'
-      end,
+      'L3MON4D3/LuaSnip',
+      config = config 'luasnip',
     }
 
     use {

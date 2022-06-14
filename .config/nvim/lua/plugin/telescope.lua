@@ -249,7 +249,7 @@ map_telescope('<Leader>fgp', 'gh.pull_request')
 map_telescope('<Leader>fgg', 'gh.gist')
 map_telescope('<Leader>fgw', 'gh.run')
 
-map_telescope('<C-l>', { 'ultisnips.ultisnips', opts = themes.get_ivy(), mode = 'i' })
+map_telescope('<M-s>', { 'luasnip.luasnip', opts = themes.get_ivy(), mode = 'i' })
 
 -- Fuzzy search command history
 vim.api.nvim_set_keymap(
