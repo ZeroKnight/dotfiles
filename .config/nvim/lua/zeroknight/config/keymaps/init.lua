@@ -99,8 +99,8 @@ vim.keymap.set('', 'Y', 'y$', { desc = 'Yank to end of line' })
 -- More sensible mark jumping. ` is at the beginning of the keyboard, so have its
 -- behavior match its position. It also "points" toward the start of the line.
 -- Also, ' is easier to reach and what I want more often anyway.
-vim.keymap.set('', '`', "'")
-vim.keymap.set('', "'", '`')
+vim.keymap.set({ 'n', 'x', 'o' }, '`', "'")
+vim.keymap.set({ 'n', 'x', 'o' }, "'", '`')
 
 -- Always move by visual line
 vim.keymap.set('n', 'k', 'gk')
@@ -108,13 +108,13 @@ vim.keymap.set('n', 'j', 'gj')
 
 vim.keymap.set('i', '<C-@>', '<C-Space>', { remap = true }, { desc = 'Workaround for C-Space detection' })
 
-vim.keymap.set('v', '<', '<gv', { desc = 'Stay in Visual mode after unindenting' })
-vim.keymap.set('v', '>', '>gv', { desc = 'Stay in Visual mode after indenting' })
+vim.keymap.set('x', '<', '<gv', { desc = 'Stay in Visual mode after unindenting' })
+vim.keymap.set('x', '>', '>gv', { desc = 'Stay in Visual mode after indenting' })
 
 -- Simple Remappings and Shortcuts {{{1
 
 vim.keymap.set('x', 'v', '<C-v>', { desc = 'Switch to Visual-Block mode from Visual mode a bit quicker' })
-vim.keymap.set('v', '.', '<Cmd>normal .<CR>', { desc = 'Enable . in visual mode' })
+vim.keymap.set('x', '.', '<Cmd>normal .<CR>', { desc = 'Enable . in visual mode' })
 
 -- Copy/Move the current line while in Insert mode like in other editors.
 -- A nice pair to tpope/unimpaired
