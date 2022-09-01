@@ -1,5 +1,5 @@
 [tool.black]
 line-length = 120
-experimental-string-processing = true
+preview = true
 
 # vim: ft=toml
