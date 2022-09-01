@@ -6,7 +6,8 @@
 [core]
     editor = nvim
     pager = less -S
-    autocrlf = input
+    autocrlf = false
+    eol = lf
 
 [alias]
     br = branch
