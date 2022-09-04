@@ -43,3 +43,6 @@ if (( $+DISPLAY )); then
 else
     export BROWSER="${commands[(lynx|elinks|links|w3m)]}"
 fi
+
+# Disable global compinit on systems like Ubuntu
+typeset -g skip_global_compinit=1
