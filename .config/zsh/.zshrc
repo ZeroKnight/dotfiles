@@ -83,13 +83,22 @@ unset module mpath
     pattern=$ZCOMPILE_IGNORE_PATTERNS[i]
     ZCOMPILE_IGNORE_PATTERNS[i]="~*$pattern"
   }
-  for cfg ($ZDOTDIR/modules/**/*.zsh${(j::)~ZCOMPILE_IGNORE_PATTERNS}(.))
-    zcompare $cfg
+  for cfg ($ZDOTDIR/modules/**/*.zsh${(j::)~ZCOMPILE_IGNORE_PATTERNS}(.)) {
+    # Only attempt to compile enabled modules
+    if (( $zmodules[(Ie)$cfg:h:t] )); then
+      zcompare $cfg
+    fi
+  }
   for cfg ($ZDATADIR/site/*.zsh)
     zcompare $cfg
 
   # zcompile all autoloaded functions
-  for func ($ZDOTDIR/modules/*/functions/^(*.zwc)(.)) zcompare $func
+  for func ($ZDOTDIR/modules/*/functions/^(*.zwc)(.)) {
+    # Only attempt to compile enabled modules
+    if (( $zmodules[(Ie)$func:h:h:t] )); then
+      zcompare $func
+    fi
+  }
 ) &!
 
 ### Run core programs
@@ -117,4 +126,3 @@ if (( $+commands[tmuxifier] )); then
     eval "$(tmuxifier init -)"
     export TMUXIFIER_LAYOUT_PATH="$HOME/.config/tmuxifier"
 fi
-
