@@ -15,7 +15,8 @@ if (( ! $+TMUX )) && [[ $TERM != 'xterm-kitty' ]]; then
 fi
 
 # Keep our zsh files nice and tidy in their own directories
-export ZDOTDIR="${XDG_CONFIG_HOME:-"$HOME/.config"}/zsh" ZSH="$ZDOTDIR"
+export ZDOTDIR="${XDG_CONFIG_HOME:-"$HOME/.config"}/zsh"
+export ZSH="$ZDOTDIR"
 export ZDATADIR="${XDG_DATA_HOME:-"$HOME/.local/share"}/zsh"
 export ZCACHEDIR="${XDG_CACHE_HOME:-"$HOME/.cache"}/zsh"
 
@@ -42,4 +43,3 @@ if (( $+DISPLAY )); then
 else
     export BROWSER="${commands[(lynx|elinks|links|w3m)]}"
 fi
-
