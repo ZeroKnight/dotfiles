@@ -31,6 +31,8 @@ if (_on_windows) {
     }
 }
 
+$env:BAT_CONFIG_DIR = "$env:USERPROFILE/.config/bat"
+
 ### Aliases ###
 
 New-Alias which where.exe

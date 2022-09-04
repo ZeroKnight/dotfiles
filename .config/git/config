@@ -97,9 +97,6 @@
     hyperlinks = true
     keep-plus-minus-markers = false
 
-[delta "decorations"]
-    syntax-theme = OneHalf
-
 [pretty]
     single = "format:%C(green)%<|(13)%h%C(reset) %s%C(bold)%C(magenta)%d%C(reset) %C(yellow)[%cd] %C(cyan)<%aN %aE>%C(reset)"
     medinfo = "format:%C(bold)Commit:%C(reset) %C(green)%H%C(bold)%C(magenta)%d%C(reset)%n%C(bold)Author:%C(reset) %C(cyan)%aN <%aE>%C(reset) - %C(yellow)%ad (%ar)%C(reset)%n%GG%w(0,2,2)%+B"
