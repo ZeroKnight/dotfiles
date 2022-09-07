@@ -35,7 +35,10 @@ $env:BAT_CONFIG_DIR = "$env:USERPROFILE/.config/bat"
 New-Alias which where.exe
 New-Alias mklink New-Link
 New-Alias g git
-New-Alias code codium
+
+if (Get-Command -CommandType Application 'codium' -ErrorAction SilentlyContinue) {
+    New-Alias code codium
+}
 
 ### Functions ###
 
