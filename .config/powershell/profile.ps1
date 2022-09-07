@@ -1,9 +1,6 @@
 function _on_windows() {
     # Should work on PowerShell 5+
-    if ($IsWindows -or $env:OS -eq 'Windows_NT') {
-        return $true
-    }
-    return $false
+    return $IsWindows -or $env:OS -eq 'Windows_NT'
 }
 
 ### Environnment ###
@@ -24,7 +21,7 @@ Set-PSReadLineOption @PSReadLineOptions
 # Neovim set up, use that (via .git/config)
 if (_on_windows) {
     foreach ($editor in @('codium', 'code')) {
-        if (Get-Command $editor -ErrorAction SilentlyContinue) {
+        if (Get-Command -CommandType Application $editor -ErrorAction SilentlyContinue) {
             $env:GIT_EDITOR = $editor
             break
         }
