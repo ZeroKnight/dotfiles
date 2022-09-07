@@ -22,7 +22,7 @@ Set-PSReadLineOption @PSReadLineOptions
 if (_on_windows) {
     foreach ($editor in @('codium', 'code')) {
         if (Get-Command -CommandType Application $editor -ErrorAction SilentlyContinue) {
-            $env:GIT_EDITOR = $editor
+            $env:GIT_EDITOR = "$editor -w"
             break
         }
     }
