@@ -4,16 +4,16 @@ local Path = require 'plenary.path'
 
 -- TODO: Downloader/Builder function
 
-local function get_runtime_path()
-  local rtp = vim.split(package.path, ';')
-  table.insert(rtp, 'lua/?.lua')
-  table.insert(rtp, 'lua/?/init.lua')
-  return rtp
+local function lua_path()
+  local p = vim.split(package.path, ';')
+  table.insert(p, 'lua/?.lua')
+  table.insert(p, 'lua/?/init.lua')
+  return p
 end
 
 local M = {}
 
-M.base_directory = Path:new(vim.fn.stdpath 'data', 'lsp/lua-language-server')
+M.base_directory = Path:new(vim.fs.normalize '~/.local/lib/lsp/lua-language-server')
 M.bin_path = M.base_directory:joinpath('bin', jit.os, 'lua-language-server')
 M.cmd = {
   tostring(M.bin_path),
@@ -27,7 +27,7 @@ M.config = {
     Lua = {
       runtime = {
         version = 'LuaJIT',
-        path = get_runtime_path(),
+        path = lua_path(),
       },
       completion = {
         enable = true,
@@ -43,6 +43,9 @@ M.config = {
         globals = { 'vim', 'packer_plugins' },
         -- Disabled diagnostic categories
         disable = { 'undefined-field', 'undefined-global' },
+      },
+      semantic = {
+        enable = false, -- No plans to use Semantic highlighting
       },
       workspace = {
         -- Include Neovim runtime files
