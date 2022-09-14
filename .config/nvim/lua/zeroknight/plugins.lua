@@ -221,8 +221,19 @@ return require('packer').startup {
     use 'godlygeek/tabular'
     use { 'reedes/vim-wordy', cmd = 'Wordy' }
     use 'tpope/vim-abolish'
-    use 'tpope/vim-surround'
     use 'wellle/targets.vim' -- TODO: practice
+
+    use {
+      'kylechui/nvim-surround',
+      config = function()
+        require('nvim-surround').setup {
+          highlight = {
+            duration = 0,
+          },
+          move_cursor = false,
+        }
+      end,
+    }
 
     use {
       'numToStr/Comment.nvim',
