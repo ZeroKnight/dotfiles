@@ -24,6 +24,7 @@ return require('packer').startup {
     use 'mhinz/vim-startify'
     use 'kshenoy/vim-signature'
     use 'wesQ3/vim-windowswap'
+    use 'chrisbra/Recover.vim'
     use {
       'lukas-reineke/indent-blankline.nvim',
       config = config 'indentline',
