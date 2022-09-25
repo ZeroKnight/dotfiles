@@ -14,6 +14,8 @@ return {
 	s({trig = 'rni', dscr = 'raise NotImplementedError'}, {
 		t 'raise NotImplementedError'
 	}),
+
+	s({trig = 'pprint', dscr = 'Quick and dirty pprint'}, fmt("__import__('pprint').pprint({})", i(1, 'expr'))),
 }, { -- Autosnippets
 }
 -- stylua: ignore end
