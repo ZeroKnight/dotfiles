@@ -8,4 +8,4 @@
 # significantly faster
 (( $+commands[pigz] )) && alias gzip='pigz' gunzip='unpigz'
 (( $+commands[pbzip2] )) && alias bzip2='pbzip2' bunzip2='pbunzip2'
-
+return 0

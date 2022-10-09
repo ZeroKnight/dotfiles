@@ -2,104 +2,45 @@
 # ZeroKnight's .zshrc
 #
 
-### Utility functions
-
-# zcompiles a file if there is no .zwc file, or the base file is newer than
-# the existing .zwc file.
-zcompare() {
-  if [[ -s $1 && (! -s ${1}.zwc || $1 -nt ${1}.zwc) ]]; then
-    zcompile $1
-  fi
-}
-
-### Initialize zsh
-
 # Set up PATHs
 path=(
-  ~/.local/bin
-  $path
-)
-
-fpath=(
-  $ZDOTDIR/modules/*/functions
-  $fpath
+    ~/.local/bin
+    $path
 )
 
 cdpath=(
-  $ZDOTDIR
+    $ZDOTDIR
 )
 
-# Modules
-zmodules=(archive directory ssh z git history misc perl python processes \
-          spectrum system tmux vim man search input syntax-highlighting)
+### Initialize zcomet
+
+zstyle ':zcomet:*' home-dir $ZCOMET
+zstyle ':zcomet:compinit' dump-file "$ZCACHEDIR/zcompdump"
+source "$ZCOMET/bin/zcomet.zsh"
 
 # Local configuration
-if [[ -d "$ZDATADIR/site" ]]; then
-  for script ($ZDATADIR/site/*.zsh(N)) {
-    source $script
-  }
-  unset script
-fi
+zcomet load $ZDATADIR/site
+
+# Configuration modules
+zmodules=(archive directory ssh z git history misc perl python processes \
+          spectrum system tmux vim man search input syntax-highlighting)
 
 # NOTE: 'prompt' and 'completion' should ALWAYS be loaded LAST to ensure that
 # all module functions/keywords are available to compinit and for the prompt
 # to make use of
 zmodules+=(prompt completion)
 
-typeset -a ZCOMPILE_IGNORE_PATTERNS
 for module ($zmodules) {
-  mpath="$ZDOTDIR/modules/$module"
-
-  # Load configuration files
-  if [[ -s "$mpath/$module.zsh" ]]; then
-    source "$mpath/$module.zsh"
-  else
-    print "** Module '$module' not found!"
-  fi
-
-  # Autoload functions
-  [[ -d "$mpath/functions" ]] || continue
-  function {
-    setopt LOCAL_OPTIONS EXTENDED_GLOB NULL_GLOB
-    local funcs=( $(print $mpath/functions/^[._]*~*.zwc(-.:t)) )
-    (( $#funcs )) && autoload -Uz $funcs
-  }
+    zcomet load $ZDOTDIR/modules/$module
 }
-unset module mpath
+unset $module
 
-### Compile configuration files in the background
+# NOTE: Load these last
+zcomet load zsh-users/zsh-syntax-highlighting
+zcomet load zsh-users/zsh-autosuggestions
+zcomet load zsh-users/zsh-completions
 
-(
-  setopt EXTENDED_GLOB NULL_GLOB
-
-  # zcompile the completion cache; siginificant speedup.
-  for f ($ZCACHEDIR/zcomp^(*.zwc)(.)) zcompare $f
-
-  # zcompile .zshrc
-  zcompare $ZDOTDIR/.zshrc
-
-  # zcompile all module config files
-  for ((i = 1; i <= $#ZCOMPILE_IGNORE_PATTERNS; ++i)) {
-    pattern=$ZCOMPILE_IGNORE_PATTERNS[i]
-    ZCOMPILE_IGNORE_PATTERNS[i]="~*$pattern"
-  }
-  for cfg ($ZDOTDIR/modules/**/*.zsh${(j::)~ZCOMPILE_IGNORE_PATTERNS}(.)) {
-    # Only attempt to compile enabled modules
-    if (( $zmodules[(Ie)$cfg:h:t] )); then
-      zcompare $cfg
-    fi
-  }
-  for cfg ($ZDATADIR/site/*.zsh)
-    zcompare $cfg
-
-  # zcompile all autoloaded functions
-  for func ($ZDOTDIR/modules/*/functions/^(*.zwc)(.)) {
-    # Only attempt to compile enabled modules
-    if (( $zmodules[(Ie)$func:h:h:t] )); then
-      zcompare $func
-    fi
-  }
-) &!
+zcomet compinit
 
 ### Run core programs
 

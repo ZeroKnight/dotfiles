@@ -24,6 +24,8 @@ for dir in "$ZDOTDIR" "$ZDATADIR" "$ZCACHEDIR"; do
     [[ -d "$dir" ]] || mkdir -p "$dir"
 done
 
+export ZCOMET="$HOME/.local/opt/zcomet"
+
 # Are we on a remote connection?
 if (( $+SSH_CONNECTION || $+SSH_CLIENT || $+SSH_TTY )); then
     export SSH='1'

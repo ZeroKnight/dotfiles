@@ -4,16 +4,9 @@
 
 autoload -U is-at-least
 
-# Load and initialize the completion system
-# $fpath MUST be set up BEFORE running compinit!
-autoload -Uz compinit && compinit -d "$ZCACHEDIR/zcompdump"
-
 # XXX: There's got to be a better (modular) way
 # Load extra compdefs
 source ${0:h}/compdefs.zsh
-
-# Compile .zcompdump in the background
-{ zcompare "$ZCACHEDIR/zcompdump" } &!
 
 ### Zsh completion options
 
@@ -106,4 +99,3 @@ zstyle ':completion:history-words:*' remove-all-dups true
 zstyle ':completion:*:manuals.*' group-name ''
 zstyle ':completion:*:manuals' separate-sections true
 zstyle ':completion:*:manuals.(^1*)' insert-sections true
-
