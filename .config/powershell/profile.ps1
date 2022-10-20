@@ -1,3 +1,5 @@
+using namespace Microsoft.PowerShell
+
 function _on_windows() {
     # Should work on PowerShell 5+
     return $IsWindows -or $env:OS -eq 'Windows_NT'
@@ -17,6 +19,24 @@ $PSReadLineOptions = @{
     }
 }
 Set-PSReadLineOption @PSReadLineOptions
+
+$WrapBufferInParens = @{
+    Chord = 'Ctrl+p'
+    BriefDescription = 'WrapBufferInParens'
+    Description = 'Wrap the entire command line in parentheses'
+    ScriptBlock = {
+        param ($key, $arg)
+
+        $line, $curpos = $null, $null
+        [PSConsoleReadLine]::GetBufferState([ref]$line, [ref]$curpos)
+
+        [PSConsoleReadLine]::SetCursorPosition(0)
+        [PSConsoleReadLine]::Insert('(')
+        [PSConsoleReadLine]::SetCursorPosition($line.Length + 1)
+        [PSConsoleReadLine]::Insert(')')
+    }
+}
+Set-PSReadLineKeyHandler @WrapBufferInParens
 
 # I'm likely using VSCode/VSCodium if I'm on Windows, but if I happen to have
 # Neovim set up, use that (via .git/config)
