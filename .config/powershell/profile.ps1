@@ -8,6 +8,7 @@ function _on_windows() {
 $PSReadLineOptions = @{
     BellStyle = 'None'
     HistoryNoDuplicates = $true
+    PredictionSource = 'History'
     Colors = @{
         'InlinePrediction' = "`e[90m"
         'Number' = "`e[94m"
