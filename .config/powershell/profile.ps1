@@ -20,23 +20,56 @@ $PSReadLineOptions = @{
 }
 Set-PSReadLineOption @PSReadLineOptions
 
-$WrapBufferInParens = @{
-    Chord = 'Ctrl+p'
-    BriefDescription = 'WrapBufferInParens'
-    Description = 'Wrap the entire command line in parentheses'
-    ScriptBlock = {
-        param ($key, $arg)
+# Keybinds
 
-        $line, $curpos = $null, $null
-        [PSConsoleReadLine]::GetBufferState([ref]$line, [ref]$curpos)
+$appendPipe = {
+    param ($key, $arg)
 
-        [PSConsoleReadLine]::SetCursorPosition(0)
-        [PSConsoleReadLine]::Insert('(')
-        [PSConsoleReadLine]::SetCursorPosition($line.Length + 1)
-        [PSConsoleReadLine]::Insert(')')
+    $char = @{ f = '%'; w = '?' }[[string]$key.KeyChar]
+    $line, $curpos = $null, $null
+    [PSConsoleReadLine]::GetBufferState([ref]$line, [ref]$curpos)
+
+    if ($line[-1] -ne ' ') {
+        [PSConsoleReadLine]::Insert(' ')
+    }
+    [PSConsoleReadLine]::Insert("| $char {  }")
+    [PSConsoleReadLine]::GetBufferState([ref]$line, [ref]$curpos)
+    [PSConsoleReadLine]::SetCursorPosition($line.Length - 2)
+}
+
+$keybinds = @{
+    WrapBufferInParens = @{
+        Chord = 'Ctrl+p'
+        BriefDescription = 'WrapBufferInParens'
+        Description = 'Wrap the entire command line in parentheses'
+        ScriptBlock = {
+            param ($key, $arg)
+
+            $line, $curpos = $null, $null
+            [PSConsoleReadLine]::GetBufferState([ref]$line, [ref]$curpos)
+
+            [PSConsoleReadLine]::SetCursorPosition(0)
+            [PSConsoleReadLine]::Insert('(')
+            [PSConsoleReadLine]::SetCursorPosition($line.Length + 1)
+            [PSConsoleReadLine]::Insert(')')
+        }
+    }
+
+    AppendForeachObj = @{
+        Chord = 'Alt+f'
+        BriefDescription = 'AppendForeachObj'
+        Description = 'Appends a pipe to Foreach-Object and an open scriptblock'
+        ScriptBlock = $appendPipe
+    }
+
+    AppendWhereObj = @{
+        Chord = 'Alt+w'
+        BriefDescription = 'AppendWhereObj'
+        Description = 'Appends a pipe to Where-Object and an open scriptblock'
+        ScriptBlock = $appendPipe
     }
 }
-Set-PSReadLineKeyHandler @WrapBufferInParens
+$keybinds.Values | ForEach-Object { Set-PSReadLineKeyHandler @_ }
 
 # I'm likely using VSCode/VSCodium if I'm on Windows, but if I happen to have
 # Neovim set up, use that (via .git/config)
