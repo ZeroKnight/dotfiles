@@ -50,6 +50,7 @@ localmod python
 
 # Tools/Utilities
 localmod autosuggestions
+localmod history-substring-search
 localmod misc
 localmod spectrum
 localmod syntax-highlighting
@@ -60,6 +61,7 @@ localmod input
 localmod prompt
 localmod completion
 zcomet load zsh-users/zsh-syntax-highlighting
+zcomet load zsh-users/zsh-history-substring-search
 zcomet load zsh-users/zsh-autosuggestions
 zcomet load zsh-users/zsh-completions
 
