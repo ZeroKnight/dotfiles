@@ -12,7 +12,13 @@ cdpath=(
     $ZDOTDIR
 )
 
-### Initialize zcomet
+localmod() {
+    if (( ! $ZSH_DISABLED_MODULES[(Ie)$1] )) {
+        zcomet load "$ZDOTDIR/modules/$1"
+    }
+}
+
+# Initialize zcomet
 
 zstyle ':zcomet:*' home-dir $ZCOMET
 zstyle ':zcomet:compinit' dump-file "$ZCACHEDIR/zcompdump"
@@ -21,21 +27,38 @@ source "$ZCOMET/bin/zcomet.zsh"
 # Local configuration
 zcomet load $ZDATADIR/site
 
-# Configuration modules
-zmodules=(archive directory ssh z git history misc perl python processes \
-          spectrum system tmux vim man search input syntax-highlighting)
+### Configuration modules
 
-# NOTE: 'prompt' and 'completion' should ALWAYS be loaded LAST to ensure that
-# all module functions/keywords are available to compinit and for the prompt
-# to make use of
-zmodules+=(prompt completion)
+# Zsh Basics
+localmod history
 
-for module ($zmodules) {
-    zcomet load $ZDOTDIR/modules/$module
-}
-unset $module
+# Programs
+localmod archive
+localmod directory
+localmod man
+localmod processes
+localmod search
+localmod ssh
+localmod system
+localmod tmux
+localmod vim
+
+# Language Support and Development
+localmod git
+localmod perl
+localmod python
+
+# Tools/Utilities
+localmod autosuggestions
+localmod misc
+localmod spectrum
+localmod syntax-highlighting
+localmod z
 
 # NOTE: Load these last
+localmod input
+localmod prompt
+localmod completion
 zcomet load zsh-users/zsh-syntax-highlighting
 zcomet load zsh-users/zsh-autosuggestions
 zcomet load zsh-users/zsh-completions

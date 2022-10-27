@@ -26,6 +26,10 @@ done
 
 export ZCOMET="$HOME/.local/opt/zcomet"
 
+# Can add module names to this array to prevent loading them. Most likely
+# would be added in a site config file.
+typeset -axgU ZSH_DISABLED_MODULES
+
 # Are we on a remote connection?
 if (( $+SSH_CONNECTION || $+SSH_CLIENT || $+SSH_TTY )); then
     export SSH='1'
