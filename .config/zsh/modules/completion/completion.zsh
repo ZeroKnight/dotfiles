@@ -25,7 +25,6 @@ is-at-least '5.2' && setopt glob_star_short
 
 # General Completer settings
 zstyle ':completion:*' completer _extensions _expand _complete _ignored _match _approximate
-zstyle ':completion:predict:*' completer _complete
 zstyle ':completion::approximate:*' max-errors 3 numeric
 zstyle ':completion::(match|approximate):*' insert-unambiguous true
 zstyle ':completion::expand:*' accept-exact true
