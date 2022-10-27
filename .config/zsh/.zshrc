@@ -49,21 +49,22 @@ localmod perl
 localmod python
 
 # Tools/Utilities
-localmod autosuggestions
-localmod history-substring-search
 localmod misc
 localmod spectrum
-localmod syntax-highlighting
 localmod z
 
 # NOTE: Load these last
 localmod input
 localmod prompt
 localmod completion
+localmod syntax-highlighting
 zcomet load zsh-users/zsh-syntax-highlighting
 zcomet load zsh-users/zsh-history-substring-search
 zcomet load zsh-users/zsh-autosuggestions
 zcomet load zsh-users/zsh-completions
+
+localmod autosuggestions
+localmod history-substring-search
 
 zcomet compinit
 
