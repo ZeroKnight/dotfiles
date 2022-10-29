@@ -4,16 +4,9 @@
 
 autoload -U is-at-least
 
-# Load and initialize the completion system
-# $fpath MUST be set up BEFORE running compinit!
-autoload -Uz compinit && compinit -d "$ZCACHEDIR/zcompdump"
-
 # XXX: There's got to be a better (modular) way
 # Load extra compdefs
 source ${0:h}/compdefs.zsh
-
-# Compile .zcompdump in the background
-{ zcompare "$ZCACHEDIR/zcompdump" } &!
 
 ### Zsh completion options
 
@@ -32,7 +25,6 @@ is-at-least '5.2' && setopt glob_star_short
 
 # General Completer settings
 zstyle ':completion:*' completer _extensions _expand _complete _ignored _match _approximate
-zstyle ':completion:predict:*' completer _complete
 zstyle ':completion::approximate:*' max-errors 3 numeric
 zstyle ':completion::(match|approximate):*' insert-unambiguous true
 zstyle ':completion::expand:*' accept-exact true
@@ -106,4 +98,3 @@ zstyle ':completion:history-words:*' remove-all-dups true
 zstyle ':completion:*:manuals.*' group-name ''
 zstyle ':completion:*:manuals' separate-sections true
 zstyle ':completion:*:manuals.(^1*)' insert-sections true
-
