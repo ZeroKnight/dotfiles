@@ -139,6 +139,16 @@ if [[ $ZSH_VERSION != 5.1.1 ]]; then
   fi
 fi
 
+# Change cursor based on insert/normal mode
+zle-line-init zle-keymap-select() {
+    case $KEYMAP {
+        vicmd) printf '\e[1 q' ;;
+        viins|main) printf '\e[5 q' ;;
+    }
+}
+zle -N zle-line-init
+zle -N zle-keymap-select
+
 ### Options
 
 # Perform a path search even on command names with slashes in them.
