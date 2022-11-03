@@ -232,7 +232,7 @@ function M.init()
 
   local capabilities = vim.lsp.protocol.make_client_capabilities()
   -- if packer_loaded 'nvim-cmp' and packer_loaded 'cmp-nvim-lsp' then
-  capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+  capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
   -- end
 
   -- Run the setup for each server
