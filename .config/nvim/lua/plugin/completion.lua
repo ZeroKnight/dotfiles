@@ -5,16 +5,6 @@ local kinds = require 'zeroknight.lsp.kinds'
 
 vim.opt.completeopt = { 'menuone', 'noselect' } -- Required by cmp
 
-local function wrap_visible(func)
-  return function(fallback)
-    if cmp.visible() then
-      func()
-    else
-      fallback()
-    end
-  end
-end
-
 local menu_text = {
   buffer = 'buf',
   nvim_lsp = 'LSP',
@@ -103,16 +93,24 @@ cmp.setup {
       c = cmp.mapping.close(),
     },
     ['<Tab>'] = cmp.mapping {
-      i = wrap_visible(function()
-        cmp.select_next_item()
-      end),
-      c = cmp.mapping.select_next_item(),
+      i = cmp.mapping.select_next_item(),
+      c = function()
+        if cmp.visible() then
+          cmp.select_next_item()
+        else
+          cmp.complete()
+        end
+      end,
     },
     ['<S-Tab>'] = cmp.mapping {
-      i = wrap_visible(function()
-        cmp.select_prev_item()
-      end),
-      c = cmp.mapping.select_prev_item(),
+      i = cmp.mapping.select_prev_item(),
+      c = function()
+        if cmp.visible() then
+          cmp.select_prev_item()
+        else
+          cmp.complete()
+        end
+      end,
     },
     ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
     ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
