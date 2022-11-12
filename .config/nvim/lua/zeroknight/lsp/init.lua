@@ -156,14 +156,16 @@ function M.lsp_buffer_setup(client, bufnr)
   map_telescope('<LocalLeader>ds', { 'lsp_document_symbols', opts = { ignore_filename = true }, buffer = true })
   map_telescope('<LocalLeader>ws', { 'lsp_workspace_symbols', opts = { ignore_filename = true }, buffer = true })
 
+  -- Create an augroup that's tied to this specific buffer client and ensure that all autocmds use it
+  local bufgroup = augroup(string.format('ZeroKnight_LSP_%d_%d', bufnr, client.id), { clear = true })
+  local bufautocmd = function(event, opts)
+    autocmd(event, vim.tbl_extend('force', opts, { buffer = bufnr, group = bufgroup }))
+  end
+
   -- Enable document highlights if supported
   if client.server_capabilities.documentHighlightProvider then
-    local lsp_hl_augroup = augroup('ZeroKnight_LSP_Highlighting', { clear = false })
-    vim.api.nvim_clear_autocmds { group = lsp_hl_augroup, buffer = bufnr }
-    autocmd({ 'CursorHold', 'CursorHoldI', 'BufEnter', 'CursorMoved', 'BufLeave' }, {
+    bufautocmd({ 'CursorHold', 'CursorHoldI', 'BufEnter', 'CursorMoved', 'BufLeave' }, {
       desc = 'LSP Document Highlighting',
-      buffer = bufnr,
-      group = lsp_hl_augroup,
       callback = function(ctx)
         if vim.tbl_contains({ 'CursorHold', 'CursorHoldI', 'BufEnter' }, ctx.event) then
           vim.lsp.buf.document_highlight()
@@ -176,13 +178,14 @@ function M.lsp_buffer_setup(client, bufnr)
 
   -- Automatic signature help
   local trigger_chars = vim.tbl_get(client.server_capabilities, 'signatureHelpProvider', 'triggerCharacters') or {}
-  for _, char in ipairs(trigger_chars) do
-    vim.keymap.set('i', char, function()
-      vim.defer_fn(vim.lsp.buf.signature_help, 0)
-      return char
-    end, {
-      expr = true,
-      buffer = bufnr,
+  if #trigger_chars then
+    bufautocmd('InsertCharPre', {
+      desc = 'LSP Signature Help Trigger',
+      callback = function(ctx)
+        if vim.tbl_contains(trigger_chars, vim.v.char) then
+          vim.defer_fn(vim.lsp.buf.signature_help, 0)
+        end
+      end,
     })
   end
 
@@ -194,11 +197,8 @@ function M.lsp_buffer_setup(client, bufnr)
       end,
       '[LSP] Format Document',
     }
-    local lsp_fmt_augroup = augroup('ZeroKnight_LSP_Formatting', { clear = false })
-    autocmd('BufWritePre', {
+    bufautocmd('BufWritePre', {
       desc = 'Format document on write',
-      buffer = bufnr,
-      group = lsp_fmt_augroup,
       callback = function()
         require('zeroknight.util.formatting').lsp_format_on_write()
       end,
