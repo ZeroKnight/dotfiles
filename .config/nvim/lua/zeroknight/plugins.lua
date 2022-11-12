@@ -262,7 +262,7 @@ return require('packer').startup {
 
     use {
       'windwp/nvim-autopairs',
-      after = 'nvim-cmp',
+      before = 'nvim-cmp',
       config = config 'autopairs',
     }
 

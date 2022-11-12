@@ -189,3 +189,6 @@ for kind, _ in pairs(kinds.symbols) do
     end
   end
 end
+
+-- nvim-autopairs: Automatically insert parentheses when accepting functions/methods
+cmp.event:on('confirm_done', require('nvim-autopairs.completion.cmp').on_confirm_done())
