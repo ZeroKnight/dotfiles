@@ -108,7 +108,7 @@ function M.if_trigger(pat, text, fallback, exact)
     else
       return snip.trigger:match(pat) and text or fallback or ''
     end
-  end, 1)
+  end)
 end
 
 -- Function node whose expansion is determined by a map of patterns and
