@@ -123,15 +123,44 @@ return {
 		i(1),
 	})),
 
-	s({trig = 'e?if', dscr = '(else)if statement', regTrig = true}, fmt([[
-		{}if {} then
+	-- NOTE: I hate having to separately define if/elseif, but I ran into weird
+	-- indentation problems with my optional "end". Seems like a LuaSnip bug.
+	s({trig = 'if', dscr = 'if statement'}, fmt([[
+		if {} then
 			{}{}
 	]], {
-		util.if_trigger('^e', 'else'),
 		i(1),
 		util.selection(2, 'SELECT_DEDENT'),
 		c(3, {
-			util.if_trigger('^i', { '', 'end' }),
+			t { '', 'end' },
+			sn(nil, fmt([[
+				{}else
+					{}
+				end
+			]], { util.nl(), i(1) })),
+			sn(nil, fmt([[
+				{}elseif {} then
+					{}
+				end
+			]], { util.nl(), i(1), i(2) })),
+			sn(nil, fmt([[
+				{}elseif {} then
+					{}
+				else
+					{}
+				end
+			]], { util.nl(), i(1), i(2), i(3) })),
+		}),
+	})),
+
+	s({trig = 'eif', dscr = 'elseif statement'}, fmt([[
+		elseif {} then
+			{}{}
+	]], {
+		i(1),
+		util.selection(2, 'SELECT_DEDENT'),
+		c(3, {
+			t '',
 			sn(nil, fmt([[
 				{}else
 					{}
