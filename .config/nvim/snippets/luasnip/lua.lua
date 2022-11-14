@@ -50,7 +50,9 @@ return {
 		i(1),
 	})),
 
-	s({trig = 'key', dscr = 'Add a new field (key)'}, fmt('{} = {},', {
+	s({trig = 't', dscr = 'Table definition'}, fmta('<> = {<>}', { i(1, 't'), i(2) })),
+
+	s({trig = 'tf', dscr = 'Add a new table field'}, fmt('{} = {},', {
 		i(1, 't'),
 		c(2, {
 			i(1, 'true'),
@@ -58,7 +60,7 @@ return {
 				{{
 					{}
 				}}
-			]], { util.selection(2, 'SELECT_DEDENT') })),
+			]], { util.selection(1, 'SELECT_DEDENT') })),
 		}),
 	})),
 
