@@ -41,3 +41,5 @@ vim.g.symbols_outline = {
   symbols = symbols,
   width = 20,
 }
+
+vim.keymap.set({ 'n', 'i' }, '<F4>', '<Esc><Cmd>SymbolsOutline<CR>')

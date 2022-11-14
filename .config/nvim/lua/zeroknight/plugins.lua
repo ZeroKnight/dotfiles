@@ -155,14 +155,7 @@ return require('packer').startup {
     use {
       'folke/lsp-trouble.nvim',
       requires = 'kyazdani42/nvim-web-devicons',
-      config = function()
-        require('trouble').setup {
-          action_keys = {
-            close = { 'q', 'gq' }, -- Other plugins use gq for closing
-          },
-          use_diagnostic_signs = true,
-        }
-      end,
+      config = config 'trouble',
     }
 
     use { 'weilbith/nvim-code-action-menu', cmd = 'CodeActionMenu' }
@@ -282,7 +275,7 @@ return require('packer').startup {
     use {
       'lewis6991/gitsigns.nvim',
       requires = 'nvim-lua/plenary.nvim',
-      config = [[require('gitsigns').setup()]],
+      config = config 'gitsigns',
     }
 
     -- Utility Plugins {{{1

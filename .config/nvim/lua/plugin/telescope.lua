@@ -13,6 +13,7 @@ local themes = require 'telescope.themes'
 local extensions = telescope.extensions
 
 local trouble = require 'trouble.providers.telescope'
+local wk = require 'which-key'
 
 local util = require 'zeroknight.util'
 
@@ -258,5 +259,62 @@ vim.api.nvim_set_keymap(
   "getcmdtype() == ':' ? '<Plug>(TelescopeFuzzyCommandSearch)' : '<C-t>'",
   { expr = true }
 )
+
+-- TODO: Integrate this with mapping definition
+wk.register({
+  f = {
+    name = 'find',
+    f = { 'Find File' },
+    o = { 'Find Old File' },
+    z = { 'Find Directory via z' },
+    d = { 'Find Diagnostic' },
+    t = { 'Find Treesitter' },
+    q = { 'Find Quickfix' },
+    l = { 'Find Location' },
+    G = { 'Live Grep' },
+    w = { 'Find Word' },
+    b = { 'Find in Buffer' },
+    [':'] = { 'Command History' },
+    ['/'] = { 'Search History' },
+    g = {
+      name = 'git',
+      f = { 'Find Git File' },
+      c = { 'Find Commit' },
+      C = { 'Find Commit (Buffer)' },
+      b = { 'Find Branch' },
+      s = { 'Git Status' },
+      S = { 'Git Stash' },
+    },
+  },
+  F = { 'Browse Files' },
+  h = {
+    name = 'help',
+    h = { 'Help Pages' },
+    m = { 'Man Pages' },
+    k = { 'Keymaps' },
+    c = { 'Commands' },
+    f = { 'Filetypes' },
+    a = { 'AutoCommands' },
+    o = { 'Vim Options' },
+    P = { 'Plugins' },
+  },
+  ['<Leader>'] = {
+    name = 'Aux Leader',
+    n = {
+      name = 'neovim',
+      c = 'Find Neovim Config File',
+      p = 'Find Neovim Plugin File',
+      l = 'Find Neovim Log File',
+      r = 'Find Neovim Runtime File',
+    },
+    p = { 'Browse Projects' },
+    z = {
+      name = 'zsh',
+      c = 'Find Zsh Config File',
+    },
+  },
+}, {
+  prefix = '<Leader>',
+})
 
 return M

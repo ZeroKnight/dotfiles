@@ -3,6 +3,7 @@
 local ls = require 'luasnip'
 local types = require 'luasnip.util.types'
 local uv = require 'luv'
+local wk = require 'which-key'
 
 vim.g.snips_author = 'Alex "ZeroKnight" George'
 
@@ -70,6 +71,19 @@ vim.keymap.set('s', '<BS>', '<BS><Cmd>startinsert<CR>', {
   silent = true,
   desc = 'Make <BS> drop to insert mode as well. Especially helpful when clearing a snippet placeholder.',
 })
+
+--stylua: ignore start
+wk.register({
+  name = 'snippets',
+  e = {
+    function() require('luasnip.loaders').edit_snippet_files() end,
+    'Edit snippets for current filetype(s)',
+  },
+  r = { function() rerequire 'plugin.luasnip' end, 'Reload LuaSnip' },
+}, {
+  prefix = '<Leader>s',
+})
+--stylua: ignore end
 
 vim.api.nvim_create_user_command('NewSnippet', function(opts)
   local new_file = string.format('%s/%s.lua', snippets_path, opts.args)

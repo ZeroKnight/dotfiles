@@ -1,6 +1,7 @@
 -- Indentation Guides
 
 local indentline = require 'indent_blankline'
+local wk = require 'which-key'
 
 indentline.setup {
   enabled = true,
@@ -34,3 +35,7 @@ indentline.setup {
     'prompt',
   },
 }
+
+wk.register({
+  ig = { '<Cmd>IndentBlanklineToggle<CR>', 'Toggle indent guides' },
+}, { prefix = '<Leader>' })
