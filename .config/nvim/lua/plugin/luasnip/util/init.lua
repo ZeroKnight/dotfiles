@@ -6,6 +6,15 @@ local fmt = require('luasnip.extras.fmt').fmt
 
 local M = {}
 
+-- Snippet data is sometimes within a parent snippet (i.e. snippetnode), so
+-- try each parent until the data we want is found.
+local function get_snip(snip, field)
+  while snip[field] == nil do
+    snip = snip.parent
+  end
+  return snip[field]
+end
+
 local snippet_lookup_cache = {}
 function M.get_snippet_by_name(name)
   if snippet_lookup_cache[name] ~= nil then
@@ -100,13 +109,11 @@ end
 -- Defaults to `false`.
 function M.if_trigger(pat, text, fallback, exact)
   return ls.f(function(_, snip)
-    if snip.trigger == nil then
-      snip = snip.parent
-    end
+    local trigger = get_snip(snip, 'trigger')
     if exact then
-      return snip.trigger == pat and text or fallback or ''
+      return trigger == pat and text or fallback or ''
     else
-      return snip.trigger:match(pat) and text or fallback or ''
+      return trigger:match(pat) and text or fallback or ''
     end
   end)
 end
@@ -131,7 +138,7 @@ end
 -- unspecified.
 function M.selection(pos, selection_type, fallback_text)
   return ls.d(pos, function(_, snip)
-    local sel = snip.env[selection_type]
+    local sel = get_snip(snip, 'env')[selection_type]
     if #sel > 0 then
       return ls.sn(nil, ls.t(sel))
     else
