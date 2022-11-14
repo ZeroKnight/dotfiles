@@ -266,6 +266,13 @@ return require('packer').startup {
       config = config 'autopairs',
     }
 
+    use {
+      'ThePrimeagen/refactoring.nvim',
+      after = { 'telescope.nvim', 'nvim-treesitter' },
+      requires = { 'nvim-lua/plenary.nvim', 'nvim-treesitter/nvim-treesitter' },
+      config = config 'refactoring',
+    }
+
     -- Git Integration {{{1
     use {
       { 'tpope/vim-fugitive' },
