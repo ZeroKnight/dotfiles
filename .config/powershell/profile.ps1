@@ -103,5 +103,25 @@ function New-Link ($target, $link) {
     New-Item -Path $link -ItemType SymbolicLink -Value $target
 }
 
+function cdpath_cd {
+    [CmdletBinding()]
+    param (
+        [Parameter(Mandatory, Position = 0)]
+        [String]
+        $Path
+    )
+
+    if (-not (Test-Path -Path $Path)) {
+        foreach ($p in ($env:CDPATH -split ';')) {
+            $candidate = Join-Path $p $Path
+            if (Test-Path -Path $candidate) {
+                return Set-Location -Path $candidate @args
+            }
+        }
+    }
+    Set-Location -Path $Path @args
+}
+New-Alias -Force -Option AllScope cd cdpath_cd
+
 # Clean up private functions
 Get-ChildItem function: | Where-Object { $_.Name[0] -eq '_' } | Remove-Item
