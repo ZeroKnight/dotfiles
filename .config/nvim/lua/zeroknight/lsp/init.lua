@@ -122,16 +122,6 @@ local lsp_keymap = {
   },
 }
 
--- Mappings for both NORMAL and INSERT mode
-local lsp_keymap_ni = {
-  ['<C-s>'] = {
-    function()
-      lsp.buf.signature_help()
-    end,
-    '[LSP] Signature Help',
-  },
-}
-
 local lsp_keymap_x = {
   ['<LocalLeader>'] = {
     c = {
@@ -176,19 +166,6 @@ function M.lsp_buffer_setup(client, bufnr)
     })
   end
 
-  -- Automatic signature help
-  local trigger_chars = vim.tbl_get(client.server_capabilities, 'signatureHelpProvider', 'triggerCharacters') or {}
-  if #trigger_chars then
-    bufautocmd('InsertCharPre', {
-      desc = 'LSP Signature Help Trigger',
-      callback = function(ctx)
-        if vim.tbl_contains(trigger_chars, vim.v.char) then
-          vim.defer_fn(vim.lsp.buf.signature_help, 0)
-        end
-      end,
-    })
-  end
-
   -- Document formatting
   if client.server_capabilities.documentFormattingProvider then
     lsp_keymap['<LocalLeader>'].c.f = {
@@ -213,11 +190,16 @@ function M.lsp_buffer_setup(client, bufnr)
     }
   end
 
+  -- Signature Help
+  require('lsp_signature').on_attach({
+    hint_prefix = '🐍 ', -- Signature Snake :)
+    hint_scheme = 'Special',
+    select_signature_key = '<C-s>',
+  }, bufnr)
+
   lsp_status.on_attach(client)
 
   wk.register(lsp_keymap, { buffer = bufnr })
-  wk.register(lsp_keymap_ni, { buffer = bufnr, mode = 'n' })
-  wk.register(lsp_keymap_ni, { buffer = bufnr, mode = 'i' })
   wk.register(lsp_keymap_x, { buffer = bufnr, mode = 'x' })
 end
 
