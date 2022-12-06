@@ -118,19 +118,29 @@ cmp.setup {
   },
 
   sources = cmp.config.sources {
-    { name = 'nvim_lua' },
     { name = 'nvim_lsp' },
     { name = 'path' },
     { name = 'luasnip' },
-    { name = 'calc' },
+    { name = 'calc', keyword_length = 3 },
     { name = 'buffer', keyword_length = 5 },
   },
 }
 
+cmp.setup.filetype({ 'lua, vim' }, {
+  sources = cmp.config.sources {
+    { name = 'nvim_lua' },
+    { name = 'nvim_lsp' },
+    { name = 'path' },
+    { name = 'luasnip' },
+    { name = 'calc', keyword_length = 3 },
+    { name = 'buffer', keyword_length = 5 },
+  },
+})
+
 cmp.setup.filetype('gitcommit', {
   sources = cmp.config.sources({
     { name = 'cc_types', keyword_length = 1 },
-    { name = 'cmp_git' },
+    { name = 'git' },
   }, {
     { name = 'path' },
     { name = 'luasnip' },
@@ -149,11 +159,16 @@ cmp.setup.cmdline(':', {
 })
 
 cmp.setup.cmdline('/', {
-  sources = cmp.config.sources {
-    { name = 'calc' },
+  sources = cmp.config.sources({
+    { name = 'nvim_lsp_document_symbol' },
+  }, {
+    { name = 'path' },
     { name = 'buffer' },
-  },
+  }),
 })
+
+-- Set up sources
+require('cmp_git').setup()
 
 -- Set up highlights
 vim.cmd [[

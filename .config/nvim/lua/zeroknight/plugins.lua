@@ -191,11 +191,12 @@ return require('packer').startup {
       { 'hrsh7th/cmp-buffer' },
       { 'hrsh7th/cmp-calc' },
       { 'hrsh7th/cmp-cmdline' },
-      { 'petertriho/cmp-git', config = [[require('cmp_git').setup()]] },
+      { 'petertriho/cmp-git' },
       { 'saadparwaiz1/cmp_luasnip' },
       { 'hrsh7th/cmp-path' },
       { 'hrsh7th/cmp-nvim-lsp' },
       { 'hrsh7th/cmp-nvim-lua' },
+      { 'hrsh7th/cmp-nvim-lsp-document-symbol' },
     }
 
     -- Editing {{{1
