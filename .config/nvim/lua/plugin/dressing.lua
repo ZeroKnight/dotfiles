@@ -1,10 +1,8 @@
 -- dressing.nvim configuration
 
-local dressing = require 'dressing'
-
-dressing.setup {
+require('dressing').setup {
   input = { -- vim.ui.input
-    enabled = true,
+    enabled = false,
   },
   select = { -- vim.ui.select
     enabled = true,

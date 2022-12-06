@@ -11,10 +11,10 @@ vim.g.lightline = {
       { 'diagnostics', 'filename', 'ReadOnly', 'preview' },
     },
     right = {
-      { 'lineinfo', 'LspProgress' },
+      { 'lineinfo' },
       { 'FileInfo' },
       { 'CurrSymbol', 'FileType' },
-      { 'spell' },
+      { 'ShowMode', 'spell' },
     },
   },
   inactive = {
@@ -58,7 +58,7 @@ vim.g.lightline = {
     GitBranch = 'zeroknight#lightline#git_branch',
     GitHunks = 'zeroknight#lightline#git_hunks',
     CurrSymbol = 'zeroknight#lightline#current_symbol',
-    LspProgress = 'zeroknight#lightline#lsp_progress',
+    ShowMode = 'zeroknight#lightline#noice_showmode',
   },
   component_function_visible_condition = {
     Mode = 1,
@@ -68,6 +68,7 @@ vim.g.lightline = {
     GitBranch = "zeroknight#lightline#has_minwidth() && !empty(get(b:, 'gitsigns_head', ''))",
     GitHunks = "zeroknight#lightline#has_minwidth() && !empty(get(b:, 'gitsigns_status', ''))",
     CurrSymbol = '!empty(zeroknight#lightline#current_symbol())',
+    ShowMode = 'luaeval("require(\'noice\').api.status.mode.has()")',
   },
   component_expand = {
     buffers = 'lightline#bufferline#buffers',

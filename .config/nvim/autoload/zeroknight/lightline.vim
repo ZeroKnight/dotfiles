@@ -93,9 +93,10 @@ function! zeroknight#lightline#current_symbol() abort
   return get(b:, 'lsp_current_function', '')
 endfunction
 
-function! zeroknight#lightline#lsp_progress() abort
-  if !zeroknight#util#has_lsp()
+function! zeroknight#lightline#noice_showmode() abort
+  let l:register = luaeval("require('noice').api.status.mode.get()")
+  if empty(l:register)
     return ''
   endif
-  return luaeval("require('lsp-status').status_progress()")
+  return printf('🔴 %s', split(l:register)[1])
 endfunction

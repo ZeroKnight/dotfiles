@@ -132,13 +132,19 @@ return require('packer').startup {
     }
 
     use {
-      'rcarriga/nvim-notify',
-      config = config 'notify',
+      'folke/noice.nvim',
+      config = config 'noice',
+      requires = {
+        'MunifTanjim/nui.nvim',
+        {
+          'rcarriga/nvim-notify',
+          config = config 'notify',
+        },
+      },
     }
 
     -- Language Server Protocol (LSP) {{{1
     use 'neovim/nvim-lspconfig'
-    use 'nvim-lua/lsp-status.nvim'
     use 'ray-x/lsp_signature.nvim'
 
     use {

@@ -8,7 +8,6 @@ local has_lspconfig, lspconfig = pcall(require, 'lspconfig')
 if not has_lspconfig then
   return
 end
-local lsp_status = require 'lsp-status'
 local lsp_kinds = require 'zeroknight.lsp.kinds'
 
 local wk = require 'which-key'
@@ -197,21 +196,11 @@ function M.lsp_buffer_setup(client, bufnr)
     select_signature_key = '<C-s>',
   }, bufnr)
 
-  lsp_status.on_attach(client)
-
   wk.register(lsp_keymap, { buffer = bufnr })
   wk.register(lsp_keymap_x, { buffer = bufnr, mode = 'x' })
 end
 
 function M.init()
-  -- Set up lsp-status
-  lsp_status.config {
-    current_function = true,
-    diagnostics = false, -- Using my own function
-    kind_labels = lsp_kinds.symbols,
-  }
-  lsp_status.register_progress()
-
   local capabilities = vim.lsp.protocol.make_client_capabilities()
   -- if packer_loaded 'nvim-cmp' and packer_loaded 'cmp-nvim-lsp' then
   capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
