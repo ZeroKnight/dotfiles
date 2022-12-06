@@ -125,6 +125,9 @@ vim.keymap.set('i', '<M-S-Down>', '<Cmd>copy .<CR>', { desc = 'Copy line down' }
 vim.keymap.set('v', '<M-S-Up>', ':copy -<CR>', { desc = 'Copy line up' })
 vim.keymap.set('v', '<M-S-Down>', ':copy +<CR>', { desc = 'Copy line down' })
 
+-- Quickly start a :lua command line
+vim.keymap.set('n', '<M-;>', ':lua ', { desc = 'Quick :lua prompt' })
+
 -- UI Related {{{1
 
 -- Window Switching
