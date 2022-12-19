@@ -7,6 +7,10 @@ function _G.packer_loaded(name)
   return packer_plugins[name] and packer_plugins[name].loaded
 end
 
+local function ts_module(repo)
+  return { repo, after = 'nvim-treesitter' }
+end
+
 local function tele_extension(name)
   return string.format([[require('telescope').load_extension('%s')]], name)
 end
@@ -310,12 +314,18 @@ return require('packer').startup {
 
     -- Language Support {{{1
     use {
-      'nvim-treesitter/nvim-treesitter',
-      config = config 'treesitter',
-      run = ':TSUpdate',
-      -- WTF: Treesitter sometimes causes a segfault on startup from packer_compiled when not deferred
-      event = 'VimEnter',
+      {
+        'nvim-treesitter/nvim-treesitter',
+        config = config 'treesitter',
+        run = ':TSUpdate',
+        -- WTF: Treesitter sometimes causes a segfault on startup from packer_compiled when not deferred
+        event = 'VimEnter',
+      },
+      ts_module 'nvim-treesitter/playground',
+      ts_module 'nvim-treesitter/nvim-treesitter-context',
+      ts_module 'nvim-treesitter/nvim-treesitter-textobjects',
     }
+
     use { 'euclidianAce/BetterLua.vim', ft = 'lua' }
     use { 'cespare/vim-toml', ft = 'toml' }
     use { 'withgod/vim-sourcepawn', ft = 'sourcepawn' }
