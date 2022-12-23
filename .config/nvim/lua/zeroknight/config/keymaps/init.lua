@@ -151,6 +151,9 @@ vim.keymap.set('v', '<M-S-Down>', ':copy +<CR>', { desc = 'Copy line down', sile
 -- Quickly start a :lua command line
 vim.keymap.set('n', '<M-;>', ':lua ', { desc = 'Quick :lua prompt' })
 
+-- Append comma to line and start a new line
+vim.keymap.set('i', '<M-,>', '<End>,<CR>', { desc = 'Append comma and start new line' })
+
 -- UI Related {{{1
 
 -- Window Switching
