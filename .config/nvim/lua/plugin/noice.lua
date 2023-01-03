@@ -25,14 +25,27 @@ require('noice').setup {
   },
   routes = {
     {
-      -- Send huge notifications to a split
-      filter = { event = 'notify', min_height = 15 },
-      view = 'split',
-    },
-    {
       -- Show "recording @x" in a mini view
       filter = { event = 'msg_showmode' },
       view = 'mini',
+    },
+    {
+      -- Send short messages to mini view
+      filter = {
+        any = {
+          { event = 'msg_show', kind = '', find = 'written' },
+          { event = 'msg_show', kind = '', find = 'appended' },
+          { event = 'msg_show', kind = '', find = 'change; before' },
+          { event = 'msg_show', kind = '', find = 'change; after' },
+          { event = 'msg_show', find = 'line less' },
+          { event = 'msg_show', find = 'more line' },
+          { event = 'msg_show', find = 'fewer line' },
+          { event = 'msg_show', kind = 'wmsg', find = 'search hit TOP' },
+          { event = 'msg_show', kind = 'wmsg', find = 'search hit BOTTOM' },
+        },
+      },
+      view = 'mini',
+      opts = { timeout = 3000 },
     },
     {
       -- Don't show annoying null-ls progress messages
@@ -43,6 +56,22 @@ require('noice').setup {
         },
       },
       opts = { skip = true },
+    },
+    {
+      -- TODO: Handle this better when Noice is able to
+      filter = { event = 'msg_show', kind = 'echo', find = '<bs> go up one level' },
+      view = 'notify',
+      opts = { title = 'Which-Key', replace = true },
+    },
+    {
+      -- Send huge messages/notifications to a split
+      filter = {
+        any = {
+          { event = { 'notify', 'msg_show' }, min_height = 10 },
+          { event = { 'notify', 'msg_show' }, min_width = 80 },
+        },
+      },
+      view = 'split',
     },
   },
 }
