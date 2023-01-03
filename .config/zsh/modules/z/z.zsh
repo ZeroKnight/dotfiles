@@ -24,7 +24,7 @@ alias zz='z -c'  # Restrict to subdirectories of CWD
 if (( $+commands[fzf] )); then
   alias zi='z -I'
 else
-  zlias zi='z -i'
+  alias zi='z -i'
 fi
 alias zbi='zi -b'
 alias zzi='zi -c'
