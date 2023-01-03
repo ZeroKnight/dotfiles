@@ -35,8 +35,6 @@ require('noice').setup {
         any = {
           { event = 'msg_show', kind = '', find = 'written' },
           { event = 'msg_show', kind = '', find = 'appended' },
-          { event = 'msg_show', kind = '', find = 'change; before' },
-          { event = 'msg_show', kind = '', find = 'change; after' },
           { event = 'msg_show', find = 'line less' },
           { event = 'msg_show', find = 'more line' },
           { event = 'msg_show', find = 'fewer line' },
@@ -46,6 +44,16 @@ require('noice').setup {
       },
       view = 'mini',
       opts = { timeout = 3000 },
+    },
+    {
+      -- Skip various messages caused by buffer changes
+      filter = {
+        any = {
+          { event = 'msg_show', kind = '', find = 'lines >ed' },
+          { event = 'msg_show', kind = '', find = 'lines <ed' },
+        },
+      },
+      opts = { skip = true },
     },
     {
       -- Don't show annoying null-ls progress messages
