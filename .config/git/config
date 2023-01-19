@@ -26,6 +26,7 @@
     push-all = !git push --all && git push --tags
     quickfix = cm --amend --reuse-message HEAD
     undo = reset --soft HEAD^
+    unstage = restore --staged
 
     auto-rm = !git ls-files -z --deleted | xargs -0 git rm
     setup = !git init && git add . && git commit -m 'Initial Commit'
