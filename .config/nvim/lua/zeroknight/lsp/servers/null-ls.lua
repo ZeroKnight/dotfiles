@@ -47,8 +47,12 @@ null_ls.setup {
     builtins.formatting.stylua.with {
       cwd = nvim_root,
     },
-    builtins.formatting.trim_newlines,
-    builtins.formatting.trim_whitespace,
+    builtins.formatting.trim_newlines.with {
+      disabled_filetypes = { 'diff' }
+    },
+    builtins.formatting.trim_whitespace.with {
+      disabled_filetypes = { 'diff' }
+    },
 
     -- Code Actions
     builtins.code_actions.gitsigns,
