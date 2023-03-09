@@ -16,4 +16,9 @@ alias pydoc='pydoc3'
 
 alias ipy='ipython'
 alias pdb='python -m pdb'
-alias venv='python3 -m venv venv'
+
+if (( $+commands[virtualenv] )); then
+    alias venv='virtualenv'
+else
+    alias venv='python3 -m venv venv'
+fi
