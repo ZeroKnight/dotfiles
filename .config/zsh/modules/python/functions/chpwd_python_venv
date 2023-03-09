@@ -3,8 +3,8 @@
 #
 
 if [[ -n "$VIRTUAL_ENV" ]]; then
-  local parent="${$(readlink -f "$VIRTUAL_ENV"):h}"
-  if [[ "$PWD" != "$parent"/* ]]; then
+  local venv_parent="${$(readlink -f "$VIRTUAL_ENV"):h}"
+  if [[ "${PWD#$venv_parent}" == "$PWD" ]]; then
     deactivate
   fi
 else
