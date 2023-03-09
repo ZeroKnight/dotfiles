@@ -12,6 +12,7 @@ alias pacman='sudo pacman'
 alias apt='sudo apt'
 alias aptg='sudo apt-get'
 alias aptc='sudo apt-cache'
+alias zyp='sudo zypper'
 
 ### Systemd
 
