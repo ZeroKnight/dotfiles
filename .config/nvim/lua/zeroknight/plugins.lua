@@ -190,6 +190,12 @@ return require('packer').startup {
     use 'mfussenegger/nvim-dap'
     use 'jbyuki/one-small-step-for-vimkind'
 
+    -- Testing
+    use {
+      'vim-test/vim-test',
+      config = config 'test',
+    }
+
     -- Completion {{{1
     use {
       {
