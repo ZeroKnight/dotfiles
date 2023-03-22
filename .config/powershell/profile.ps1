@@ -5,18 +5,38 @@ function _on_windows() {
     return $IsWindows -or $env:OS -eq 'Windows_NT'
 }
 
+function _is_pwsh() {
+    # Newer than PowerShell 5, e.g. PowerShell "Core"
+    return $PSVersionTable.PSVersion.Major -gt 5
+}
+
 ### Environnment ###
 
-$PSReadLineOptions = @{
-    BellStyle = 'None'
-    HistoryNoDuplicates = $true
-    PredictionSource = 'History'
-    Colors = @{
-        'InlinePrediction' = "`e[90m"
-        'Number' = "`e[94m"
-        'Operator' = "`e[36m"
-        'Parameter' = "`e[35m"
+if (_is_pwsh) {
+    $PSReadLineOptions = @{
+        BellStyle = 'None'
+        HistoryNoDuplicates = $true
+        PredictionSource = 'History'
+        Colors = @{
+            'InlinePrediction' = "`e[90m"
+            'Number' = "`e[94m"
+            'Operator' = "`e[36m"
+            'Parameter' = "`e[35m"
+        }
     }
+}
+else {
+    $e = [Char]0x1b
+    $PSReadLineOptions = @{
+        BellStyle = 'None'
+        HistoryNoDuplicates = $true
+        Colors = @{
+            'Number' = "$e[94m"
+            'Operator' = "$e[36m"
+            'Parameter' = "$e[35m"
+        }
+    }
+    Remove-Variable e
 }
 Set-PSReadLineOption @PSReadLineOptions
 
