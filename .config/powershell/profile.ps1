@@ -49,10 +49,11 @@ $appendPipe = {
     $line, $curpos = $null, $null
     [PSConsoleReadLine]::GetBufferState([ref]$line, [ref]$curpos)
 
-    if ($line[-1] -ne ' ') {
-        [PSConsoleReadLine]::Insert(' ')
-    }
-    [PSConsoleReadLine]::Insert("| $char {  }")
+    $regex = [Regex]::new('(\s*|\s*\|\s*)$')
+    $replaced = $regex.Replace($line, " | $char {  }", 1)
+    [PSConsoleReadLine]::RevertLine()
+    [PSConsoleReadLine]::Insert($replaced)
+
     [PSConsoleReadLine]::GetBufferState([ref]$line, [ref]$curpos)
     [PSConsoleReadLine]::SetCursorPosition($line.Length - 2)
 }
