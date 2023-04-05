@@ -76,3 +76,15 @@ autocmd('ColorScheme', {
   desc = 'Redefine highlights on colorscheme change',
   command = 'silent runtime lua/zeroknight/config/highlight.lua',
 })
+
+autocmd('QuickFixCmdPost', {
+  desc = 'Automatically open quickfix/loclist results when grepping',
+  pattern = '{l,}{vim,help,}grep',
+  callback = function(ctx)
+    if vim.startswith(ctx.match, 'l') then
+      vim.cmd 'silent lwindow'
+    else
+      vim.cmd 'silent cwindow'
+    end
+  end,
+})

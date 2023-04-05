@@ -183,7 +183,6 @@ return require('packer').startup {
     }
 
     -- Analysis, Linting, and Debugging {{{1
-    use { 'mhinz/vim-grepper', cmd = 'Grepper' }
     use 'romainl/vim-qlist'
 
     -- Debug Adapter Protocol (DAP)
