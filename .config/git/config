@@ -45,6 +45,7 @@
 
 [diff]
     mnemonicPrefix = true
+    tool = nvimdiff
 
 [fetch]
     prune = true
