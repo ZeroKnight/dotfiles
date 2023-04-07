@@ -6,7 +6,7 @@ end
 
 local servers = {
   jsonls = {},
-  sumneko_lua = config 'sumneko',
+  lua_ls = config 'lua_ls',
   pylsp = {
     settings = {
       pylsp = {
