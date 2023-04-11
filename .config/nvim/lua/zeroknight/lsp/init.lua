@@ -4,6 +4,8 @@ local lsp = vim.lsp
 local autocmd = vim.api.nvim_create_autocmd
 local augroup = vim.api.nvim_create_augroup
 
+require 'zeroknight.lsp.mason'
+
 local has_lspconfig, lspconfig = pcall(require, 'lspconfig')
 if not has_lspconfig then
   return

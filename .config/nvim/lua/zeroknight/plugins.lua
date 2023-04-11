@@ -148,7 +148,12 @@ return require('packer').startup {
     }
 
     -- Language Server Protocol (LSP) {{{1
-    use 'neovim/nvim-lspconfig'
+    use {
+      { 'williamboman/mason.nvim', run = ':MasonUpdate' },
+      'williamboman/mason-lspconfig.nvim',
+      'neovim/nvim-lspconfig',
+    }
+
     use 'ray-x/lsp_signature.nvim'
 
     use {

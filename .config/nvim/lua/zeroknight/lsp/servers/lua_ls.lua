@@ -1,9 +1,5 @@
 -- Sumneko Lua LSP Config
 
-local Path = require 'plenary.path'
-
--- TODO: Downloader/Builder function
-
 local function lua_path()
   local p = vim.split(package.path, ';')
   table.insert(p, 'lua/?.lua')
@@ -13,16 +9,7 @@ end
 
 local M = {}
 
-M.base_directory = Path:new(vim.fs.normalize '~/.local/lib/lsp/lua-language-server')
-M.bin_path = M.base_directory:joinpath('bin', jit.os, 'lua-language-server')
-M.cmd = {
-  tostring(M.bin_path),
-  '-E',
-  string.format('%s/main.lua', M.base_directory),
-}
-
 M.config = {
-  cmd = M.cmd,
   settings = {
     Lua = {
       runtime = {
@@ -34,7 +21,7 @@ M.config = {
         autoRequire = true,
         callSnippet = 'Disable',
         keywordSnippet = 'Disable', -- Use regular snippets for this
-        displayContext = 6, -- Show function lines in suggestion
+        displayContext = 6,         -- Show function lines in suggestion
         showParams = true,
         workspaceWord = true,
       },
