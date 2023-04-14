@@ -6,7 +6,7 @@ require('mason').setup {
 
   pip = { upgrade_pip = true },
 
-  ui = { border = 'single' },
+  ui = { border = 'rounded' },
 }
 
 require('mason-lspconfig').setup {

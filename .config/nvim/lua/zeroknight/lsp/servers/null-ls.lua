@@ -24,6 +24,7 @@ null_ls.setup {
   diagnostics_format = '#{m}',
   on_attach = lsp_buffer_setup,
   update_in_insert = false,
+  border = 'rounded',
   sources = {
     -- Diagnostics
     builtins.diagnostics.gitlint.with {

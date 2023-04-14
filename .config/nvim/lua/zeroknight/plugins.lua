@@ -369,7 +369,9 @@ return require('packer').startup {
   config = {
     max_jobs = 32,
     display = {
-      open_fn = require('packer.util').float,
+      open_fn = function()
+        return require('packer.util').float { border = 'rounded' }
+      end,
     },
   },
 }

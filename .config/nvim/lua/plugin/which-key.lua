@@ -19,6 +19,6 @@ wk.setup {
     ys = 'Make Surrounding',
   },
   window = {
-    border = 'single', -- NOTE: Doesn't appear to do anything yet
+    border = 'rounded',
   },
 }
