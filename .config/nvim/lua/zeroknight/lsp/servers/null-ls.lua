@@ -20,7 +20,6 @@ end
 
 null_ls.setup {
   -- NOTE: Trouble shows the code and source name as well
-  -- diagnostics_format = '[#{c}] #{m} (#{s})',
   diagnostics_format = '#{m}',
   on_attach = lsp_buffer_setup,
   update_in_insert = false,
@@ -49,10 +48,10 @@ null_ls.setup {
       cwd = nvim_root,
     },
     builtins.formatting.trim_newlines.with {
-      disabled_filetypes = { 'diff' }
+      disabled_filetypes = { 'diff' },
     },
     builtins.formatting.trim_whitespace.with {
-      disabled_filetypes = { 'diff' }
+      disabled_filetypes = { 'diff' },
     },
 
     -- Code Actions
@@ -63,5 +62,8 @@ null_ls.setup {
         end,
       },
     },
+
+    -- Hover
+    builtins.hover.printenv,
   },
 }
