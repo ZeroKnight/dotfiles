@@ -308,7 +308,7 @@ return require('packer').startup {
     use 'tpope/vim-unimpaired'
     use { 'Konfekt/FastFold', config = [[vim.g.fastfold_skip_filetypes = {'gitcommit', 'taglist'}]] }
     use { 'moll/vim-bbye', cmd = { 'Bdelete', 'Bwipeout' } }
-    use { 'tpope/vim-dispatch', cmd = { 'Dispatch', 'Make', 'FocusDispatch', 'Start' } }
+    use { 'tpope/vim-dispatch' }
     use { 'tpope/vim-obsession', cmd = 'Obsession' }
     use { 'dstein64/vim-startuptime', cmd = 'StartupTime' }
     use { 'bfredl/nvim-luadev', cmd = 'Luadev' }
