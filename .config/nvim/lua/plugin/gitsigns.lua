@@ -14,7 +14,6 @@ local function on_attach(bufnr)
 
   wk.register({
     name = 'hunks',
-    b = { function() gs.blame_line { full = true } end, 'Blame line', },
     u = { gs.undo_stage_hunk, 'Undo Stage Hunk' },
     p = { gs.preview_hunk, 'Preview Hunk' },
     P = { gs.preview_hunk_inline, 'Preview Hunk (Inline)' },
@@ -37,7 +36,13 @@ local function on_attach(bufnr)
 
   wk.register({
     name = 'git',
-    b = { gs.toggle_current_line_blame, 'Toggle current line blame' },
+    B = { gs.toggle_current_line_blame, 'Toggle current line blame' },
+    b = {
+      function()
+        gs.blame_line { full = true, ignore_whitespace = true }
+      end,
+      'Blame line',
+    },
     d = { gs.toggle_deleted, 'Toggle deleted lines' },
     w = { gs.toggle_word_diff, 'Toggle word diff' },
   }, {
