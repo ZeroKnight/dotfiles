@@ -37,8 +37,7 @@ M.config = {
         enable = false,
       },
       semantic = {
-        -- TODO: test if treesitter is doing semantic highlighting for lua
-        enable = false,
+        enable = true,
       },
       workspace = {},
       -- Sumneko's telemetry looks minimal and non-invasive.
