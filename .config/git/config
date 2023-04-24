@@ -56,7 +56,7 @@
 
 [log]
     mailmap = true
-    showSignature = true
+    showSignature = false
 
 [push]
     default = current
