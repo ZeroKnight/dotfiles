@@ -56,11 +56,12 @@ require('noice').setup {
       opts = { skip = true },
     },
     {
-      -- Don't show annoying null-ls progress messages
+      -- Don't show annoying null-ls/lua_ls progress messages
       filter = {
         any = {
           { event = 'lsp', kind = 'progress', find = 'code_action' },
           { event = 'lsp', kind = 'progress', find = 'diagnostics' },
+          { event = 'lsp', kind = 'progress', find = 'Diagnosing', ['not'] = { find = 'Diagnosing workspace' } },
         },
       },
       opts = { skip = true },
