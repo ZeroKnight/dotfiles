@@ -43,6 +43,14 @@ local M = setmetatable({}, {
 -- This way, the picker options tables aren't rebuilt every time the mapping is used.
 zeroknight.telescope_mapped_pickers = zeroknight.telescope_mapped_pickers or {}
 
+function M._make_mapping_rhs(lhs, wrap)
+  local rhs = string.format('lua zeroknight.telescope_mapped_pickers[%q]()', util.t(lhs))
+  if wrap then
+    rhs = string.format('<Cmd>%s<CR>', rhs)
+  end
+  return rhs
+end
+
 -- Create a mapping that opens Telescope in some fashion. Picker options, if
 -- given, are cached for the given mapping.
 function M.map_telescope(lhs, opts)
@@ -67,7 +75,7 @@ function M.map_telescope(lhs, opts)
   end
 
   local key = util.t(lhs)
-  local rhs = string.format('<Cmd>lua zeroknight.telescope_mapped_pickers[%q]()<CR>', key)
+  local rhs = M._make_mapping_rhs(key, true)
   local mode = opts.mode or 'n'
   local mapping_opts = { noremap = true, silent = true }
   zeroknight.telescope_mapped_pickers[key] = util.partial(picker, opts.opts)

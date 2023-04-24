@@ -25,7 +25,6 @@ return require('packer').startup {
     use 'wbthomason/packer.nvim'
 
     -- UI Plugins {{{1
-    use 'mhinz/vim-startify'
     use 'kshenoy/vim-signature'
     use 'wesQ3/vim-windowswap'
     use 'chrisbra/Recover.vim'
@@ -145,6 +144,12 @@ return require('packer').startup {
           config = config 'notify',
         },
       },
+    }
+
+    use {
+      'startup-nvim/startup.nvim',
+      requires = { 'nvim-telescope/telescope.nvim', 'nvim-lua/plenary.nvim' },
+      config = config 'startup',
     }
 
     -- Language Server Protocol (LSP) {{{1
