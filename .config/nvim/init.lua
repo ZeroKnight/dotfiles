@@ -17,14 +17,28 @@ if not vim.env.VIMSESSIONS then
 end
 
 -- Load plugins
-require 'zeroknight.plugins'
+require('lazy').setup('plugins', {
+  defaults = {
+    lazy = false,
+    version = false,
+  },
+  git = {
+    log = { '--since=7 days ago' },
+  },
+  dev = {
+    path = '~/Projects',
+  },
+  install = {
+    colorscheme = { 'tokyonight', 'one' },
+  },
+  ui = {
+    border = require('zeroknight.config.ui').borders,
+  },
+  custom_keys = {
+    ['<LocalLeader>l'] = false,
+    ['<LocalLeader>t'] = false,
+  },
+})
 
--- Neovim settings
-require 'zeroknight.config'
-require 'zeroknight.config.colorscheme'
-require 'zeroknight.config.highlight'
-require 'zeroknight.config.keymaps'
-require 'zeroknight.config.diagnostic'
-
--- Neovim LSP client
-require('zeroknight.lsp').init()
+-- Load basic configuration
+require('zeroknight.config').setup()

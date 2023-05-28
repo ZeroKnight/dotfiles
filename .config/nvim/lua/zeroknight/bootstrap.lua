@@ -5,75 +5,71 @@ local util = require 'zeroknight.util'
 
 local format = string.format
 
-local function download_packer()
-  local choice = string.lower(vim.fn.input(format('[%s] Download Packer? (y/n) ', util.get_module_name())))
+local lazy_path = format('%s/lazy/lazy.nvim', vim.fn.stdpath 'data')
+
+local function bootstrap_lazy()
+  if vim.loop.fs_stat(lazy_path) then
+    return true
+  end
+
+  local choice = string.lower(vim.fn.input(format('[%s] Download Lazy.nvim? (y/n) ', util.get_module_name())))
   vim.cmd 'redraw'
   if choice ~= 'y' then
-    util.warn 'Cannot load config until Packer is set up.'
-    vim.opt.loadplugins = false -- Don't try to load our incomplete config
-    return
+    util.warn 'Cannot load config until Lazy.nvim is set up.'
+    return false
   end
 
-  local packer_url = 'https://github.com/wbthomason/packer.nvim'
-  local packer_dir = format('%s/site/pack/packer/start', vim.fn.stdpath 'data')
-
-  vim.fn.mkdir(packer_dir, 'p')
-  util.msg 'Downloading Packer...'
-  util.msg(vim.fn.system(format('git clone --depth=1 %s %s/packer.nvim', packer_url, packer_dir)))
+  vim.fn.mkdir(lazy_path, 'p')
+  util.msg 'Cloning Lazy.nvim...'
+  local out = vim.fn.system {
+    'git',
+    'clone',
+    '--filter=blob:none',
+    'https://github.com/folke/lazy.nvim.git',
+    '--branch=stable',
+    lazy_path,
+  }
+  util.msg(out)
   if vim.g.shell_error then
-    util.error(format('Failed to download Packer:\n%s', vim.g.shell_error))
+    util.error(format('Failed to clone Lazy.nvim:\n%s', vim.g.shell_error))
+    return false
   end
+  return true
 end
 
--- Set up Neovim state directories
-local function make_state_dirs()
-  util.msg 'Creating Neovim state directories'
+local function ensure_state_dirs()
   for _, dir in ipairs { 'swap', 'undo', 'view', 'session' } do
     local path = format('%s/%s', vim.fn.stdpath 'state', dir)
-    vim.fn.mkdir(path, 'p')
+    if not vim.loop.fs_stat(path) then
+      util.msg('Creating state directory: ', dir)
+      vim.fn.mkdir(path, 'p')
+    end
   end
 end
 
--- Load packer and download/install plugins
-local function install_plugins()
-  util.msg 'Installing plugins...'
-  vim.cmd 'packloadall'
-  local has_packer, packer = pcall(require, 'packer')
-  if not has_packer then
-    util.error 'Cannot install plugins, unable to require packer'
-    return
-  end
-  require 'zeroknight.plugins'
-  packer.sync()
-end
-
-return function()
-  if not pcall(require, 'packer') then
-    make_state_dirs()
-    download_packer()
-    install_plugins()
-    util.info 'Restart Neovim after packer sync to complete bootstrap.'
-    return true
-  end
-
-  -- Ensure that we have plenary
-  local has_plenary = pcall(require, 'plenary.path')
-  if not has_plenary then
-    util.error "Packer is installed, but plenary isn't available."
-    return true
-  end
-
-  -- Create Python provider venvs if needed
+-- Create Python provider venvs
+local function ensure_python_provider()
   local providers = require 'zeroknight.providers'
-  local python_versions = { 3 } -- TODO: For now, I only care about Python3
+  local python_versions = { 3 }
   for _, version in ipairs(python_versions) do
     if not providers.get_python_venv(version):exists() then
       util.msg('Creating venv for Python', version, 'Provider')
-      if not providers.create_python_venv(version) then
-        return true
-      end
+      providers.create_python_venv(version)
     end
   end
+end
+
+return function()
+  if not pcall(require, 'lazy') then
+    if not bootstrap_lazy() then
+      return true
+    end
+    vim.opt.runtimepath:prepend(lazy_path)
+  end
+
+  ensure_state_dirs()
+	-- FIXME: plenary not available until lazy is started
+  -- ensure_python_provider()
 
   return false
 end

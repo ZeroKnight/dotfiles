@@ -2,7 +2,7 @@
 
 --# selene: allow(undefined_variable)
 
-local util = require 'plugin.luasnip.util'
+local util = require 'plugins.snippet.util'
 local isn = require('luasnip').indent_snippet_node
 
 local function get_parents(ts)

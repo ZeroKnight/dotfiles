@@ -4,7 +4,7 @@
 
 local ls = require 'luasnip'
 
-local util = require 'plugin.luasnip.util'
+local util = require 'plugins.snippet.util'
 
 -- Wrapped snippet constructor that ensures snippets defined here are only
 -- active when editing a snippet file. Their priority is set higher than usual

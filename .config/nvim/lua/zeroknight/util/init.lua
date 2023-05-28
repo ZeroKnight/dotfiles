@@ -90,4 +90,33 @@ function M.python_version(interpreter)
   return vim.call('system', format('%s -c %s', interpreter, ver_cmd))
 end
 
+-- Pinched from LazyVim
+---@param plugin string
+function M.has_plugin(plugin)
+  return require('lazy.core.config').plugins[plugin] ~= nil
+end
+
+-- Add an LspAttach callback
+---@param on_attach fun(client, buffer)
+---@param desc string?
+function M.on_attach(on_attach, desc)
+  vim.api.nvim_create_autocmd('LspAttach', {
+    group = vim.api.nvim_create_augroup('ZeroKnight.lsp', { clear = false }),
+    desc = desc,
+    callback = function(args)
+      local buffer = args.buf
+      local client = vim.lsp.get_client_by_id(args.data.client_id)
+      on_attach(client, buffer)
+    end,
+  })
+end
+
+-- Returns a function that calls a telescope picker with specific options.
+-- Will find my custom pickers, extensions, and builtin pickers.
+function M.telescope(picker, opts)
+  return function()
+    require('plugins.telescope.picker')[picker](opts)
+  end
+end
+
 return M

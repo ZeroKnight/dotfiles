@@ -3,7 +3,7 @@
 
 --# selene: allow(undefined_variable)
 
-local util = require 'plugin.luasnip.util'
+local util = require 'plugins.snippet.util'
 
 -- Slightly lower priority so that other dialects may override
 local s = util.snippet_with_def_prio(800)

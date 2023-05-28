@@ -2,7 +2,7 @@
 
 --# selene: allow(undefined_variable)
 
-local util = require 'plugin.luasnip.util'
+local util = require 'plugins.snippet.util'
 
 -- stylua: ignore start
 return {

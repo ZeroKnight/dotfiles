@@ -2,7 +2,7 @@
 
 --# selene: allow(undefined_variable)
 
-local util = require 'plugin.luasnip.util'
+local util = require 'plugins.snippet.util'
 
 -- Return the last portion of a Lua import string, e.g. a.b.c -> c
 local function get_import_tail(import)
