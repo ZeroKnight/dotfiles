@@ -16,18 +16,6 @@ function M.nvim_config()
   }
 end
 
--- Pick from installed Neovim plugins
-function M.nvim_plugins()
-  require('telescope.builtin').find_files {
-    prompt_title = 'Neovim Plugin Files',
-    cwd = as_stdpath('data', 'site/pack/packer'),
-    layout_strategy = 'horizontal',
-    layout_config = {
-      preview_width = 0.6,
-    },
-  }
-end
-
 -- Pick from Neovim logs
 function M.nvim_logs()
   require('telescope.builtin').find_files {

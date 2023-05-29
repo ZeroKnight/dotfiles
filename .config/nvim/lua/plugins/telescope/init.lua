@@ -1,6 +1,6 @@
 -- Telescope configuration
 
-local util = require('zeroknight.util')
+local util = require 'zeroknight.util'
 
 local function tele_extension(source, name)
   return {
@@ -116,7 +116,6 @@ return {
       { '<Leader>fz', util.telescope('z'), desc = 'Find Directory via z' },
 
       { '<Leader><Leader>nc', util.telescope('nvim_config'), desc = 'Find Neovim Config File' },
-      { '<Leader><Leader>np', util.telescope('nvim_plugins'), desc = 'Find Neovim Plugin File' },
       { '<Leader><Leader>nl', util.telescope('nvim_logs'), desc = 'Find Neovim Log File' },
       { '<Leader><Leader>nr', util.telescope('nvim_runtime'), desc = 'Find Neovim Runtime File' },
       { '<Leader><Leader>zc', util.telescope('zsh_config'), desc = 'Find Zsh Config File' },
@@ -138,7 +137,7 @@ return {
       { '<Leader>fq', util.telescope('quickfix'), desc = 'Find Quickfix' },
       { '<Leader>fl', util.telescope('loclist'), desc = 'Find Location' },
       { '<Leader>fd', util.telescope('diagnostics'), desc = 'Find Diagnostic' },
-      { '<Leader>fp', util.telescope('lazy'), desc = 'Find Plugin' },
+      { '<Leader>fp', util.telescope('lazy.lazy'), desc = 'Find Plugin' },
 
       { '<Leader>G', util.telescope('live_grep'), desc = 'Live Grep' },
       { '<Leader>fw', util.telescope('grep_string'), desc = 'Find Word' },
