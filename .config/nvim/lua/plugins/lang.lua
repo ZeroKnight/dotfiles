@@ -63,7 +63,6 @@ return {
     event = { 'BufReadPost', 'BufNewFile' },
     dependencies = {
       'nvim-treesitter/playground',
-      'nvim-treesitter/nvim-treesitter-context',
       'nvim-treesitter/nvim-treesitter-textobjects',
       'joosepAlviste/nvim-ts-context-commentstring',
     },
@@ -89,12 +88,6 @@ return {
       },
       playground = {
         enable = true,
-      },
-      context = {
-        enable = true,
-        max_lines = 3,
-        trim_scope = 'outer',
-        min_window_height = 10,
       },
       context_commentstring = {
         enable = true,
@@ -158,5 +151,17 @@ return {
       vim.opt.foldmethod = 'expr'
       vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
     end,
+  },
+
+  {
+    'nvim-treesitter/nvim-treesitter-context',
+    event = { 'BufReadPost', 'BufNewFile' },
+    dependencies = { 'nvim-treesitter/nvim-treesitter' },
+    opts = {
+      enable = true,
+      max_lines = 3,
+      trim_scope = 'outer',
+      min_window_height = 10,
+    },
   },
 }
