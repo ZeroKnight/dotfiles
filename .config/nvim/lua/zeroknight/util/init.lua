@@ -4,6 +4,8 @@ local format = string.format
 
 local M = {}
 
+M.root_patterns = { '.git', '' }
+
 -- Returns the module name of the calling function
 function M.get_module_name(level)
   if level == nil then
@@ -90,6 +92,59 @@ function M.python_version(interpreter)
   return vim.call('system', format('%s -c %s', interpreter, ver_cmd))
 end
 
+---@param buffer number?
+function M.toggle_diagnostics(buffer)
+  if vim.diagnostic.is_disabled(buffer) then
+    vim.diagnostic.enable(buffer)
+    vim.notify('Enabled diagnostics', vim.log.levels.INFO, { title = 'Diagnostics' })
+  else
+    vim.diagnostic.disable(buffer)
+    vim.notify('Disabled diagnostics', vim.log.levels.INFO, { title = 'Diagnostics' })
+  end
+end
+
+-- From LazyVim
+-- returns the root directory based on:
+-- * lsp workspace folders
+-- * lsp root_dir
+-- * root pattern of filename of the current buffer
+-- * root pattern of cwd
+---@return string
+function M.get_root()
+  ---@type string?
+  local path = vim.api.nvim_buf_get_name(0)
+  path = path ~= '' and vim.loop.fs_realpath(path) or nil
+  ---@type string[]
+  local roots = {}
+  if path then
+    for _, client in pairs(vim.lsp.get_active_clients { bufnr = 0 }) do
+      local workspace = client.config.workspace_folders
+      local paths = workspace and vim.tbl_map(function(ws)
+        return vim.uri_to_fname(ws.uri)
+      end, workspace) or client.config.root_dir and { client.config.root_dir } or {}
+      for _, p in ipairs(paths) do
+        local r = vim.loop.fs_realpath(p)
+        if path:find(r, 1, true) then
+          roots[#roots + 1] = r
+        end
+      end
+    end
+  end
+  table.sort(roots, function(a, b)
+    return #a > #b
+  end)
+  ---@type string?
+  local root = roots[1]
+  if not root then
+    path = path and vim.fs.dirname(path) or vim.loop.cwd()
+    ---@type string?
+    root = vim.fs.find(M.root_patterns, { path = path, upward = true })[1]
+    root = root and vim.fs.dirname(root) or vim.loop.cwd()
+  end
+  ---@cast root string
+  return root
+end
+
 -- Pinched from LazyVim
 ---@param plugin string
 function M.has_plugin(plugin)
@@ -112,8 +167,10 @@ function M.on_attach(on_attach, desc)
 end
 
 -- Returns a function that calls a telescope picker with specific options.
--- Will find my custom pickers, extensions, and builtin pickers.
+-- Will find my custom pickers, extensions, and builtin pickers. Also defaults
+-- `cwd` to the result of `util.get_root`.
 function M.telescope(picker, opts)
+  opts = vim.tbl_deep_extend('keep', opts or {}, { cwd = M.get_root() })
   return function()
     require('plugins.telescope.picker')[picker](opts)
   end

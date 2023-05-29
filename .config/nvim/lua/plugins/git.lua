@@ -13,7 +13,8 @@ return {
     event = { 'BufReadPre', 'BufNewFile' },
     dependencies = { 'tpope/vim-rhubarb' },
     keys = {
-      { '<Leader>gs', '<Cmd>Git<CR>', desc = 'Status window' },
+      { '<Leader>G', '<Cmd>Git<CR>', desc = 'Status window' },
+      { '<Leader>gcc', '<Cmd>Git commit --verbose<CR>', desc = 'Commit' },
       { '<Leader>gce', '<Cmd>Git commit --amend --reuse-message=HEAD<CR>', desc = 'Amend last commit (no edit)' },
     },
   },
