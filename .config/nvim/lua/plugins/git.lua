@@ -14,7 +14,7 @@ return {
     dependencies = { 'tpope/vim-rhubarb' },
     keys = {
       { '<Leader>gs', '<Cmd>Git<CR>', desc = 'Status window' },
-      { '<Leader>gce', '<Cmd>Git commit --amend --reuse-message=HEAD<CR>', 'Amend last commit (no edit)' },
+      { '<Leader>gce', '<Cmd>Git commit --amend --reuse-message=HEAD<CR>', desc = 'Amend last commit (no edit)' },
     },
   },
 

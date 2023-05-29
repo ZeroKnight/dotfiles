@@ -45,7 +45,7 @@ return {
     'lukas-reineke/indent-blankline.nvim',
     event = 'VeryLazy',
     keys = {
-      { '<Leader>ti', '<Cmd>IndentBlanklineToggle<CR>', 'Toggle indent guides' },
+      { '<Leader>ti', '<Cmd>IndentBlanklineToggle<CR>', desc = 'Toggle indent guides' },
     },
     opts = {
       enabled = true,
