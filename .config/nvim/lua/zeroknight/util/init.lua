@@ -68,6 +68,10 @@ function M.cmdf(cmd, ...)
   vim.cmd(format(cmd, ...))
 end
 
+function M.capitalize(str)
+  return format('%s%s', string.upper(str:sub(1, 1)), string.lower(str:sub(2)))
+end
+
 function M.partial(func, ...)
   if func == nil then
     error('cannot make partial function out of nil', 2)
