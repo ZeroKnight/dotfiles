@@ -41,9 +41,6 @@ local leader = {
       q = { diag_method 'setqflist()', 'Dump diagnostics to quickfix list' },
     },
   },
-  cd = { '<Cmd>cd %:p:h<Bar>pwd<CR>', 'CWD to current file' },
-  lcd = { '<Cmd>lcd %:p:h<Bar>pwd<CR>', 'CWD to current file (Buffer)' },
-  tcd = { '<Cmd>tcd %:p:h<Bar>pwd<CR>', 'CWD to current file (Tab)' },
   d = { '"_d', 'Delete, but preserve unnamed register' },
   r = {
     w = { ':%s/\\<<C-r><C-w>\\>//gI<Left><Left><Left>', 'Substitute cursor word' },

@@ -15,11 +15,13 @@ function M.setup()
       pattern = 'VeryLazy',
       callback = function()
         load 'autocmds'
+        load 'commands'
         load 'keymaps'
       end,
     })
   else
     load 'autocmds'
+    load 'commands'
     load 'keymaps'
   end
 
