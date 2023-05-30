@@ -9,8 +9,11 @@ end
 
 autocmd({ 'BufWritePre', 'FileWritePre' }, {
   desc = 'Automatically create directories for new files when saving',
-  callback = function()
-    vim.fn.mkdir(vim.fn.expand '<afile>:p:h', 'p')
+  callback = function(event)
+    if event.match:match '^%w%w+://' then
+      return
+    end
+    vim.fn.mkdir(vim.fs.dirname(event.match), 'p')
   end,
 })
 
@@ -18,6 +21,24 @@ autocmd('FileType', {
   desc = 'Many filetype plugins set `formatoptions+=o`. Undo this.',
   callback = function()
     optl.formatoptions:remove 'o'
+  end,
+})
+
+autocmd('FileType', {
+  desc = 'Close various filetypes/plugin windows with <q>',
+  pattern = { 'help', 'man', 'qf', 'fugitive', 'startuptime', 'tsplayground', 'checkhealth' },
+  callback = function(event)
+    vim.bo[event.buf].buflisted = false
+    vim.keymap.set('n', 'q', '<Cmd>close<CR>', { buffer = event.buf, silent = true })
+  end,
+})
+
+autocmd('FileType', {
+  desc = 'Automatically enable spellchecking and word wrap for prose filetypes',
+  pattern = { 'text', 'gitcommit', 'markdown', 'rst' },
+  callback = function()
+    optl.wrap = true
+    optl.spell = true
   end,
 })
 
