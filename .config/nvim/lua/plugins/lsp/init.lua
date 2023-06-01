@@ -13,8 +13,9 @@ return {
     'neovim/nvim-lspconfig',
     event = { 'BufReadPre', 'BufNewFile' },
     dependencies = {
+      { 'folke/neodev.nvim', opts = {} },
       'mason.nvim',
-      'williamboman/mason-lspconfig.nvim',
+      'mason-lspconfig.nvim',
     },
     -- Since lspconfig has no options of its own, we'll store our own assorted
     -- LSP options here.
