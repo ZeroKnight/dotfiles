@@ -21,6 +21,11 @@ function _G.has(what)
   return vim.fn.has(what) == 1
 end
 
+-- Shorthand for current buffer
+function _G.currbuf()
+  return vim.loop.fs_realpath(vim.api.nvim_buf_get_name(0))
+end
+
 -- Modded from tjdevries
 if pcall(require, 'plenary') then
   _G.reload = require('plenary.reload').reload_module
