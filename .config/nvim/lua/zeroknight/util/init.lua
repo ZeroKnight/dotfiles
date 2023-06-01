@@ -174,9 +174,9 @@ end
 -- Will find my custom pickers, extensions, and builtin pickers. Also defaults
 -- `cwd` to the result of `util.get_root`.
 function M.telescope(picker, opts)
-  opts = vim.tbl_deep_extend('keep', opts or {}, { cwd = M.get_root() })
   return function()
-    require('plugins.telescope.picker')[picker](opts)
+    local _opts = vim.tbl_deep_extend('keep', opts or {}, { cwd = M.get_root() })
+    require('plugins.telescope.picker')[picker](_opts)
   end
 end
 
