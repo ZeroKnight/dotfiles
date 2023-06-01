@@ -75,7 +75,10 @@ return {
 
   {
     'numToStr/Comment.nvim',
-    keys = { 'gc', 'gcc', 'gco', 'gcO', 'gcA' },
+    -- stylua: ignore
+    keys = {
+      { 'gc' }, { 'gc', mode = 'v' }, { 'gcc' }, { 'gco' }, { 'gcO' }, { 'gcA' }
+    },
     opts = {
       pre_hook = function()
         require('ts_context_commentstring.internal').update_commentstring {}
