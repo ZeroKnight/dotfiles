@@ -1,5 +1,7 @@
 -- Startup Screen Configuration
 
+local format = string.format
+
 local logo = {
   '⠙⣏⠩⠉⠍⠹⣇⠀⢸⡋⠩⠉⠍⢹⡇⣠⠞⠉⠍⠩⠉⠍⠩⠉⠍⡉⠻⣤⠀⣠⠞⡉⠍⠩⠉⠍⠩⠉⠍⡉⠻⢦⢨⡏⢉⠍⠩⠉⣯⠀⠀⡯⠉⠍⠩⢙⣗⡏⠩⠉⠍⡉⣟⢻⡍⠩⠉⠍⠹⣆⠀⠀⠀⣼⠉⠍⠩⢉⢹⡏',
   '⠀⡗⠠⢁⠊⠄⢻⡄⢸⡃⠨⠈⠌⢸⣟⡇⠠⠡⠁⠅⡁⠅⠡⠁⠅⠄⠡⢸⣟⡇⢐⠠⠨⠈⠌⡈⠌⠨⠐⠠⠡⢸⣗⡇⢐⠈⠄⠅⡷⠀⠀⡯⠈⠌⠨⢐⣗⡇⠡⢁⠡⠀⣿⢸⡇⠈⠌⠨⠠⠹⡆⠀⣸⢃⠨⢈⠨⢀⢸ ',
@@ -33,100 +35,108 @@ local function python_venv()
   return ''
 end
 
-vim.g.startup_bookmarks = {
-  I = as_stdpath('config', 'init.lua'),
-  L = as_stdpath('config', 'lua/plugins/lsp/init.lua'),
-  L = as_stdpath('config', 'lua/plugins/lsp/servers/init.lua'),
-}
+-- Taken mostly from alpha dashboard theme
+local function button(sc, text, map, map_opts)
+  local opts = {
+    position = 'center',
+    shortcut = sc,
+    align_shortcut = 'right',
+    cursor = 3,
+    width = 40,
+    hl = 'String',
+    hl_shortcut = 'Constant',
+  }
+  sc = sc:gsub('%s', ''):gsub('LDR', '<Leader>')
+  if map then
+    map_opts = vim.tbl_extend('keep', map_opts or {}, { noremap = true, silent = true, nowait = true })
+    opts.keymap = { 'n', sc, map, map_opts }
+  end
 
-local sections = {
-  { 'header', 1 },
-  { 'version', 0 },
-  { 'bookmarks', 2 },
-  { 'actions', 1 },
-  { 'footer', 1 },
-}
+  return {
+    type = 'button',
+    val = text,
+    on_press = function()
+      local key = vim.api.nvim_replace_termcodes(map or sc .. '<Ignore>', true, false, true)
+      vim.api.nvim_feedkeys(key, 't', false)
+    end,
+    opts = opts,
+  }
+end
 
 return {
   {
-    'startup-nvim/startup.nvim',
-    enabled = false, -- TODO: convert packer status to lazy
-    opts = {
-      header = {
-        type = 'text',
-        align = 'center',
-        content = logo,
-        highlight = 'Statement',
-      },
-      version = {
-        type = 'text',
-        align = 'center',
-        content = pretty_version,
-        highlight = 'Constant',
-      },
-      actions = {
-        type = 'mapping',
-        align = 'center',
-        content = {
-          { '  New File', "lua require'startup'.new_file()", '<C-n>' },
-          { '  Find File', 'Telescope find_files' },
-          { '  Find Git File', 'Telescope git_files' },
-          { '  File Browser', 'Telescope file_browser' },
-          { '  Recent Files', 'Telescope oldfiles' },
-          { '  Live Grep', 'Telescope live_grep' },
+    'goolord/alpha-nvim',
+    event = 'VimEnter',
+    opts = function()
+      local sections = {
+        header = {
+          type = 'group',
+          val = {
+            { type = 'text', val = logo, opts = { hl = 'Statement' } },
+            { type = 'text', val = pretty_version, opts = { hl = 'Keyword' } },
+          },
+          opts = {
+            spacing = 0,
+            inherit = { position = 'center' },
+          },
         },
-        highlight = 'String',
-      },
-      bookmarks = {
-        type = 'text',
-        align = 'center',
-        fold_section = true,
-        title = 'Bookmarks',
-        content = function()
-          local bookmarks = { '' }
-          for key, file in pairs(vim.g.startup_bookmarks) do
-            table.insert(bookmarks, string.format('[%s] %s', key, file))
-          end
-          return bookmarks
-        end,
-        highlight = 'String',
-      },
-      footer = {
-        type = 'text',
-        align = 'center',
-        content = function()
-          return {
-            table.concat({
-              string.format('🔌 %d Plugins', vim.tbl_count(packer_plugins)),
+
+        buttons = {
+          type = 'group',
+          val = {
+            button('e', '  New File', '<Cmd>enew<CR>'),
+            button('LDR f o', '  Recent Files'),
+            button('LDR f f', '  Find File'),
+            button('LDR F', '  File Browser'),
+            button('LDR LDR p', '  Projects'),
+            button('LDR s g', '  Live Grep'),
+            button('LDR h m', '  Man Pages'),
+            button('c', '  Neovim Config', format('<Cmd>e %s/init.lua<CR>', vim.fn.stdpath 'config')),
+            button('l', '󰒲  Lazy', '<Cmd>Lazy<CR>'),
+            button('m', '🔨 Mason', '<Cmd>Mason<CR>'),
+          },
+          opts = { spacing = 1 },
+        },
+
+        footer = {
+          type = 'text',
+          val = function()
+            local stats = require('lazy').stats()
+            local components = vim.tbl_filter(function(x)
+              return x and #x > 0
+            end, {
+              format('🔌 %d of %d Plugins', stats.loaded, stats.count),
+              format('⚡ Loaded in %dms', (math.floor(stats.startuptime * 100 + 0.5) / 100)),
               python_venv(),
-            }, '  '),
-          }
+            })
+            return format('  %s  ', table.concat(components, '  '))
+          end,
+          opts = { position = 'center', hl = 'Operator' },
+        },
+      }
+
+      return {
+        layout = {
+          { type = 'padding', val = 2 },
+          sections.header,
+          { type = 'padding', val = 2 },
+          sections.buttons,
+          { type = 'padding', val = 2 },
+          sections.footer,
+        },
+        opts = { margin = 5 },
+      }
+    end,
+    config = function(_, opts)
+      require('alpha').setup(opts)
+
+      -- Redraw once Lazy stats are available
+      vim.api.nvim_create_autocmd('User', {
+        pattern = 'LazyVimStarted',
+        callback = function()
+          pcall(vim.cmd.AlphaRedraw)
         end,
-        highlight = 'Operator',
-      },
-      options = {
-        mapping_keys = true,
-        disable_statuslines = true,
-        paddings = vim.tbl_map(function(x)
-          return x[2]
-        end, sections),
-        after = function()
-          local bookmarks = {}
-          for key, file in pairs(vim.g.startup_bookmarks) do
-            bookmarks[key] = string.format('<Cmd>e %s<CR>', file)
-          end
-          startup.create_mappings(vim.tbl_extend('error', {
-            q = '<Cmd>qa<CR>',
-          }, bookmarks))
-          vim.opt_local.colorcolumn = ''
-        end,
-      },
-      mappings = {
-        open_file_split = '<C-s>',
-      },
-      parts = vim.tbl_map(function(x)
-        return x[1]
-      end, sections),
-    },
+      })
+    end,
   },
 }
