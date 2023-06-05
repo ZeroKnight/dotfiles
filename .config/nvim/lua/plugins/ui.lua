@@ -242,44 +242,46 @@ return {
   {
     'stevearc/dressing.nvim',
     lazy = true,
-    opts = {
-      input = { -- vim.ui.input
-        enabled = false, -- using noice
-      },
-      select = { -- vim.ui.select
-        enabled = true,
-        format_item_override = {
-          codeaction = function(action_tuple)
-            -- Show language server per action
-            local title = action_tuple[2].title:gsub('\r\n', '\\r\\n')
-            local client = vim.lsp.get_client_by_id(action_tuple[1])
-            return string.format('%s\t[%s]', title:gsub('\n', '\\n'), client.name)
+    opts = function()
+      local ui = require 'zeroknight.config.ui'
+      return {
+        input = { -- vim.ui.input
+          enabled = false, -- using noice
+          border = ui.borders,
+        },
+        select = { -- vim.ui.select
+          enabled = true,
+          nui = { border = { style = ui.borders } },
+          builtin = { border = ui.borders },
+          format_item_override = {
+            codeaction = function(action_tuple)
+              -- Show language server per action
+              local title = action_tuple[2].title:gsub('\r\n', '\\r\\n')
+              local client = vim.lsp.get_client_by_id(action_tuple[1])
+              return string.format('%s\t[%s]', title:gsub('\n', '\\n'), client.name)
+            end,
+          },
+          get_config = function(opts)
+            if opts.kind == 'codeaction' then
+              return {
+                telescope = require('telescope.themes').get_cursor(),
+              }
+            end
           end,
         },
-        get_config = function(opts)
-          if opts.kind == 'codeaction' then
-            return {
-              telescope = require('telescope.themes').get_cursor(),
-            }
-          end
-        end,
-      },
-    },
-    init = function(plugin)
+      }
+    end,
+    init = function()
       -- Lazy load when vim.ui.* is called. Tweaked from LazyVim.
-      if vim.tbl_get(plugin.opts, 'input', 'enabled') then
-        ---@diagnostic disable-next-line: duplicate-set-field
-        vim.ui.input = function(...)
-          require('lazy').load { plugins = 'dressing.nvim' }
-          return vim.ui.input(...)
-        end
+      ---@diagnostic disable-next-line: duplicate-set-field
+      vim.ui.input = function(...)
+        require('lazy').load { plugins = { 'dressing.nvim' } }
+        return vim.ui.input(...)
       end
-      if vim.tbl_get(plugin.opts, 'select', 'enabled') then
-        ---@diagnostic disable-next-line: duplicate-set-field
-        vim.ui.select = function(...)
-          require('lazy').load { plugins = 'dressing.nvim' }
-          return vim.ui.select(...)
-        end
+      ---@diagnostic disable-next-line: duplicate-set-field
+      vim.ui.select = function(...)
+        require('lazy').load { plugins = { 'dressing.nvim' } }
+        return vim.ui.select(...)
       end
     end,
   },
