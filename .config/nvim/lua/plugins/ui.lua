@@ -11,8 +11,7 @@ local augroup = vim.api.nvim_create_augroup
 return {
   {
     'chrisbra/Recover.vim',
-    enabled = false, -- TODO: Test interaction with Noice
-    event = 'BufReadPre',
+    event = 'SwapExists',
   },
 
   {

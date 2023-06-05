@@ -158,10 +158,15 @@ return {
       { '<Leader>sW', util.telescope('grep_string', { cwd = false }), desc = 'Search Word (cwd)' },
       { '<Leader>sb', util.telescope('current_buffer_fuzzy_find'), desc = 'Search in Buffer' },
       { '<Leader>sj', util.telescope('jumplist'), desc = 'Search Jump List' },
+      { '<Leader>sn', util.telescope('notify.notify'), desc = 'Search Notifications' },
 
       { '<M-s>', util.telescope('snippets'), desc = 'Find Snippet', mode = 'i' },
 
       { '<C-t>', "getcmdtype() == ':' ? '<Plug>(TelescopeFuzzyCommandSearch)' : '<C-t>'", desc = 'Command History', expr = true, mode = 'c' },
     },
+    config = function(_, opts)
+      require('telescope').setup(opts)
+      require('telescope').load_extension 'notify'
+    end,
   },
 }
