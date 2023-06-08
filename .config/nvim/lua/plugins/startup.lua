@@ -115,13 +115,14 @@ return {
         },
       }
 
+      local pad2 = { type = 'padding', val = 2 }
       return {
         layout = {
-          { type = 'padding', val = 2 },
+          pad2,
           sections.header,
-          { type = 'padding', val = 2 },
+          pad2,
           sections.buttons,
-          { type = 'padding', val = 2 },
+          pad2,
           sections.footer,
         },
         opts = { margin = 5 },
@@ -129,6 +130,13 @@ return {
     end,
     config = function(_, opts)
       require('alpha').setup(opts)
+
+      vim.api.nvim_create_autocmd('FileType', {
+        pattern = 'alpha',
+        callback = function(event)
+          vim.keymap.set('n', 'q', '<Cmd>quit<CR>', { buffer = event.buf, noremap = true, nowait = true })
+        end,
+      })
 
       -- Redraw once Lazy stats are available
       vim.api.nvim_create_autocmd('User', {
