@@ -4,6 +4,11 @@ local band, bor, lshift, rshift = bit.band, bit.bor, bit.lshift, bit.rshift
 
 local M = {}
 
+function M.fg(name)
+  local hl = vim.api.nvim_get_hl(0, { name = name })
+  return { fg = string.format('#%06x', hl.fg) }
+end
+
 function M.to_hex(color)
   -- Convert an integer color into hexadecimal format
   if type(color) == 'number' then

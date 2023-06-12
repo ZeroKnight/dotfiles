@@ -25,10 +25,24 @@ local M = {
       bug = ' ',
       check = ' ',
       note = ' ',
+      help = ' ',
+      linenr = '',
     },
     folds = {
       open = '',
       closed = '',
+    },
+    separators = {
+      breadcrumb = '»',
+      left = { a = '', b = '' },
+      right = { a = '', b = '' },
+    },
+    git = {
+      logo = ' ',
+      branch = '',
+      added = ' ',
+      modified = ' ',
+      removed = ' ',
     },
     diagnostics = {
       Error = ' ',

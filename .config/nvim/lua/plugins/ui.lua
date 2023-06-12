@@ -18,21 +18,24 @@ return {
     'folke/which-key.nvim',
     lazy = true,
     priority = 100,
-    opts = {
-      plugins = {
-        spelling = {
-          enabled = true,
-          suggestions = 30,
+    opts = function()
+      return {
+        plugins = {
+          spelling = {
+            enabled = true,
+            suggestions = 30,
+          },
         },
-      },
-      show_help = false,
-      icons = {
-        group = '  ',
-      },
-      window = {
-        border = require('zeroknight.config.ui').borders,
-      },
-    },
+        show_help = false,
+        icons = {
+          breadcrumb = require('zeroknight.config.ui').icons.separators.breadcrumb,
+          group = '  ',
+        },
+        window = {
+          border = require('zeroknight.config.ui').borders,
+        },
+      }
+    end,
   },
 
   {
@@ -86,97 +89,198 @@ return {
   },
 
   {
-    'itchyny/lightline.vim',
-    init = function()
-      vim.g.lightline = {
-        colorscheme = vim.g.colors_name,
-        separator = { left = '', right = '' },
-        subseparator = { left = '', right = '' },
-        active = {
-          left = {
-            { 'Mode', 'paste' },
-            { 'GitHunks', 'GitBranch' },
-            { 'diagnostics', 'filename', 'ReadOnly', 'preview' },
+    'nvim-lualine/lualine.nvim',
+    event = 'VeryLazy',
+    opts = function()
+      local ui = require 'zeroknight.config.ui'
+      local icons = ui.icons
+      local color = require 'zeroknight.util.color'
+
+      local empty = { '', draw_empty = true }
+
+      local location = {
+        'location',
+        icon_enabled = true,
+        icon = { icons.common.linenr, align = 'right' },
+      }
+
+      local selectioncount = {
+        'selectioncount',
+        icon_enabled = true,
+        icon = ' ',
+      }
+
+      local function has_file()
+        return not vim.tbl_contains({ 'nofile', 'quickfix', 'help' }, vim.bo.buftype)
+      end
+
+      return {
+        options = {
+          section_separators = { left = icons.separators.left.a, right = icons.separators.right.a },
+          component_separators = { left = icons.separators.left.b, right = icons.separators.right.b },
+          disabled_filetypes = { statusline = { 'alpha' } },
+        },
+        sections = {
+          lualine_a = { 'mode' },
+          lualine_b = {
+            { 'branch', icon = icons.git.branch },
+            {
+              'diff',
+              symbols = {
+                added = icons.git.added,
+                modified = icons.git.modified,
+                removed = icons.git.removed,
+              },
+            },
+            {
+              'diagnostics',
+              sources = { 'nvim_diagnostic' },
+              symbols = {
+                error = icons.diagnostics.Error,
+                warn = icons.diagnostics.Warn,
+                info = icons.diagnostics.Info,
+                hint = icons.diagnostics.Hint,
+              },
+              update_in_insert = vim.diagnostic.config().update_in_insert,
+            },
           },
-          right = {
-            { 'lineinfo' },
-            { 'FileInfo' },
-            { 'CurrSymbol', 'FileType' },
-            { 'ShowMode', 'spell' },
+          lualine_c = {
+            -- { 'filetype', icon_only = true, separator = '', padding = { left = 1, right = 0 } },
+            { 'filename', path = 1 },
+            -- stylua: ignore
+            {
+              '%w',
+              cond = function() return vim.wo.previewwindow end,
+              color = color.fg 'Constant',
+            },
+          },
+          lualine_x = {
+            -- stylua: ignore
+            {
+              function() return vim.bo.spelllang end,
+              cond = function() return vim.wo.spell end,
+              icon = '﬜',
+              color = 'Define',
+            },
+            {
+              function()
+                local register, _ = require('noice').api.status.mode.get()
+                return string.format('🔴 %s', register:sub(11))
+              end,
+              cond = function()
+                return package.loaded['noice'] and require('noice').api.status.mode.has()
+              end,
+              color = color.fg 'Constant',
+            },
+            'searchcount',
+          },
+          lualine_y = {
+            { 'filetype', cond = has_file },
+            { 'encoding', separator = '' },
+            { 'fileformat', padding = { left = 0, right = 1 }, cond = has_file },
+          },
+          lualine_z = { selectioncount, 'progress', location },
+        },
+        inactive_sections = {
+          lualine_a = {},
+          lualine_b = {},
+          lualine_c = { { 'filename', path = 1 } },
+          lualine_x = {},
+          lualine_y = { { 'filetype', cond = has_file } },
+          lualine_z = { 'progress', location },
+        },
+        extensions = {
+          'man',
+          'quickfix',
+          'lazy',
+          'trouble',
+          {
+            sections = {
+              -- stylua: ignore
+              lualine_a = { function() return 'Help' end },
+              lualine_b = { { 'filename', file_status = false, path = 0, icon = icons.common.help } },
+              lualine_z = { 'progress' },
+            },
+            filetypes = { 'help' },
+          },
+          {
+            -- stylua: ignore
+            sections = {
+              lualine_a = { function() return 'Fugitive' end },
+              lualine_b = { { function() return vim.fn.FugitiveHead() end, icon = icons.git.branch } },
+              lualine_c = {
+                {
+                  function() return vim.fn.fnamemodify(vim.fn.FugitiveGitDir(), ':~') end,
+                  icon = ' ',
+                }
+              },
+              lualine_y = {
+                {
+                  function() return 'Git ' .. vim.fn.FugitiveGitVersion() end,
+                  icon = icons.git.logo,
+                },
+              },
+              lualine_z = { 'progress' },
+            },
+            filetypes = { 'fugitive' },
+          },
+          {
+            sections = {
+              -- stylua: ignore
+              lualine_a = { function() return 'Symbols' end },
+              lualine_z = { 'progress' },
+            },
+            filetypes = { 'Outline' },
+          },
+          {
+            sections = {
+              -- stylua: ignore
+              lualine_a = { function() return 'UndoTree' end },
+              lualine_z = { 'progress' },
+            },
+            filetypes = { 'undotree' },
           },
         },
-        inactive = {
-          left = {
-            { 'help', 'symbols' },
-            {},
-            { 'filename', 'quickfix' },
-          },
-          right = {
-            { 'lineinfo' },
-            { 'FileInfo' },
-            { 'FileType' },
+        winbar = {
+          lualine_a = { empty },
+          lualine_b = { empty },
+          lualine_c = {
+            {
+              -- stylua: ignore
+              function() return require('nvim-navic').get_location() end,
+              cond = function()
+                return package.loaded['nvim-navic'] and require('nvim-navic').is_available()
+              end,
+            },
           },
         },
         tabline = {
-          left = { { 'tabs' } },
-          right = { {}, { 'buffers' } },
-        },
-        component = {
-          filename = '%<%{zeroknight#lightline#file_name()}',
-          lineinfo = '%3l:%-2c [%p%%] ',
-          preview = '%w',
-          quickfix = '%q',
-          help = "%{&buftype ==# 'help' ? 'Help' : ''}",
-          symbols = "%{&filetype ==# 'Outline' ? 'Symbols' : ''}",
-          diagnostics = '%{%zeroknight#lightline#diagnostics()%}%*',
-        },
-        component_visible_condition = {
-          filename = 1,
-          preview = '&previewwindow',
-          quickfix = "&buftype ==# 'quickfix'",
-          help = "&buftype ==# 'help'",
-          symbols = "&filetype ==# 'Outline'",
-          diagnostics = 'zeroknight#diagnostic#available()',
-        },
-        component_function = {
-          Mode = 'zeroknight#lightline#mode',
-          FileInfo = 'zeroknight#lightline#file_info',
-          FileType = 'zeroknight#lightline#file_type',
-          ReadOnly = 'zeroknight#lightline#readonly',
-          GitBranch = 'zeroknight#lightline#git_branch',
-          GitHunks = 'zeroknight#lightline#git_hunks',
-          CurrSymbol = 'zeroknight#lightline#current_symbol',
-          ShowMode = 'zeroknight#lightline#noice_showmode',
-        },
-        component_function_visible_condition = {
-          Mode = 1,
-          FileInfo = 1,
-          FileType = "&buftype !=# 'nofile'",
-          ReadOnly = "&readonly && &buftype ==# ''",
-          GitBranch = "zeroknight#lightline#has_minwidth() && !empty(get(b:, 'gitsigns_head', ''))",
-          GitHunks = "zeroknight#lightline#has_minwidth() && !empty(get(b:, 'gitsigns_status', ''))",
-          CurrSymbol = '!empty(zeroknight#lightline#current_symbol())',
-          ShowMode = 'luaeval("require(\'noice\').api.status.mode.has()")',
-        },
-        component_expand = {
-          buffers = 'lightline#bufferline#buffers',
-        },
-        component_type = {
-          buffers = 'tabsel',
+          lualine_a = {
+            {
+              'windows',
+              show_filename_only = false,
+              max_length = vim.o.columns * (2 / 3),
+              filetype_names = {
+                lazy = 'Lazy',
+                mason = 'Mason',
+              },
+            },
+          },
+          lualine_z = {
+            {
+              'tabs',
+              mode = 1,
+              fmt = function(name, context)
+                if vim.fn.tabpagenr() == context.tabnr then
+                  return context.tabnr
+                end
+                return string.format('%d %s', context.tabnr, name)
+              end,
+            },
+          },
         },
       }
     end,
-    dependencies = {
-      'mengelbrecht/lightline-bufferline',
-      init = function()
-        local function set(var, val)
-          vim.g['lightline#bufferline#' .. var] = val
-        end
-        set('right_aligned', 1)
-        set('filter_by_tabpage', 1)
-        vim.opt.showtabline = 2
-      end,
-    },
   },
 
   {
@@ -557,6 +661,30 @@ return {
           fold_all = 'zm',
           unfold_all = 'zr',
         },
+      }
+    end,
+  },
+
+  {
+    'SmiteshP/nvim-navic',
+    lazy = true,
+    init = function()
+      require('zeroknight.util').on_attach(function(client, buffer)
+        if client.server_capabilities.documentSymbolProvider then
+          require('nvim-navic').attach(client, buffer)
+        end
+      end, 'Navic LSP symbol context')
+    end,
+    opts = function()
+      local ui = require 'zeroknight.config.ui'
+      return {
+        separator = string.format(' %s ', ui.icons.separators.breadcrumb),
+        icons = vim.tbl_map(function(x)
+          return x .. ' '
+        end, ui.icons.kinds),
+        highlight = true,
+        safe_output = true,
+        click = true,
       }
     end,
   },
