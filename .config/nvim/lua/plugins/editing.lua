@@ -77,7 +77,7 @@ return {
     'numToStr/Comment.nvim',
     -- stylua: ignore
     keys = {
-      { 'gc' }, { 'gc', mode = 'v' }, { 'gcc' }, { 'gco' }, { 'gcO' }, { 'gcA' }
+      { 'gc' }, { 'gc', mode = 'v' }, { 'gb' }, { 'gb', mode = 'v' }, { 'gcc' }, { 'gco' }, { 'gcO' }, { 'gcA' }
     },
     opts = {
       pre_hook = function()
