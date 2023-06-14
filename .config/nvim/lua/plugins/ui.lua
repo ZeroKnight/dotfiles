@@ -96,7 +96,17 @@ return {
       local icons = ui.icons
       local color = require 'zeroknight.util.color'
 
-      local empty = { '', draw_empty = true }
+      local function has_file()
+        return not vim.tbl_contains({ 'nofile', 'quickfix', 'help' }, vim.bo.buftype)
+      end
+
+      local function navic_available()
+        return package.loaded['nvim-navic'] and require('nvim-navic').is_available()
+      end
+
+      local function empty(cond)
+        return { '', draw_empty = true, cond = cond }
+      end
 
       local location = {
         'location',
@@ -109,10 +119,6 @@ return {
         icon_enabled = true,
         icon = ' ',
       }
-
-      local function has_file()
-        return not vim.tbl_contains({ 'nofile', 'quickfix', 'help' }, vim.bo.buftype)
-      end
 
       return {
         options = {
@@ -242,15 +248,13 @@ return {
           },
         },
         winbar = {
-          lualine_a = { empty },
-          lualine_b = { empty },
+          lualine_a = { empty(navic_available) },
+          lualine_b = { empty(navic_available) },
           lualine_c = {
             {
               -- stylua: ignore
               function() return require('nvim-navic').get_location() end,
-              cond = function()
-                return package.loaded['nvim-navic'] and require('nvim-navic').is_available()
-              end,
+              cond = navic_available,
             },
           },
         },
