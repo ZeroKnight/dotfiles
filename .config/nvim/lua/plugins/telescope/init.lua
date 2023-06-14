@@ -33,6 +33,19 @@ return {
     lazy = true,
     branch = '0.1.x',
     cmd = 'Telescope',
+    init = function()
+      vim.api.nvim_create_autocmd({ 'BufAdd', 'VimEnter' }, {
+        group = vim.api.nvim_create_augroup('ZeroKnight.telescope', { clear = true }),
+        pattern = '*',
+        desc = 'Lazy-load Telescope when opening a directory',
+        callback = function(event)
+          if vim.fn.isdirectory(event.file) == 1 and not package.loaded['telescope'] then
+            require('lazy.core.loader').load('telescope.nvim', { event = event.event })
+            vim.cmd 'doautocmd telescope-file-browser.nvim BufEnter'
+          end
+        end,
+      })
+    end,
     opts = {
       defaults = {
         prompt_prefix = '🔍 ',
@@ -96,6 +109,7 @@ return {
       },
       extensions = {
         file_browser = {
+          hijack_netrw = true,
           theme = 'ivy',
         },
         fzy_native = {
