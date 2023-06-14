@@ -43,7 +43,7 @@ M.keys = {
     mode = { 'i', 's' },
   },
   {
-    '<M-n',
+    '<M-n>',
     function()
       if require('luasnip').choice_active() then
         require('luasnip').change_choice(1)
@@ -53,7 +53,7 @@ M.keys = {
     mode = { 'i', 's' },
   },
   {
-    '<M-p',
+    '<M-p>',
     function()
       if require('luasnip').choice_active() then
         require('luasnip').change_choice(-1)
