@@ -1,13 +1,18 @@
 -- Telescope configuration
 
+-- TODO: Come up with a way to let other plugin specs add a telescope extension
+
 local util = require 'zeroknight.util'
 
+local load_extensions = {}
 local function tele_extension(source, name)
   return {
     source,
-    config = function()
-      require('telescope').load_extension(name)
+    lazy = true,
+    init = function()
+      table.insert(load_extensions, name)
     end,
+    dependencies = { 'nvim-telescope/telescope.nvim' },
   }
 end
 
@@ -25,17 +30,9 @@ end
 return {
   {
     'nvim-telescope/telescope.nvim',
+    lazy = true,
     branch = '0.1.x',
     cmd = 'Telescope',
-    dependencies = {
-      -- Extensions
-      tele_extension('nvim-telescope/telescope-file-browser.nvim', 'file_browser'),
-      tele_extension('nvim-telescope/telescope-fzy-native.nvim', 'fzy_native'),
-      tele_extension('nvim-telescope/telescope-github.nvim', 'gh'),
-      tele_extension('benfowler/telescope-luasnip.nvim', 'luasnip'),
-      tele_extension('tsakirist/telescope-lazy.nvim', 'lazy'),
-      tele_extension('nvim-telescope/telescope-z.nvim', 'z'),
-    },
     opts = {
       defaults = {
         prompt_prefix = '🔍 ',
@@ -167,6 +164,17 @@ return {
     config = function(_, opts)
       require('telescope').setup(opts)
       require('telescope').load_extension 'notify'
+      for _, name in ipairs(load_extensions) do
+        require('telescope').load_extension(name)
+      end
     end,
   },
+
+  -- Extensions
+  tele_extension('nvim-telescope/telescope-file-browser.nvim', 'file_browser'),
+  tele_extension('nvim-telescope/telescope-fzy-native.nvim', 'fzy_native'),
+  tele_extension('nvim-telescope/telescope-github.nvim', 'gh'),
+  tele_extension('benfowler/telescope-luasnip.nvim', 'luasnip'),
+  tele_extension('tsakirist/telescope-lazy.nvim', 'lazy'),
+  tele_extension('nvim-telescope/telescope-z.nvim', 'z'),
 }
