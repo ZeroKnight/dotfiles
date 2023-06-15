@@ -540,8 +540,7 @@ return {
     opts = {
       ignore = {},
     },
-    config = function(_, opts)
-      require('nvim-lightbulb').setup(opts)
+    init = function()
       util.on_attach(function(_, buffer)
         autocmd({ 'CursorHold', 'CursorHoldI' }, {
           buffer = buffer,
@@ -565,11 +564,12 @@ return {
       handler_opts = { border = require('zeroknight.config.ui').borders },
       select_signature_key = '<M-o>', -- "O" for "Overload"
     },
-    config = function(_, opts)
+    init = function(plugin)
       util.on_attach(function(_, buffer)
-        require('lsp_signature').on_attach(opts, buffer)
+        require('lsp_signature').on_attach(plugin.opts, buffer)
       end, 'LSP Signature Handler')
     end,
+    config = false,
   },
 
   {
