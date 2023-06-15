@@ -1,5 +1,6 @@
 local uv = require 'luv'
 local util = require 'zeroknight.util'
+local Color = require('zeroknight.util.color').Color
 
 local keymaps = require 'plugins.snippet.keymaps'
 
@@ -15,9 +16,9 @@ return {
         history = true,
         enable_autosnippets = true,
         store_selection_keys = keymaps.expand_key,
-        update_events = 'TextChanged,TextChangedI',
-        region_check_events = 'InsertEnter,CursorHold,CursorMoved',
-        delete_check_events = 'InsertLeave,TextChanged',
+        update_events = { 'TextChanged', 'TextChangedI', 'InsertLeave' },
+        region_check_events = { 'InsertEnter', 'InsertLeave', 'CursorHold' },
+        delete_check_events = { 'InsertEnter', 'InsertLeave', 'CursorHold' },
         ext_opts = {
           [types.choiceNode] = {
             active = {
@@ -47,6 +48,11 @@ return {
     end,
     config = function(_, opts)
       local ls = require 'luasnip'
+
+      util.cmdf(
+        'hi LuasnipChoiceNodeActive guibg=%s',
+        Color:new(require('zeroknight.config.ui').colors.diagnostics.Hint):over(Color:from_background(), 0.18)
+      )
 
       ls.config.setup(opts)
       ls.filetype_extend('python', { 'rst', '_documentation' })
