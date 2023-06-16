@@ -73,9 +73,9 @@ autocmd({ 'WinEnter', 'WinLeave' }, {
 autocmd('TermOpen', {
   desc = 'Terminal Settings',
   callback = function()
-    for _, o in ipairs { 'number', 'relativenumber', 'cursorline', 'cursorcolumn' } do
-      optl[o] = false
-    end
+    vim.iter({ 'number', 'relativenumber', 'cursorline', 'cursorcolumn' }):each(function(x)
+      optl[x] = false
+    end)
   end,
 })
 

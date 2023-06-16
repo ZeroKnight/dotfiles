@@ -67,9 +67,9 @@ return {
           s = { ':Gitsigns stage_hunk<CR>', 'Stage hunk' },
           r = { ':Gitsigns reset_hunk<CR>', 'Reset hunk' },
         }
-        for _, mode in ipairs { 'n', 'v' } do
+        vim.iter({ 'n', 'v' }):each(function(mode)
           wk.register(nv_maps, { prefix = '<LocalLeader>h', mode = mode, buffer = buffer })
-        end
+        end)
 
         vim.keymap.set({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>', { buffer = buffer })
       end,

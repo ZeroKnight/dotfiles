@@ -21,17 +21,19 @@ local function bootstrap_lazy()
 
   vim.fn.mkdir(lazy_path, 'p')
   util.msg 'Cloning Lazy.nvim...'
-  local out = vim.fn.system {
-    'git',
-    'clone',
-    '--filter=blob:none',
-    'https://github.com/folke/lazy.nvim.git',
-    '--branch=stable',
-    lazy_path,
-  }
-  util.msg(out)
-  if vim.g.shell_error then
-    util.error(format('Failed to clone Lazy.nvim:\n%s', vim.g.shell_error))
+  local obj = vim
+    .system({
+      'git',
+      'clone',
+      '--filter=blob:none',
+      'https://github.com/folke/lazy.nvim.git',
+      '--branch=stable',
+      lazy_path,
+    }, { text = true })
+    :wait()
+  util.msg(obj.stdout)
+  if obj.code ~= 0 then
+    util.error(format('Failed to clone Lazy.nvim:\n%s', obj.stderr))
     return false
   end
   return true
@@ -68,7 +70,7 @@ return function()
   end
 
   ensure_state_dirs()
-	-- FIXME: plenary not available until lazy is started
+  -- FIXME: plenary not available until lazy is started
   -- ensure_python_provider()
 
   return false

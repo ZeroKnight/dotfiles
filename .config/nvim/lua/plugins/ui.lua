@@ -645,11 +645,6 @@ return {
         Variable = '@constant',
       }
 
-      local symbols = {}
-      for kind, hl in pairs(symbol_hl) do
-        symbols[kind] = { icon = ui.icons.kinds[kind], hl = hl }
-      end
-
       return {
         autofold_depth = 3,
         auto_preview = true,
@@ -657,7 +652,10 @@ return {
         width = 20,
 
         fold_markers = { ui.icons.folds.closed, ui.icons.folds.open },
-        symbols = symbols,
+        symbols = vim.iter(symbol_hl):fold({}, function(t, kind, hl)
+          t[kind] = { icon = ui.icons.kinds[kind], hl = hl }
+          return t
+        end),
 
         keymaps = {
           hover_symbol = 'K',

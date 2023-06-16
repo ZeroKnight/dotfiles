@@ -1,7 +1,5 @@
 -- Telescope configuration
 
--- TODO: Come up with a way to let other plugin specs add a telescope extension
-
 local util = require 'zeroknight.util'
 
 local load_extensions = {}
@@ -176,11 +174,11 @@ return {
       { '<C-t>', "getcmdtype() == ':' ? '<Plug>(TelescopeFuzzyCommandSearch)' : '<C-t>'", desc = 'Command History', expr = true, mode = 'c' },
     },
     config = function(_, opts)
-      require('telescope').setup(opts)
-      require('telescope').load_extension 'notify'
-      for _, name in ipairs(load_extensions) do
-        require('telescope').load_extension(name)
-      end
+      local telescope = require 'telescope'
+      telescope.setup(opts)
+      -- TODO: Come up with a way to let other plugin specs add a telescope extension
+      telescope.load_extension 'notify'
+      vim.iter(load_extensions):each(telescope.load_extension)
     end,
   },
 
