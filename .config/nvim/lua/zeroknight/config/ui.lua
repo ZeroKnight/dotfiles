@@ -45,10 +45,18 @@ local M = {
       removed = ' ',
     },
     diagnostics = {
+      Ok = '﫠',
       Error = ' ',
       Warn = ' ',
       Info = ' ',
       Hint = ' ',
+    },
+    logging = {
+      TRACE = ' ',
+      DEBUG = ' ',
+      INFO = ' ',
+      WARN = ' ',
+      ERROR = ' ',
     },
     kinds = {
       Array = '',

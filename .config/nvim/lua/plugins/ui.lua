@@ -396,12 +396,8 @@ return {
   {
     'rcarriga/nvim-notify',
     opts = function()
-      local diag_icons = {}
-      for severity, icon in pairs(require('zeroknight.config.ui').icons.diagnostics) do
-        diag_icons[string.upper(severity)] = icon
-      end
       return {
-        icons = diag_icons,
+        icons = require('zeroknight.config.ui').icons.logging,
         timeout = 5000,
         max_height = function()
           return math.floor(vim.o.lines * 0.75)
