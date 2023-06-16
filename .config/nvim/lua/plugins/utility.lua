@@ -7,7 +7,15 @@
 return {
   -- Utilities
   { 'dstein64/vim-startuptime', cmd = 'StartupTime' },
-  { 'bfredl/nvim-luadev', cmd = 'Luadev' },
+  {
+    'bfredl/nvim-luadev',
+    cmd = 'Luadev',
+    keys = {
+      { '<LocalLeader>x', '<Plug>(Luadev-Run)', desc = 'Run Lua code (motion)' },
+      { '<LocalLeader>xx', '<Plug>(Luadev-RunLine)', desc = 'Run current line of Lua code' },
+      { '<LocalLeader>xw', '<Plug>(Luadev-RunWord)', desc = 'Evaluate Lua identifier under cursor' },
+    },
+  },
   { 'tpope/vim-dispatch', cmd = { 'Make', 'Dispatch', 'Start', 'Spawn' } }, -- TBD: keep this?
   { 'tpope/vim-eunuch', event = 'VeryLazy' },
 
