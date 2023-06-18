@@ -1,6 +1,6 @@
 -- Python filetype settings
 
-if packer_loaded 'nvim-surround' then
+if require('zeroknight.util').has_plugin 'nvim-surround' then
   require('nvim-surround').buffer_setup {
     surrounds = {
       Q = {

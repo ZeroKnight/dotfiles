@@ -196,7 +196,7 @@ end
 return setmetatable(M, {
   -- Slight sugar to avoid having to explicitly import language-specific utils
   __index = function(_, k)
-    local ok, mod = pcall(require, string.format('plugin.luasnip.util.%s', k))
+    local ok, mod = pcall(require, string.format('plugins.snippet.util.%s', k))
     return ok and mod or nil
   end,
 })
