@@ -35,22 +35,6 @@ return {
       util.on_attach(function(client, buffer)
         require('plugins.lsp.keymaps').on_attach(client, buffer)
         formatting.on_attach(client, buffer)
-
-        -- Document Highlights
-        if client.server_capabilities.documentHighlightProvider then
-          autocmd({ 'CursorHold', 'CursorHoldI', 'BufEnter', 'CursorMoved', 'BufLeave' }, {
-            buffer = buffer,
-            group = augroup('ZeroKnight.lsp.document_highlight.' .. buffer, { clear = true }),
-            desc = 'LSP Document Highlighting',
-            callback = function(ctx)
-              if vim.tbl_contains({ 'CursorHold', 'CursorHoldI', 'BufEnter' }, ctx.event) then
-                vim.lsp.buf.document_highlight()
-              elseif vim.tbl_contains({ 'CursorMoved', 'BufLeave' }, ctx.event) then
-                vim.lsp.buf.clear_references()
-              end
-            end,
-          })
-        end
       end, 'Initialize core LSP functionality')
 
       -- Build our client capabilities

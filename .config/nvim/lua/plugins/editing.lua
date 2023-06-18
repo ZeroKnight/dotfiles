@@ -141,4 +141,35 @@ return {
       },
     },
   },
+
+  {
+    'RRethy/vim-illuminate',
+    event = { 'BufReadPost', 'BufNewFile' },
+    opts = {
+      delay = 500,
+      filetypes_denylist = {
+        'fugitive',
+        'lazy',
+        'alpha',
+        'lspinfo',
+        'checkhealth',
+      },
+    },
+    keys = function()
+      local illuminate = require 'illuminate'
+      return {
+        { '<Leader>ur', illuminate.toggle_buf, desc = 'Toggle reference highlighting for buffer' },
+        { ']r', illuminate.goto_next_reference, desc = 'Go to next instance of reference under cursor' },
+        { '[r', illuminate.goto_prev_reference, desc = 'Go to previous instance of reference under cursor' },
+      }
+    end,
+    config = function(_, opts)
+      require('illuminate').configure(opts)
+      vim.cmd [[
+        hi! link IlluminatedWordText LspReferenceText
+        hi! link IlluminatedWordRead LspReferenceRead
+        hi! link IlluminatedWordWrite LspReferenceWrite
+      ]]
+    end,
+  },
 }
