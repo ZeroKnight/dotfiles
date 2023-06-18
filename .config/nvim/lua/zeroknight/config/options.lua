@@ -191,15 +191,10 @@ opt.writebackup = true
 opt.sessionoptions = {
   'buffers',
   'curdir',
-  'folds',
   'globals',
   'help',
   'localoptions',
-  'resize',
-  'skiprtp',
   'tabpages',
-  'terminal',
-  'winpos',
   'winsize',
 }
 opt.viewoptions = { 'cursor', 'curdir', 'folds', 'localoptions' }

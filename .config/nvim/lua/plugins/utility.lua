@@ -34,6 +34,14 @@ return {
     },
   },
 
+  {
+    'folke/persistence.nvim',
+    event = 'BufReadPre',
+    opts = function()
+      return { options = vim.o.sessionoptions }
+    end,
+  },
+
   -- Built-in Overrides/Enhancements
   {
     'romainl/vim-qlist',
