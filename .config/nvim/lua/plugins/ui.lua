@@ -593,6 +593,28 @@ return {
       { '<Leader>xl', '<Cmd>Trouble loclist<CR>', desc = 'Show location list (Trouble)' },
       { '<Leader>xt', '<Cmd>TodoTrouble<CR>', desc = 'Show Todo (Trouble)' },
       { '<Leader>xT', '<Cmd>TodoTelescope<CR>', desc = 'Show Todo (Telescope)' },
+      {
+        '[q',
+        function()
+          if require('trouble').is_open() then
+            require('trouble').previous { skip_groups = true, jump = true }
+          else
+            pcall(vim.cmd.cprev)
+          end
+        end,
+        desc = 'Previous trouble/quickfix item',
+      },
+      {
+        ']q',
+        function()
+          if require('trouble').is_open() then
+            require('trouble').next { skip_groups = true, jump = true }
+          else
+            pcall(vim.cmd.cnext)
+          end
+        end,
+        desc = 'Next trouble/quickfix item',
+      },
     },
   },
 
