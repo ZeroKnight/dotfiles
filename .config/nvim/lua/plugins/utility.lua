@@ -20,11 +20,15 @@ return {
   { 'tpope/vim-eunuch', event = 'VeryLazy' },
 
   {
-    'moll/vim-bbye',
-    cmd = { 'Bdelete', 'Bwipeout' },
-    keys = {
-      { '<Leader>bd', '<Cmd>Bdelete<CR>', desc = 'Delete buffer but keep window' },
-    },
+    'echasnovski/mini.bufremove',
+    version = false,
+    keys = function()
+      -- stylua: ignore
+      return {
+        { '<Leader>bd', function() require('mini.bufremove').delete(0, false) end, desc = 'Delete buffer but keep window' },
+        { '<Leader>bD', function() require('mini.bufremove').delete(0, true) end, desc = 'Delete buffer but keep window (force)' },
+      }
+    end,
   },
 
   {
