@@ -4,9 +4,37 @@
 
 return {
   { 'tpope/vim-unimpaired', event = 'VeryLazy' },
-  { 'wellle/targets.vim', event = 'VeryLazy' }, -- TODO: practice; maybe replace with mini.ai
   { 'christoomey/vim-sort-motion', keys = { 'gs', 'gss' } },
   { 'godlygeek/tabular', cmd = 'Tabularize' },
+
+  {
+    'echasnovski/mini.ai',
+    version = false,
+    event = 'VeryLazy',
+    dependencies = { 'nvim-treesitter-textobjects' },
+    opts = function()
+      -- NOTE: Remember that g[ and g] are useful mappings!
+      local spec_treesitter = require('mini.ai').gen_spec.treesitter
+      return {
+        n_lines = 200,
+        silent = true,
+        search_method = 'cover_or_next',
+        mappings = {
+          around_last = '',
+          inside_last = '',
+        },
+        custom_textobjects = {
+          A = spec_treesitter { a = '@assignment.outer', i = '@assignment.inner' },
+          C = spec_treesitter { a = '@class.outer', i = '@class.inner' },
+          F = spec_treesitter { a = '@function.outer', i = '@function.inner' },
+          b = spec_treesitter { a = '@block.outer', i = '@block.inner' },
+          c = spec_treesitter { a = '@conditional.outer', i = '@conditional.inner' },
+          l = spec_treesitter { a = '@loop.outer', i = '@loop.inner' },
+          r = spec_treesitter { a = '@return.outer', i = '@return.inner' },
+        },
+      }
+    end,
+  },
 
   {
     'tpope/vim-abolish',

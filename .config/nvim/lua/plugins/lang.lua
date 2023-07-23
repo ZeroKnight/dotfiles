@@ -96,23 +96,19 @@ return {
         select = {
           enable = true,
           lookahead = true, -- Jump ahead to next-nearest text-object if needed
-          keymaps = {
-            ['ab'] = '@block.outer',
-            ['ib'] = '@block.inner',
-            ['ac'] = '@conditional.outer',
-            ['ic'] = '@conditional.inner',
-            ['aC'] = '@class.outer',
-            ['iC'] = '@class.inner',
-            ['af'] = '@function.outer',
-            ['if'] = '@function.inner',
-            ['al'] = '@loop.outer',
-            ['il'] = '@loop.inner',
-          },
           selection_modes = {
             ['@block.inner'] = 'V',
             ['@class.inner'] = 'V',
             ['@function.inner'] = 'V',
             ['@loop.inner'] = 'V',
+          },
+          lsp_interop = {
+            enable = true,
+            floating_preview_opts = { border = require('zeroknight.config.ui').borders },
+            peek_definition_code = {
+              ['<LocalLeader>pdc'] = '@class.outer',
+              ['<LocalLeader>pdf'] = '@function.outer',
+            },
           },
         },
         swap = {
