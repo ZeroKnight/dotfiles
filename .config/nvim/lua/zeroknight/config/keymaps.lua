@@ -116,8 +116,8 @@ vim.keymap.set('x', '<', '<gv', { desc = 'Stay in Visual mode after unindenting'
 vim.keymap.set('x', '>', '>gv', { desc = 'Stay in Visual mode after indenting' })
 
 vim.keymap.set('n', 'J', "m'J`'", { desc = 'Maintain cursor position when joining lines' })
-vim.keymap.set('n', '<C-u>', '<C-u>zz', { desc = 'Scroll up; keep cursor line centered' })
-vim.keymap.set('n', '<C-d>', '<C-d>zz', { desc = 'Scroll down; keep cursor line centered' })
+vim.keymap.set('n', '<C-u>', '<Cmd>normal! <C-u>zz<CR>', { desc = 'Scroll up; keep cursor line centered' })
+vim.keymap.set('n', '<C-d>', '<Cmd>normal! <C-d>zz<CR>', { desc = 'Scroll down; keep cursor line centered' })
 
 vim.keymap.set('n', 'n', 'nzv', { desc = 'Next search result; open folds' })
 vim.keymap.set('n', 'N', 'Nzv', { desc = 'Previous search result; open folds' })
