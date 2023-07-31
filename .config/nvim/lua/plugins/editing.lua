@@ -95,9 +95,10 @@ return {
     'kylechui/nvim-surround',
     event = 'VeryLazy',
     opts = {
-      highlight = {
-        duration = 0,
+      aliases = {
+        ['?'] = 'i',
       },
+      highlight = { duration = 500 },
       move_cursor = false,
     },
   },
