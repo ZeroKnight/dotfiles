@@ -27,6 +27,7 @@ return {
           A = spec_treesitter { a = '@assignment.outer', i = '@assignment.inner' },
           C = spec_treesitter { a = '@class.outer', i = '@class.inner' },
           F = spec_treesitter { a = '@function.outer', i = '@function.inner' },
+          S = spec_treesitter { a = '@block_string.outer', i = '@block_string.inner' },
           b = spec_treesitter { a = '@block.outer', i = '@block.inner' },
           c = spec_treesitter { a = '@conditional.outer', i = '@conditional.inner' },
           l = spec_treesitter { a = '@loop.outer', i = '@loop.inner' },
