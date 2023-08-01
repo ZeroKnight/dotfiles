@@ -504,6 +504,7 @@ return {
             any = {
               { event = 'lsp', kind = 'progress', find = 'code_action' },
               { event = 'lsp', kind = 'progress', find = 'diagnostics' },
+              { event = 'lsp', kind = 'progress', find = 'lint:' },
               { event = 'lsp', kind = 'progress', find = 'Diagnosing', ['not'] = { find = 'Diagnosing workspace' } },
             },
           },
