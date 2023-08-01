@@ -5,11 +5,16 @@ local ui = require 'zeroknight.config.ui'
 local command = vim.api.nvim_create_user_command
 
 vim.diagnostic.config {
-  underline = true,
+  underline = { severity = { min = vim.diagnostic.severity.WARN } },
   virtual_text = true,
   signs = true,
   update_in_insert = false,
   severity_sort = true,
+  float = {
+    border = ui.borders,
+    scope = 'line',
+    source = true,
+  },
 }
 
 -- Define Diagnostic signs
