@@ -81,6 +81,7 @@ wk.register({
   ['/'] = { '<Cmd>let v:hlsearch = !v:hlsearch<CR>', 'Toggle Search Highlighting' },
   d = { '"_d', 'Delete, but preserve unnamed register', mode = { 'n', 'v' } },
   t = {
+    b = { util.toggle_background, 'Toggle background' },
     d = { util.partial(util.toggle_diagnostics, 0), 'Toggle diagnostics' },
     l = { function() toggle 'list' end, 'Toggle listchars', },
     s = { function() toggle 'spell' end, 'Toggle Spellcheck', },

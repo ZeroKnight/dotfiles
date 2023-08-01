@@ -107,6 +107,14 @@ function M.toggle_diagnostics(buffer)
   end
 end
 
+function M.toggle_background()
+  if vim.o.background == 'light' then
+    vim.o.background = 'dark'
+  else
+    vim.o.background = 'light'
+  end
+end
+
 -- From LazyVim
 -- returns the root directory based on:
 -- * lsp workspace folders
