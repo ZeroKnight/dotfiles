@@ -197,14 +197,12 @@ return {
         'checkhealth',
       },
     },
-    keys = function()
-      local illuminate = require 'illuminate'
-      return {
-        { '<Leader>ur', illuminate.toggle_buf, desc = 'Toggle reference highlighting for buffer' },
-        { ']r', illuminate.goto_next_reference, desc = 'Go to next instance of reference under cursor' },
-        { '[r', illuminate.goto_prev_reference, desc = 'Go to previous instance of reference under cursor' },
-      }
-    end,
+    -- stylua: ignore
+    keys = {
+      { '<Leader>ur', function() require('illuminate').toggle_buf() end, desc = 'Toggle reference highlighting for buffer' },
+      { ']r', function() require('illuminate').goto_next_reference() end, desc = 'Go to next instance of reference under cursor' },
+      { '[r', function() require('illuminate').goto_prev_reference() end, desc = 'Go to previous instance of reference under cursor' },
+    },
     config = function(_, opts)
       require('illuminate').configure(opts)
       vim.cmd [[
