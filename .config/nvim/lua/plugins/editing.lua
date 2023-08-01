@@ -3,7 +3,6 @@
 -- Plugins that enhance the actual text-editing experience.
 
 return {
-  { 'tpope/vim-unimpaired', event = 'VeryLazy' },
   { 'christoomey/vim-sort-motion', keys = { 'gs', 'gss' } },
   { 'godlygeek/tabular', cmd = 'Tabularize' },
 
@@ -35,6 +34,19 @@ return {
         },
       }
     end,
+  },
+
+  {
+    'echasnovski/mini.bracketed',
+    version = false,
+    event = 'VeryLazy',
+    opts = {
+      comment = { suffix = 'm', opts = { add_to_jumplist = true } },
+      conflict = { suffix = 'x', opts = { add_to_jumplist = true } },
+      file = { suffix = '' },
+      undo = { suffix = '' },
+      window = { suffix = '' },
+    },
   },
 
   {

@@ -7,6 +7,7 @@ local wk = require 'which-key'
 
 local util = require 'zeroknight.util'
 
+local api = vim.api
 local diag = vim.diagnostic
 
 local function toggle(option)
@@ -16,6 +17,44 @@ local function toggle(option)
     vim.log.levels.INFO,
     { title = 'Option toggled' }
   )
+end
+
+-- Ported from tpope/vim-unimpaired
+local function _wrap(operation, addr, count, map, visual)
+  local old_fdm = vim.wo.foldmethod
+  vim.wo.foldmethod = 'manual'
+  operation(addr, count, visual)
+  vim.wo.foldmethod = old_fdm
+  vim.fn['repeat#set'](map, count)
+end
+
+local function move(addr, count, visual)
+  if visual then
+    api.nvim_feedkeys('V', 'x', true) -- Make nvim update visual marks
+    util.cmdf([[silent! execute "'<,'>move %s%d"]], addr, count)
+    vim.cmd 'normal! gv=gv'
+  else
+    util.cmdf('silent! execute "move %s%d"', addr, count)
+    vim.cmd 'normal! =='
+  end
+end
+
+local function copy(addr, count, visual)
+  if visual then
+    api.nvim_feedkeys('V', 'x', true) -- Make nvim update visual marks
+    util.cmdf([[silent! execute "'<,'>copy %s%d"]], addr, count)
+    api.nvim_feedkeys("'[V']", 'n', false)
+  else
+    util.cmdf('silent! execute "copy %s%d"', addr, count)
+  end
+end
+
+local function blank(dir, count)
+  if dir == 'up' then
+    util.cmdf("put! =repeat(nr2char(10), %d) | ']+", count)
+  else
+    util.cmdf("put =repeat(nr2char(10), %d) | '[-", count)
+  end
 end
 
 -- Set up primary group names
@@ -72,14 +111,17 @@ wk.register({
 }, { prefix = '<LocalLeader>' })
 
 -- Everything else {{{1
+-- stylua: ignore
 wk.register {
   ['['] = {
-    c = { '<Cmd>copy -<CR>', 'Copy line up' },
-    d = { diag.goto_prev, 'Previous Diagnostic' },
+    c = { function() _wrap(copy, '-', vim.v.count1, '[c', false) end, 'Copy line up' },
+    e = { function() _wrap(move, '--', vim.v.count1, '[e', false) end, 'Move line up' },
+    ['<Space>'] = { function() blank('up', vim.v.count1) end, 'Add blank line up' },
   },
   [']'] = {
-    c = { '<Cmd>copy .<CR>', 'Copy line down' },
-    d = { diag.goto_next, 'Next Diagnostic' },
+    c = { function() _wrap(copy, '+-', vim.v.count1, ']c', false) end, 'Copy line down' },
+    e = { function() _wrap(move, '+', vim.v.count1, ']e', false) end, 'Move line down' },
+    ['<Space>'] = { function() blank('down', vim.v.count1) end, 'Add blank line down' },
   },
   g = {
     y = { '<Cmd>%y+<CR>', 'Yank buffer to clipboard' },
@@ -90,12 +132,15 @@ wk.register {
   ['<M-d>'] = { util.partial(diag.open_float, 0, { scope = 'line' }), 'Show diagnostics for line', mode = { 'n', 'i' } },
 }
 
+--stylua: ignore
 wk.register({
   ['['] = {
-    c = { ':copy -<CR>', 'Copy line up' },
+    c = { function() _wrap(copy, "'<-", vim.v.count1, '[c', true) end, 'Copy line up' },
+    e = { function() _wrap(move, "'<--", vim.v.count1, '[e', true) end, 'Move line up' },
   },
   [']'] = {
-    c = { ':copy +<CR>', 'Copy line down' },
+    c = { function() _wrap(copy, "'>.", vim.v.count1, ']c', true) end, 'Copy line down' },
+    e = { function() _wrap(move, "'>+", vim.v.count1, ']e', true) end, 'Move line down' },
   },
 }, { mode = 'v' })
 
@@ -110,7 +155,7 @@ vim.keymap.set('', 'Y', 'y$', { desc = 'Yank to end of line' })
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
-vim.keymap.set('i', '<C-@>', '<C-Space>', { remap = true }, { desc = 'Workaround for C-Space detection' })
+vim.keymap.set('i', '<C-@>', '<C-Space>', { remap = true, desc = 'Workaround for C-Space detection' })
 
 vim.keymap.set('x', '<', '<gv', { desc = 'Stay in Visual mode after unindenting' })
 vim.keymap.set('x', '>', '>gv', { desc = 'Stay in Visual mode after indenting' })
@@ -133,7 +178,7 @@ vim.keymap.set('x', 'v', '<C-v>', { desc = 'Switch to Visual-Block mode from Vis
 vim.keymap.set('x', '.', '<Cmd>normal .<CR>', { desc = 'Enable . in visual mode' })
 
 -- Copy/Move the current line while in Insert/Visual mode like in other editors.
--- A nice companion to tpope/unimpaired
+-- A nice companion to tpope/unimpaired or mini.bracketed
 vim.keymap.set('i', '<M-Up>', '<Esc><Cmd>move -2<CR>==gi', { desc = 'Move line up', silent = true })
 vim.keymap.set('i', '<M-Down>', '<Esc><Cmd>move +1<CR>==gi', { desc = 'Move line down', silent = true })
 vim.keymap.set('i', '<M-S-Up>', '<Cmd>copy -1<CR>', { desc = 'Copy line up' })
