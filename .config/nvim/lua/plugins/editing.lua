@@ -205,11 +205,21 @@ return {
     },
     config = function(_, opts)
       require('illuminate').configure(opts)
-      vim.cmd [[
-        hi! link IlluminatedWordText LspReferenceText
-        hi! link IlluminatedWordRead LspReferenceRead
-        hi! link IlluminatedWordWrite LspReferenceWrite
-      ]]
+
+      local function _highlight()
+        vim.cmd [[
+          hi! link IlluminatedWordText LspReferenceText
+          hi! link IlluminatedWordRead LspReferenceRead
+          hi! link IlluminatedWordWrite LspReferenceWrite
+        ]]
+      end
+      _highlight()
+
+      vim.api.nvim_create_autocmd('ColorScheme', {
+        desc = 'Redo Illuminate highlight override on colorscheme change',
+        group = vim.api.nvim_create_augroup('ZeroKnight.plugins.editing.illuminate', { clear = true }),
+        callback = _highlight,
+      })
     end,
   },
 }
