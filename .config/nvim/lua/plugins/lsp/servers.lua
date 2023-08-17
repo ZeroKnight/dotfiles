@@ -37,6 +37,8 @@ return {
     },
   },
   pylsp = {
+    -- Disable logging for now until the jsonrpc warning flood is fixed
+    cmd = { 'pylsp', '--log-file', '/dev/null' },
     settings = {
       pylsp = {
         configurationSources = { 'flake8' },
