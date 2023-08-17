@@ -46,6 +46,8 @@ return {
           flake8 = { enabled = true },
           pyflakes = { enabled = false },
           pydocstyle = { enabled = true },
+          rope = { enabled = true },
+          rope_autoimport = { enabled = true },
         },
       },
     },
