@@ -45,10 +45,15 @@ return {
 
   {
     'lukas-reineke/indent-blankline.nvim',
-    event = 'VeryLazy',
-    keys = {
-      { '<Leader>ti', '<Cmd>IndentBlanklineToggle<CR>', desc = 'Toggle indent guides' },
-    },
+    event = { 'BufReadPost', 'BufNewFile' },
+    keys = function()
+      local keymaps = vim.tbl_map(function(x)
+        return { 'z' .. x, string.format('z%s<Cmd>IndentBlanklineRefresh<CR>', x), silent = true }
+      end, vim.split('ACDEFMNORXacdimnorvx', ''))
+      return vim.tbl_extend('keep', keymaps, {
+        { '<Leader>ti', '<Cmd>IndentBlanklineToggle<CR>', desc = 'Toggle indent guides' },
+      })
+    end,
     opts = {
       enabled = true,
       disable_with_nolist = true,
@@ -57,10 +62,10 @@ return {
       show_first_indent_level = false,
       show_end_of_line = true,
       show_trailing_blankline_indent = false,
-
-      -- NOTE: Turn this stuff on later when TS indent improves
-      use_treesitter = false,
-      -- show_current_context = true,
+      use_treesitter = true,
+      use_treesitter_scope = false, -- NOTE: Doesn't seem to work correctly
+      show_current_context = true,
+      context_highlight_list = { 'FoldColumn' },
 
       filetype_exclude = {
         'lazy',
@@ -80,6 +85,22 @@ return {
         'prompt',
       },
     },
+    config = function(_, opts)
+      require('indent_blankline').setup(opts)
+      vim.g.indent_blankline_context_patterns = vim.tbl_extend('force', vim.g.indent_blankline_context_patterns, {
+        'do_statement',
+      })
+
+      require('which-key').register({ -- Fill in missing descriptions
+        d = 'Delete fold under cursor',
+        D = 'Delete all folds under cursor',
+        E = 'Eliminate all folds in window',
+        F = 'Fold n lines',
+        n = 'Disable folding',
+        N = 'Enable folding',
+        X = 'Update folds (without zv)',
+      }, { prefix = 'z' })
+    end,
   },
 
   {
