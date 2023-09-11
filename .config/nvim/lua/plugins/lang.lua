@@ -114,10 +114,10 @@ return {
         swap = {
           enable = true,
           swap_next = {
-            ['<Leader>a'] = { query = '@parameter.inner', desc = 'Swap argument with next' },
+            [']a'] = { query = '@parameter.inner', desc = 'Swap argument with next' },
           },
           swap_previous = {
-            ['<Leader>A'] = { query = '@parameter.inner', desc = 'Swap argument with previous' },
+            ['[a'] = { query = '@parameter.inner', desc = 'Swap argument with previous' },
           },
         },
         move = {

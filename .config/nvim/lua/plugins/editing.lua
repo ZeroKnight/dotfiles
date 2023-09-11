@@ -50,6 +50,20 @@ return {
   },
 
   {
+    'echasnovski/mini.align',
+    version = false,
+    keys = {
+      { '<Leader>a', desc = 'Align text (mini.align)', mode = { 'n', 'v' } },
+      { '<Leader>A', desc = 'Align text with preview (mini.align)', mode = { 'n', 'v' } },
+    },
+    opts = function(plugin)
+      return {
+        mappings = { start = plugin.keys[1][1], start_with_preview = plugin.keys[2][1] },
+      }
+    end,
+  },
+
+  {
     'tpope/vim-abolish',
     event = { 'BufReadPost', 'BufNewFile' },
     config = function()
