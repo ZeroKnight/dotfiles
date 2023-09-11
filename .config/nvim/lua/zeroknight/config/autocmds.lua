@@ -57,15 +57,14 @@ autocmd(vim.tbl_flatten { relnum_off_events, relnum_on_events }, {
   end,
 })
 
+-- NOTE: vim.opt_global is bugged; using setlocal instead
 autocmd({ 'WinEnter', 'WinLeave' }, {
   desc = 'Only show cursor(line|column) in the active window',
   callback = function(ctx)
     if ctx.event == 'WinLeave' then
-      optl.cursorline = false
-      optl.cursorcolumn = false
+      vim.cmd 'setlocal nocursorline nocursorcolumn'
     elseif ctx.event == 'WinEnter' then
-      optl.cursorline = optg.cursorline:get()
-      optl.cursorcolumn = optg.cursorcolumn:get()
+      vim.cmd 'setlocal cursorline< cursorcolumn<'
     end
   end,
 })
