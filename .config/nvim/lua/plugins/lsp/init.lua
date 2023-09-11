@@ -120,7 +120,7 @@ return {
           builtins.code_actions.gitsigns.with {
             config = {
               filter_actions = function(title)
-                return title:lower():match 'blame' == nil
+                return title:lower():match 'blame' == nil and title:lower():match 'hunk' == nil
               end,
             },
           },
