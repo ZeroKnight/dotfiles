@@ -27,11 +27,14 @@ function _G.currbuf()
 end
 
 -- Modded from tjdevries
-if pcall(require, 'plenary') then
-  _G.reload = require('plenary.reload').reload_module
-
-  _G.rerequire = function(name)
-    reload(name)
-    return require(name)
-  end
-end
+vim.api.nvim_create_autocmd('User', {
+  group = vim.api.nvim_create_augroup('zeroknight.globals', { clear = true }),
+  pattern = 'VeryLazy',
+  callback = function()
+    _G.reload = require('plenary.reload').reload_module
+    _G.rerequire = function(name)
+      reload(name)
+      return require(name)
+    end
+  end,
+})
