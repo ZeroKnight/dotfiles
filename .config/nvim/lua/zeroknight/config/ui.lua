@@ -3,6 +3,8 @@
 local util = require 'zeroknight.util'
 local Color = require('zeroknight.util.color').Color
 
+local format = string.format
+
 local M = {
   borders = 'rounded',
   colors = {
@@ -29,8 +31,9 @@ local M = {
       linenr = '',
     },
     folds = {
-      open = '',
-      closed = '',
+      open = '',
+      closed = '',
+      span = '│',
     },
     separators = {
       breadcrumb = '»',
@@ -115,6 +118,7 @@ function M.init()
   })
 
   vim.cmd.colorscheme 'tokyonight'
+  vim.opt.statuscolumn = "%{%v:lua.require('zeroknight.config.ui').statuscolumn()%}"
 end
 
 function M.make_highlights()
@@ -140,6 +144,41 @@ function M.make_highlights()
   for reftype, col in pairs(M.colors.lsp.reference) do
     util.cmdf('hi LspReference%s guibg=%s', reftype, col:over(Color:from_background(), 0.18))
   end
+end
+
+function M.statuscolumn()
+  local segments = { fold = '', line = '' }
+
+  if vim.wo.foldcolumn ~= 0 then
+    local foldlevel = vim.fn.foldlevel
+    local foldclosed = vim.fn.foldclosed
+    local content = ' '
+
+    local current_foldlevel = foldlevel(vim.v.lnum)
+    if current_foldlevel > 0 then
+      if current_foldlevel > foldlevel(vim.v.lnum - 1) then
+        content = foldclosed(vim.v.lnum) > -1 and M.icons.folds.closed or M.icons.folds.open
+      else
+        content = M.icons.folds.span
+      end
+    end
+    segments.fold = format('%%#FoldColumn#%s%%*', content)
+  end
+
+  if vim.wo.number or vim.wo.relativenumber then
+    if vim.v.relnum == 0 then -- Current line
+      if vim.wo.number then
+        local total_lines = tostring(vim.api.nvim_buf_line_count(0))
+        segments.line = format('%%%d{v:lnum}', #total_lines)
+      else
+        segments.line = '%=' .. vim.v.relnum
+      end
+    else -- Other lines
+      segments.line = '%=' .. (vim.wo.relativenumber and vim.v.relnum or vim.v.lnum)
+    end
+  end
+
+  return format('%s%%s%s ', segments.fold, segments.line)
 end
 
 return M
