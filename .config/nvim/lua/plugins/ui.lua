@@ -401,15 +401,18 @@ return {
     end,
     init = function()
       -- Lazy load when vim.ui.* is called. Tweaked from LazyVim.
+      local orig_input = vim.ui.input
+      local orig_select = vim.ui.select
+
       ---@diagnostic disable-next-line: duplicate-set-field
       vim.ui.input = function(...)
         require('lazy').load { plugins = { 'dressing.nvim' } }
-        return vim.ui.input(...)
+        return orig_input(...)
       end
       ---@diagnostic disable-next-line: duplicate-set-field
       vim.ui.select = function(...)
         require('lazy').load { plugins = { 'dressing.nvim' } }
-        return vim.ui.select(...)
+        return orig_select(...)
       end
     end,
   },
