@@ -191,7 +191,6 @@ opt.writebackup = true
 opt.sessionoptions = {
   'buffers',
   'curdir',
-  'globals',
   'help',
   'localoptions',
   'tabpages',
