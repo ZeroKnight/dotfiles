@@ -35,30 +35,41 @@ local function python_venv()
   return ''
 end
 
--- Taken mostly from alpha dashboard theme
-local function button(sc, text, map, map_opts)
+-- Taken mostly from alpha dashboard theme with some modifications
+-- NOTE: Essentially, both on_press and opts.keymap are needed. The latter covers invoking an action via its actual
+-- keymap, and on_press covers pressing <CR> on the button.
+local function button(shortcut, text, rhs, map_opts)
+  local on_press = nil
   local opts = {
     position = 'center',
-    shortcut = sc,
+    shortcut = shortcut,
     align_shortcut = 'right',
     cursor = 3,
     width = 40,
     hl = 'String',
     hl_shortcut = 'Constant',
   }
-  sc = sc:gsub('%s', ''):gsub('LDR', '<Leader>')
-  if map then
+  shortcut = shortcut:gsub('%s', ''):gsub('LDR', '<Leader>')
+  if rhs then
     map_opts = vim.tbl_extend('keep', map_opts or {}, { noremap = true, silent = true, nowait = true })
-    opts.keymap = { 'n', sc, map, map_opts }
+    if type(rhs) == 'function' then
+      on_press = rhs
+      vim.keymap.set('n', shortcut, rhs, { buffer = true })
+    else
+      opts.keymap = { 'n', shortcut, rhs, map_opts }
+    end
   end
+
+  on_press = on_press
+    or function()
+      local key = vim.api.nvim_replace_termcodes(shortcut .. '<Ignore>', true, false, true)
+      vim.api.nvim_feedkeys(key, 't', false)
+    end
 
   return {
     type = 'button',
     val = text,
-    on_press = function()
-      local key = vim.api.nvim_replace_termcodes(map or sc .. '<Ignore>', true, false, true)
-      vim.api.nvim_feedkeys(key, 't', false)
-    end,
+    on_press = on_press,
     opts = opts,
   }
 end
@@ -91,6 +102,10 @@ return {
             button('LDR LDR p', '  Projects'),
             button('LDR s g', '  Live Grep'),
             button('LDR h m', '  Man Pages'),
+            button('s', '💾 Restore Last Session', function()
+              print 'Loading session'
+              require('persistence').load { last = true }
+            end),
             button('c', '  Neovim Config', format('<Cmd>e %s/init.lua<CR>', vim.fn.stdpath 'config')),
             button('l', '󰒲  Lazy', '<Cmd>Lazy<CR>'),
             button('m', '🔨 Mason', '<Cmd>Mason<CR>'),
