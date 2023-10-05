@@ -12,9 +12,7 @@ end
 -- Assorted global stuff
 require 'zeroknight.globals'
 
-if not vim.env.VIMSESSIONS then
-  vim.env.VIMSESSIONS = as_stdpath('state', 'session')
-end
+vim.g.sessiondir = as_stdpath('state', 'session')
 
 -- Load plugins
 require('lazy').setup('plugins', {

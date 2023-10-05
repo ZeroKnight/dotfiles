@@ -42,7 +42,7 @@ return {
     'folke/persistence.nvim',
     event = 'BufReadPre',
     opts = function()
-      return { options = vim.opt.sessionoptions:get() }
+      return { dir = vim.g.sessiondir .. '/', options = vim.opt.sessionoptions:get() }
     end,
   },
 
