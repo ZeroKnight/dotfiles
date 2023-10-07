@@ -45,52 +45,46 @@ return {
 
   {
     'lukas-reineke/indent-blankline.nvim',
+    main = 'ibl',
     event = { 'BufReadPost', 'BufNewFile' },
-    keys = function()
-      local keymaps = vim.tbl_map(function(x)
-        return { 'z' .. x, string.format('z%s<Cmd>IndentBlanklineRefresh<CR>', x), silent = true }
-      end, vim.split('ACDEFMNORXacdimnorvx', ''))
-      return vim.tbl_extend('keep', keymaps, {
-        { '<Leader>ti', '<Cmd>IndentBlanklineToggle<CR>', desc = 'Toggle indent guides' },
-      })
-    end,
+    keys = {
+      { '<Leader>ti', '<Cmd>IBLToggle<CR>', desc = 'Toggle indent guides' },
+    },
     opts = {
       enabled = true,
-      disable_with_nolist = true,
-      char = '│',
-      char_blankline = '┊',
-      show_first_indent_level = false,
-      show_end_of_line = true,
-      show_trailing_blankline_indent = false,
-      use_treesitter = true,
-      use_treesitter_scope = false, -- NOTE: Doesn't seem to work correctly
-      show_current_context = true,
-      context_highlight_list = { 'FoldColumn' },
-
-      filetype_exclude = {
-        'lazy',
-        'lspinfo',
-        'checkhealth',
-        'help',
-        'man',
-        'text',
-        'markdown',
-        '',
+      indent = {
+        char = '│',
+        smart_indent_cap = true,
       },
-
-      buftype_exclude = {
-        'terminal',
-        'nofile',
-        'quickfix',
-        'prompt',
+      scope = {
+        enabled = true,
+        show_start = false,
+        show_end = false,
+      },
+      exclude = {
+        filetypes = {
+          'lazy',
+          'lspinfo',
+          'checkhealth',
+          'help',
+          'man',
+          'gitcommit',
+          'TelescopePrompt',
+          'TelescopeResults',
+          'text',
+          'markdown',
+          '',
+        },
+        buftypes = {
+          'terminal',
+          'nofile',
+          'quickfix',
+          'prompt',
+        },
       },
     },
     config = function(_, opts)
-      require('indent_blankline').setup(opts)
-      vim.g.indent_blankline_context_patterns = vim.tbl_extend('force', vim.g.indent_blankline_context_patterns, {
-        'do_statement',
-      })
-
+      require('ibl').setup(opts)
       require('which-key').register({ -- Fill in missing descriptions
         d = 'Delete fold under cursor',
         D = 'Delete all folds under cursor',
