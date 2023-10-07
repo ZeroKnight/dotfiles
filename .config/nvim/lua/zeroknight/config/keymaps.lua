@@ -83,6 +83,7 @@ wk.register({
   t = {
     b = { util.toggle_background, 'Toggle background' },
     d = { util.partial(util.toggle_diagnostics, 0), 'Toggle diagnostics' },
+    h = { util.partial(vim.lsp.inlay_hint, 0), 'Toggle LSP Inlay Hints' },
     l = { function() toggle 'list' end, 'Toggle listchars', },
     s = { function() toggle 'spell' end, 'Toggle Spellcheck', },
     w = { function() toggle 'wrap' end, 'Toggle word wrap', },

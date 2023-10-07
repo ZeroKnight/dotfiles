@@ -714,7 +714,7 @@ return {
     'SmiteshP/nvim-navic',
     lazy = true,
     init = function()
-      require('zeroknight.util').on_attach(function(client, buffer)
+      util.on_attach(function(client, buffer)
         if client.server_capabilities.documentSymbolProvider then
           require('nvim-navic').attach(client, buffer)
         end

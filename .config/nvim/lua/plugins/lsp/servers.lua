@@ -27,6 +27,13 @@ return {
           -- Using stylua via null-ls
           enable = false,
         },
+        hint = {
+          enable = true,
+          arrayIndex = 'Auto', -- Show when >3 elements or mixed table
+          await = true,
+          paramType = true, -- Show parameter type hints at function calls
+          setType = true, -- Show type hints at assignment statements
+        },
         semantic = {
           enable = true,
         },
