@@ -1,14 +1,14 @@
 -- Telescope configuration
 
 local util = require 'zeroknight.util'
+local ext = require 'plugins.telescope.ext'
 
-local load_extensions = {}
-local function tele_extension(source, name)
+local function extension_spec(source, name)
   return {
     source,
     lazy = true,
     init = function()
-      table.insert(load_extensions, name)
+      table.insert(ext.to_load, name)
     end,
     dependencies = { 'nvim-telescope/telescope.nvim' },
   }
@@ -176,17 +176,15 @@ return {
     config = function(_, opts)
       local telescope = require 'telescope'
       telescope.setup(opts)
-      -- TODO: Come up with a way to let other plugin specs add a telescope extension
-      telescope.load_extension 'notify'
-      vim.iter(load_extensions):each(telescope.load_extension)
+      vim.iter(ext.to_load):each(telescope.load_extension)
     end,
   },
 
   -- Extensions
-  tele_extension('nvim-telescope/telescope-file-browser.nvim', 'file_browser'),
-  tele_extension('nvim-telescope/telescope-fzy-native.nvim', 'fzy_native'),
-  tele_extension('nvim-telescope/telescope-github.nvim', 'gh'),
-  tele_extension('benfowler/telescope-luasnip.nvim', 'luasnip'),
-  tele_extension('tsakirist/telescope-lazy.nvim', 'lazy'),
-  tele_extension('nvim-telescope/telescope-z.nvim', 'z'),
+  extension_spec('nvim-telescope/telescope-file-browser.nvim', 'file_browser'),
+  extension_spec('nvim-telescope/telescope-fzy-native.nvim', 'fzy_native'),
+  extension_spec('nvim-telescope/telescope-github.nvim', 'gh'),
+  extension_spec('benfowler/telescope-luasnip.nvim', 'luasnip'),
+  extension_spec('tsakirist/telescope-lazy.nvim', 'lazy'),
+  extension_spec('nvim-telescope/telescope-z.nvim', 'z'),
 }

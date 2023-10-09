@@ -429,6 +429,7 @@ return {
       local notify = require 'notify'
       vim.notify = notify
       notify.setup(opts)
+      require('plugins.telescope.ext').add_extension 'notify'
 
       -- Match existing diagnostic colors
       local Color = require('colorbuddy.color').Color
@@ -725,6 +726,36 @@ return {
         safe_output = true,
         click = true,
       }
+    end,
+  },
+
+  {
+    'ThePrimeagen/harpoon',
+    keys = function()
+    -- stylua: ignore
+      local keymaps = {
+        {'<Leader>H', function() require('harpoon.ui').toggle_quick_menu() end, 'Harpoon Menu'},
+        {']H', function() require('harpoon.ui').nav_next() end, 'Next Harpooned file'},
+        {'[H', function() require('harpoon.ui').nav_prev() end, 'Previous Harpooned file'},
+      }
+      for i = 0, 9 do
+        table.insert(keymaps, {
+          string.format('<M-%d>', i),
+          function()
+            require('harpoon.ui').nav_file(i)
+          end,
+          'Harpoon file ' .. i,
+        })
+      end
+      return keymaps
+    end,
+    cmd = 'Harpoon',
+    config = function()
+      require('harpoon').setup()
+      require('plugins.telescope.ext').add_extension 'harpoon'
+      vim.api.nvim_create_user_command('Harpoon', function()
+        require('harpoon.mark').add_file()
+      end, { desc = 'Harpoon current file' })
     end,
   },
 }
