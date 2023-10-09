@@ -115,6 +115,15 @@ function M.toggle_background()
   end
 end
 
+-- Trim trailing whitespace in buffer while preserving state/position
+function M.trim_whitespace(buffer)
+  buffer = buffer or 0
+  local trimmed = vim.tbl_map(function(x)
+    return x:gsub('%s+$', '')
+  end, vim.api.nvim_buf_get_lines(buffer, 0, -1, true))
+  vim.api.nvim_buf_set_lines(buffer, 0, -1, true, trimmed)
+end
+
 -- From LazyVim
 -- returns the root directory based on:
 -- * lsp workspace folders

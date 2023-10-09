@@ -96,7 +96,7 @@ wk.register({
     L = { vim.diagnostic.setloclist, 'Dump diagnostics to location list' },
     Q = { vim.diagnostic.setqflist, 'Dump diagnostics to quickfix list' },
   },
-  wx = { '<Cmd>call zeroknight#util#save_and_exec()<CR>', 'Write and Execute' },
+  wx = { '<Cmd>write | source %<CR>', 'Write and Execute' },
   y = { '"+y', 'Yank to clipboard', mode = { 'n', 'v' } },
   Y = { '"+Y', 'Yank til EOL to clipboard' },
 }, { prefix = '<Leader>' })
@@ -106,7 +106,7 @@ wk.register({
 wk.register({
   K = { 'K', 'Run keywordprg on word' },
   r = {
-    s = { '<Cmd>call zeroknight#util#TrimTrailingSpace()<CR>', 'Trim trailing spaces' },
+    s = { util.trim_whitespace, 'Trim trailing spaces' },
     w = { ':%s/\\<<C-r><C-w>\\>//gI<Left><Left><Left>', 'Substitute cursor word' },
     W = { ':%s/\\<<C-r><C-a>\\>//gI<Left><Left><Left>', 'Substitute cursor WORD' },
   },
