@@ -10,6 +10,16 @@ local augroup = vim.api.nvim_create_augroup
 
 return {
   {
+    'ggandor/leap.nvim',
+    lazy = false,
+    config = function(_, opts)
+      local leap = require 'leap'
+      leap.add_default_mappings()
+      leap.opts.highlight_unlabeled_phase_one_targets = true
+    end,
+  },
+
+  {
     'chrisbra/Recover.vim',
     event = 'SwapExists',
   },
