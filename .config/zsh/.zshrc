@@ -25,7 +25,12 @@ zstyle ':zcomet:compinit' dump-file "$ZCACHEDIR/zcompdump"
 source "$ZCOMET/bin/zcomet.zsh"
 
 # Local configuration
-zcomet load $ZDATADIR/site
+if [[ -d "$ZDATADIR/site" ]] {
+    for script ($ZDATADIR/site/*.zsh(N)) {
+        zcomet snippet "$script"
+    }
+    unset script
+}
 
 ### Configuration modules
 
