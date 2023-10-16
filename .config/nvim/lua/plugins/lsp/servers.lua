@@ -1,7 +1,14 @@
 -- Individual Language Server settings
 
 return {
-  jsonls = {},
+  jsonls = {
+    settings = {
+      json = {
+        schemas = require('schemastore').json.schemas(),
+        validate = { enable = true },
+      },
+    },
+  },
   lua_ls = {
     settings = {
       Lua = {

@@ -5,9 +5,6 @@
 
 local util = require 'zeroknight.util'
 
-local autocmd = vim.api.nvim_create_autocmd
-local augroup = vim.api.nvim_create_augroup
-
 return {
   {
     'neovim/nvim-lspconfig',
@@ -19,13 +16,17 @@ return {
     },
     -- Since lspconfig has no options of its own, we'll store our own assorted
     -- LSP options here.
-    opts = {
-      capabilities = {},
-      format = {
-        format_on_write = true,
-      },
-      servers = require 'plugins.lsp.servers',
-    },
+    opts = function()
+      return {
+        capabilities = {
+          textDocument = { completion = { completionItem = { snippetSupport = true } } },
+        },
+        format = {
+          format_on_write = true,
+        },
+        servers = require 'plugins.lsp.servers',
+      }
+    end,
     config = function(_, opts)
       local formatting = require 'plugins.lsp.format'
 
@@ -131,4 +132,6 @@ return {
       }
     end,
   },
+
+  { 'b0o/SchemaStore.nvim', lazy = true },
 }
