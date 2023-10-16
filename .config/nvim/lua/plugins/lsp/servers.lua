@@ -1,6 +1,21 @@
 -- Individual Language Server settings
 
 return {
+  ansiblels = {
+    settings = {
+      ansible = {
+        ansible = { useFullyQualifiedCollectionNames = true },
+        completion = {
+          provideRedirectModules = true,
+          provideModuleOptionAliases = true,
+        },
+        validation = {
+          enabled = true,
+          lint = { enabled = true },
+        },
+      },
+    },
+  },
   jsonls = {
     settings = {
       json = {

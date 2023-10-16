@@ -48,6 +48,26 @@ local wanted_ts_parsers = {
 return {
   { 'cespare/vim-toml', ft = 'toml' },
 
+  {
+    'mfussenegger/nvim-ansible',
+    init = function()
+      vim.api.nvim_create_autocmd('FileType', {
+        pattern = 'ansible',
+        group = vim.api.nvim_create_augroup('ZeroKnight.plugins.lang.nvim-ansible', { clear = true }),
+        desc = 'Create nvim-ansible mappings',
+        callback = function()
+          vim.keymap.set('n', '<Leader>x', function()
+            vim.cmd.write()
+            require('ansible').run()
+          end, { buffer = true, desc = 'Write and execute the current ansible playbook/role' })
+          vim.keymap.set('v', '<LocalLeader>x', function()
+            require('ansible').run()
+          end, { buffer = true, desc = 'Run ansible playbook/role selection' })
+        end,
+      })
+    end,
+  },
+
   -- Web
   { 'mitsuhiko/vim-jinja', ft = { 'html', 'jinja' } },
   -- TODO: revisit this after trying an HTML language server,
