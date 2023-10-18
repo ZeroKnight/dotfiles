@@ -1,0 +1,20 @@
+# vim: ft=yaml.ansible
+
+- name: Ensure Python 3 (Debian)
+  become: true
+  ansible.builtin.apt:
+    name:
+      - python3
+    state: present
+  when: ansible_os_family == 'Debian'
+
+- name: Ensure Python 3 (Suse)
+  become: true
+  community.general.zypper:
+    name:
+      - python3
+    state: present
+  when: ansible_os_family == 'Suse'
+
+- name: Set up virtualenv for user installs
+  ansible.builtin.import_tasks: venv.yml

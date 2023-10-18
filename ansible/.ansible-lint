@@ -1,0 +1,5 @@
+skip_list:
+  - latest[git]
+  - package-latest
+
+# vim: ft=yaml

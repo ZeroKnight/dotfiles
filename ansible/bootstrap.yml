@@ -1,0 +1,27 @@
+# vim: ft=yaml.ansible
+
+- name: Bootstrap personal setup
+  hosts: localhost
+  vars_files:
+    - vars/main.yml
+  tasks:
+    - name: Ensure home directory structure
+      ansible.builtin.import_role:
+        name: home
+      tags: home
+
+    - name: Install and set up software
+      ansible.builtin.import_role:
+        name: software
+      tags: software
+
+    - name: Set up Python stuff
+      ansible.builtin.import_role:
+        name: python
+      tags: python
+
+- name: Bootstrap Neovim setup
+  ansible.builtin.import_playbook: nvim_bootstrap.yml
+  tags:
+    - software
+    - nvim

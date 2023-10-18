@@ -1,0 +1,26 @@
+# vim: ft=yaml.ansible
+
+- name: Install desktop applications (Suse)
+  become: true
+  community.general.zypper:
+    name:
+      - keepassxc
+      - kitty
+      - kitty-shell-integration
+      - firefox
+      - speedcrunch
+      - vlc
+    state: latest
+  when: ansible_os_family == 'Suse'
+
+- name: Install desktop applications (Debian)
+  become: true
+  ansible.builtin.apt:
+    name:
+      - keepassxc
+      - kitty
+      - kitty-doc
+      - firefox
+      - speedcrunch
+      - vlc
+  when: ansible_os_family == 'Debian'

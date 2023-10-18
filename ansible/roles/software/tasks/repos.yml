@@ -1,0 +1,95 @@
+# vim: ft=yaml.ansible
+
+- name: Add package manager repositories (Suse)
+  become: true
+  when: ansible_os_family == 'Suse'
+  block:
+    - name: Add package manager repositories
+      community.general.zypper_repository:
+        repo: "{{ item.repo }}"
+        name: "{{ item.name | default(omit) }}"
+        priority: "{{ item.priority | default(99) }}"
+        autorefresh: "{{ item.autorefresh | default(true) }}"
+        state: present
+      loop:
+        - repo: https://cli.github.com/packages/rpm/gh-cli.repo
+          priority: 98
+        - name: packman-essentials
+          repo: https://ftp.fau.de/packman/suse/openSUSE_Tumbleweed/Essentials
+          priority: 98
+          autorefresh: false
+      loop_control:
+        label: "{{ item.name | default(item.repo) }}"
+
+    - name: Refresh repositories
+      community.general.zypper_repository:
+        repo: "*"
+        runrefresh: true
+
+- name: Set debian_arch fact
+  ansible.builtin.set_fact:
+    debian_arch: "{{ ansible_architecture | replace('x86_64', 'amd64') }}"
+  when: ansible_os_family == 'Debian'
+
+- name: Add package manager repositories (Debian)
+  become: true
+  when: ansible_os_family == 'Debian'
+  module_defaults:
+    ansible.builtin.get_url: &perms
+      mode: "0644"
+      owner: root
+      group: root
+    ansible.builtin.template:
+      <<: *perms
+  block:
+    - name: Add GitHub-CLI repository
+      vars:
+        key_path: /etc/apt/keyrings/githubcli-archive-keyring.gpg
+        repo_url: https://cli.github.com/packages
+        repo_release: stable
+      block:
+        - name: Download GitHub-CLI signing key
+          ansible.builtin.get_url:
+            url: "{{ repo_url }}/{{ key_path | basename }}"
+            dest: "{{ key_path }}"
+            checksum: sha1:643c21ab2b2ed17817b9ad4e21a1e8831c2c54bd
+
+        - name: Add GitHub-CLI repository
+          ansible.builtin.template:
+            src: apt_repo.list.j2
+            dest: /etc/apt/sources.list.d/gh-cli.list
+
+    - name: Add eza-community repository
+      vars:
+        key_path: /etc/apt/keyrings/gierens.asc
+        repo_url: http://deb.gierens.de
+        repo_release: stable
+      block:
+        - name: Download eza-community signing key
+          ansible.builtin.get_url:
+            url: https://raw.githubusercontent.com/eza-community/eza/main/deb.asc
+            dest: "{{ key_path }}"
+            checksum: sha1:d59859d3180ae4f5cd2a84c0cb8ecf2e056f9ac4
+
+        - name: Add eza-community repository
+          ansible.builtin.template:
+            src: apt_repo.list.j2
+            dest: /etc/apt/sources.list.d/eza-community.list
+
+- name: Purge and lock unwanted packages (Suse)
+  when: ansible_os_family == 'Suse'
+  become: true
+  block:
+    - name: Remove unwanted packages
+      ansible.builtin.command:
+        cmd: "/usr/bin/zypper --quiet --non-interactive --xmlout remove '{{ item }}'"
+      loop: "{{ purge_and_lock.Suse }}"
+      register: zypper_remove
+      changed_when: zypper_remove.rc == 0
+
+    - name: Add package locks
+      ansible.builtin.command:
+        cmd: "/usr/bin/zypper --quiet --non-interactive --xmlout addlock '{{ item }}'"
+      loop: "{{ purge_and_lock.Suse }}"
+      register: zypper_addlock
+      changed_when: "'<locks' in zypper_addlock.stdout"

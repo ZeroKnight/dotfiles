@@ -1,0 +1,118 @@
+# vim: ft=yaml.ansible
+
+- name: Install utilities (Suse)
+  become: true
+  community.general.zypper:
+    name:
+      - bat
+      - curl
+      - eza
+      - fd
+      - fortune
+      - fzf
+      - fzy
+      - gh
+      - git-delta
+      - jq
+      - keychain
+      - kitty-terminfo
+      - gnu_parallel
+      - plocate
+      - ripgrep
+      - sed
+      - tmux
+      - tree
+    disable_recommends: false
+    state: latest
+  when: ansible_os_family == 'Suse'
+
+- name: Install utilities (Debian)
+  when: ansible_os_family == 'Debian'
+  become: true
+  block:
+    - name: Install utilities (Debian)
+      ansible.builtin.apt:
+        name:
+          - bat
+          - curl
+          - eza
+          - fd-find
+          - fortune-mod
+          - fzf
+          - fzy
+          - git-delta
+          - jq
+          - keychain
+          - kitty-terminfo
+          - parallel
+          - plocate
+          - ripgrep
+          - sed
+          - tmux
+          - tree
+
+    - name: Create link with proper executable name
+      ansible.builtin.file:
+        src: "/usr/bin/{{ item[0] }}"
+        dest: "/usr/local/bin/{{ item[1] }}"
+        state: link
+        owner: root
+        group: root
+      loop:
+        - [fdfind, fd]
+        - [batcat, bat]
+
+- name: Install z.lua
+  ansible.builtin.git:
+    repo: https://github.com/skywind3000/z.lua
+    dest: "{{ (opt_dir, 'zlua') | path_join }}"
+    depth: 1
+  tags: shell
+
+- name: Install Tokyo Night Theme
+  vars:
+    tokyonight:
+      root: "{{ (opt_dir, 'tokyonight-extras') | path_join }}"
+      extras: "{{ (opt_dir, 'tokyonight-extras', 'extras') | path_join }}"
+      style: tokyonight_storm
+  tags:
+    - shell
+    - tokyonight
+  block:
+    - name: Create local opt directory for Tokyo Night extras
+      ansible.builtin.file:
+        path: "{{ tokyonight.root }}"
+        state: directory
+        mode: "0755"
+
+    - name: Sparse checkout Tokyo Night repository
+      # noqa: command-instead-of-module
+      ansible.builtin.shell: |
+        git init --initial-branch=main
+        git sparse-checkout set extras/
+        git remote add origin https://github.com/folke/tokyonight.nvim
+        git pull --depth=1 origin main
+      args:
+        chdir: "{{ tokyonight.root }}"
+        creates: "{{ tokyonight.extras }}"
+
+    - name: Deploy Toyko Night theme for bat
+      vars:
+        theme_file: "{{ tokyonight.style ~ '.tmTheme' }}"
+      ansible.builtin.file:
+        src: "{{ (tokyonight.extras, 'sublime', theme_file) | path_join }}"
+        dest: "{{ (config_dir, 'bat', 'themes', theme_file) | path_join }}"
+        state: link
+
+    - name: Rebuild bat cache
+      ansible.builtin.command:
+        cmd: bat cache --build
+        creates: "{{ (ansible_env.HOME, '.cache', 'bat') | path_join }}"
+
+    - name: Deploy Tokyo Night theme for kitty
+      vars:
+        theme_file: "{{ tokyonight.style ~ '.conf' }}"
+      ansible.builtin.file:
+        src: "{{ (tokyonight.extras, 'kitty', theme_file) | path_join }}"
+        dest: "{{ (config_dir, 'kitty', theme_file) | path_join }}"
+        state: link

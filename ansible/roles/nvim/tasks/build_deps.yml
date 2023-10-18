@@ -1,0 +1,29 @@
+# vim: ft=yaml.ansible
+
+- name: Install Neovim build dependencies (Debian)
+  become: true
+  ansible.builtin.apt:
+    name:
+      - ccache
+      - cmake
+      - curl
+      - g++
+      - gettext
+      - ninja-build
+      - unzip
+    state: present
+  when: ansible_os_family == 'Debian'
+
+- name: Install Neovim build dependencies (Suse)
+  become: true
+  community.general.zypper:
+    name:
+      - ccache
+      - cmake
+      - curl
+      - gcc-c++
+      - gettext-tools
+      - ninja
+      - unzip
+    state: present
+  when: ansible_os_family == 'Suse'

@@ -20,5 +20,8 @@ fonts/Iosevka/private-build-plans.toml
 ### Kitty
 /.config/kitty/bg.png
 
+### bat
+/.config/bat/themes/
+
 ### Misc
 __pycache__/

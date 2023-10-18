@@ -1,0 +1,7 @@
+build_type: RelWithDebInfo
+clone_path: "{{ (src_dir, 'neovim') | path_join }}"
+clone_tag: nightly
+lazy_path: "{{ (data_dir, 'nvim', 'lazy', 'lazy.nvim') | path_join }}"
+provider:
+  python:
+    venv_root: "{{ (data_dir, 'nvim', 'pynvim-venvs') | path_join }}"

@@ -1,0 +1,30 @@
+# vim: ft=yaml.ansible
+
+- name: Download bootstrap virtualenv zipapp
+  ansible.builtin.get_url:
+    url: https://bootstrap.pypa.io/virtualenv.pyz
+    dest: /tmp/virtualenv.pyz
+    mode: "0755"
+
+- name: Create virtualenv for user installs
+  ansible.builtin.command:
+    argv:
+      - python3
+      - /tmp/virtualenv.pyz
+      - "{{ user_venv }}"
+    creates: "{{ user_venv }}"
+
+- name: Install Packages
+  ansible.builtin.pip:
+    name: "{{ user_venv_packages }}"
+    state: present
+    virtualenv: "{{ user_venv }}"
+  tags: software
+
+- name: Symlink package binaries
+  ansible.builtin.file:
+    src: "{{ (user_venv, 'bin', item) | path_join }}"
+    dest: "{{ (bin_dir, item) | path_join }}"
+    state: link
+  loop: "{{ user_venv_packages }}"
+  tags: software

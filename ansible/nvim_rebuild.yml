@@ -1,0 +1,16 @@
+# vim: ft=yaml.ansible
+
+- name: Rebuild and install Neovim
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - import_role:
+        name: nvim
+        tasks_from: checkout
+      notify: "nvim : Clean deps before rebuild"
+
+    - meta: flush_handlers
+
+    - import_role:
+        name: nvim
+        tasks_from: make

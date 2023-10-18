@@ -1,0 +1,26 @@
+# vim: ft=yaml.ansible
+
+- name: Check if running a graphical environment
+  ansible.builtin.set_fact:
+    graphical: "{{ (ansible_env.DESKTOP_SESSION or ansible_env.WINDOWMANAGER or ansible_env.DISPLAY) is truthy }}"
+  tags: always
+
+- name: Set up package repositories
+  ansible.builtin.import_tasks: repos.yml
+  tags: repo
+
+- name: Set up zsh
+  ansible.builtin.import_tasks: zsh.yml
+  tags: shell
+
+- name: Set up utilities
+  ansible.builtin.import_tasks: utils.yml
+
+- name: Set up desktop applications
+  ansible.builtin.import_tasks: desktop.yml
+  tags: desktop
+  when: graphical | default(false)
+
+- name: Purge unwanted packages
+  ansible.builtin.import_tasks: purge.yml
+  tags: purge

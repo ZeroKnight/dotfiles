@@ -1,0 +1,10 @@
+# vim: ft=yaml.ansible
+
+- name: Purge unwanted packages (Debian)
+  ansible.builtin.apt:
+    name:
+      - command-not-found
+      - snapd
+    state: absent
+    purge: true
+  when: ansible_os_family == 'Debian'

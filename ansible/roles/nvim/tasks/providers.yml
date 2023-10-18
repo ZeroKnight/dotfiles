@@ -1,0 +1,13 @@
+# vim: ft=yaml.ansible
+
+- name: Ensure Python provider venv root directory
+  ansible.builtin.file:
+    path: "{{ provider.python.venv_root }}"
+    state: directory
+    mode: "700"
+
+- name: Create Python 3 virtualenv
+  ansible.builtin.pip:
+    name: pynvim
+    virtualenv: "{{ (provider.python.venv_root, 'py3nvim') | path_join }}"
+    state: latest

@@ -1,0 +1,24 @@
+# vim: ft=yaml.ansible
+
+- name: Ensure lazy data directory
+  ansible.builtin.file:
+    path: "{{ lazy_path }}"
+    state: directory
+    recurse: true
+
+# git module doesn't have a `--filter` option yet :(
+- name: Clone lazy.nvim
+  ansible.builtin.git:
+    dest: "{{ lazy_path }}"
+    repo: https://github.com/folke/lazy.nvim.git
+    version: stable
+    depth: 1
+
+- name: Sync nvim plugins
+  ansible.builtin.command:
+    argv:
+      - /usr/local/bin/nvim
+      - --headless
+      - +Lazy! sync
+      - +qa
+    creates: "{{ (state_dir, 'nvim', 'lazy') | path_join }}"

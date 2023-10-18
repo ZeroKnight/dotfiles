@@ -4,8 +4,8 @@
 vim.g.mapleader = '\\'
 vim.g.maplocalleader = ' '
 
--- Handle initial setup for fresh installs
-if require 'zeroknight.bootstrap'() then
+-- Ensure baseline environment
+if not require 'zeroknight.bootstrap'() then
   return
 end
 

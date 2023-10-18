@@ -1,0 +1,47 @@
+# vim: ft=yaml.ansible
+
+- name: Bootstrap Neovim setup
+  hosts: localhost
+  vars_files:
+    - vars/main.yml
+  tasks:
+    - name: Install Neovim build dependencies
+      ansible.builtin.import_role:
+        name: nvim
+        tasks_from: build_deps
+
+    - name: Clone Neovim repository
+      ansible.builtin.import_role:
+        name: nvim
+        tasks_from: checkout
+
+    - name: Build and install Neovim
+      ansible.builtin.import_role:
+        name: nvim
+        tasks_from: make
+
+    - name: Ensure nvim state directories
+      ansible.builtin.file:
+        path: "{{ (state_dir, 'nvim', item) | path_join }}"
+        state: directory
+      loop:
+        - session
+        - shada
+        - swap
+        - undo
+        - view
+
+    - name: Ensure nvim site directory
+      ansible.builtin.file:
+        path: "{{ (data_dir, 'nvim', 'site') | path_join }}"
+        state: directory
+
+    - name: Bootstrap Lazy.nvim and install plugins
+      ansible.builtin.import_role:
+        name: nvim
+        tasks_from: lazy
+
+    - name: Set up plugin providers
+      ansible.builtin.import_role:
+        name: nvim
+        tasks_from: providers

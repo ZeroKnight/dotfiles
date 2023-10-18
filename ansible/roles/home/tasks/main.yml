@@ -1,0 +1,54 @@
+# vim: ft=yaml.ansible
+
+- name: Ensure basic directories exist
+  ansible.builtin.file:
+    path: "{{ (ansible_env.HOME, item) | path_join }}"
+    mode: "0700"
+    state: directory
+  loop:
+    - .config
+    - .local/bin
+    - .local/opt
+    - .local/share
+    - .local/state
+    - Downloads
+    - Projects
+    - src
+
+- name: Ensure SSH directory exists
+  ansible.builtin.file:
+    path: "{{ (ansible_env.HOME, '.ssh') | path_join }}"
+    mode: "0700"
+    state: directory
+
+- name: Remove unneeded bash files
+  ansible.builtin.file:
+    path: "{{ (ansible_env.HOME, item) | path_join }}"
+    state: absent
+  loop:
+    - .bash_history
+    - .bash_login
+    - .bash_logout
+    - .bash_profile
+    - .bashrc
+    - .profile
+
+- name: Deploy dotfiles
+  block:
+    - name: Gather dotfiles
+      ansible.builtin.find:
+        paths:
+          - "{{ (dotfiles, '.config') | path_join }}"
+          - "{{ (dotfiles, '.ssh') | path_join }}"
+        file_type: any
+        hidden: true
+      register: link_targets
+
+    - name: Create links to dotfiles
+      ansible.builtin.file:
+        src: "{{ item.path }}"
+        dest: "{{ item.path | replace(dotfiles, ansible_env.HOME) }}"
+        state: link
+      loop: "{{ link_targets.files }}"
+      loop_control:
+        label: "{{ item.path }}"

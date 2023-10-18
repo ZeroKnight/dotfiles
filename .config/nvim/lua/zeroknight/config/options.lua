@@ -199,7 +199,6 @@ opt.sessionoptions = {
 opt.viewoptions = { 'cursor', 'curdir', 'folds', 'localoptions' }
 
 -- Neovim Providers {{{1
--- vim.g.python_host_prog = providers.python(2) and providers.python(2) or nil
 vim.g.python3_host_prog = providers.python(3) and providers.python(3) or nil
 
 -- Miscellaneous {{{1

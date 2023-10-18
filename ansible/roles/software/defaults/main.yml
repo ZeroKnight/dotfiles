@@ -1,0 +1,5 @@
+purge_and_lock:
+  Suse:
+    - "*-bash-completion"
+    - "discover*"
+    - "plasma5-pk-updates"
