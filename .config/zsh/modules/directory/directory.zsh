@@ -42,12 +42,12 @@ alias po='popd'
 alias -- -='cd -'
 
 # Directory Listing
-if (( $+commands[exa] )); then
+if (( $+commands[eza] )); then
   export TIME_STYLE='default'  # Maybe switch to long-iso
-  export EXA_ICON_SPACING=2  # Accommodate kitty
+  export EZA_ICON_SPACING=2  # Accommodate kitty
 
-  alias exa='exa --group --icons --group-directories-first'
-  alias ls='exa'
+  alias eza='eza --group --icons --group-directories-first --hyperlink'
+  alias ls='eza'
 else
   alias ls='ls -hFH --color=auto --hyperlink=auto --group-directories-first'
 fi
