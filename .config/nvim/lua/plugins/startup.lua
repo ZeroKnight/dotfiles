@@ -54,10 +54,8 @@ local function button(shortcut, text, rhs, map_opts)
     map_opts = vim.tbl_extend('keep', map_opts or {}, { noremap = true, silent = true, nowait = true })
     if type(rhs) == 'function' then
       on_press = rhs
-      vim.keymap.set('n', shortcut, rhs, { buffer = true })
-    else
-      opts.keymap = { 'n', shortcut, rhs, map_opts }
     end
+    opts.keymap = { 'n', shortcut, rhs, map_opts }
   end
 
   on_press = on_press
@@ -76,7 +74,8 @@ end
 
 return {
   {
-    'goolord/alpha-nvim',
+    'ZeroKnight/alpha-nvim',
+    branch = 'fix-button-map',
     event = 'VimEnter',
     opts = function()
       local sections = {
