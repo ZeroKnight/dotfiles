@@ -49,7 +49,7 @@ function M.on_attach(client, buffer)
       opts.has = nil
       opts.silent = opts.silent ~= false
       opts.buffer = buffer
-      vim.keymap.set(keymap.mode or 'n', keymap[1], keymap[2], opts)
+      vim.keymap.set(keymap.mode or 'n', keymap.lhs, keymap.rhs, opts)
     end
   end
 end
