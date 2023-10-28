@@ -106,6 +106,7 @@ return {
 				p(tostring, vim.bo.tabstop),
 				p(tostring, vim.bo.softtabstop),
 			})),
+			sn(nil, fmt('ft={}', f(function() return vim.bo.filetype end))),
 			t 'fdm=marker',
 			t '',
 		}),
