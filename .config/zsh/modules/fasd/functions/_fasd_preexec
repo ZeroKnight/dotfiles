@@ -1,1 +1,0 @@
-{ eval "fasd --proc \$(fasd --sanitize \${2:s/~/\$HOME/})"; } >> "$_FASD_SINK" 2>&1
