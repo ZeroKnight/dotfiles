@@ -86,6 +86,7 @@
       loop: "{{ purge_and_lock.Suse }}"
       register: zypper_remove
       changed_when: zypper_remove.rc == 0
+      ignore_errors: true
 
     - name: Add package locks
       ansible.builtin.command:
