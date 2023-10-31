@@ -19,6 +19,8 @@ fonts/Iosevka/private-build-plans.toml
 
 ### Kitty
 /.config/kitty/bg.png
+/.config/kitty/themes/*
+!/.config/kitty/themes/onedark.conf
 
 ### bat
 /.config/bat/themes/
