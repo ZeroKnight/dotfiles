@@ -24,7 +24,6 @@ return {
         format = {
           format_on_write = true,
         },
-        servers = require 'plugins.lsp.servers',
       }
     end,
     config = function(_, opts)
@@ -46,13 +45,17 @@ return {
         opts.capabilities
       )
 
-      -- Run each language server's setup
-      for ls, config in pairs(opts.servers) do
-        if not config.disabled then
-          config.capabilities = vim.tbl_extend('force', capabilities, config.capabilities or {})
-          require('lspconfig')[ls].setup(config)
-        end
-      end
+      -- Proxy server setup through mason-lspconfig so that it can dynamically
+      -- configure newly-installed servers.
+      require('mason-lspconfig').setup_handlers {
+        function(server)
+          local config = vim.deepcopy(require('plugins.lsp.servers')[server]) or {}
+          if not config.disabled then
+            config.capabilities = vim.tbl_deep_extend('force', capabilities, config.capabilities or {})
+            require('lspconfig')[server].setup(config)
+          end
+        end,
+      }
     end,
   },
 
