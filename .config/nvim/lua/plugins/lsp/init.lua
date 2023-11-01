@@ -56,6 +56,24 @@ return {
           end
         end,
       }
+
+      -- Live reload LS settings when server settings change
+      vim.api.nvim_create_autocmd('BufWritePost', {
+        pattern = as_stdpath('config', 'lua/plugins/lsp/servers.lua'),
+        group = vim.api.nvim_create_augroup('ZeroKnight.lsp.reload', { clear = true }),
+        desc = 'Reload language server settings on config change',
+        callback = function()
+          local servers = rerequire 'plugins.lsp.servers'
+          vim.notify(
+            'Language Server settings file changed. Updating servers...',
+            vim.log.levels.WARN,
+            { title = 'ZeroKnight LSP' }
+          )
+          for server, config in pairs(servers) do
+            util.update_ls_settings(server, config.settings or {})
+          end
+        end,
+      })
     end,
   },
 

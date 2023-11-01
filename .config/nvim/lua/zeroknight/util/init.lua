@@ -187,6 +187,24 @@ function M.on_attach(on_attach, desc)
   })
 end
 
+-- Update settings for a language server that has already been configured
+-- by lspconfig. Sends a `workspace/didChangeConfiguration` notification to
+-- running servers as well.
+---@param server string
+---@param settings table
+function M.update_ls_settings(server, settings)
+  vim.validate { server = { server, 'string' }, settings = { settings, 'table' } }
+  local config = vim.tbl_get(require 'lspconfig.configs', server, 'manager', 'config')
+  if config == nil then
+    return
+  end
+
+  config.settings = vim.tbl_deep_extend('force', config.settings, settings)
+  for _, client in ipairs(vim.lsp.get_clients { name = server }) do
+    client.workspace_did_change_configuration(settings)
+  end
+end
+
 -- Returns a function that calls a telescope picker with specific options.
 -- Will find my custom pickers, extensions, and builtin pickers. Also defaults
 -- `cwd` to the result of `util.get_root`.
