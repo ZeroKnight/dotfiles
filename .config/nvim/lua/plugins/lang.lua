@@ -30,6 +30,7 @@ local wanted_ts_parsers = {
     'dockerfile',
     'gitattributes',
     'json',
+    'jsonc',
     'make',
     'toml',
     'yaml',

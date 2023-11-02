@@ -1,5 +1,7 @@
 -- Individual Language Server settings
 
+---@type lspconfig.options
+---@diagnostic disable:missing-fields
 return {
   ansiblels = {
     settings = {

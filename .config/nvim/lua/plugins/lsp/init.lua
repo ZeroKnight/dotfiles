@@ -11,6 +11,7 @@ return {
     event = { 'BufReadPre', 'BufNewFile' },
     dependencies = {
       { 'folke/neodev.nvim', opts = {} },
+      { 'folke/neoconf.nvim', opts = {} },
       'mason.nvim',
       'mason-lspconfig.nvim',
     },
