@@ -204,7 +204,7 @@ return {
       npairs.setup(opts)
 
       -- Append comma to nested table definitions
-      npairs.add_rule(Rule('{', '},', 'lua'):with_pair(ts_conds.is_ts_node { 'table', 'table_constructor' }))
+      npairs.add_rule(Rule('{', '},', 'lua'):with_pair(ts_conds.is_ts_node { 'field', 'table_constructor' }))
     end,
   },
 
