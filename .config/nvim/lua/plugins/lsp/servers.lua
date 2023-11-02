@@ -74,11 +74,15 @@ return {
       pylsp = {
         configurationSources = { 'flake8' },
         plugins = {
+          autopep8 = { enabled = false },
           flake8 = { enabled = true },
-          pyflakes = { enabled = false },
+          pycodestyle = { enabled = false },
           pydocstyle = { enabled = true },
-          rope = { enabled = true },
+          pyflakes = { enabled = false },
+          pylint = { enabled = false },
           rope_autoimport = { enabled = true },
+          rope_completion = { enabled = true },
+          yapf = { enabled = false },
         },
       },
     },
