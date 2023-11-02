@@ -7,7 +7,7 @@ local util = require 'plugins.snippet.util'
 -- Return the last portion of a Lua import string, e.g. a.b.c -> c
 local function get_import_tail(import)
   local parts = vim.split(import, '.', { plain = true })
-  return parts[#parts] or ''
+  return parts[#parts]:gsub('-', '_') or ''
 end
 
 -- Return a dynamic node that expands to the tail of an import string at the
@@ -50,20 +50,6 @@ return {
 		i(1),
 	})),
 
-	s({trig = 't', dscr = 'Table definition'}, fmta('<> = {<>}', { i(1, 't'), i(2) })),
-
-	s({trig = 'tf', dscr = 'Add a new table field'}, fmt('{} = {},', {
-		i(1, 't'),
-		c(2, {
-			i(1, 'true'),
-			sn(nil, fmt([[
-				{{
-					{}
-				}}
-			]], { util.selection(1, 'SELECT_DEDENT') })),
-		}),
-	})),
-
 	s({trig = 'l?fn', dscr = 'Function definition', regTrig = true}, fmt([[
 		{}function{}{}({})
 			{}
@@ -86,7 +72,7 @@ return {
 	]], {
 		c(1, {
 			sn(nil, fmt('{}, {} in {}({})', {
-				d(2, function(args) return sn(nil, args[1][1] == 'ipairs' and i(1, 'i') or i(1, 'k')) end, 1),
+				d(2, function(args) return sn(nil, args[1][1] == 'ipairs' and i(1, '_') or i(1, 'k')) end, 1),
 				i(3, 'v'),
 				c(1, { t 'ipairs', t 'pairs' }),
 				i(4),
