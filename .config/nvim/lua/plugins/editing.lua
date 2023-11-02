@@ -197,6 +197,15 @@ return {
         highlight_grey = 'Visual',
       },
     },
+    config = function(_, opts)
+      local npairs = require 'nvim-autopairs'
+      local ts_conds = require 'nvim-autopairs.ts-conds'
+      local Rule = require 'nvim-autopairs.rule'
+      npairs.setup(opts)
+
+      -- Append comma to nested table definitions
+      npairs.add_rule(Rule('{', '},', 'lua'):with_pair(ts_conds.is_ts_node { 'table', 'table_constructor' }))
+    end,
   },
 
   {
