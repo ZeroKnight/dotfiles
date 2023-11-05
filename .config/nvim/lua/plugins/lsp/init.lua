@@ -60,7 +60,7 @@ return {
 
       -- Live reload LS settings when server settings change
       vim.api.nvim_create_autocmd('BufWritePost', {
-        pattern = as_stdpath('config', 'lua/plugins/lsp/servers.lua'),
+        pattern = '*/nvim/lua/plugins/lsp/servers.lua',
         group = vim.api.nvim_create_augroup('ZeroKnight.lsp.reload', { clear = true }),
         desc = 'Reload language server settings on config change',
         callback = function()
