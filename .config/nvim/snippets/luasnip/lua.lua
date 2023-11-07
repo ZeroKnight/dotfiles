@@ -72,8 +72,8 @@ return {
 	]], {
 		c(1, {
 			sn(nil, fmt('{}, {} in {}({})', {
-				d(2, function(args) return sn(nil, args[1][1] == 'ipairs' and i(1, '_') or i(1, 'k')) end, 1),
-				i(3, 'v'),
+				d(3, function(args) return sn(nil, args[1][1] == 'ipairs' and i(1, '_') or i(1, 'k')) end, 1),
+				i(2, 'v'),
 				c(1, { t 'ipairs', t 'pairs' }),
 				i(4),
 			})),
@@ -185,6 +185,18 @@ return {
 			{}
 	]], {
 		util.selection(1, 'SELECT_DEDENT'),
+	})),
+
+	s({trig = 'e?ifn?t', dscr = '(else)if type(x) is (not) ...', regTrig = true}, fmt([[
+		{}if type({}) {} '{}' then
+			{}{}
+	]], {
+		util.if_trigger('^e', 'else'),
+		i(1, 'x'),
+		util.if_trigger('nt$', '~=', '=='),
+		i(2, 'table'),
+		util.selection(3, 'SELECT_DEDENT'),
+		util.if_trigger('^i', { '', 'end' })
 	})),
 
 	s({trig = 'do', dscr = 'do block'}, fmt([[
