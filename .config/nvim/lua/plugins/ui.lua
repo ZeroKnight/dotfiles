@@ -121,6 +121,10 @@ return {
       local icons = ui.icons
       local color = require 'zeroknight.util.color'
 
+      local function fg(name)
+        return { fg = color.fg(name) }
+      end
+
       local function has_file()
         return not vim.tbl_contains({ 'nofile', 'quickfix', 'help' }, vim.bo.buftype)
       end
@@ -182,7 +186,7 @@ return {
             {
               '%w',
               cond = function() return vim.wo.previewwindow end,
-              color = color.fg 'Constant',
+              color = fg 'Constant',
             },
           },
           lualine_x = {
@@ -201,7 +205,7 @@ return {
               cond = function()
                 return package.loaded['noice'] and require('noice').api.status.mode.has()
               end,
-              color = color.fg 'Constant',
+              color = fg 'Constant',
             },
             'searchcount',
           },

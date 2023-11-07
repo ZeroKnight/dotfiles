@@ -8,7 +8,7 @@ local format = string.format
 local lazy_path = format('%s/lazy/lazy.nvim', vim.fn.stdpath 'data')
 
 local function has_lazy()
-  if vim.loop.fs_stat(lazy_path) then
+  if vim.uv.fs_stat(lazy_path) then
     return true
   end
   util.warn 'Cannot load config until Lazy.nvim is set up. Run ansible!'
@@ -18,7 +18,7 @@ end
 local function ensure_state_dirs()
   for _, dir in ipairs { 'shada', 'swap', 'undo', 'view', 'session' } do
     local path = format('%s/%s', vim.fn.stdpath 'state', dir)
-    if not vim.loop.fs_stat(path) then
+    if not vim.uv.fs_stat(path) then
       util.msg('Creating state directory: ', dir)
       vim.fn.mkdir(path, 'p')
     end

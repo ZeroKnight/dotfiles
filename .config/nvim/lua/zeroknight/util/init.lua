@@ -6,11 +6,14 @@ local M = {}
 
 M.root_patterns = { '.git', '' }
 
--- Returns the module name of the calling function
+-- Returns the module name of the calling function at the given level
+---@param level number
+---@return string?
 function M.get_module_name(level)
   if level == nil then
     level = 2
   end
+  ---@type string
   local name
   local info = debug.getinfo(level, 'S')
   if info ~= nil then
@@ -25,53 +28,32 @@ function M.get_module_name(level)
   return name
 end
 
-function M._log(hl, ...)
-  local args = vim.tbl_flatten { ... }
-  local mod_name = M.get_module_name(4)
-  if mod_name ~= nil and #mod_name > 0 then
-    table.insert(args, 1, format('[%s] ', mod_name))
-  end
-  vim.schedule(function()
-    vim.api.nvim_echo(
-      vim.tbl_map(function(x)
-        return { x, hl }
-      end, args),
-      true,
-      {}
-    )
-  end)
-end
-
-function M.msg(...)
-  M._log('Normal', ...)
-end
-
-function M.info(...)
-  M._log('DiagnosticInfo', 'Info: ', ...)
-end
-
-function M.warn(...)
-  M._log('DiagnosticWarn', 'Warning: ', ...)
-end
-
-function M.error(...)
-  local args = { ... }
-  table.insert(args, debug.traceback('', 2))
-  M._log('DiagnosticError', 'Error: ', args)
-end
-
+-- Shorthand for calling `vim.api.nvim_replace_termcodes(key, true, true, true)`
+---@param key string
 function M.t(key)
   return vim.api.nvim_replace_termcodes(key, true, true, true)
 end
 
+-- Call `vim.cmd` as if it were `string.format`. Equivalent to:
+-- ```
+-- vim.cmd(string.format(cmd, ...))
+-- ```
+---@param cmd string
 function M.cmdf(cmd, ...)
   vim.cmd(format(cmd, ...))
 end
 
+-- Capitalize the first letter of a string
+---@param str string
+---@return string
 function M.capitalize(str)
   return format('%s%s', string.upper(str:sub(1, 1)), string.lower(str:sub(2)))
 end
 
+-- Create a partial function
+---@param func function
+---@param ... any
+---@return function
 function M.partial(func, ...)
   if func == nil then
     error('cannot make partial function out of nil', 2)
@@ -83,21 +65,31 @@ function M.partial(func, ...)
   end
 end
 
+-- Return the path to the current Python interpreter
+---@return string
 function M.python_interpreter()
   if vim.env.VIRTUAL_ENV then
     return vim.env.VIRTUAL_ENV .. '/bin/python'
   else
-    return vim.call('exepath', 'python3')
+    return vim.fn.exepath 'python3'
   end
 end
 
+-- Return the version of the given Python interpreter. If `interpreter` is
+-- `nil`, then the current interpreter is queried.
+---@param interpreter string?
 function M.python_version(interpreter)
-  local ver_cmd = vim.call('shellescape', "import sys; print('.'.join(map(str, sys.version_info[:2])), end='')")
-  return vim.call('system', format('%s -c %s', interpreter, ver_cmd))
+  if interpreter == nil then
+    interpreter = M.python_interpreter()
+  end
+  local ver_cmd = vim.fn.shellescape [[import sys; print('.'.join(map(str, sys.version_info[:2])), end='')]]
+  return vim.fn.system(format('%s -c %s', interpreter, ver_cmd))
 end
 
+-- Toggle diagnostics reporting for the given buffer, or the current if `nil`
 ---@param buffer number?
 function M.toggle_diagnostics(buffer)
+  buffer = buffer or 0
   if vim.diagnostic.is_disabled(buffer) then
     vim.diagnostic.enable(buffer)
     vim.notify('Enabled diagnostics', vim.log.levels.INFO, { title = 'Diagnostics' })
@@ -107,6 +99,7 @@ function M.toggle_diagnostics(buffer)
   end
 end
 
+-- Toggle the `background` vim option
 function M.toggle_background()
   if vim.o.background == 'light' then
     vim.o.background = 'dark'
@@ -115,7 +108,9 @@ function M.toggle_background()
   end
 end
 
--- Trim trailing whitespace in buffer while preserving state/position
+-- Trim trailing whitespace in buffer while preserving state/position. Acts on
+-- the current buffer if `buffer` is `nil`.
+---@param buffer number?
 function M.trim_whitespace(buffer)
   buffer = buffer or 0
   local trimmed = vim.tbl_map(function(x)
@@ -124,17 +119,16 @@ function M.trim_whitespace(buffer)
   vim.api.nvim_buf_set_lines(buffer, 0, -1, true, trimmed)
 end
 
--- From LazyVim
--- returns the root directory based on:
--- * lsp workspace folders
--- * lsp root_dir
+-- From LazyVim. Returns the root directory based on:
+-- * LSP workspace folders
+-- * LSP `root_dir`
 -- * root pattern of filename of the current buffer
 -- * root pattern of cwd
 ---@return string
 function M.get_root()
   ---@type string?
   local path = vim.api.nvim_buf_get_name(0)
-  path = path ~= '' and vim.loop.fs_realpath(path) or nil
+  path = path ~= '' and vim.uv.fs_realpath(path) or nil
   ---@type string[]
   local roots = {}
   if path then
@@ -144,7 +138,7 @@ function M.get_root()
         return vim.uri_to_fname(ws.uri)
       end, workspace) or client.config.root_dir and { client.config.root_dir } or {}
       for _, p in ipairs(paths) do
-        local r = vim.loop.fs_realpath(p)
+        local r = vim.uv.fs_realpath(p)
         if path:find(r, 1, true) then
           roots[#roots + 1] = r
         end
@@ -157,23 +151,23 @@ function M.get_root()
   ---@type string?
   local root = roots[1]
   if not root then
-    path = path and vim.fs.dirname(path) or vim.loop.cwd()
+    path = path and vim.fs.dirname(path) or vim.uv.cwd()
     ---@type string?
     root = vim.fs.find(M.root_patterns, { path = path, upward = true })[1]
-    root = root and vim.fs.dirname(root) or vim.loop.cwd()
+    root = root and vim.fs.dirname(root) or vim.uv.cwd()
   end
   ---@cast root string
   return root
 end
 
--- Pinched from LazyVim
+-- Pinched from LazyVim. Check if `plugin` is available.
 ---@param plugin string
 function M.has_plugin(plugin)
   return require('lazy.core.config').plugins[plugin] ~= nil
 end
 
 -- Add an LspAttach callback
----@param on_attach fun(client, buffer)
+---@param on_attach fun(client: lsp.Client, buffer: number)
 ---@param desc string?
 function M.on_attach(on_attach, desc)
   vim.api.nvim_create_autocmd('LspAttach', {
@@ -182,6 +176,9 @@ function M.on_attach(on_attach, desc)
     callback = function(args)
       local buffer = args.buf
       local client = vim.lsp.get_client_by_id(args.data.client_id)
+      if client == nil then
+        error 'client is somehow nil in LspAttach callback'
+      end
       on_attach(client, buffer)
     end,
   })
@@ -191,7 +188,7 @@ end
 -- by lspconfig. Sends a `workspace/didChangeConfiguration` notification to
 -- running servers as well.
 ---@param server string
----@param settings table
+---@param settings lspconfig.settings
 function M.update_ls_settings(server, settings)
   vim.validate { server = { server, 'string' }, settings = { settings, 'table' } }
   local config = vim.tbl_get(require 'lspconfig.configs', server, 'manager', 'config')
@@ -208,6 +205,8 @@ end
 -- Returns a function that calls a telescope picker with specific options.
 -- Will find my custom pickers, extensions, and builtin pickers. Also defaults
 -- `cwd` to the result of `util.get_root`.
+---@param picker string
+---@param opts table?
 function M.telescope(picker, opts)
   return function()
     local _opts = vim.tbl_deep_extend('keep', opts or {}, { cwd = M.get_root() })
