@@ -6,6 +6,7 @@
 local wk = require 'which-key'
 
 local util = require 'zeroknight.util'
+local format = require 'zeroknight.format'
 
 local api = vim.api
 local diag = vim.diagnostic
@@ -79,10 +80,14 @@ wk.register({
 -- stylua: ignore
 wk.register({
   ['/'] = { '<Cmd>let v:hlsearch = !v:hlsearch<CR>', 'Toggle Search Highlighting' },
+  b = {
+    f = { util.partial(format.format), 'Format buffer', mode = {'n', 'v' } },
+  },
   d = { '"_d', 'Delete, but preserve unnamed register', mode = { 'n', 'v' } },
   t = {
     b = { util.toggle_background, 'Toggle background' },
     d = { util.partial(util.toggle_diagnostics, 0), 'Toggle diagnostics' },
+    f = { util.partial(format.toggle), 'Toggle format on write' },
     h = { util.partial(vim.lsp.inlay_hint, 0), 'Toggle LSP Inlay Hints' },
     l = { function() toggle 'list' end, 'Toggle listchars', },
     s = { function() toggle 'spell' end, 'Toggle Spellcheck', },

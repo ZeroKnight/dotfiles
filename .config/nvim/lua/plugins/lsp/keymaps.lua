@@ -2,7 +2,6 @@
 
 local util = require 'zeroknight.util'
 local handlers = require 'plugins.lsp.handlers'
-local format = require 'plugins.lsp.format'
 
 local lsp = vim.lsp
 
@@ -31,8 +30,6 @@ M.keys = {
   { '<LocalLeader>co', '<Cmd>Telescope lsp_outgoing_calls<CR>', desc = 'Outgoing calls', has = 'callHierarchy' },
   { '<LocalLeader>cs', '<Cmd>Telescope lsp_document_symbols<CR>', desc = 'Find Symbol' },
   { '<LocalLeader>cS', '<Cmd>Telescope lsp_dynamic_workspace_symbols<CR>', desc = 'Find Symbol (Workspace)' },
-  { '<LocalLeader>cf', util.partial(format.format, true), desc = 'Format Buffer', has = 'documentFormatting' },
-  { '<LocalLeader>cf', util.partial(format.format, true), desc = 'Format Range', mode = 'v', has = 'documentRangeFormatting' },
 
   { '<LocalLeader>pd', util.partial(handlers.peek, 'definition'), desc = 'Peek Definition', has = 'definition' },
   { '<LocalLeader>pD', util.partial(handlers.peek, 'declaration'), desc = 'Peek Declaration', has = 'declaration' },

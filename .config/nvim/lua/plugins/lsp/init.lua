@@ -22,20 +22,12 @@ return {
         capabilities = {
           textDocument = { completion = { completionItem = { snippetSupport = true } } },
         },
-        format = {
-          format_on_write = true,
-        },
       }
     end,
     config = function(_, opts)
-      local formatting = require 'plugins.lsp.format'
-
-      formatting.format_on_write = opts.format.format_on_write
-
       -- Main LSP on_attach
       util.on_attach(function(client, buffer)
         require('plugins.lsp.keymaps').on_attach(client, buffer)
-        formatting.on_attach(client, buffer)
       end, 'Initialize core LSP functionality')
 
       -- Build our client capabilities
@@ -100,59 +92,6 @@ return {
       automatic_installation = true,
       ensure_installed = { 'lua_ls', 'jsonls', 'taplo' },
     },
-  },
-
-  {
-    'jose-elias-alvarez/null-ls.nvim',
-    event = { 'BufReadPre', 'BufNewFile' },
-    dependencies = { 'mason.nvim' },
-    opts = function()
-      local builtins = require('null-ls').builtins
-      return {
-        -- NOTE: Trouble shows the code and source name as well
-        diagnostics_format = '#{m}',
-        update_in_insert = false,
-        border = require('zeroknight.config.ui').borders,
-        sources = {
-          -- Diagnostics
-          builtins.diagnostics.gitlint.with {
-            extra_args = { '--contrib', 'contrib-title-conventional-commits' },
-          },
-          builtins.diagnostics.markdownlint,
-          builtins.diagnostics.rstcheck,
-          builtins.diagnostics.selene,
-          builtins.diagnostics.shellcheck,
-          builtins.diagnostics.vale,
-          builtins.diagnostics.vint,
-          builtins.diagnostics.zsh,
-
-          -- Formatting
-          builtins.formatting.black,
-          builtins.formatting.isort,
-          builtins.formatting.markdownlint,
-          builtins.formatting.prettier,
-          builtins.formatting.stylua,
-          builtins.formatting.trim_newlines.with {
-            disabled_filetypes = { 'diff' },
-          },
-          builtins.formatting.trim_whitespace.with {
-            disabled_filetypes = { 'diff' },
-          },
-
-          -- Code Actions
-          builtins.code_actions.gitsigns.with {
-            config = {
-              filter_actions = function(title)
-                return title:lower():match 'blame' == nil and title:lower():match 'hunk' == nil
-              end,
-            },
-          },
-
-          -- Hover
-          builtins.hover.printenv,
-        },
-      }
-    end,
   },
 
   { 'b0o/SchemaStore.nvim', lazy = true },

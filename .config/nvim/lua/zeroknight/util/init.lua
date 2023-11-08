@@ -214,4 +214,24 @@ function M.telescope(picker, opts)
   end
 end
 
+-- Returns `true` if buffer is a normal buffer, i.e. not "special" in some way.
+-- See `:h special-buffers` for details.
+---@param buffer number?
+function M.is_normal_buffer(buffer)
+  buffer = buffer or 0
+  return vim.bo[buffer].buftype == '' and vim.bo[buffer].buflisted
+end
+
+-- Check if `buffer` is any of the given filetype(s)
+---@param buffer number
+---@param filetypes table|string
+function M.is_filetype(buffer, filetypes)
+  if type(filetypes) == 'string' then
+    filetypes = { filetypes }
+  end
+  return vim.iter(filetypes):any(function(ft)
+    return vim.bo[buffer].filetype == ft
+  end)
+end
+
 return M

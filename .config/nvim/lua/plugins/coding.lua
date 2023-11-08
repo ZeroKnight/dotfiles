@@ -1,9 +1,97 @@
 -- Coding Plugins
 --
--- Plugins that assist with or provide tools for working with, manipulating,
--- or transforming code.
+-- Plugins that assist with or provide tools for manipulating, analyzing,
+-- linting, formatting, or transforming code.
+
+local util = require 'zeroknight.util'
 
 return {
+  {
+    'mfussenegger/nvim-lint',
+    lazy = true,
+    opts = {
+      linters_by_ft = {
+        gitcommit = { 'gitlint' },
+        markdown = { 'markdownlint' },
+        python = { 'ruff' },
+        rst = { 'rstcheck' },
+        sh = { 'shellcheck' },
+        vim = { 'vint' },
+      },
+    },
+    config = function(_, opts)
+      local lint = require 'lint'
+      local linters = lint.linters
+
+      lint.linters_by_ft = opts.linters_by_ft
+      linters.gitlint.stdin = true
+      linters.gitlint.args = {
+        '--staged',
+        '--msg-filename',
+        '-',
+        '--contrib',
+        'contrib-title-conventional-commits',
+      }
+    end,
+    init = function()
+      vim.api.nvim_create_autocmd({ 'BufWritePost', 'InsertLeave' }, {
+        group = vim.api.nvim_create_augroup('ZeroKnight.lint', { clear = true }),
+        desc = 'Run linters',
+        callback = function(ctx)
+          if util.is_normal_buffer(ctx.buf) then
+            require('lint').try_lint()
+          end
+        end,
+      })
+    end,
+  },
+
+  {
+    'stevearc/conform.nvim',
+    event = 'BufWritePre',
+    cmd = { 'ConformInfo' },
+    opts = {
+      formatters = {
+        trim_newlines = {
+          condition = function(ctx)
+            return not util.is_filetype(ctx.buf, { 'diff', 'gitcommit' })
+          end,
+        },
+        trim_whitespace = {
+          condition = function(ctx)
+            return not util.is_filetype(ctx.buf, { 'diff' })
+          end,
+        },
+      },
+      formatters_by_ft = {
+        -- Run on all filetypes
+        ['*'] = { 'injected' },
+
+        -- Run on all filetypes that don't have any formatters specified
+        ['_'] = { 'trim_newlines', 'trim_whitespace' },
+
+        json = { 'jq' },
+        lua = { 'stylua' },
+        markdown = { 'prettier' },
+        python = { 'isort', 'black' }, -- TODO: ruff
+        toml = { 'taplo' },
+      },
+    },
+    init = function()
+      local format = require 'zeroknight.format'
+
+      -- Hook into my formatting module
+      format.format_opts.lsp_fallback = 'always'
+      format.format_func = function()
+        -- One-time wrapper to support lazy-loading on keymap defined elsewhere
+        format.format_func = require('conform').format
+        format.format()
+      end
+
+      vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
+    end,
+  },
+
   {
     'klen/nvim-test',
     cmd = { 'TestSuite', 'TestClass', 'TestFile', 'TestNearest', 'TestLast', 'TestVisit' },
