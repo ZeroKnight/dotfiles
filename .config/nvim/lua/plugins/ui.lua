@@ -8,11 +8,12 @@ local util = require 'zeroknight.util'
 local autocmd = vim.api.nvim_create_autocmd
 local augroup = vim.api.nvim_create_augroup
 
+---@type LazySpec
 return {
   {
     'ggandor/leap.nvim',
     lazy = false,
-    config = function(_, opts)
+    config = function()
       local leap = require 'leap'
       leap.add_default_mappings()
       leap.opts.highlight_unlabeled_phase_one_targets = true

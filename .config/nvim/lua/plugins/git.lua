@@ -2,6 +2,7 @@
 
 local util = require 'zeroknight.util'
 
+---@type LazySpec
 return {
   {
     'rhysd/committia.vim',

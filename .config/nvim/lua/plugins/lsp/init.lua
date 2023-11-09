@@ -5,6 +5,7 @@
 
 local util = require 'zeroknight.util'
 
+---@type LazySpec
 return {
   {
     'neovim/nvim-lspconfig',

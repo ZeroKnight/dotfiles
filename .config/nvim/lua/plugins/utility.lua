@@ -4,6 +4,7 @@
 -- subsystems for other plugins, or even just extra docs. Things that don't
 -- belong anywhere else will have a home here.
 
+---@type LazySpec
 return {
   -- Utilities
   { 'dstein64/vim-startuptime', cmd = 'StartupTime' },

@@ -2,6 +2,7 @@
 --
 -- Plugins that enhance the actual text-editing experience.
 
+---@type LazySpec
 return {
   { 'christoomey/vim-sort-motion', keys = { 'gs', 'gss' } },
   { 'godlygeek/tabular', cmd = 'Tabularize' },

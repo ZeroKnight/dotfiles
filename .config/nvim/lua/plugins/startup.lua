@@ -72,6 +72,7 @@ local function button(shortcut, text, rhs, map_opts)
   }
 end
 
+---@type LazySpec
 return {
   {
     'ZeroKnight/alpha-nvim',

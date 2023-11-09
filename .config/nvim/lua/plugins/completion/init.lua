@@ -3,6 +3,7 @@
 -- Plugins that facilitate automatic completion, generally from a variety of
 -- sources. Includes completion engines themselves, interfaces, functions, etc.
 
+---@type LazySpec
 return {
   {
     'hrsh7th/nvim-cmp',

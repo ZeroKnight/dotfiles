@@ -25,6 +25,7 @@ local function open_in_file_browser(prompt_bufnr)
   end
 end
 
+---@type LazySpec
 return {
   {
     'nvim-telescope/telescope.nvim',

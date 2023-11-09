@@ -46,6 +46,7 @@ local wanted_ts_parsers = {
   },
 }
 
+---@type LazySpec
 return {
   { 'cespare/vim-toml', ft = 'toml' },
 

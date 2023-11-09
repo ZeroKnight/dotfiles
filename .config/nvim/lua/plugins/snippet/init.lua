@@ -6,6 +6,7 @@ local keymaps = require 'plugins.snippet.keymaps'
 
 local snippets_path = as_stdpath('config', 'snippets/luasnip')
 
+---@type LazySpec
 return {
   {
     'L3MON4D3/LuaSnip',

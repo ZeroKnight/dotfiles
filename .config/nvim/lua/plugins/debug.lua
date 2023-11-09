@@ -2,6 +2,7 @@
 --
 -- Plugins that aid in and/or add debugging features and tools
 
+---@type LazySpec
 return {
   -- Debug Adapter Protocol (DAP)
   -- TODO: Dive into DAP
