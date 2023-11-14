@@ -2,7 +2,7 @@
 
 - name: Check if running a graphical environment
   ansible.builtin.set_fact:
-    graphical: "{{ (ansible_env.DESKTOP_SESSION or ansible_env.WINDOWMANAGER or ansible_env.DISPLAY) is truthy }}"
+    graphical: "{{ lookup('ansible.builtin.env', 'DESKTOP_SESSION', 'WINDOWMANAGER', 'DISPLAY', default=False) is any }}"
   tags: always
 
 - name: Set up package repositories

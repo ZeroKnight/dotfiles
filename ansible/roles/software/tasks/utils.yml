@@ -27,8 +27,8 @@
   when: ansible_os_family == 'Suse'
 
 - name: Install utilities (Debian)
-  when: ansible_os_family == 'Debian'
   become: true
+  when: ansible_os_family == 'Debian'
   block:
     - name: Install utilities (Debian)
       ansible.builtin.apt:
@@ -45,7 +45,7 @@
           - keychain
           - kitty-terminfo
           - parallel
-          - plocate
+          - "{{ ansible_distribution_version is version('22.04', '>=') | ternary('plocate', 'mlocate') }}"
           - ripgrep
           - sed
           - tmux
@@ -55,7 +55,7 @@
       ansible.builtin.file:
         src: "/usr/bin/{{ item[0] }}"
         dest: "/usr/local/bin/{{ item[1] }}"
-        state: link
+        state: hard
         owner: root
         group: root
       loop:
@@ -88,7 +88,9 @@
     - name: Sparse checkout Tokyo Night repository
       # noqa: command-instead-of-module
       ansible.builtin.shell: |
-        git init --initial-branch=main
+        git init
+        git symbolic-ref HEAD refs/heads/main
+        mkdir .git/info
         git sparse-checkout set extras/
         git remote add origin https://github.com/folke/tokyonight.nvim
         git pull --depth=1 origin main
@@ -98,21 +100,39 @@
 
     - name: Deploy Toyko Night theme for bat
       vars:
+        theme_dir: "{{ (config_dir, 'bat', 'themes') | path_join }}"
         theme_file: "{{ tokyonight.style ~ '.tmTheme' }}"
-      ansible.builtin.file:
-        src: "{{ (tokyonight.extras, 'sublime', theme_file) | path_join }}"
-        dest: "{{ (config_dir, 'bat', 'themes', theme_file) | path_join }}"
-        state: link
+      block:
+        - name: Ensure bat themes directory exists
+          ansible.builtin.file:
+            path: "{{ theme_dir }}"
+            mode: "0755"
+            state: directory
 
-    - name: Rebuild bat cache
-      ansible.builtin.command:
-        cmd: bat cache --build
-        creates: "{{ (ansible_env.HOME, '.cache', 'bat') | path_join }}"
+        - name: Link Tokyo Night bat theme
+          ansible.builtin.file:
+            src: "{{ (tokyonight.extras, 'sublime', theme_file) | path_join }}"
+            dest: "{{ (theme_dir, theme_file) | path_join }}"
+            state: link
+
+        - name: Rebuild bat cache
+          ansible.builtin.command:
+            cmd: bat cache --build
+            creates: "{{ (ansible_env.HOME, '.cache', 'bat') | path_join }}"
 
     - name: Deploy Tokyo Night theme for kitty
       vars:
+        theme_dir: "{{ (config_dir, 'kitty', 'themes') | path_join }}"
         theme_file: "{{ tokyonight.style ~ '.conf' }}"
-      ansible.builtin.file:
-        src: "{{ (tokyonight.extras, 'kitty', theme_file) | path_join }}"
-        dest: "{{ (config_dir, 'kitty', theme_file) | path_join }}"
-        state: link
+      block:
+        - name: Ensure kitty themes directory exists
+          ansible.builtin.file:
+            path: "{{ theme_dir }}"
+            mode: "0755"
+            state: directory
+
+        - name: Link Tokyo Night kitty theme
+          ansible.builtin.file:
+            src: "{{ (tokyonight.extras, 'kitty', theme_file) | path_join }}"
+            dest: "{{ (theme_dir, theme_file) | path_join }}"
+            state: link

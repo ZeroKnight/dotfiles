@@ -1,6 +1,7 @@
 # vim: ft=yaml.ansible
 
 - name: Purge unwanted packages (Debian)
+  become: true
   ansible.builtin.apt:
     name:
       - command-not-found
