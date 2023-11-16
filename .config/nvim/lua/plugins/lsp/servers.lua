@@ -67,6 +67,37 @@ return {
       },
     },
   },
+  powershell_es = {
+    settings = {
+      powershell = {
+        codeFolding = { enable = true },
+        codeFormatting = {
+          addWhitespaceAroundPipe = true,
+          alignPropertyValuePairs = false,
+          autoCorrectAliases = true,
+          avoidSemicolonsAsLineTerminators = true,
+          ignoreOneLineBlock = true,
+          newLineAfterCloseBrace = true,
+          newLineAfterOpenBrace = false,
+          openBraceOnSameLine = true,
+          pipelineIndentationStyle = 'IncreaseIndentationForFirstPipeline',
+          trimWhitespaceAroundPipe = true,
+          useConstantStrings = true,
+          useCorrectCasing = true,
+          whitespaceAfterSeparator = true,
+          whitespaceAroundOperator = true,
+          whitespaceBeforeOpenBrace = true,
+          whitespaceBeforeOpenParen = true,
+          whitespaceBetweenParameters = true,
+          whitespaceInsideBrace = true,
+        },
+        developer = { editorServicesLogLevel = 'None' },
+        enableReferencesCodeLens = true,
+        integratedConsole = { showOnStartup = false },
+        scriptAnalysis = { enable = true },
+      },
+    },
+  },
   pylsp = {
     -- Disable logging for now until the jsonrpc warning flood is fixed
     cmd = { 'pylsp', '--log-file', '/dev/null' },

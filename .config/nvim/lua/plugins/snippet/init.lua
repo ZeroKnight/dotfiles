@@ -5,6 +5,7 @@ local Color = require('zeroknight.util.color').Color
 local keymaps = require 'plugins.snippet.keymaps'
 
 local snippets_path = as_stdpath('config', 'snippets/luasnip')
+local external_snippets_path = as_stdpath('data', 'external_snippets')
 
 ---@type LazySpec
 return {
@@ -65,6 +66,7 @@ return {
 
       -- Load snippets
       require('luasnip.loaders.from_lua').lazy_load { paths = snippets_path }
+      require('luasnip.loaders.from_vscode').lazy_load { paths = external_snippets_path }
     end,
   },
 }
