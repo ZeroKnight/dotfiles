@@ -1,0 +1,16 @@
+cache-dir = '~/.cache/ruff'
+line-length = 120
+output-format = 'grouped'
+src = ['src']
+tab-size = 4
+
+[format]
+indent-style = 'space'
+line-ending = 'lf'
+preview = true
+
+[lint.isort]
+required-imports = ['from __future__ import annotations']
+
+[lint.pycodestyle]
+max-doc-length = 88
