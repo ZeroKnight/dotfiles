@@ -3,6 +3,7 @@
 #
 
 zmodload zsh/terminfo
+zmodload zsh/pcre
 
 # Explicitly load complist to ensure menu-select can be re-defined by compinit
 # and that the `listscroll` and `menuselect` keymaps are available
@@ -103,9 +104,9 @@ listscroll-skip() {
 zle -N listscroll-skip
 bindkey -M listscroll '^I' listscroll-skip
 
-# Very elegant trick from Zim
 double-dot-expand() {
-  if [[ ${LBUFFER} == *.. ]]; then
+  # XXX: Can't use negative lookbehind, so this'll have to do
+  if [[ $LBUFFER =~ '\B\.{2}' && $LBUFFER[-3] != '.' ]]; then
     LBUFFER+='/..'
   else
     LBUFFER+='.'
