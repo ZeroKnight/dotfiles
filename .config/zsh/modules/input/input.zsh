@@ -150,6 +150,14 @@ zle-line-init zle-keymap-select() {
 zle -N zle-line-init
 zle -N zle-keymap-select
 
+# Prepend 'sudo' to current cmdline
+zle-prepend-sudo() {
+    LBUFFER="sudo $LBUFFER"
+    zle redisplay
+}
+zle -N zle-prepend-sudo
+bindkey '^S' zle-prepend-sudo
+
 ### Options
 
 # Perform a path search even on command names with slashes in them.
