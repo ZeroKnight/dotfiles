@@ -21,7 +21,10 @@ return {
     opts = function()
       return {
         capabilities = {
-          textDocument = { completion = { completionItem = { snippetSupport = true } } },
+          textDocument = {
+            completion = { completionItem = { snippetSupport = true } },
+            foldingRange = { dynamicRegistration = false, lineFoldingOnly = true },
+          },
         },
       }
     end,

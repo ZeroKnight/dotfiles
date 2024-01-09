@@ -1,3 +1,5 @@
+local ui = require 'zeroknight.config.ui'
+
 local augroup = vim.api.nvim_create_augroup
 local optl = vim.opt_local
 local optg = vim.opt_global
@@ -81,7 +83,11 @@ autocmd('TermOpen', {
 autocmd('TextYankPost', {
   desc = 'Highlight yanked text',
   callback = function()
-    require('vim.highlight').on_yank { timeout = 300, higroup = 'LspReferenceWrite', on_visual = false }
+    require('vim.highlight').on_yank {
+      timeout = ui.highlight.indicator_duration,
+      higroup = 'LspReferenceWrite',
+      on_visual = false,
+    }
   end,
 })
 

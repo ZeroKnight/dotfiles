@@ -57,14 +57,6 @@ return {
     cmd = { 'Ilist' },
   },
 
-  {
-    'Konfekt/FastFold',
-    event = { 'BufReadPost', 'BufNewFile' },
-    init = function()
-      vim.g.fastfold_skip_filetypes = { 'gitcommit', 'taglist' }
-    end,
-  },
-
   -- Libraries
   { 'nvim-lua/plenary.nvim', lazy = true },
   { 'tpope/vim-repeat', event = 'VeryLazy' },

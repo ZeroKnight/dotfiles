@@ -3,6 +3,8 @@
 -- Any plugins that add filetype support or various features, tools, helpers,
 -- etc. for any languages.
 
+local util = require 'zeroknight.util'
+
 local wanted_ts_parsers = {
   vendored = {
     -- These ship with Neovim and *should* always be available anyway. Including them for completeness.
@@ -166,8 +168,10 @@ return {
     },
     config = function(_, opts)
       require('nvim-treesitter.configs').setup(opts)
-      vim.opt.foldmethod = 'expr'
-      vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
+      if not util.has_plugin 'ufo' then
+        vim.opt.foldmethod = 'expr'
+        vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
+      end
     end,
   },
 

@@ -7,6 +7,10 @@ local format = string.format
 
 local M = {
   borders = 'rounded',
+  highlight = {
+    -- How long a temporary "indicator" highlight should last, e.g. yank highlights
+    indicator_duration = 300,
+  },
   colors = {
     diagnostics = {
       -- Colors from folke/lsp-colors.nvim

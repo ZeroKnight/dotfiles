@@ -3,6 +3,7 @@
 -- Additions, enhancements, and replacements for the user interface. Typically
 -- adds new windows, signs, or other visual tools.
 
+local ui = require 'zeroknight.config.ui'
 local util = require 'zeroknight.util'
 
 local autocmd = vim.api.nvim_create_autocmd
@@ -448,7 +449,6 @@ return {
 
       -- Match existing diagnostic colors
       local Color = require('colorbuddy.color').Color
-      local ui = require 'zeroknight.config.ui'
 
       for _, severity in ipairs { 'Error', 'Warn', 'Info' } do
         local diag_name = string.format('Diagnostic%s', severity)
@@ -563,6 +563,61 @@ return {
     },
   },
 
+  {
+    'ThePrimeagen/harpoon',
+    keys = function()
+    -- stylua: ignore
+      local keymaps = {
+        {'<Leader>H', function() require('harpoon.ui').toggle_quick_menu() end, 'Harpoon Menu'},
+        {']H', function() require('harpoon.ui').nav_next() end, 'Next Harpooned file'},
+        {'[H', function() require('harpoon.ui').nav_prev() end, 'Previous Harpooned file'},
+      }
+      for i = 0, 9 do
+        table.insert(keymaps, {
+          string.format('<M-%d>', i),
+          function()
+            require('harpoon.ui').nav_file(i)
+          end,
+          'Harpoon file ' .. i,
+        })
+      end
+      return keymaps
+    end,
+    cmd = 'Harpoon',
+    config = function()
+      require('harpoon').setup()
+      require('plugins.telescope.ext').add_extension 'harpoon'
+      vim.api.nvim_create_user_command('Harpoon', function()
+        require('harpoon.mark').add_file()
+      end, { desc = 'Harpoon current file' })
+    end,
+  },
+
+  {
+    'kevinhwang91/nvim-ufo',
+    dependencies = { 'kevinhwang91/promise-async' },
+    event = { 'BufReadPost', 'BufNewFile' },
+    -- stylua: ignore
+    keys = {
+      { 'zR', function() require('ufo').openFoldsExceptKinds() end, desc = 'Open all folds' },
+      { 'zM', function() require('ufo').closeAllFolds() end, desc = 'Close all folds' },
+    },
+    opts = {
+      close_fold_kinds = { 'imports' },
+      open_fold_hl_timeout = ui.highlight.indicator_duration,
+      preview = {
+        win_config = {
+          border = ui.borders,
+          maxheight = 15,
+        },
+      },
+    },
+    init = function()
+      vim.o.foldlevel = 99 -- ufo is designed to work with a high foldlevel
+      vim.o.foldlevelstart = 99
+    end,
+  },
+
   -- LSP-Related UI
 
   {
@@ -608,7 +663,6 @@ return {
     version = '*',
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     opts = function()
-      local ui = require 'zeroknight.config.ui'
       return {
         action_keys = {
           close = { 'q', 'gq' }, -- Other plugins use gq for closing
@@ -668,7 +722,6 @@ return {
       { '<F4>', '<Esc><Cmd>SymbolsOutline<CR>', desc = 'Toggle Symbols Outline', mode = { 'n', 'i' } },
     },
     opts = function()
-      local ui = require 'zeroknight.config.ui'
       local symbol_hl = {
         Array = '@constant',
         Boolean = '@boolean',
@@ -731,7 +784,6 @@ return {
       end, 'Navic LSP symbol context')
     end,
     opts = function()
-      local ui = require 'zeroknight.config.ui'
       return {
         separator = string.format(' %s ', ui.icons.separators.breadcrumb),
         icons = vim.tbl_map(function(x)
@@ -741,36 +793,6 @@ return {
         safe_output = true,
         click = true,
       }
-    end,
-  },
-
-  {
-    'ThePrimeagen/harpoon',
-    keys = function()
-    -- stylua: ignore
-      local keymaps = {
-        {'<Leader>H', function() require('harpoon.ui').toggle_quick_menu() end, 'Harpoon Menu'},
-        {']H', function() require('harpoon.ui').nav_next() end, 'Next Harpooned file'},
-        {'[H', function() require('harpoon.ui').nav_prev() end, 'Previous Harpooned file'},
-      }
-      for i = 0, 9 do
-        table.insert(keymaps, {
-          string.format('<M-%d>', i),
-          function()
-            require('harpoon.ui').nav_file(i)
-          end,
-          'Harpoon file ' .. i,
-        })
-      end
-      return keymaps
-    end,
-    cmd = 'Harpoon',
-    config = function()
-      require('harpoon').setup()
-      require('plugins.telescope.ext').add_extension 'harpoon'
-      vim.api.nvim_create_user_command('Harpoon', function()
-        require('harpoon.mark').add_file()
-      end, { desc = 'Harpoon current file' })
     end,
   },
 }
