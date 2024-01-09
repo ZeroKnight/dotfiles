@@ -74,7 +74,7 @@ return {
         json = { 'jq' },
         lua = { 'stylua' },
         markdown = { 'prettier' },
-        python = { 'isort', 'black' }, -- TODO: ruff
+        python = { 'ruff_format', 'ruff_fix' },
         toml = { 'taplo' },
       },
     },

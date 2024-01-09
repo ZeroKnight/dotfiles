@@ -106,9 +106,9 @@ return {
         configurationSources = { 'flake8' },
         plugins = {
           autopep8 = { enabled = false },
-          flake8 = { enabled = true },
+          flake8 = { enabled = false },
           pycodestyle = { enabled = false },
-          pydocstyle = { enabled = true },
+          pydocstyle = { enabled = false },
           pyflakes = { enabled = false },
           pylint = { enabled = false },
           rope_autoimport = { enabled = true },
