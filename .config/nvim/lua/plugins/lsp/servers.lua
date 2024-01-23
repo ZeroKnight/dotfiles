@@ -18,6 +18,7 @@ return {
       },
     },
   },
+  gopls = {},
   jsonls = {
     settings = {
       json = {
