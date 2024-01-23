@@ -51,7 +51,6 @@ localmod vim
 # Language Support and Development
 localmod git
 localmod go
-localmod perl
 localmod python
 
 # Tools/Utilities
