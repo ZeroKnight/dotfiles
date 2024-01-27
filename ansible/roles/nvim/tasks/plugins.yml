@@ -22,3 +22,15 @@
       - +Lazy! sync
       - +qa
     creates: "{{ (state_dir, 'nvim', 'lazy') | path_join }}"
+
+- name: Ensure external_snippets directory exists
+  ansible.builtin.file:
+    path: "{{ (nvim_data, 'external_snippets', 'vscode') | path_join }}"
+    mode: "0755"
+    state: directory
+
+- name: Download VSCode PowerShell snippets
+  ansible.builtin.get_url:
+    url: "https://raw.githubusercontent.com/PowerShell/vscode-powershell/main/snippets/PowerShell.json"
+    dest: "{{ (nvim_data, 'external_snippets', 'vscode', 'PowerShell.json') | path_join }}"
+    mode: "0644"

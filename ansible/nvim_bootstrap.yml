@@ -39,9 +39,11 @@
     - name: Bootstrap Lazy.nvim and install plugins
       ansible.builtin.import_role:
         name: nvim
-        tasks_from: lazy
+        tasks_from: plugins
+      tags: plugin
 
     - name: Set up plugin providers
       ansible.builtin.import_role:
         name: nvim
         tasks_from: providers
+      tags: plugin
