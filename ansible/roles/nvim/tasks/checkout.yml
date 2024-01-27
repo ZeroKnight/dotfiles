@@ -2,11 +2,11 @@
 
 - name: Ensure repository state
   block:
-    - name: "Clone Neovim and checkout {{ clone_tag }}"
+    - name: "Clone Neovim and checkout {{ build.tag }}"
       ansible.builtin.git: &clone_opts
-        dest: "{{ clone_path }}"
+        dest: "{{ build.path }}"
         repo: https://github.com/neovim/neovim
-        version: "{{ clone_tag }}"
+        version: "{{ build.tag }}"
       register: clone_result
   rescue:
     - name: Work around tag reuse
@@ -17,7 +17,7 @@
         - name: Force tag fetch
           ansible.builtin.command: # noqa: command-instead-of-module
             cmd: git fetch --force
-            chdir: "{{ clone_path }}"
+            chdir: "{{ build.path }}"
           register: force_fetch
           changed_when: "'forced' in force_fetch.stdout"
           check_mode: false

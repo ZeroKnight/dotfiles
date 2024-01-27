@@ -5,11 +5,11 @@
   block:
     - name: Check if .deps already built
       ansible.builtin.stat:
-        path: "{{ (clone_path, '.deps') | path_join }}"
+        path: "{{ (build.path, '.deps') | path_join }}"
       register: deps_dir
 
     - name: Run `make distclean`
       community.general.make:
-        chdir: "{{ clone_path }}"
+        chdir: "{{ build.path }}"
         target: distclean
       when: deps_dir.stat.exists
