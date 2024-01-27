@@ -1,0 +1,9 @@
+# vim: ft=yaml.ansible
+
+- name: Install latest upstream kitty release
+  hosts: localhost
+  tasks:
+    - name: Run software/kitty.yml
+      ansible.builtin.import_role:
+        name: software
+        tasks_from: kitty.yml

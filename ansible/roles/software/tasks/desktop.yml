@@ -5,8 +5,6 @@
   community.general.zypper:
     name:
       - keepassxc
-      - kitty
-      - kitty-shell-integration
       - firefox
       - speedcrunch
       - vlc
@@ -18,9 +16,14 @@
   ansible.builtin.apt:
     name:
       - keepassxc
-      - kitty
-      - kitty-doc
       - firefox
       - speedcrunch
       - vlc
   when: ansible_os_family == 'Debian'
+
+- name: Install Kitty terminal
+  ansible.builtin.import_tasks: kitty.yml
+  when: "'/usr/local/bin/kitty' is not file"
+  tags:
+    - shell
+    - kitty
