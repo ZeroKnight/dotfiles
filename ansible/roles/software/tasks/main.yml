@@ -7,11 +7,15 @@
 
 - name: Set up package repositories
   ansible.builtin.import_tasks: repos.yml
-  tags: repo
+  tags:
+    - repo
+    - distro
 
 - name: Set up zsh
   ansible.builtin.import_tasks: zsh.yml
-  tags: shell
+  tags:
+    - shell
+    - zsh
 
 - name: Set up utilities
   ansible.builtin.import_tasks: utils.yml
@@ -23,4 +27,6 @@
 
 - name: Purge unwanted packages
   ansible.builtin.import_tasks: purge.yml
-  tags: purge
+  tags:
+    - purge
+    - distro
