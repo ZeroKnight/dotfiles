@@ -31,3 +31,27 @@
     repo: https://github.com/agkozak/zcomet
     dest: "{{ (opt_dir, 'zcomet', 'bin') | path_join }}"
     depth: 1
+
+- name: Remove unwanted openSuse /etc/zshrc edits
+  when: ansible_os_family == 'Suse'
+  become: true
+  block:
+    - name: Don't run compinit in /etc/zshrc
+      ansible.builtin.lineinfile:
+        path: /etc/zshrc
+        search_string: "compinit"
+        state: absent
+
+    - name: Don't create aliases
+      ansible.builtin.lineinfile:
+        path: /etc/zshrc
+        regexp: '^\s*alias'
+        state: absent
+
+- name: Remove stray zcompdump files
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: absent
+  loop:
+    - "{{ (ansible_env.HOME, '.zcompdump') | path_join }}"
+    - "{{ ((ansible_env.ZDOTDIR | default(config_dir, 'zsh')), '.zcompdump') | path_join }}"
