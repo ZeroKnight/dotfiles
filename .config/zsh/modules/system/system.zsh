@@ -17,7 +17,7 @@ alias zyp='sudo zypper'
 ### Systemd
 
 alias sysc='systemctl'
-alias sysc='systemctl --user'
+alias syscu='systemctl --user'
 alias jctl='journalctl'
 
 ### Misc
