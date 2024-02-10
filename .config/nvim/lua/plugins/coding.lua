@@ -105,6 +105,7 @@ return {
       { '<LocalLeader>tg', '<Cmd>TestVisit<CR>', desc = 'Jump to the file of the last run test' },
       { '<LocalLeader>te', '<Cmd>TestEdit<CR>', desc = 'Edit corresponding test file' },
     },
+    config = true,
   },
 
   {
