@@ -2,5 +2,5 @@
 
 ---@type LazySpec
 return {
-  { 'folke/lazy.nvim', version = '*' },
+  { 'folke/lazy.nvim', version = '*', branch = 'main' },
 }
