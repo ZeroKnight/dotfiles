@@ -19,6 +19,17 @@ return {
     },
   },
   gopls = {},
+  jedi_language_server = {
+    settings = {
+      diagnostics = { enable = true },
+      markupKindPreferred = 'markdown',
+      workspace = {
+        symbols = {
+          maxSymbols = 0, -- Return all symbols
+        },
+      },
+    },
+  },
   jsonls = {
     settings = {
       json = {
@@ -104,8 +115,10 @@ return {
     cmd = { 'pylsp', '--log-file', '/dev/null' },
     settings = {
       pylsp = {
+        disabled = true,
         configurationSources = { 'flake8' },
         plugins = {
+          -- Get lints from external tools
           autopep8 = { enabled = false },
           flake8 = { enabled = false },
           pycodestyle = { enabled = false },
@@ -119,7 +132,7 @@ return {
       },
     },
     capabilities = {
-      -- Using either null-ls or external tools for formatting
+      -- Using external tools for formatting
       documentFormattingProvider = false,
       documentRangeFormattingProvider = false,
     },
