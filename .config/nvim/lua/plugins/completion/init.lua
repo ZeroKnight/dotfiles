@@ -19,6 +19,7 @@ return {
       { 'hrsh7th/cmp-nvim-lsp' },
       { 'hrsh7th/cmp-nvim-lua' },
       { 'hrsh7th/cmp-nvim-lsp-document-symbol' },
+      { 'ray-x/cmp-treesitter' },
     },
     init = function()
       -- Required by cmp
@@ -36,6 +37,7 @@ return {
         nvim_lua = 'vim.api',
         path = 'path',
         luasnip = 'snip',
+        treesitter = 'TS',
       }
 
       return {
@@ -58,6 +60,7 @@ return {
 
         sources = cmp.config.sources {
           { name = 'nvim_lsp' },
+          { name = 'treesitter' },
           { name = 'path' },
           { name = 'luasnip' },
           { name = 'calc', keyword_length = 3 },
