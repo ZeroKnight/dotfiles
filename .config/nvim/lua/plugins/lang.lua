@@ -113,9 +113,6 @@ return {
       playground = {
         enable = true,
       },
-      context_commentstring = {
-        enable = true,
-      },
       textobjects = {
         select = {
           enable = true,
