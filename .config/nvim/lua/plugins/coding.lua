@@ -54,12 +54,12 @@ return {
     opts = {
       formatters = {
         trim_newlines = {
-          condition = function(ctx)
+          condition = function(self, ctx)
             return not util.is_filetype(ctx.buf, { 'diff', 'gitcommit' })
           end,
         },
         trim_whitespace = {
-          condition = function(ctx)
+          condition = function(self, ctx)
             return not util.is_filetype(ctx.buf, { 'diff' })
           end,
         },
