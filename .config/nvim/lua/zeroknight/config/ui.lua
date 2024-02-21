@@ -33,6 +33,7 @@ local M = {
       note = ' ',
       help = ' ',
       linenr = '',
+      find = ' ',
     },
     folds = {
       open = '',
@@ -47,6 +48,7 @@ local M = {
     git = {
       logo = ' ',
       branch = '',
+      dir = ' ',
       added = ' ',
       modified = ' ',
       removed = ' ',

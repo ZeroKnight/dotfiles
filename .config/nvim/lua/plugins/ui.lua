@@ -119,7 +119,6 @@ return {
     'nvim-lualine/lualine.nvim',
     event = 'VeryLazy',
     opts = function()
-      local ui = require 'zeroknight.config.ui'
       local icons = ui.icons
       local color = require 'zeroknight.util.color'
 
@@ -149,6 +148,13 @@ return {
         'selectioncount',
         icon_enabled = true,
         icon = ' ',
+      }
+
+      local searchcount = {
+        'searchcount',
+        icon_enabled = true,
+        icon = icons.common.find,
+        color = fg 'DiagnosticVirtualTextInfo',
       }
 
       return {
@@ -186,7 +192,7 @@ return {
             { 'filename', path = 1 },
             -- stylua: ignore
             {
-              '%w',
+              '%w', -- [Preview]
               cond = function() return vim.wo.previewwindow end,
               color = fg 'Constant',
             },
@@ -196,8 +202,8 @@ return {
             {
               function() return vim.bo.spelllang end,
               cond = function() return vim.wo.spell end,
-              icon = '﬜',
-              color = 'Define',
+              icon = ' ',
+              color = fg 'PreProc',
             },
             {
               function()
@@ -209,7 +215,7 @@ return {
               end,
               color = fg 'Constant',
             },
-            'searchcount',
+            searchcount,
           },
           lualine_y = {
             { 'filetype', cond = has_file },
@@ -236,6 +242,14 @@ return {
               -- stylua: ignore
               lualine_a = { function() return 'Help' end },
               lualine_b = { { 'filename', file_status = false, path = 0, icon = icons.common.help } },
+              lualine_x = { searchcount },
+              lualine_z = { 'progress' },
+            },
+            inactive_sections = {
+              -- stylua: ignore
+              lualine_a = { function() return 'Help' end },
+              lualine_b = { { 'filename', file_status = false, path = 0, icon = icons.common.help } },
+              lualine_x = {},
               lualine_z = { 'progress' },
             },
             filetypes = { 'help' },
@@ -248,7 +262,7 @@ return {
               lualine_c = {
                 {
                   function() return vim.fn.fnamemodify(vim.fn.FugitiveGitDir(), ':~') end,
-                  icon = ' ',
+                  icon = icons.git.dir,
                 }
               },
               lualine_y = {
