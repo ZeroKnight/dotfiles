@@ -11,6 +11,7 @@ cmp.setup.filetype({ 'lua', 'vim' }, {
   sources = cmp.config.sources {
     { name = 'nvim_lua' },
     { name = 'nvim_lsp' },
+    { name = 'treesitter' },
     { name = 'path' },
     { name = 'luasnip' },
     { name = 'calc', keyword_length = 3 },
