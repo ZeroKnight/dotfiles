@@ -2,7 +2,12 @@
 
 local cmp = require 'cmp'
 
-cmp.setup.filetype({ 'lua, vim' }, {
+-- Disabled filetypes
+cmp.setup.filetype({ 'TelescopePrompt' }, {
+  sources = {},
+})
+
+cmp.setup.filetype({ 'lua', 'vim' }, {
   sources = cmp.config.sources {
     { name = 'nvim_lua' },
     { name = 'nvim_lsp' },
