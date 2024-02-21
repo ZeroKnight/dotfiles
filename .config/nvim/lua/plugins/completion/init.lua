@@ -34,7 +34,7 @@ return {
       local menu_text = {
         buffer = 'buf',
         nvim_lsp = 'LSP',
-        nvim_lua = 'vim.api',
+        nvim_lua = 'vim',
         path = 'path',
         luasnip = 'snip',
         treesitter = 'TS',
@@ -146,38 +146,12 @@ return {
       require 'plugins.completion.conventional_commits'
 
       -- Set up highlights
-      vim.cmd [[
-  hi link CmpItemAbbrMatch Function
-  hi link CmpItemAbbrMatchFuzzy Statement
-]]
-
-      for group, link in pairs { CmpItemAbbrDeprecated = 'Error', CmpItemKind = 'Title', CmpItemMenu = 'NonText' } do
-        if not pcall(vim.api.nvim_get_hl_by_name, group, false) then
-          vim.cmd(string.format('hi link %s %s', group, link))
-        end
-      end
-
-      local kind_colors = {
-        Class = 'Type',
-        Field = 'String',
-        Interface = 'Type',
-        Method = 'Function',
-        Module = 'Type',
-        Namespace = 'Type',
-        Package = 'Statement',
-        Property = 'Identifier',
-        Snippet = 'SpecialKey',
-        Variable = 'Identifier',
+      local overrides = {
+        CmpItemMenu = 'NonText', -- Mute the item source (e.g. [LSP])
+        CmpItemAbbrMatchFuzzy = 'Constant', -- Accentuate fuzzy portion
       }
-      for kind, _ in pairs(ui.icons.kinds) do
-        if not pcall(vim.api.nvim_get_hl_by_name, 'CmpItemKind' .. kind, false) then
-          local explicit = kind_colors[kind]
-          if explicit ~= nil then
-            vim.cmd(string.format('hi link CmpItemKind%s %s', kind, explicit))
-          elseif pcall(vim.api.nvim_get_hl_by_name, kind, false) then
-            vim.cmd(string.format('hi link CmpItemKind%s %s', kind, kind))
-          end
-        end
+      for group, link in pairs(overrides) do
+        vim.api.nvim_set_hl(0, group, { link = link }) -- Accentuate fuzzy portion
       end
 
       -- nvim-autopairs: Automatically insert parentheses when accepting functions/methods
