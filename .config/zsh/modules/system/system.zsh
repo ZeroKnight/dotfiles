@@ -2,17 +2,8 @@
 # System administration aliases et al
 #
 
-### Sudo
-
 # Explicitly expand aliases when using sudo (see `man zshmisc`)
 alias sudo='sudo '
-
-# Implicit sudo shortcuts
-alias pacman='sudo pacman'
-alias apt='sudo apt'
-alias aptg='sudo apt-get'
-alias aptc='sudo apt-cache'
-alias zyp='sudo zypper'
 
 ### Systemd
 

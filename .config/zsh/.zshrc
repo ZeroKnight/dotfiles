@@ -45,6 +45,7 @@ localmod processes
 localmod search
 localmod ssh
 localmod system
+localmod distro
 localmod tmux
 localmod vim
 
