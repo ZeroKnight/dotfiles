@@ -62,6 +62,12 @@
         - [fdfind, fd]
         - [batcat, bat]
 
+- name: Enable delta in git config
+  ansible.builtin.file:
+    src: "{{ (config_dir, 'git', 'conf.d', 'delta.gitconfig') | path_join }}"
+    dest: "{{ (config_dir, 'git', 'conf.enabled', 'delta.gitconfig') | path_join }}"
+    state: link
+
 - name: Install z.lua
   ansible.builtin.git:
     repo: https://github.com/skywind3000/z.lua
