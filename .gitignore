@@ -1,3 +1,5 @@
+/.config/git/conf.enabled/*.gitconfig
+
 ### Fonts
 *.ttf
 *.ttc
