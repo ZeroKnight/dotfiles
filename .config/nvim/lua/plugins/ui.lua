@@ -460,18 +460,6 @@ return {
       vim.notify = notify
       notify.setup(opts)
       require('plugins.telescope.ext').add_extension 'notify'
-
-      -- Match existing diagnostic colors
-      local Color = require('colorbuddy.color').Color
-
-      for _, severity in ipairs { 'Error', 'Warn', 'Info' } do
-        local diag_name = string.format('Diagnostic%s', severity)
-        local col = Color.new(diag_name, ui.colors.diagnostics[severity]):saturate(0.2):dark(0.25):to_rgb()
-
-        util.cmdf([[hi! link Notify%sTitle %s]], string.upper(severity), diag_name)
-        util.cmdf([[hi! link Notify%sIcon %s]], string.upper(severity), diag_name)
-        util.cmdf([[hi! Notify%sBorder guifg=%s]], string.upper(severity), col)
-      end
     end,
     keys = {
       {
@@ -617,7 +605,7 @@ return {
       { 'zM', function() require('ufo').closeAllFolds() end, desc = 'Close all folds' },
     },
     opts = {
-      close_fold_kinds = { 'imports' },
+      close_fold_kinds_for_ft = { default = { 'imports' } },
       open_fold_hl_timeout = ui.highlight.indicator_duration,
       preview = {
         win_config = {
