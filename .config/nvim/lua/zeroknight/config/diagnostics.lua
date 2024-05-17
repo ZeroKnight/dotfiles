@@ -3,11 +3,11 @@
 local ui = require 'zeroknight.config.ui'
 
 local command = vim.api.nvim_create_user_command
+local severity = vim.diagnostic.severity
 
 vim.diagnostic.config {
-  underline = { severity = { min = vim.diagnostic.severity.WARN } },
+  underline = { severity = { min = severity.WARN } },
   virtual_text = true,
-  signs = true,
   update_in_insert = false,
   severity_sort = true,
   float = {
@@ -15,18 +15,20 @@ vim.diagnostic.config {
     scope = 'line',
     source = true,
   },
+  signs = {
+    text = {
+      [severity.ERROR] = ' ',
+      [severity.WARN] = ' ',
+      [severity.INFO] = ' ',
+      [severity.HINT] = ' ',
+    },
+  },
 }
-
--- Define Diagnostic signs
-for severity, icon in pairs(ui.icons.diagnostics) do
-  local name = string.format('DiagnosticSign%s', severity)
-  vim.fn.sign_define(name, { text = icon, texthl = name })
-end
 
 command('Diagnostics', function(ctx)
   local severity = nil
   if ctx.args and ctx.args ~= '' then
-    severity = vim.diagnostic.severity[ctx.args]
+    severity = severity[ctx.args]
   end
   if ctx.bang then
     vim.diagnostic.setloclist { severity = severity }
