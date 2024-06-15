@@ -1,0 +1,47 @@
+# vim: ft=yaml.ansible
+
+- name: Configure package manager (Suse)
+  become: true
+  when: ansible_os_family == 'Suse'
+  vars:
+    config: /etc/zypp/zypp.conf
+  block:
+    - name: Don't include recommended packages by default
+      ansible.builtin.lineinfile:
+        path: "{{ config }}"
+        search_string: "# solver.onlyRequires = false"
+        line: "solver.onlyRequires = true"
+
+    - name: Don't allow vendor change on dist-upgrade by default
+      ansible.builtin.lineinfile:
+        path: "{{ config }}"
+        search_string: "# solver.dupAllowVendorChange = true"
+        line: "solver.dupAllowVendorChange = false"
+
+    - name: Don't allow architecture change on dist-upgrade by default
+      ansible.builtin.lineinfile:
+        path: "{{ config }}"
+        search_string: "# solver.dupAllowArchChange = true"
+        line: "solver.dupAllowArchChange = false"
+
+    - name: "[mirrorsorcerer] Increase repo auto-refresh delay to 18 hours"
+      ansible.builtin.lineinfile:
+        path: "{{ config }}"
+        search_string: "# repo.refresh.delay = 10"
+        line: "repo.refresh.delay = 1080"
+
+    # Disable chunking package downloads across multiple mirrors when metalink
+    # data is present.
+    - name: "[mirrorsorcerer] Do not chunk connections to avoid tanking performance"
+      ansible.builtin.lineinfile:
+        path: "{{ config }}"
+        search_string: "# download.max_concurrent_connections = 5"
+        line: "download.max_concurrent_connections = 1"
+
+    # By default, this is unset and just means zypper picks a "sane default".
+    # Let's be explicit.
+    - name: "[mirrorsorcerer] Ensure packages are downloaded in advance"
+      ansible.builtin.lineinfile:
+        path: "{{ config }}"
+        search_string: "# commit.downloadMode ="
+        line: "commit.downloadMode = DownloadInAdvance"
