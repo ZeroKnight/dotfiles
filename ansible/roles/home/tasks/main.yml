@@ -33,6 +33,14 @@
     - .bashrc
     - .profile
 
+- name: Redirect KWin cache to tmpfs
+  ansible.builtin.copy:
+    src: files/.config/user-tmpfiles.d/kwin-cache.conf
+    dest: "{{ (config_dir, 'user-tmpfiles.d') | path_join }}"
+    mode: "0644"
+  when: desktop == 'KDE'
+  tags: desktop
+
 - name: Deploy dotfiles
   block:
     - name: Gather dotfiles
