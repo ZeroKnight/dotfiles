@@ -1,10 +1,5 @@
 # vim: ft=yaml.ansible
 
-- name: Check if running a graphical environment
-  ansible.builtin.set_fact:
-    graphical: "{{ lookup('ansible.builtin.env', 'DESKTOP_SESSION', 'WINDOWMANAGER', 'DISPLAY', default=False) is any }}"
-  tags: always
-
 - name: Configure package manager
   ansible.builtin.import_tasks: pkgmgr.yml
   tags:
