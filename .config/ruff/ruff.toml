@@ -2,7 +2,7 @@ cache-dir = '~/.cache/ruff'
 line-length = 120
 output-format = 'grouped'
 src = ['src']
-tab-size = 4
+indent-width = 4
 
 [format]
 indent-style = 'space'
