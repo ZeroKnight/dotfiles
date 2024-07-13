@@ -3,6 +3,8 @@
 - name: Install utilities (Suse)
   become: true
   community.general.zypper:
+    disable_recommends: false
+    state: present
     name:
       - bat
       - curl
@@ -22,8 +24,6 @@
       - sed
       - tmux
       - tree
-    disable_recommends: false
-    state: latest
   when: ansible_os_family == 'Suse'
 
 - name: Install utilities (Debian)
@@ -32,6 +32,7 @@
   block:
     - name: Install utilities (Debian)
       ansible.builtin.apt:
+        state: present
         name:
           - bat
           - curl
@@ -58,6 +59,7 @@
         state: hard
         owner: root
         group: root
+        mode: '0755'
       loop:
         - [fdfind, fd]
         - [batcat, bat]

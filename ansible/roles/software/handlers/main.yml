@@ -1,0 +1,14 @@
+# vim: ft=yaml.ansible
+
+- name: Refresh repositories (Suse)
+  community.general.zypper_repository:
+    repo: "*"
+    runrefresh: true
+  when: ansible_os_family == 'Suse'
+  listen: refresh repositories
+
+- name: Refresh repositories (Debian)
+  ansible.builtin.apt:
+    update_cache: true
+  when: ansible_os_family == 'Debian'
+  listen: refresh repositories

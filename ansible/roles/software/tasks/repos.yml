@@ -3,6 +3,7 @@
 - name: Add package manager repositories (Suse)
   become: true
   when: ansible_os_family == 'Suse'
+  notify: refresh repositories
   block:
     - name: Add package manager repositories
       community.general.zypper_repository:
@@ -21,11 +22,6 @@
       loop_control:
         label: "{{ item.name | default(item.repo) }}"
 
-    - name: Refresh repositories
-      community.general.zypper_repository:
-        repo: "*"
-        runrefresh: true
-
 - name: Set debian_arch fact
   ansible.builtin.set_fact:
     debian_arch: "{{ ansible_architecture | replace('x86_64', 'amd64') }}"
@@ -34,6 +30,7 @@
 - name: Add package manager repositories (Debian)
   become: true
   when: ansible_os_family == 'Debian'
+  notify: refresh repositories
   module_defaults:
     ansible.builtin.get_url: &perms
       mode: "0644"
@@ -84,10 +81,6 @@
             src: apt_repo.list.j2
             dest: /etc/apt/sources.list.d/eza-community.list
 
-    - name: Refresh repositories
-      ansible.builtin.apt:
-        update_cache: true
-
 - name: Purge and lock unwanted packages (Suse)
   when: ansible_os_family == 'Suse'
   become: true
@@ -106,3 +99,6 @@
       loop: "{{ purge_and_lock.Suse }}"
       register: zypper_addlock
       changed_when: "'<locks' in zypper_addlock.stdout"
+
+- name: Flush handlers
+  ansible.builtin.meta: flush_handlers

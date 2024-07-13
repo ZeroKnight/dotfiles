@@ -3,17 +3,19 @@
 - name: Install desktop applications (Suse)
   become: true
   community.general.zypper:
+    disable_recommends: false
+    state: present
     name:
       - keepassxc
       - firefox
       - speedcrunch
       - vlc
-    state: latest
   when: ansible_os_family == 'Suse'
 
 - name: Install desktop applications (Debian)
   become: true
   ansible.builtin.apt:
+    state: present
     name:
       - keepassxc
       - firefox
