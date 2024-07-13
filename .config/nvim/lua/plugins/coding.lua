@@ -14,7 +14,6 @@ return {
       linters_by_ft = {
         gitcommit = { 'gitlint' },
         markdown = { 'markdownlint' },
-        python = { 'ruff' },
         rst = { 'rstcheck' },
         sh = { 'shellcheck' },
         vim = { 'vint' },
