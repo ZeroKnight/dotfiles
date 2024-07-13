@@ -9,25 +9,25 @@
     - name: Don't include recommended packages by default
       ansible.builtin.lineinfile:
         path: "{{ config }}"
-        search_string: "# solver.onlyRequires = false"
+        regexp: "solver\\.onlyRequires\\s*=\\s*(false|true)"
         line: "solver.onlyRequires = true"
 
     - name: Don't allow vendor change on dist-upgrade by default
       ansible.builtin.lineinfile:
         path: "{{ config }}"
-        search_string: "# solver.dupAllowVendorChange = true"
+        regexp: "solver\\.dupAllowVendorChange\\s*=\\s*(true|false)"
         line: "solver.dupAllowVendorChange = false"
 
     - name: Don't allow architecture change on dist-upgrade by default
       ansible.builtin.lineinfile:
         path: "{{ config }}"
-        search_string: "# solver.dupAllowArchChange = true"
+        regexp: "solver\\.dupAllowArchChange\\s*=\\s*(true|false)"
         line: "solver.dupAllowArchChange = false"
 
     - name: "[mirrorsorcerer] Increase repo auto-refresh delay to 18 hours"
       ansible.builtin.lineinfile:
         path: "{{ config }}"
-        search_string: "# repo.refresh.delay = 10"
+        regexp: "repo\\.refresh.delay\\s*=\\s*\\d*"
         line: "repo.refresh.delay = 1080"
 
     # Disable chunking package downloads across multiple mirrors when metalink
@@ -35,7 +35,7 @@
     - name: "[mirrorsorcerer] Do not chunk connections to avoid tanking performance"
       ansible.builtin.lineinfile:
         path: "{{ config }}"
-        search_string: "# download.max_concurrent_connections = 5"
+        regexp: "download\\.max_concurrent_connections\\s*=\\s*\\d*"
         line: "download.max_concurrent_connections = 1"
 
     # By default, this is unset and just means zypper picks a "sane default".
@@ -43,5 +43,5 @@
     - name: "[mirrorsorcerer] Ensure packages are downloaded in advance"
       ansible.builtin.lineinfile:
         path: "{{ config }}"
-        search_string: "# commit.downloadMode ="
+        regexp: "commit\\.downloadMode\\s*="
         line: "commit.downloadMode = DownloadInAdvance"
