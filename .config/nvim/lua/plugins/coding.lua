@@ -9,7 +9,7 @@ local util = require 'zeroknight.util'
 return {
   {
     'mfussenegger/nvim-lint',
-    lazy = true,
+    event = { 'BufReadPre', 'BufNewFile' },
     opts = {
       linters_by_ft = {
         gitcommit = { 'gitlint' },
@@ -23,6 +23,7 @@ return {
       local lint = require 'lint'
       local linters = lint.linters
 
+      require('zeroknight.lint').lint_func = lint.try_lint
       lint.linters_by_ft = opts.linters_by_ft
       linters.gitlint.stdin = true
       linters.gitlint.args = {
@@ -32,15 +33,12 @@ return {
         '--contrib',
         'contrib-title-conventional-commits',
       }
-    end,
-    init = function()
+
       vim.api.nvim_create_autocmd({ 'BufReadPost', 'BufWritePost', 'InsertLeave', 'TextChanged' }, {
         group = vim.api.nvim_create_augroup('ZeroKnight.lint', { clear = true }),
         desc = 'Run linters',
         callback = function(ctx)
-          if util.is_normal_buffer(ctx.buf) then
-            require('lint').try_lint()
-          end
+          require('zeroknight.lint').lint(ctx.buf)
         end,
       })
     end,

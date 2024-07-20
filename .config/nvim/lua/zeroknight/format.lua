@@ -40,7 +40,7 @@ end
 ---@param opts table?
 ---@param force boolean?
 function M.format(opts, force)
-  if M.should_format() or force then
+  if force or M.should_format() then
     M.format_func(vim.tbl_extend('force', M.format_opts, opts or {}))
   end
 end
