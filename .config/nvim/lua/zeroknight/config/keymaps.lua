@@ -21,6 +21,16 @@ local function toggle(option)
   )
 end
 
+local function toggle_inlay_hints()
+  local enabled = vim.lsp.inlay_hint.is_enabled()
+  vim.lsp.inlay_hint.enable(not enabled)
+  vim.notify(
+    (enabled and 'Enabled ' or 'Disabled ') .. 'Inlay Hints',
+    vim.log.levels.INFO,
+    { title = 'Option toggled' }
+  )
+end
+
 -- Ported from tpope/vim-unimpaired
 local function _wrap(operation, addr, count, map, visual)
   local old_fdm = vim.wo.foldmethod
@@ -87,14 +97,14 @@ wk.register({
   d = { '"_d', 'Delete, but preserve unnamed register', mode = { 'n', 'v' } },
   t = {
     b = { util.toggle_background, 'Toggle background' },
-    c = { function() toggle 'list' end, 'Toggle listchars', },
+    c = { util.partial(toggle, 'list'), 'Toggle listchars', },
     d = { util.partial(util.toggle_diagnostics, 0), 'Toggle diagnostics' },
-    f = { util.partial(format.toggle), 'Toggle format on write' },
-    h = { util.partial(vim.lsp.inlay_hint, 0), 'Toggle LSP Inlay Hints' },
-    l = { util.partial(lint.toggle), 'Toggle automatic linting' },
-    s = { function() toggle 'spell' end, 'Toggle Spellcheck', },
-    w = { function() toggle 'wrap' end, 'Toggle word wrap', },
-    ['/'] = { function() toggle 'hlsearch' end, 'Toggle hlsearch', },
+    f = { format.toggle, 'Toggle format on write' },
+    h = { toggle_inlay_hints, 'Toggle LSP Inlay Hints' },
+    l = { lint.toggle, 'Toggle automatic linting' },
+    s = { util.partial(toggle, 'spell'), 'Toggle Spellcheck', },
+    w = { util.partial(toggle, 'wrap'), 'Toggle word wrap', },
+    ['/'] = { util.partial(toggle, 'hlsearch'), 'Toggle hlsearch', },
   },
   u = {
     i = { vim.show_pos, 'Inspect cursor position' },

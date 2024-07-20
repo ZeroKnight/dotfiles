@@ -37,8 +37,8 @@ return {
       vim.api.nvim_create_autocmd({ 'BufReadPost', 'BufWritePost', 'InsertLeave', 'TextChanged' }, {
         group = vim.api.nvim_create_augroup('ZeroKnight.lint', { clear = true }),
         desc = 'Run linters',
-        callback = function(ctx)
-          require('zeroknight.lint').lint(ctx.buf)
+        callback = function()
+          require('zeroknight.lint').lint()
         end,
       })
     end,
