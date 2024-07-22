@@ -1,29 +1,8 @@
 -- Telescope configuration
 
 local util = require 'zeroknight.util'
+local actions = require 'plugins.telescope.actions'
 local ext = require 'plugins.telescope.ext'
-
-local function extension_spec(source, name)
-  return {
-    source,
-    lazy = true,
-    init = function()
-      table.insert(ext.to_load, name)
-    end,
-    dependencies = { 'nvim-telescope/telescope.nvim' },
-  }
-end
-
-local function open_in_file_browser(prompt_bufnr)
-  local entry = require('telescope.actions.state').get_selected_entry()
-  local dir = require('telescope.from_entry').path(entry)
-  if vim.fn.isdirectory(dir) == 1 then
-    require('telescope.actions').close(prompt_bufnr)
-    require('telescope.extensions').file_browser.file_browser { cwd = dir }
-  else
-    require('zeroknight.util').msg('Not a directory: ', dir)
-  end
-end
 
 ---@type LazySpec
 return {
@@ -45,81 +24,144 @@ return {
         end,
       })
     end,
-    opts = {
-      defaults = {
-        prompt_prefix = '  ',
-        selection_caret = '❯ ',
-        winblend = 13,
-        -- stylua: ignore
-        mappings = {
-          i = {
-            ['<C-j>'] = 'move_selection_next',
-            ['<C-k>'] = 'move_selection_previous',
-            ['<C-s>'] = 'select_horizontal',
-            ['<C-x>'] = function(...) return require('trouble').smart_open_with_trouble(...) end,
-            ['<C-b>'] = open_in_file_browser,
-            ['<C-Down>'] = function(...) return require('telescope.actions').cycle_history_next(...) end,
-            ['<C-Up>'] = function(...) return require('telescope.actions').cycle_history_prev(...) end,
+    opts = function()
+      local telescope = require 'telescope'
+      local layout = require 'telescope.actions.layout'
+
+      -- When using the flex layout with the default picker layout settings,
+      -- there is a point where the horizontal preview disappears due to a lack
+      -- of columns, but there are still enough that it doesn't switch over to
+      -- the vertical layout. Setting `flip_columns` and `horizontal.preview_cutoff`
+      -- to the same value makes the transition seamless.
+      local flex_threshold = 120
+
+      return {
+        defaults = {
+          prompt_prefix = '  ',
+          selection_caret = '❯ ',
+          winblend = 13,
+          dynamic_preview_title = true,
+          layout_strategy = 'flex',
+          layout_config = {
+            flex = {
+              flip_columns = flex_threshold,
+              horizontal = {
+                preview_cutoff = flex_threshold,
+              },
+            },
           },
-          n = {
-            ['q'] = function(...) return require('telescope.actions').close(...) end,
-            ['<C-s>'] = 'select_horizontal',
-            ['<C-x>'] = function(...) return require('trouble').smart_open_with_trouble(...) end,
-            ['<C-b>'] = open_in_file_browser,
-            ['<C-Down>'] = function(...) return require('telescope.actions').cycle_history_next(...) end,
-            ['<C-Up>'] = function(...) return require('telescope.actions').cycle_history_prev(...) end,
+          cycle_layout_list = { 'flex', 'vertical', 'horizontal', 'center' },
+          history = { limit = 256, path = as_stdpath('state', 'telescope_history') },
+          file_ignore_patterns = {
+            '%.luac',
+            '%.shada',
+            'swap/.*%.sw[pno]',
           },
-        },
-      },
-      pickers = {
-        find_files = {
+          -- stylua: ignore
           mappings = {
             i = {
-              ['<C-h>'] = function()
-                require('telescope.builtin').find_files { hidden = true }
-              end,
-              ['<M-i>'] = function()
-                require('telescope.builtin').find_files { no_ignore = true }
-              end,
+              ['<C-j>'] = 'move_selection_next',
+              ['<C-k>'] = 'move_selection_previous',
+              ['<C-n>'] = layout.cycle_layout_next,
+              ['<C-p>'] = layout.cycle_layout_prev,
+              ['<M-p>'] = layout.toggle_preview,
+              ['<C-Down>'] = 'cycle_history_next',
+              ['<C-Up>'] = 'cycle_history_prev',
+
+              ['<C-s>'] = 'select_horizontal',
+              ['<C-x>'] = actions.open_with_trouble,
+              ['<M-b>'] = actions.open_in_file_browser,
             },
             n = {
-              ['<C-h>'] = function()
-                require('telescope.builtin').find_files { hidden = true }
-              end,
-              ['<M-i>'] = function()
-                require('telescope.builtin').find_files { no_ignore = true }
-              end,
+              ['q'] = 'close',
+              ['c'] = 'drop_all',
+
+              ['<C-n>'] = layout.cycle_layout_next,
+              ['<C-p>'] = layout.cycle_layout_prev,
+              ['<M-p>'] = layout.toggle_preview,
+              ['<C-Down>'] = 'cycle_history_next',
+              ['<C-Up>'] = 'cycle_history_prev',
+
+              ['<C-s>'] = 'select_horizontal',
+              ['<C-x>'] = actions.open_with_trouble,
+              ['<M-b>'] = actions.open_in_file_browser,
             },
           },
         },
-        buffers = {
-          mappings = {
-            i = {
-              ['<M-d>'] = 'delete_buffer',
-            },
-            n = {
-              ['<M-d>'] = 'delete_buffer',
+        pickers = {
+          find_files = {
+            mappings = {
+              i = {
+                ['<C-h>'] = actions.fd_toggle_hidden,
+                ['<M-i>'] = actions.fd_toggle_ignore,
+              },
+              n = {
+                ['h'] = actions.fd_toggle_hidden,
+                ['<M-i>'] = actions.fd_toggle_ignore,
+              },
             },
           },
+          buffers = {
+            mappings = {
+              i = {
+                ['<M-d>'] = 'delete_buffer',
+              },
+              n = {
+                ['<M-d>'] = 'delete_buffer',
+              },
+            },
+          },
+          treesitter = {
+            symbol_highlights = {
+              ['associated'] = '@constant',
+              ['constant'] = '@constant',
+              ['field'] = '@variable.member',
+              ['function'] = '@function',
+              ['import'] = '@keyword.import',
+              ['method'] = '@function.method',
+              ['parameter'] = '@variable.parameter',
+              ['property'] = '@property',
+              ['struct'] = 'Struct',
+              ['type'] = '@type',
+              ['var'] = '@variable',
+            },
+          },
+          search_history = { theme = 'dropdown' },
+          colorscheme = { theme = 'dropdown' },
+          vim_options = { theme = 'dropdown' },
+          filetypes = { theme = 'dropdown' },
         },
-        search_history = { theme = 'dropdown' },
-        colorscheme = { theme = 'dropdown' },
-        vim_options = { theme = 'dropdown' },
-      },
-      extensions = {
-        file_browser = {
-          hijack_netrw = true,
-          theme = 'ivy',
+        extensions = {
+          file_browser = {
+            theme = 'ivy',
+            hijack_netrw = true,
+            grouped = true,
+            prompt_path = true,
+            -- Standard picker options
+            initial_mode = 'normal',
+            scroll_strategy = 'limit',
+            selection_strategy = 'follow',
+            mappings = {
+              i = {
+                ['<C-t>'] = 'select_tab',
+                ['<M-w>'] = telescope.extensions.file_browser.actions.change_cwd,
+              },
+              n = {
+                ['g'] = false,
+                ['u'] = telescope.extensions.file_browser.actions.goto_parent_dir,
+              },
+            },
+          },
+          fzy_native = {
+            override_generic_sorter = true,
+            override_file_sorter = true,
+          },
         },
-        fzy_native = {
-          override_generic_sorter = true,
-          override_file_sorter = true,
-        },
-      },
-    },
+      }
+    end,
     -- stylua: ignore
     keys = {
-      { '<C-p>', util.telescope('buffers', { sort_mru = true }), desc = 'Find Buffer' },
+      { '<C-p>', util.telescope('buffers', { sort_mru = true, cwd = false }), desc = 'Find Buffer' },
       { '<Leader>F', util.telescope('file_browser.file_browser'), desc = 'Browse Files' },
       { '<Leader>ff', util.telescope('find_files'), desc = 'Find File' },
       { '<Leader>fF', util.telescope('find_files', { cwd = false }), desc = 'Find File (cwd)' },
@@ -168,11 +210,10 @@ return {
       { '<Leader>sW', util.telescope('grep_string', { cwd = false }), desc = 'Search Word (cwd)' },
       { '<Leader>sb', util.telescope('current_buffer_fuzzy_find'), desc = 'Search in Buffer' },
       { '<Leader>sj', util.telescope('jumplist'), desc = 'Search Jump List' },
+      { '<Leader>st', util.telescope('tagstack'), desc = 'Search Tag Stack' },
       { '<Leader>sn', util.telescope('notify.notify'), desc = 'Search Notifications' },
 
       { '<M-s>', util.telescope('snippets'), desc = 'Find Snippet', mode = 'i' },
-
-      { '<C-t>', "getcmdtype() == ':' ? '<Plug>(TelescopeFuzzyCommandSearch)' : '<C-t>'", desc = 'Command History', expr = true, mode = 'c' },
     },
     config = function(_, opts)
       local telescope = require 'telescope'
@@ -182,10 +223,10 @@ return {
   },
 
   -- Extensions
-  extension_spec('nvim-telescope/telescope-file-browser.nvim', 'file_browser'),
-  extension_spec('nvim-telescope/telescope-fzy-native.nvim', 'fzy_native'),
-  extension_spec('nvim-telescope/telescope-github.nvim', 'gh'),
-  extension_spec('benfowler/telescope-luasnip.nvim', 'luasnip'),
-  extension_spec('tsakirist/telescope-lazy.nvim', 'lazy'),
-  extension_spec('nvim-telescope/telescope-z.nvim', 'z'),
+  ext.spec('nvim-telescope/telescope-file-browser.nvim', 'file_browser'),
+  ext.spec('nvim-telescope/telescope-fzy-native.nvim', 'fzy_native'),
+  ext.spec('nvim-telescope/telescope-github.nvim', 'gh'),
+  ext.spec('benfowler/telescope-luasnip.nvim', 'luasnip'),
+  ext.spec('tsakirist/telescope-lazy.nvim', 'lazy'),
+  ext.spec('nvim-telescope/telescope-z.nvim', 'z'),
 }

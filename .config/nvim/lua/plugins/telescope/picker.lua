@@ -7,7 +7,6 @@ function M.nvim_config()
   require('telescope.builtin').find_files {
     prompt_title = 'Neovim Configuration',
     cwd = vim.fn.stdpath 'config',
-    layout_strategy = 'flex',
     layout_config = {
       horizontal = {
         preview_width = 0.6,
@@ -20,7 +19,10 @@ end
 function M.nvim_logs()
   require('telescope.builtin').find_files {
     prompt_title = 'Neovim Log Files',
-    cwd = vim.fn.stdpath 'cache',
+    find_command = { 'fd', '--type', 'f', '--color', 'never', '--extension', 'log' },
+    cwd = vim.fn.stdpath 'log',
+    -- Older/Incorrect plugin code stores logs in cache
+    search_dirs = { vim.fn.stdpath 'log', vim.fn.stdpath 'cache' },
     layout_strategy = 'horizontal',
     layout_config = {
       preview_width = 0.6,
@@ -45,7 +47,6 @@ function M.zsh_config()
   require('telescope.builtin').find_files {
     prompt_title = 'Zsh Configuration',
     cwd = vim.fn.expand '$ZSH',
-    layout_strategy = 'flex',
   }
 end
 
