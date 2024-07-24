@@ -664,47 +664,61 @@ return {
     'folke/trouble.nvim',
     version = '*',
     dependencies = { 'nvim-tree/nvim-web-devicons' },
-    opts = function()
-      return {
-        action_keys = {
-          close = { 'q', 'gq' }, -- Other plugins use gq for closing
-          open_split = { '<C-s>' },
-        },
-        group = true,
-        fold_open = ui.icons.folds.open,
-        fold_closed = ui.icons.folds.closed,
-        use_diagnostic_signs = true,
-      }
-    end,
+    cmd = 'Trouble',
+    opts = {
+      focus = true,
+      icons = { kinds = ui.icons.kinds },
+    },
     keys = {
-      { '<Leader>xx', '<Cmd>TroubleToggle<CR>', desc = 'Toggle Trouble window' },
-      { '<Leader>xw', '<Cmd>Trouble workspace_diagnostics<CR>', desc = 'Show workspace diagnostics (Trouble)' },
-      { '<Leader>xd', '<Cmd>Trouble document_diagnostics<CR>', desc = 'Show document diagnostics (Trouble)' },
-      { '<Leader>xq', '<Cmd>Trouble quickfix<CR>', desc = 'Show quickfix list (Trouble)' },
-      { '<Leader>xl', '<Cmd>Trouble loclist<CR>', desc = 'Show location list (Trouble)' },
-      { '<Leader>xt', '<Cmd>TodoTrouble<CR>', desc = 'Show Todo (Trouble)' },
-      { '<Leader>xT', '<Cmd>TodoTelescope<CR>', desc = 'Show Todo (Telescope)' },
+      { '<Leader>xx', '<Cmd>Trouble diagnostics toggle<CR>', desc = 'Diagnostics (Trouble)' },
+      { '<Leader>xX', '<Cmd>Trouble diagnostics toggle filter.buf=0<CR>', desc = 'Buffer Diagnostics (Trouble)' },
+      { '<Leader>xq', '<Cmd>Trouble qflist toggle<CR>', desc = 'Toggle Quickfix List (Trouble)' },
+      { '<Leader>xl', '<Cmd>Trouble loclist toggle<CR>', desc = 'Toggle Location List (Trouble)' },
+      { '<Leader>xt', '<Cmd>Trouble todo toggle<CR>', desc = 'Show Todo (Trouble)' },
+      { '<F4>', '<Cmd>Trouble symbols toggle<CR>', desc = 'Show Document Symbols (Trouble)' },
       {
         '[q',
         function()
           if require('trouble').is_open() then
-            require('trouble').previous { skip_groups = true, jump = true }
+            require('trouble').prev { jump = true }
           else
             pcall(vim.cmd.cprev)
           end
         end,
-        desc = 'Previous trouble/quickfix item',
+        desc = 'Previous Trouble/Quickfix item',
       },
       {
         ']q',
         function()
           if require('trouble').is_open() then
-            require('trouble').next { skip_groups = true, jump = true }
+            require('trouble').next { jump = true }
           else
             pcall(vim.cmd.cnext)
           end
         end,
-        desc = 'Next trouble/quickfix item',
+        desc = 'Next Trouble/Quickfix item',
+      },
+      {
+        '[Q',
+        function()
+          if require('trouble').is_open() then
+            require('trouble').first { jump = true }
+          else
+            pcall(vim.cmd.cfirst)
+          end
+        end,
+        desc = 'First Trouble/Quickfix item',
+      },
+      {
+        ']Q',
+        function()
+          if require('trouble').is_open() then
+            require('trouble').last { jump = true }
+          else
+            pcall(vim.cmd.clast)
+          end
+        end,
+        desc = 'Last Trouble/Quickfix item',
       },
     },
   },
@@ -714,64 +728,6 @@ return {
     cmd = 'CodeActionMenu',
     init = function()
       vim.g.code_action_menu_window_border = require('zeroknight.config.ui').borders
-    end,
-  },
-
-  {
-    'simrat39/symbols-outline.nvim',
-    cmd = { 'SymbolsOutline', 'SymbolsOutlineOpen' },
-    keys = {
-      { '<F4>', '<Esc><Cmd>SymbolsOutline<CR>', desc = 'Toggle Symbols Outline', mode = { 'n', 'i' } },
-    },
-    opts = function()
-      local symbol_hl = {
-        Array = '@constant',
-        Boolean = '@boolean',
-        Class = '@type',
-        Constant = '@constant',
-        Constructor = '@constructor',
-        Enum = '@type',
-        EnumMember = '@field',
-        Event = '@type',
-        Field = '@field',
-        File = '@text.uri',
-        Function = '@function',
-        Interface = '@type',
-        Key = '@type',
-        Method = '@method',
-        Module = '@namespace',
-        Namespace = '@namespace',
-        Null = '@type',
-        Number = '@number',
-        Object = '@type',
-        Operator = '@operator',
-        Package = '@namespace',
-        Property = '@method',
-        String = '@string',
-        Struct = '@type',
-        TypeParameter = '@parameter',
-        Variable = '@constant',
-      }
-
-      return {
-        autofold_depth = 3,
-        auto_preview = true,
-        highlight_hovered_item = false,
-        width = 20,
-
-        fold_markers = { ui.icons.folds.closed, ui.icons.folds.open },
-        symbols = vim.iter(symbol_hl):fold({}, function(t, kind, hl)
-          t[kind] = { icon = ui.icons.kinds[kind], hl = hl }
-          return t
-        end),
-
-        keymaps = {
-          hover_symbol = 'K',
-          toggle_preview = 'p',
-          fold_all = 'zm',
-          unfold_all = 'zr',
-        },
-      }
     end,
   },
 
