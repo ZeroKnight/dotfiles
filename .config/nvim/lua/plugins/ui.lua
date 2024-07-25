@@ -395,7 +395,6 @@ return {
     'stevearc/dressing.nvim',
     lazy = true,
     opts = function()
-      local ui = require 'zeroknight.config.ui'
       return {
         input = { -- vim.ui.input
           enabled = false, -- using noice
@@ -423,20 +422,21 @@ return {
         },
       }
     end,
-    init = function()
+    init = function(plugin)
       -- Lazy load when vim.ui.* is called. Tweaked from LazyVim.
-      local orig_input = vim.ui.input
-      local orig_select = vim.ui.select
-
-      ---@diagnostic disable-next-line: duplicate-set-field
-      vim.ui.input = function(...)
-        require('lazy').load { plugins = { 'dressing.nvim' } }
-        return orig_input(...)
+      if util.plugin_opts(plugin).input.enabled then
+        ---@diagnostic disable-next-line: duplicate-set-field
+        vim.ui.input = function(...)
+          require('lazy').load { plugins = { 'dressing.nvim' } }
+          return vim.ui.input(...)
+        end
       end
-      ---@diagnostic disable-next-line: duplicate-set-field
-      vim.ui.select = function(...)
-        require('lazy').load { plugins = { 'dressing.nvim' } }
-        return orig_select(...)
+      if util.plugin_opts(plugin).select.enabled then
+        ---@diagnostic disable-next-line: duplicate-set-field
+        vim.ui.select = function(...)
+          require('lazy').load { plugins = { 'dressing.nvim' } }
+          return vim.ui.select(...)
+        end
       end
     end,
   },

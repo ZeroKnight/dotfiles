@@ -166,6 +166,12 @@ function M.has_plugin(plugin)
   return require('lazy.core.config').plugins[plugin] ~= nil
 end
 
+-- Get options for a `LazyPlugin`.
+---@param plugin LazyPlugin
+function M.plugin_opts(plugin)
+  return require('lazy.core.plugin').values(plugin, 'opts', false)
+end
+
 -- Add an LspAttach callback
 ---@param on_attach fun(client: lsp.Client, buffer: number)
 ---@param desc string?
