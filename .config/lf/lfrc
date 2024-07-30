@@ -1,3 +1,29 @@
+# lf file manager configuration
+
+# Options
+
+set shell 'bash'
+set shellopts '-eu'
+
+set anchorfind false
+set ignorecase true
+set smartcase true
+set incsearch true
+
+set hidecursorinactive true
+set scrolloff 3
+set tabstop 4
+
+# Mappings
+
+map <delete> delete
+
+# "Execute" file
+map x $$f
+map X !$f
+
+# Custom Commands
+
 cmd edit-config ${{
     $EDITOR ~/.config/lf/lfrc
     lf -remote "send $id source ~/.config/lf/lfrc"
@@ -13,3 +39,26 @@ map zz push :z-jump<space>
 cmd on-select &{{
     lf -remote "send $id set statfmt \"$(eza -ld --color=always "$f")\""
 }}
+
+cmd tar ${{
+    set -f
+    mkdir $1
+    cp -r $fx $1
+    tar -czf $1.tar.gz $1
+    rm -rf $1
+}}
+
+cmd zip ${{
+    set -f
+    mkdir $1
+    cp -r $fx $1
+    zip -r $1.zip $1
+    rm -rf $1
+}}
+
+cmd xopen &{{
+    for prg in $fx; do
+        setsid nohup xdg-open "$prg" >/dev/null 2>/dev/null &
+    done
+}}
+map o xopen
