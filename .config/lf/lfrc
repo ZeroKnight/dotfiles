@@ -14,6 +14,9 @@ set hidecursorinactive true
 set scrolloff 3
 set tabstop 4
 
+set previewer ~/.config/lf/lf_kitty_preview
+set cleaner ~/.config/lf/lf_kitty_clean
+
 # Mappings
 
 map <delete> delete

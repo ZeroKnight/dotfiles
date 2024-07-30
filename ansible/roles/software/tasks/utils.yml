@@ -77,6 +77,35 @@
     depth: 1
   tags: shell
 
+- name: Install pistol for lf
+  vars:
+    repo: 'doronbehar/pistol'
+    bin_file: "pistol-static-linux-{{ ansible_architecture }}"
+  tags: shell
+  block:
+    - name: Get latest pistol release
+      ansible.builtin.uri:
+        url: "https://api.github.com/repos/{{ repo }}/releases/latest"
+        method: GET
+      register: pistol_release
+
+    - name: Download latest pistol release
+      become: true
+      ansible.builtin.get_url:
+        url: "{{ item.src.browser_download_url }}"
+        dest: "{{ ('/usr/local', item.dest) | path_join }}"
+        mode: "{{ item.mode }}"
+      loop:
+        - src: "{{ pistol_release.json.assets | selectattr('name', 'eq', bin_file) | first }}"
+          dest: bin/pistol
+          mode: "0755"
+        - src: "{{ pistol_release.json.assets | selectattr('name', 'eq', 'pistol.1') | first }}"
+          dest: share/man/man1/pistol.1
+          mode: "0644"
+      loop_control:
+        label: "{{ item.src.name }}"
+
+
 - name: Install Tokyo Night Theme
   vars:
     tokyonight:
