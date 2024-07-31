@@ -17,6 +17,21 @@
     state: latest
   when: ansible_os_family == 'Debian'
 
+- name: Create system-local zsh site-functions directory
+  become: true
+  ansible.builtin.file:
+    path: /usr/local/share/zsh/site-functions
+    state: directory
+    mode: "0755"
+
+- name: Correct lf zsh completion
+  become: true
+  ansible.builtin.file:
+    src: /usr/share/zsh/site-functions/_lf/lf.zsh
+    dest: /usr/local/share/zsh/site-functions/_lf
+    state: link
+    force: true
+
 - name: Ensure zsh directories
   ansible.builtin.file:
     path: "{{ item }}"
