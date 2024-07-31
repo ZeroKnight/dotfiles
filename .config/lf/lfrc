@@ -65,3 +65,12 @@ cmd xopen &{{
     done
 }}
 map o xopen
+
+cmd pager ${{
+    if hash bat 2>/dev/null; then
+        bat --paging=always $f
+    else
+        less $f
+    fi
+}}
+map i pager
