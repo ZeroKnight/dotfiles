@@ -17,10 +17,10 @@ vim.diagnostic.config {
   },
   signs = {
     text = {
-      [severity.ERROR] = ' ',
-      [severity.WARN] = ' ',
-      [severity.INFO] = ' ',
-      [severity.HINT] = ' ',
+      [severity.ERROR] = ui.icons.diagnostics.Error,
+      [severity.WARN] = ui.icons.diagnostics.Warn,
+      [severity.INFO] = ui.icons.diagnostics.Info,
+      [severity.HINT] = ui.icons.diagnostics.Hint,
     },
   },
 }

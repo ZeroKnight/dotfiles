@@ -41,7 +41,8 @@ return {
         show_help = false,
         icons = {
           breadcrumb = require('zeroknight.config.ui').icons.separators.breadcrumb,
-          group = '  ',
+          separator = '➜ ',
+          group = '󰍻  ',
         },
         window = {
           border = require('zeroknight.config.ui').borders,

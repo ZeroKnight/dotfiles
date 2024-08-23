@@ -134,6 +134,7 @@ return {
         extensions = {
           file_browser = {
             theme = 'ivy',
+            dir_icon = require('zeroknight.config.ui').icons.common.folder,
             hijack_netrw = true,
             grouped = true,
             prompt_path = true,
