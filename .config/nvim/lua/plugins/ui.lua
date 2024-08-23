@@ -613,6 +613,10 @@ return {
           maxheight = 15,
         },
       },
+      provider_selector = function()
+        -- Use TS instead of LSP. It should give the same results much faster.
+        return { 'treesitter', 'indent' }
+      end,
     },
     init = function()
       vim.o.foldlevel = 99 -- ufo is designed to work with a high foldlevel

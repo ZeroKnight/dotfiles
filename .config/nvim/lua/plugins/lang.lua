@@ -165,7 +165,7 @@ return {
     },
     config = function(_, opts)
       require('nvim-treesitter.configs').setup(opts)
-      if not util.has_plugin 'ufo' then
+      if not util.has_plugin 'nvim-ufo' then
         vim.opt.foldmethod = 'expr'
         vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
       end
