@@ -48,6 +48,7 @@ return {
       file = { suffix = '' },
       undo = { suffix = '' },
       window = { suffix = '' },
+      yank = { suffix = '' },
     },
   },
 

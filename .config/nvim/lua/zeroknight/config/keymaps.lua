@@ -133,12 +133,12 @@ wk.register({
 -- stylua: ignore
 wk.register {
   ['['] = {
-    c = { function() _wrap(copy, '-', vim.v.count1, '[c', false) end, 'Copy line up' },
+    y = { function() _wrap(copy, '-', vim.v.count1, '[y', false) end, 'Copy line up' },
     e = { function() _wrap(move, '--', vim.v.count1, '[e', false) end, 'Move line up' },
     ['<Space>'] = { function() blank('up', vim.v.count1) end, 'Add blank line up' },
   },
   [']'] = {
-    c = { function() _wrap(copy, '+-', vim.v.count1, ']c', false) end, 'Copy line down' },
+    y = { function() _wrap(copy, '+-', vim.v.count1, ']y', false) end, 'Copy line down' },
     e = { function() _wrap(move, '+', vim.v.count1, ']e', false) end, 'Move line down' },
     ['<Space>'] = { function() blank('down', vim.v.count1) end, 'Add blank line down' },
   },

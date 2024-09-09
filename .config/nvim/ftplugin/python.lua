@@ -3,7 +3,7 @@
 if require('zeroknight.util').has_plugin 'nvim-surround' then
   require('nvim-surround').buffer_setup {
     surrounds = {
-      Q = {
+      S = {
         add = { '"""', '"""' },
         find = '""".-"""',
         delete = '^(...)().-(...)()$',
