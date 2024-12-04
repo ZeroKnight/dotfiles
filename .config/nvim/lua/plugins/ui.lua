@@ -31,6 +31,7 @@ return {
     lazy = true,
     priority = 100,
     opts = function()
+      ---@type wk.Opts
       return {
         plugins = {
           spelling = {
@@ -44,7 +45,7 @@ return {
           separator = '➜ ',
           group = '󰍻  ',
         },
-        window = {
+        win = {
           border = require('zeroknight.config.ui').borders,
         },
       }

@@ -6,10 +6,11 @@ local handlers = require 'plugins.lsp.handlers'
 local lsp = vim.lsp
 
 -- Set up primary group names
-require('which-key').register({
-  ['<LocalLeader>c'] = { name = 'code' },
-  ['<LocalLeader>p'] = { name = 'preview/peek' },
-}, { mode = { 'n', 'v' } })
+require('which-key').add {
+  mode = { 'n', 'v' },
+  { '<LocalLeader>c', group = 'code' },
+  { '<LocalLeader>p', group = 'preview/peek' },
+}
 
 local M = {}
 

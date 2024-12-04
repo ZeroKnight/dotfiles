@@ -36,43 +36,37 @@ return {
         local gs = require 'gitsigns'
         local wk = require 'which-key'
 
-        wk.register({
-          [']h'] = { gs.next_hunk, 'Next hunk' },
-          ['[h'] = { gs.prev_hunk, 'Previous hunk' },
-
-          ['<LocalLeader>h'] = {
-            name = 'hunks',
-            u = { gs.undo_stage_hunk, 'Undo Stage Hunk' },
-            p = { gs.preview_hunk, 'Preview Hunk' },
-            P = { gs.preview_hunk_inline, 'Preview Hunk (Inline)' },
-            R = { gs.reset_buffer, 'Reset Buffer (All hunks)' },
-            S = { gs.stage_buffer, 'Stage Buffer (All hunks)' },
-            U = { gs.reset_buffer_index, 'Reset Buffer Index' },
-          },
-
-          ['<LocalLeader>g'] = {
-            name = 'git',
-            B = { gs.toggle_current_line_blame, 'Toggle current line blame' },
-            b = {
-              util.partial(gs.blame_line, { full = true, ignore_whitespace = true }),
-              'Blame line',
-            },
-            d = { gs.toggle_deleted, 'Toggle deleted lines' },
-            w = { gs.toggle_word_diff, 'Toggle word diff' },
-          },
-        }, {
+        wk.add {
           buffer = buffer,
-        })
-
-        local nv_maps = {
-          s = { ':Gitsigns stage_hunk<CR>', 'Stage hunk' },
-          r = { ':Gitsigns reset_hunk<CR>', 'Reset hunk' },
+          { ']h', gs.next_hunk, desc = 'Next hunk' },
+          { '[h', gs.prev_hunk, desc = 'Previous hunk' },
+          {
+            group = 'hunks',
+            { '<LocalLeader>hu', gs.undo_stage_hunk, desc = 'Undo Stage Hunk' },
+            { '<LocalLeader>hp', gs.preview_hunk, desc = 'Preview Hunk' },
+            { '<LocalLeader>hP', gs.preview_hunk_inline, desc = 'Preview Hunk (Inline)' },
+            { '<LocalLeader>hR', gs.reset_buffer, desc = 'Reset Buffer (All hunks)' },
+            { '<LocalLeader>hS', gs.stage_buffer, desc = 'Stage Buffer (All hunks)' },
+            { '<LocalLeader>hU', gs.reset_buffer_index, desc = 'Reset Buffer Index' },
+            {
+              mode = { 'n', 'v' },
+              { '<LocalLeader>hs', ':Gitsigns stage_hunk<CR>', desc = 'Stage hunk' },
+              { '<LocalLeader>hr', ':Gitsigns reset_hunk<CR>', desc = 'Reset hunk' },
+            },
+          },
+          {
+            group = 'git',
+            { '<LocalLeader>gB', gs.toggle_current_line_blame, desc = 'Toggle current line blame' },
+            {
+              '<LocalLeader>gb',
+              util.partial(gs.blame_line, { full = true, ignore_whitespace = true }),
+              desc = 'Blame line',
+            },
+            { '<LocalLeader>gd', gs.toggle_deleted, desc = 'Toggle deleted lines' },
+            { '<LocalLeader>gw', gs.toggle_word_diff, desc = 'Toggle word diff' },
+          },
+          { 'ih', '<Cmd>Gitsigns select_hunk<CR>', mode = { 'o', 'x' } },
         }
-        vim.iter({ 'n', 'v' }):each(function(mode)
-          wk.register(nv_maps, { prefix = '<LocalLeader>h', mode = mode, buffer = buffer })
-        end)
-
-        vim.keymap.set({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>', { buffer = buffer })
       end,
     },
   },

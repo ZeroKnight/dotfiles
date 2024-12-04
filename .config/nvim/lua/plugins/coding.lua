@@ -156,9 +156,9 @@ return {
     config = function(_, opts)
       require('refactoring').setup(opts)
       require('telescope').load_extension 'refactoring'
-      require('which-key').register({
-        ['<Leader>rp'] = { name = 'Print-Debugging' },
-      }, { mode = { 'n', 'v' } })
+      require('which-key').add {
+        { '<Leader>rp', group = 'Print-Debugging', mode = { 'n', 'v' } },
+      }
     end,
   },
 }

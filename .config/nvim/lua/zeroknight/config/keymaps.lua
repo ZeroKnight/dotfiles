@@ -70,98 +70,81 @@ local function blank(dir, count)
 end
 
 -- Set up primary group names
-wk.register({
-  [']'] = { name = 'next' },
-  ['['] = { name = 'prev' },
-  ['<Leader><Leader>'] = { name = 'Aux Leader' },
-  ['<Leader>b'] = { name = 'buffer' },
-  ['<Leader>f'] = { name = 'file/find' },
-  ['<Leader>g'] = { name = 'git' },
-  ['<Leader>h'] = { name = 'help' },
-  ['<Leader>r'] = { name = 'refactor' },
-  ['<Leader>s'] = { name = 'search/snippets' },
-  ['<Leader>t'] = { name = 'toggle' },
-  ['<Leader>u'] = { name = 'ui' },
-  ['<Leader>x'] = { name = 'diag/quickfix' },
-  ['<LocalLeader>t'] = { name = 'testing' },
-}, { mode = { 'n', 'v' } })
+wk.add {
+  mode = { 'n', 'v' },
+  { ']', group = 'next' },
+  { '[', group = 'prev' },
+  { '<Leader><Leader>', group = 'Aux Leader' },
+  { '<Leader>b', group = 'buffer' },
+  { '<Leader>f', group = 'file/find' },
+  { '<Leader>g', group = 'git' },
+  { '<Leader>h', group = 'help' },
+  { '<Leader>r', group = 'refactor' },
+  { '<Leader>s', group = 'search/snippets' },
+  { '<Leader>t', group = 'toggle' },
+  { '<Leader>u', group = 'ui' },
+  { '<Leader>x', group = 'diag/quickfix' },
+  { '<LocalLeader>t', group = 'testing' },
+}
 
 -- Leader Mappings {{{1
 
 -- stylua: ignore
-wk.register({
-  ['/'] = { '<Cmd>let v:hlsearch = !v:hlsearch<CR>', 'Toggle Search Highlighting' },
-  b = {
-    f = { util.partial(format.format), 'Format buffer', mode = {'n', 'v' } },
+wk.add {
+  {'<Leader>/', '<Cmd>let v:hlsearch = !v:hlsearch<CR>', desc = 'Toggle Search Highlighting' },
+  { '<Leader>tb', util.toggle_background, desc = 'Toggle background' },
+  { '<Leader>tc', util.partial(toggle, 'list'), desc = 'Toggle listchars', },
+  { '<Leader>td', util.partial(util.toggle_diagnostics, 0), desc = 'Toggle diagnostics' },
+  { '<Leader>tf', format.toggle, desc = 'Toggle format on write' },
+  { '<Leader>th', toggle_inlay_hints, desc = 'Toggle LSP Inlay Hints' },
+  { '<Leader>tl', lint.toggle, desc = 'Toggle automatic linting' },
+  { '<Leader>ts', util.partial(toggle, 'spell'), desc = 'Toggle Spellcheck', },
+  { '<Leader>tw', util.partial(toggle, 'wrap'), desc = 'Toggle word wrap' },
+  { '<Leader>t/', util.partial(toggle, 'hlsearch'), desc = 'Toggle hlsearch' },
+  { '<Leader>ui', vim.show_pos, desc = 'Inspect cursor position' },
+  { '<Leader>xL', vim.diagnostic.setloclist, desc = 'Dump diagnostics to location list' },
+  { '<Leader>xQ', vim.diagnostic.setqflist, desc = 'Dump diagnostics to quickfix list' },
+  { '<Leader>wx', '<Cmd>write | source %<CR>', desc = 'Write and Execute' },
+  { "<Leader>Y", '"+Y', desc = "Yank til EOL to clipboard" },
+  {
+    mode = {'n', 'v'},
+    { '<Leader>bf', util.partial(format.format), desc='Format buffer'},
+    { '<Leader>d', '"_d', desc = 'Delete, but preserve unnamed register' },
+    { '<Leader>y', '"+y', desc = 'Yank to clipboard'  },
   },
-  d = { '"_d', 'Delete, but preserve unnamed register', mode = { 'n', 'v' } },
-  t = {
-    b = { util.toggle_background, 'Toggle background' },
-    c = { util.partial(toggle, 'list'), 'Toggle listchars', },
-    d = { util.partial(util.toggle_diagnostics, 0), 'Toggle diagnostics' },
-    f = { format.toggle, 'Toggle format on write' },
-    h = { toggle_inlay_hints, 'Toggle LSP Inlay Hints' },
-    l = { lint.toggle, 'Toggle automatic linting' },
-    s = { util.partial(toggle, 'spell'), 'Toggle Spellcheck', },
-    w = { util.partial(toggle, 'wrap'), 'Toggle word wrap', },
-    ['/'] = { util.partial(toggle, 'hlsearch'), 'Toggle hlsearch', },
-  },
-  u = {
-    i = { vim.show_pos, 'Inspect cursor position' },
-  },
-  x = {
-    L = { vim.diagnostic.setloclist, 'Dump diagnostics to location list' },
-    Q = { vim.diagnostic.setqflist, 'Dump diagnostics to quickfix list' },
-  },
-  wx = { '<Cmd>write | source %<CR>', 'Write and Execute' },
-  y = { '"+y', 'Yank to clipboard', mode = { 'n', 'v' } },
-  Y = { '"+Y', 'Yank til EOL to clipboard' },
-}, { prefix = '<Leader>' })
+}
 
 -- LocalLeader Mappings {{{1
 
-wk.register({
-  K = { 'K', 'Run keywordprg on word' },
-  r = {
-    s = { util.trim_whitespace, 'Trim trailing spaces' },
-    w = { ':%s/\\<<C-r><C-w>\\>//gI<Left><Left><Left>', 'Substitute cursor word' },
-    W = { ':%s/\\<<C-r><C-a>\\>//gI<Left><Left><Left>', 'Substitute cursor WORD' },
-  },
-}, { prefix = '<LocalLeader>' })
+wk.add {
+  { '<LocalLeader>K', 'K', desc = 'Run keywordprg on word' },
+  { '<LocalLeader>rs', util.trim_whitespace, desc = 'Trim trailing spaces' },
+  { '<LocalLeader>rw', ':%s/\\<<C-r><C-w>\\>//gI<Left><Left><Left>', desc = 'Substitute cursor word' },
+  { '<LocalLeader>rW', ':%s/\\<<C-r><C-a>\\>//gI<Left><Left><Left>', desc = 'Substitute cursor WORD' },
+}
 
 -- Everything else {{{1
 -- stylua: ignore
-wk.register {
-  ['['] = {
-    y = { function() _wrap(copy, '-', vim.v.count1, '[y', false) end, 'Copy line up' },
-    e = { function() _wrap(move, '--', vim.v.count1, '[e', false) end, 'Move line up' },
-    ['<Space>'] = { function() blank('up', vim.v.count1) end, 'Add blank line up' },
+wk.add {
+  { '[y', function() _wrap(copy, '-', vim.v.count1, '[y', false) end, desc = 'Copy line up' },
+  { '[e', function() _wrap(move, '--', vim.v.count1, '[e', false) end, desc = 'Move line up' },
+  { '[<Space>', function() blank('up', vim.v.count1) end, desc = 'Add blank line up' },
+  { ']y', function() _wrap(copy, '+-', vim.v.count1, ']y', false) end, desc = 'Copy line down' },
+  { ']e', function() _wrap(move, '+', vim.v.count1, ']e', false) end, desc = 'Move line down' },
+  { ']<Space>', function() blank('down', vim.v.count1) end, desc = 'Add blank line down' },
+  { 'gy', '<Cmd>%y+<CR>', desc = 'Yank buffer to clipboard' },
+  { 'gK', 'f<Space>r<CR>', desc = 'Split line' },
+  { 'g{', "len(getline(line('.')-1)) > 0 ? '{+' : '{-'", desc = 'Smart paragraph backward', expr = true },
+  { 'g}', "len(getline(line('.')+1)) > 0 ? '}-' : '}+'", desc = 'Smart paragraph forward', expr = true },
+  { '<M-d>', util.partial(diag.open_float, 0, { scope = 'line' }), desc = 'Show diagnostics for line', mode = { 'n', 'i' } },
+  {
+    mode = 'v',
+    { '[y', function() _wrap(copy, "'<-", vim.v.count1, '[y', true) end, desc = 'Copy line up' },
+    { '[e', function() _wrap(move, "'<--", vim.v.count1, '[e', true) end, desc = 'Move line up' },
+    { ']y', function() _wrap(copy, "'>.", vim.v.count1, ']y', true) end, desc = 'Copy line down' },
+    { ']e', function() _wrap(move, "'>+", vim.v.count1, ']e', true) end, desc = 'Move line down' },
   },
-  [']'] = {
-    y = { function() _wrap(copy, '+-', vim.v.count1, ']y', false) end, 'Copy line down' },
-    e = { function() _wrap(move, '+', vim.v.count1, ']e', false) end, 'Move line down' },
-    ['<Space>'] = { function() blank('down', vim.v.count1) end, 'Add blank line down' },
-  },
-  g = {
-    y = { '<Cmd>%y+<CR>', 'Yank buffer to clipboard' },
-    K = { 'f<Space>r<CR>', 'Split line' },
-    ['{'] = { "len(getline(line('.')-1)) > 0 ? '{+' : '{-'", 'Smart paragraph backward', expr = true },
-    ['}'] = { "len(getline(line('.')+1)) > 0 ? '}-' : '}+'", 'Smart paragraph forward', expr = true },
-  },
-  ['<M-d>'] = { util.partial(diag.open_float, 0, { scope = 'line' }), 'Show diagnostics for line', mode = { 'n', 'i' } },
 }
-
---stylua: ignore
-wk.register({
-  ['['] = {
-    c = { function() _wrap(copy, "'<-", vim.v.count1, '[c', true) end, 'Copy line up' },
-    e = { function() _wrap(move, "'<--", vim.v.count1, '[e', true) end, 'Move line up' },
-  },
-  [']'] = {
-    c = { function() _wrap(copy, "'>.", vim.v.count1, ']c', true) end, 'Copy line down' },
-    e = { function() _wrap(move, "'>+", vim.v.count1, ']e', true) end, 'Move line down' },
-  },
-}, { mode = 'v' })
 
 -- }}}
 
