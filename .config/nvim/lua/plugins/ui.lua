@@ -657,7 +657,7 @@ return {
   {
     'folke/trouble.nvim',
     version = '*',
-    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    dependencies = { 'echasnovski/mini.icons' },
     cmd = 'Trouble',
     opts = {
       focus = true,

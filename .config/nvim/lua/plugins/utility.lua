@@ -64,9 +64,18 @@ return {
   { 'nvim-lua/popup.nvim', lazy = true },
 
   {
-    'nvim-tree/nvim-web-devicons',
-    lazy = true,
-    opts = { default = true },
+    'echasnovski/mini.icons',
+    version = false,
+    opts = function()
+      local lsp = {}
+      for k, v in pairs(require('zeroknight.config.ui').icons.kinds) do
+        lsp[k:lower()] = { glyph = v }
+      end
+      return {
+        style = 'glyph',
+        lsp = lsp,
+      }
+    end,
   },
 
   -- Extra Documentation
