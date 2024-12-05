@@ -97,18 +97,6 @@ return {
         },
       },
     },
-    config = function(_, opts)
-      require('ibl').setup(opts)
-      require('which-key').register({ -- Fill in missing descriptions
-        d = 'Delete fold under cursor',
-        D = 'Delete all folds under cursor',
-        E = 'Eliminate all folds in window',
-        F = 'Fold n lines',
-        n = 'Disable folding',
-        N = 'Enable folding',
-        X = 'Update folds (without zv)',
-      }, { prefix = 'z' })
-    end,
   },
 
   {
