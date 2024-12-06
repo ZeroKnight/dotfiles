@@ -17,9 +17,7 @@ local s = function(t, nodes, opts)
   -- Take priority when actually active
   t.priority = t.priority and t.priority + 10000 or 11000
 
-  local cond = function()
-    return vim.api.nvim_buf_get_name(0):match 'nvim/snippets/luasnip'
-  end
+  local cond = function() return vim.api.nvim_buf_get_name(0):match 'nvim/snippets/luasnip' end
   opts = vim.tbl_extend('keep', opts or {}, {
     condition = cond,
     show_condition = cond,

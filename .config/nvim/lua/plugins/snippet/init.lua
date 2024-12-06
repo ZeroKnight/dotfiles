@@ -42,9 +42,10 @@ return {
         nargs = 1,
         desc = 'Create a new LuaSnip snippets file based on _template.lua and edit it',
         complete = function(arglead)
-          return vim.tbl_map(function(x)
-            return vim.fn.fnamemodify(x, ':t')
-          end, vim.fn.globpath(snippets_path, arglead .. '*', false, true))
+          return vim.tbl_map(
+            function(x) return vim.fn.fnamemodify(x, ':t') end,
+            vim.fn.globpath(snippets_path, arglead .. '*', false, true)
+          )
         end,
       })
     end,

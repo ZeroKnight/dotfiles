@@ -64,9 +64,12 @@ return {
             vim.cmd.write()
             require('ansible').run()
           end, { buffer = true, desc = 'Write and execute the current ansible playbook/role' })
-          vim.keymap.set('v', '<LocalLeader>x', function()
-            require('ansible').run()
-          end, { buffer = true, desc = 'Run ansible playbook/role selection' })
+          vim.keymap.set(
+            'v',
+            '<LocalLeader>x',
+            function() require('ansible').run() end,
+            { buffer = true, desc = 'Run ansible playbook/role selection' }
+          )
         end,
       })
     end,

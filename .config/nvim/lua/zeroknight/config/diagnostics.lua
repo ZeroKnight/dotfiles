@@ -40,7 +40,5 @@ end, {
   bang = true,
   force = true,
   nargs = '?',
-  complete = function()
-    return { 'error', 'warn', 'info', 'hint' }
-  end,
+  complete = function() return { 'error', 'warn', 'info', 'hint' } end,
 })

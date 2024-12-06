@@ -1,9 +1,7 @@
 local M = {}
 
 function M.setup()
-  local function load(cfg)
-    require('zeroknight.config.' .. cfg)
-  end
+  local function load(cfg) require('zeroknight.config.' .. cfg) end
 
   load 'options'
 

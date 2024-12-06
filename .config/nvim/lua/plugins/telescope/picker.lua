@@ -66,9 +66,7 @@ function M.z()
 end
 
 -- Pick a snippet
-function M.snippets()
-  require('telescope').extensions.luasnip.luasnip { require('telescope.themes').get_ivy() }
-end
+function M.snippets() require('telescope').extensions.luasnip.luasnip { require('telescope.themes').get_ivy() } end
 
 return setmetatable(M, {
   __index = function(_, k)

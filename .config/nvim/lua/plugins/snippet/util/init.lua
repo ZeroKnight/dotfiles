@@ -49,9 +49,7 @@ function M.snippet_with_def_prio(priority)
   end
 end
 
-function M.author()
-  return vim.g.snips_author
-end
+function M.author() return vim.g.snips_author end
 
 -- Return a suitable comment leader for the current filetype
 function M.get_comment()
@@ -72,9 +70,7 @@ function M.get_foldmarker(marker)
   vim.validate {
     marker = {
       marker,
-      function(x)
-        return x == nil or x == 'open' or x == 'close'
-      end,
+      function(x) return x == nil or x == 'open' or x == 'close' end,
       "'open', 'close', or nil",
     },
   }
@@ -189,9 +185,7 @@ end
 
 -- Like Python's `Path.stem`, return the basename of the current file without
 -- the extension.
-function M.file_stem()
-  return vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ':t:r')
-end
+function M.file_stem() return vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ':t:r') end
 
 return setmetatable(M, {
   -- Slight sugar to avoid having to explicitly import language-specific utils

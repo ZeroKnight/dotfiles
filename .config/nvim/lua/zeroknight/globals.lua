@@ -12,24 +12,18 @@ _G.zeroknight = _G.zeroknight or {}
 function _G.as_stdpath(what, path)
   local stdpath = vim.fn.stdpath(what)
   if type(stdpath) == 'table' then
-    return vim.tbl_map(function(x)
-      return string.format('%s/%s', x, path)
-    end, stdpath)
+    return vim.tbl_map(function(x) return string.format('%s/%s', x, path) end, stdpath)
   end
   return string.format('%s/%s', stdpath, path)
 end
 
 -- Lua shorthand for VimL has()
 ---@param what string
-function _G.has(what)
-  return vim.fn.has(what) == 1
-end
+function _G.has(what) return vim.fn.has(what) == 1 end
 
 -- Shorthand for current buffer
 ---@return string|nil
-function _G.currbuf()
-  return vim.uv.fs_realpath(vim.api.nvim_buf_get_name(0))
-end
+function _G.currbuf() return vim.uv.fs_realpath(vim.api.nvim_buf_get_name(0)) end
 
 -- Modded from tjdevries
 vim.api.nvim_create_autocmd('User', {

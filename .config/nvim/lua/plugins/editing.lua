@@ -139,9 +139,7 @@ return {
       { 'gc' }, { 'gc', mode = 'v' }, { 'gb' }, { 'gb', mode = 'v' }, { 'gcc' }, { 'gco' }, { 'gcO' }, { 'gcA' }
     },
     opts = {
-      pre_hook = function()
-        require('ts_context_commentstring.internal').update_commentstring {}
-      end,
+      pre_hook = function() require('ts_context_commentstring.internal').update_commentstring {} end,
     },
   },
 
@@ -165,7 +163,11 @@ return {
 
         keywords = {
           TODO = { icon = ui.icons.common.check, color = 'info', alt = { 'TBD', 'TEST' } },
-          FIX = { icon = ui.icons.common.bug, color = 'error', alt = { 'FIXME', 'FIXIT', 'BUG', 'DEBUG', 'ISSUE' } },
+          FIX = {
+            icon = ui.icons.common.bug,
+            color = 'error',
+            alt = { 'FIXME', 'FIXIT', 'BUG', 'DEBUG', 'ISSUE' },
+          },
           HACK = { icon = ' ', color = 'warn', alt = { 'XXX' } },
           NOTE = { icon = ui.icons.common.note, color = 'hint', alt = { 'NOTICE', 'INFO' } },
           IDEA = { icon = ui.icons.diagnostics.hint, color = 'hint' },
@@ -174,7 +176,11 @@ return {
             color = 'warn',
             alt = { 'WARNING', 'DEPRECATED', 'ATTENTION', 'ALERT', 'DANGER', 'WTF' },
           },
-          PERF = { icon = ' ', color = 'default', alt = { 'PERFORMANCE', 'OPTI', 'OPTIMIZE', 'OPTIMIZATION' } },
+          PERF = {
+            icon = ' ',
+            color = 'default',
+            alt = { 'PERFORMANCE', 'OPTI', 'OPTIMIZE', 'OPTIMIZATION' },
+          },
         },
       }
     end,
@@ -183,9 +189,7 @@ return {
   {
     'unblevable/quick-scope',
     event = { 'BufReadPost', 'BufNewFile' },
-    init = function()
-      vim.g.qs_highlight_on_keys = { 'f', 'F', 't', 'T' }
-    end,
+    init = function() vim.g.qs_highlight_on_keys = { 'f', 'F', 't', 'T' } end,
   },
 
   {

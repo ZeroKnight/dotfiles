@@ -122,9 +122,7 @@ function M.init()
   vim.api.nvim_create_autocmd('ColorScheme', {
     desc = 'Reload highlighting on colorscheme change',
     group = vim.api.nvim_create_augroup('ZeroKnight.config.ui', { clear = true }),
-    callback = function()
-      require('zeroknight.config.ui').make_highlights()
-    end,
+    callback = function() require('zeroknight.config.ui').make_highlights() end,
   })
 
   vim.cmd.colorscheme 'tokyonight'

@@ -3,9 +3,7 @@
 local cmp = require 'cmp'
 
 local compare = setmetatable({}, {
-  __index = function(_, k)
-    return cmp.config.compare[k]
-  end,
+  __index = function(_, k) return cmp.config.compare[k] end,
 })
 
 function compare.underscores(entry1, entry2)

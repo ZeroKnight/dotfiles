@@ -37,9 +37,7 @@ return {
       vim.api.nvim_create_autocmd({ 'BufReadPost', 'BufWritePost', 'InsertLeave', 'TextChanged' }, {
         group = vim.api.nvim_create_augroup('ZeroKnight.lint', { clear = true }),
         desc = 'Run linters',
-        callback = function()
-          require('zeroknight.lint').lint()
-        end,
+        callback = function() require('zeroknight.lint').lint() end,
       })
     end,
   },
@@ -51,14 +49,10 @@ return {
     opts = {
       formatters = {
         trim_newlines = {
-          condition = function(self, ctx)
-            return not util.is_filetype(ctx.buf, { 'diff', 'gitcommit' })
-          end,
+          condition = function(self, ctx) return not util.is_filetype(ctx.buf, { 'diff', 'gitcommit' }) end,
         },
         trim_whitespace = {
-          condition = function(self, ctx)
-            return not util.is_filetype(ctx.buf, { 'diff' })
-          end,
+          condition = function(self, ctx) return not util.is_filetype(ctx.buf, { 'diff' }) end,
         },
       },
       formatters_by_ft = {

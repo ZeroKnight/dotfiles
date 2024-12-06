@@ -15,7 +15,6 @@ return {
     'echasnovski/mini.bufremove',
     version = false,
     keys = function()
-      -- stylua: ignore
       return {
         {
           '<Leader>bd',
@@ -41,9 +40,7 @@ return {
   {
     'folke/persistence.nvim',
     event = 'BufReadPre',
-    opts = function()
-      return { dir = vim.g.sessiondir .. '/', options = vim.opt.sessionoptions:get() }
-    end,
+    opts = function() return { dir = vim.g.sessiondir .. '/', options = vim.opt.sessionoptions:get() } end,
   },
 
   -- Built-in Overrides/Enhancements
@@ -107,23 +104,17 @@ return {
     keys = {
       {
         '<Leader>.',
-        function()
-          Snacks.scratch()
-        end,
+        function() Snacks.scratch() end,
         desc = 'Toggle Scratch Buffer',
       },
       {
         '<Leader>f.',
-        function()
-          Snacks.scratch.select()
-        end,
+        function() Snacks.scratch.select() end,
         desc = 'Find Scratch Buffer',
       },
       {
         '<C-/>',
-        function()
-          Snacks.terminal()
-        end,
+        function() Snacks.terminal() end,
         desc = 'Toggle terminal',
       },
     },
@@ -131,12 +122,8 @@ return {
       vim.api.nvim_create_autocmd('User', {
         pattern = 'VeryLazy',
         callback = function()
-          _G.dd = function(...)
-            Snacks.debug.inspect(...)
-          end
-          _G.bt = function()
-            Snacks.debug.backtrace()
-          end
+          _G.dd = function(...) Snacks.debug.inspect(...) end
+          _G.bt = function() Snacks.debug.backtrace() end
           vim.print = _G.dd -- Also overrides :=
 
           -- NOTE: Snacks.toggle adds to Which-Key on our behalf
@@ -150,18 +137,12 @@ return {
           Snacks.toggle
             .new({
               name = 'Search Highlighting',
-              get = function()
-                return vim.v.hlsearch == 1
-              end,
-              set = function(state)
-                vim.v.hlsearch = state and 1 or 0
-              end,
+              get = function() return vim.v.hlsearch == 1 end,
+              set = function(state) vim.v.hlsearch = state and 1 or 0 end,
             })
             :map '<Leader>/'
 
-          vim.api.nvim_create_user_command('Rename', function()
-            Snacks.rename.rename_file()
-          end, {})
+          vim.api.nvim_create_user_command('Rename', function() Snacks.rename.rename_file() end, {})
         end,
       })
     end,

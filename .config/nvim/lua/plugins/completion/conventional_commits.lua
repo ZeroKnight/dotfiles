@@ -49,13 +49,9 @@ local commit_types = {
 
 local source = {}
 
-function source.new()
-  return setmetatable({}, { __index = source })
-end
+function source.new() return setmetatable({}, { __index = source }) end
 
-function source:is_available()
-  return vim.bo.filetype == 'gitcommit'
-end
+function source:is_available() return vim.bo.filetype == 'gitcommit' end
 
 function source:get_keyword_pattern()
   -- Commit type will only ever be at the start of a line

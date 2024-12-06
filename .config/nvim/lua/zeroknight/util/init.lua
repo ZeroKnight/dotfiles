@@ -31,39 +31,31 @@ end
 
 -- Shorthand for calling `vim.api.nvim_replace_termcodes(key, true, true, true)`
 ---@param key string
-function M.t(key)
-  return vim.api.nvim_replace_termcodes(key, true, true, true)
-end
+function M.t(key) return vim.api.nvim_replace_termcodes(key, true, true, true) end
 
 -- Call `vim.cmd` as if it were `string.format`. Equivalent to:
 -- ```
 -- vim.cmd(string.format(cmd, ...))
 -- ```
 ---@param cmd string
-function M.cmdf(cmd, ...)
-  vim.cmd(format(cmd, ...))
-end
+function M.cmdf(cmd, ...) vim.cmd(format(cmd, ...)) end
 
 -- Capitalize the first letter of a string
 ---@param str string
 ---@return string
-function M.capitalize(str)
-  return format('%s%s', string.upper(str:sub(1, 1)), string.lower(str:sub(2)))
-end
+function M.capitalize(str) return format('%s%s', string.upper(str:sub(1, 1)), string.lower(str:sub(2))) end
 
 -- Create a partial function
 ---@param func function
 ---@param ... any
----@return function
+---@return function|nil
 function M.partial(func, ...)
   if func == nil then
     error('cannot make partial function out of nil', 2)
     return
   end
   local frozen_args = { ... }
-  return function(...)
-    return func(unpack(frozen_args), ...)
-  end
+  return function(...) return func(unpack(frozen_args), ...) end
 end
 
 -- Return the path to the current Python interpreter
@@ -101,9 +93,10 @@ end
 ---@param buffer number?
 function M.trim_whitespace(buffer)
   buffer = buffer or 0
-  local trimmed = vim.tbl_map(function(x)
-    return x:gsub('%s+$', '')
-  end, vim.api.nvim_buf_get_lines(buffer, 0, -1, true))
+  local trimmed = vim.tbl_map(
+    function(x) return x:gsub('%s+$', '') end,
+    vim.api.nvim_buf_get_lines(buffer, 0, -1, true)
+  )
   vim.api.nvim_buf_set_lines(buffer, 0, -1, true, trimmed)
 end
 
@@ -122,9 +115,9 @@ function M.get_root()
   if path then
     for _, client in pairs(vim.lsp.get_active_clients { bufnr = 0 }) do
       local workspace = client.config.workspace_folders
-      local paths = workspace and vim.tbl_map(function(ws)
-        return vim.uri_to_fname(ws.uri)
-      end, workspace) or client.config.root_dir and { client.config.root_dir } or {}
+      local paths = workspace and vim.tbl_map(function(ws) return vim.uri_to_fname(ws.uri) end, workspace)
+        or client.config.root_dir and { client.config.root_dir }
+        or {}
       for _, p in ipairs(paths) do
         local r = vim.uv.fs_realpath(p)
         if path:find(r, 1, true) then
@@ -133,9 +126,7 @@ function M.get_root()
       end
     end
   end
-  table.sort(roots, function(a, b)
-    return #a > #b
-  end)
+  table.sort(roots, function(a, b) return #a > #b end)
   ---@type string?
   local root = roots[1]
   if not root then
@@ -150,15 +141,11 @@ end
 
 -- Pinched from LazyVim. Check if `plugin` is available.
 ---@param plugin string
-function M.has_plugin(plugin)
-  return require('lazy.core.config').plugins[plugin] ~= nil
-end
+function M.has_plugin(plugin) return require('lazy.core.config').plugins[plugin] ~= nil end
 
 -- Get options for a `LazyPlugin`.
 ---@param plugin LazyPlugin
-function M.plugin_opts(plugin)
-  return require('lazy.core.plugin').values(plugin, 'opts', false)
-end
+function M.plugin_opts(plugin) return require('lazy.core.plugin').values(plugin, 'opts', false) end
 
 -- Add an LspAttach callback
 ---@param on_attach fun(client: lsp.Client, buffer: number)
@@ -226,9 +213,7 @@ function M.is_filetype(buffer, filetypes)
   if type(filetypes) == 'string' then
     filetypes = { filetypes }
   end
-  return vim.iter(filetypes):any(function(ft)
-    return vim.bo[buffer].filetype == ft
-  end)
+  return vim.iter(filetypes):any(function(ft) return vim.bo[buffer].filetype == ft end)
 end
 
 return M

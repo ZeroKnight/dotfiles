@@ -30,9 +30,10 @@ return {
     end,
     config = function(_, opts)
       -- Main LSP on_attach
-      util.on_attach(function(client, buffer)
-        require('plugins.lsp.keymaps').on_attach(client, buffer)
-      end, 'Initialize core LSP functionality')
+      util.on_attach(
+        function(client, buffer) require('plugins.lsp.keymaps').on_attach(client, buffer) end,
+        'Initialize core LSP functionality'
+      )
 
       -- Build our client capabilities
       local capabilities = vim.tbl_deep_extend(

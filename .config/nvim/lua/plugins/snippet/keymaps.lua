@@ -7,9 +7,7 @@ local M = {
 M.keys = {
   {
     '<Leader>se',
-    function()
-      require('luasnip.loaders').edit_snippet_files()
-    end,
+    function() require('luasnip.loaders').edit_snippet_files() end,
     desc = 'Edit snippets for this filetype',
   },
   {

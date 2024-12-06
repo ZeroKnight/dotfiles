@@ -14,9 +14,7 @@ function M.open_in_file_browser(prompt_bufnr)
 end
 
 -- Wrapping this so that it shows up in Telescope's which-key properly
-function M.open_with_trouble(prompt_bufnr)
-  require('trouble.sources.telescope').open(prompt_bufnr)
-end
+function M.open_with_trouble(prompt_bufnr) require('trouble.sources.telescope').open(prompt_bufnr) end
 
 -- NOTE: The builtin find_files doesn't expose its unique options in its state,
 -- so to toggle things like hidden and ignored files, we have to re-run it.

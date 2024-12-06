@@ -16,17 +16,11 @@ end
 local function import_tail(pos, from, stop)
   local node
   if stop then
-    node = function(x)
-      return i(1, get_import_tail(x))
-    end
+    node = function(x) return i(1, get_import_tail(x)) end
   else
-    node = function(x)
-      return t(get_import_tail(x))
-    end
+    node = function(x) return t(get_import_tail(x)) end
   end
-  return d(pos, function(args)
-    return sn(nil, node(args[1][1]))
-  end, from)
+  return d(pos, function(args) return sn(nil, node(args[1][1])) end, from)
 end
 
 -- stylua: ignore start

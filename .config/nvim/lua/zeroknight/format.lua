@@ -17,9 +17,7 @@ local M = {
 -- Whether formatting should be done automatically on write.
 -- Formatting will occur if either the "global" format_on_write variable in
 -- this module is true, or if a buffer-local version is true.
-function M.should_format()
-  return vim.b.format_on_write or M.format_on_write
-end
+function M.should_format() return vim.b.format_on_write or M.format_on_write end
 
 -- Toggle format on write on or off. If toggling on, the buffer-local setting
 -- will be overridden if it is enabled, similar to how Vim does things with its

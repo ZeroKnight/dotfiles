@@ -112,20 +112,16 @@ return {
       local icons = ui.icons
       local color = require 'zeroknight.util.color'
 
-      local function fg(name)
-        return { fg = color.fg(name) }
-      end
+      local function fg(name) return { fg = color.fg(name) } end
 
-      local function has_file()
-        return not vim.tbl_contains({ 'nofile', 'quickfix', 'help' }, vim.bo.buftype)
-      end
+      local function has_file() return not vim.tbl_contains({ 'nofile', 'quickfix', 'help' }, vim.bo.buftype) end
 
-      local function navic_available()
-        return package.loaded['nvim-navic'] and require('nvim-navic').is_available()
-      end
+      local function navic_available() return package.loaded['nvim-navic'] and require('nvim-navic').is_available() end
 
-      local function empty(cond)
-        return { '', draw_empty = true, cond = cond }
+      local function empty(cond) return { '', draw_empty = true, cond = cond } end
+
+      local function text(str)
+        return function() return str end
       end
 
       local location = {
@@ -180,7 +176,6 @@ return {
           lualine_c = {
             -- { 'filetype', icon_only = true, separator = '', padding = { left = 1, right = 0 } },
             { 'filename', path = 1 },
-            -- stylua: ignore
             {
               '%w', -- [Preview]
               cond = function() return vim.wo.previewwindow end,
@@ -188,7 +183,6 @@ return {
             },
           },
           lualine_x = {
-            -- stylua: ignore
             {
               function() return vim.bo.spelllang end,
               cond = function() return vim.wo.spell end,
@@ -200,9 +194,7 @@ return {
                 local register, _ = require('noice').api.status.mode.get()
                 return string.format('🔴 %s', register:sub(11))
               end,
-              cond = function()
-                return package.loaded['noice'] and require('noice').api.status.mode.has()
-              end,
+              cond = function() return package.loaded['noice'] and require('noice').api.status.mode.has() end,
               color = fg 'Constant',
             },
             searchcount,
@@ -229,15 +221,13 @@ return {
           'trouble',
           {
             sections = {
-              -- stylua: ignore
-              lualine_a = { function() return 'Help' end },
+              lualine_a = { text 'Help' },
               lualine_b = { { 'filename', file_status = false, path = 0, icon = icons.common.help } },
               lualine_x = { searchcount },
               lualine_z = { 'progress' },
             },
             inactive_sections = {
-              -- stylua: ignore
-              lualine_a = { function() return 'Help' end },
+              lualine_a = { text 'Help' },
               lualine_b = { { 'filename', file_status = false, path = 0, icon = icons.common.help } },
               lualine_x = {},
               lualine_z = { 'progress' },
@@ -245,15 +235,19 @@ return {
             filetypes = { 'help' },
           },
           {
-            -- stylua: ignore
             sections = {
-              lualine_a = { function() return 'Fugitive' end },
-              lualine_b = { { function() return vim.fn.FugitiveHead() end, icon = icons.git.branch } },
+              lualine_a = { text 'Fugitive' },
+              lualine_b = {
+                {
+                  function() return vim.fn.FugitiveHead() end,
+                  icon = icons.git.branch,
+                },
+              },
               lualine_c = {
                 {
                   function() return vim.fn.fnamemodify(vim.fn.FugitiveGitDir(), ':~') end,
                   icon = icons.git.dir,
-                }
+                },
               },
               lualine_y = {
                 {
@@ -267,16 +261,14 @@ return {
           },
           {
             sections = {
-              -- stylua: ignore
-              lualine_a = { function() return 'Symbols' end },
+              lualine_a = { text 'Symbols' },
               lualine_z = { 'progress' },
             },
             filetypes = { 'Outline' },
           },
           {
             sections = {
-              -- stylua: ignore
-              lualine_a = { function() return 'UndoTree' end },
+              lualine_a = { text 'UndoTree' },
               lualine_z = { 'progress' },
             },
             filetypes = { 'undotree' },
@@ -287,7 +279,6 @@ return {
           lualine_b = { empty(navic_available) },
           lualine_c = {
             {
-              -- stylua: ignore
               function() return require('nvim-navic').get_location() end,
               cond = navic_available,
             },
@@ -336,9 +327,7 @@ return {
         names = false,
       },
     },
-    config = function(_, opts)
-      require('colorizer').setup(opts.filetypes, opts.defaults)
-    end,
+    config = function(_, opts) require('colorizer').setup(opts.filetypes, opts.defaults) end,
   },
 
   {
@@ -397,12 +386,8 @@ return {
       return {
         icons = require('zeroknight.config.ui').icons.logging,
         timeout = 5000,
-        max_height = function()
-          return math.floor(vim.o.lines * 0.75)
-        end,
-        max_width = function()
-          return math.floor(vim.o.columns * 0.75)
-        end,
+        max_height = function() return math.floor(vim.o.lines * 0.75) end,
+        max_width = function() return math.floor(vim.o.columns * 0.75) end,
       }
     end,
     config = function(_, opts)
@@ -414,9 +399,7 @@ return {
     keys = {
       {
         '<Leader>un',
-        function()
-          require('notify').dismiss { silent = true, pending = true }
-        end,
+        function() require('notify').dismiss { silent = true, pending = true } end,
         desc = 'Dismiss notifications',
       },
     },
@@ -491,7 +474,12 @@ return {
               { event = 'lsp', kind = 'progress', find = 'code_action' },
               { event = 'lsp', kind = 'progress', find = 'diagnostics' },
               { event = 'lsp', kind = 'progress', find = 'lint:' },
-              { event = 'lsp', kind = 'progress', find = 'Diagnosing', ['not'] = { find = 'Diagnosing workspace' } },
+              {
+                event = 'lsp',
+                kind = 'progress',
+                find = 'Diagnosing',
+                ['not'] = { find = 'Diagnosing workspace' },
+              },
             },
           },
           opts = { skip = true },
@@ -508,28 +496,46 @@ return {
         },
       },
     },
-    -- stylua: ignore
     keys = {
-      { '<C-f>', function() if not require('noice.lsp').scroll(4) then return '<C-f>' end end, silent = true, expr = true, desc = 'Scroll forward', mode = { 'i', 'n', 's' } },
-      { '<C-b>', function() if not require('noice.lsp').scroll(-4) then return '<C-b>' end end, silent = true, expr = true, desc = 'Scroll backward', mode = { 'i', 'n', 's' } },
+      {
+        '<C-f>',
+        function()
+          if not require('noice.lsp').scroll(4) then
+            return '<C-f>'
+          end
+        end,
+        silent = true,
+        expr = true,
+        desc = 'Scroll forward',
+        mode = { 'i', 'n', 's' },
+      },
+      {
+        '<C-b>',
+        function()
+          if not require('noice.lsp').scroll(-4) then
+            return '<C-b>'
+          end
+        end,
+        silent = true,
+        expr = true,
+        desc = 'Scroll backward',
+        mode = { 'i', 'n', 's' },
+      },
     },
   },
 
   {
     'ThePrimeagen/harpoon',
     keys = function()
-    -- stylua: ignore
       local keymaps = {
-        {'<Leader>H', function() require('harpoon.ui').toggle_quick_menu() end, 'Harpoon Menu'},
-        {']H', function() require('harpoon.ui').nav_next() end, 'Next Harpooned file'},
-        {'[H', function() require('harpoon.ui').nav_prev() end, 'Previous Harpooned file'},
+        { '<Leader>H', function() require('harpoon.ui').toggle_quick_menu() end, 'Harpoon Menu' },
+        { ']H', function() require('harpoon.ui').nav_next() end, 'Next Harpooned file' },
+        { '[H', function() require('harpoon.ui').nav_prev() end, 'Previous Harpooned file' },
       }
       for i = 0, 9 do
         table.insert(keymaps, {
           string.format('<M-%d>', i),
-          function()
-            require('harpoon.ui').nav_file(i)
-          end,
+          function() require('harpoon.ui').nav_file(i) end,
           'Harpoon file ' .. i,
         })
       end
@@ -539,9 +545,11 @@ return {
     config = function()
       require('harpoon').setup()
       require('plugins.telescope.ext').add_extension 'harpoon'
-      vim.api.nvim_create_user_command('Harpoon', function()
-        require('harpoon.mark').add_file()
-      end, { desc = 'Harpoon current file' })
+      vim.api.nvim_create_user_command(
+        'Harpoon',
+        function() require('harpoon.mark').add_file() end,
+        { desc = 'Harpoon current file' }
+      )
     end,
   },
 
@@ -549,7 +557,6 @@ return {
     'kevinhwang91/nvim-ufo',
     dependencies = { 'kevinhwang91/promise-async' },
     event = { 'BufReadPost', 'BufNewFile' },
-    -- stylua: ignore
     keys = {
       { 'zR', function() require('ufo').openFoldsExceptKinds() end, desc = 'Open all folds' },
       { 'zM', function() require('ufo').closeAllFolds() end, desc = 'Close all folds' },
@@ -588,9 +595,7 @@ return {
           buffer = buffer,
           group = augroup('ZeroKnight.lsp.lightbulb.' .. buffer, { clear = true }),
           desc = 'Show lightbulb sign when code actions exist',
-          callback = function()
-            require('nvim-lightbulb').update_lightbulb()
-          end,
+          callback = function() require('nvim-lightbulb').update_lightbulb() end,
         })
       end)
     end,
@@ -607,9 +612,10 @@ return {
       select_signature_key = '<M-o>', -- "O" for "Overload"
     },
     init = function(plugin)
-      util.on_attach(function(_, buffer)
-        require('lsp_signature').on_attach(plugin.opts, buffer)
-      end, 'LSP Signature Handler')
+      util.on_attach(
+        function(_, buffer) require('lsp_signature').on_attach(plugin.opts, buffer) end,
+        'LSP Signature Handler'
+      )
     end,
     config = false,
   },
@@ -680,9 +686,7 @@ return {
   {
     'weilbith/nvim-code-action-menu',
     cmd = 'CodeActionMenu',
-    init = function()
-      vim.g.code_action_menu_window_border = require('zeroknight.config.ui').borders
-    end,
+    init = function() vim.g.code_action_menu_window_border = require('zeroknight.config.ui').borders end,
   },
 
   {
@@ -698,9 +702,7 @@ return {
     opts = function()
       return {
         separator = string.format(' %s ', ui.icons.separators.breadcrumb),
-        icons = vim.tbl_map(function(x)
-          return x .. ' '
-        end, ui.icons.kinds),
+        icons = vim.tbl_map(function(x) return x .. ' ' end, ui.icons.kinds),
         highlight = true,
         safe_output = true,
         click = true,

@@ -61,13 +61,9 @@ function Color:new(color)
 end
 
 -- Create a color based on the main background color of the current colorscheme
-function Color:from_background()
-  return Color.new(self, vim.api.nvim_get_hl(0, { name = 'Normal' }).bg)
-end
+function Color:from_background() return Color.new(self, vim.api.nvim_get_hl(0, { name = 'Normal' }).bg) end
 
-function Color:__tostring()
-  return M.to_hex(bor(lshift(self.r, 16), lshift(self.g, 8), self.b))
-end
+function Color:__tostring() return M.to_hex(bor(lshift(self.r, 16), lshift(self.g, 8), self.b)) end
 
 -- Return a new `Color` that is result of overlaying this color at the given
 -- alpha level onto another opaque color, i.e. a background.

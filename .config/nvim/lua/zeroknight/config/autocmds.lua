@@ -21,9 +21,7 @@ autocmd({ 'BufWritePre', 'FileWritePre' }, {
 
 autocmd('FileType', {
   desc = 'Many filetype plugins set `formatoptions+=o`. Undo this.',
-  callback = function()
-    optl.formatoptions:remove 'o'
-  end,
+  callback = function() optl.formatoptions:remove 'o' end,
 })
 
 autocmd('FileType', {
@@ -74,9 +72,7 @@ autocmd({ 'WinEnter', 'WinLeave' }, {
 autocmd('TermOpen', {
   desc = 'Terminal Settings',
   callback = function()
-    vim.iter({ 'number', 'relativenumber', 'cursorline', 'cursorcolumn' }):each(function(x)
-      optl[x] = false
-    end)
+    vim.iter({ 'number', 'relativenumber', 'cursorline', 'cursorcolumn' }):each(function(x) optl[x] = false end)
   end,
 })
 
@@ -105,7 +101,5 @@ autocmd('QuickFixCmdPost', {
 
 autocmd('BufWritePre', {
   desc = 'Runs formatting on buffer write, if enabled',
-  callback = function(ctx)
-    require('zeroknight.format').format { bufnr = ctx.buf }
-  end,
+  callback = function(ctx) require('zeroknight.format').format { bufnr = ctx.buf } end,
 })
