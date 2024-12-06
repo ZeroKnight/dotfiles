@@ -4,13 +4,13 @@
 vim.g.mapleader = '\\'
 vim.g.maplocalleader = ' '
 
+-- Assorted global stuff
+require 'zeroknight.globals'
+
 -- Ensure baseline environment
 if not require 'zeroknight.bootstrap'() then
   return
 end
-
--- Assorted global stuff
-require 'zeroknight.globals'
 
 vim.g.sessiondir = as_stdpath('state', 'session')
 
