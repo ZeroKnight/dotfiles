@@ -323,46 +323,6 @@ return {
   },
 
   {
-    'folke/zen-mode.nvim',
-    dependencies = { 'folke/twilight.nvim' },
-    cmd = 'ZenMode',
-    opts = {
-      window = {
-        backdrop = 0.9,
-        width = function()
-          return vim.bo.textwidth + 4
-        end,
-        options = {
-          cursorline = true,
-          number = true,
-          relativenumber = true,
-          list = false,
-          signcolumn = 'no',
-          foldcolumn = '0',
-        },
-      },
-      plugins = {
-        kitty = {
-          enabled = true,
-          font = '+4',
-        },
-      },
-    },
-  },
-
-  {
-    'folke/twilight.nvim',
-    lazy = true,
-    cmd = 'Twilight',
-    opts = {
-      dimming = {
-        alpha = 0.25,
-        inactive = false,
-      },
-    },
-  },
-
-  {
     'norcalli/nvim-colorizer.lua',
     event = 'VeryLazy',
     opts = {

@@ -194,6 +194,7 @@ opt.sessionoptions = {
   'help',
   'localoptions',
   'tabpages',
+  'terminal',
   'winsize',
 }
 opt.viewoptions = { 'cursor', 'curdir', 'folds', 'localoptions' }

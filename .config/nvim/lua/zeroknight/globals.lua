@@ -5,12 +5,6 @@
 -- Namespace for my global variables
 _G.zeroknight = _G.zeroknight or {}
 
--- Convenient shortcut for printing lua objects
-function _G.dump(...)
-  print(table.concat(vim.tbl_map(vim.inspect, { ... }), '\n'))
-  return ...
-end
-
 -- Return a subpath under a standard path
 --- @param what 'cache'|'config'|'config_dirs'|'data'|'data_dirs'|'log'|'run'|'state'
 --- @param path string

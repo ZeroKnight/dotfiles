@@ -12,25 +12,6 @@ local lint = require 'zeroknight.lint'
 local api = vim.api
 local diag = vim.diagnostic
 
-local function toggle(option)
-  vim.opt_local[option] = not vim.opt_local[option]:get()
-  vim.notify(
-    (vim.opt_local[option]:get() and 'Enabled ' or 'Disabled ') .. option,
-    vim.log.levels.INFO,
-    { title = 'Option toggled' }
-  )
-end
-
-local function toggle_inlay_hints()
-  local enabled = vim.lsp.inlay_hint.is_enabled()
-  vim.lsp.inlay_hint.enable(not enabled)
-  vim.notify(
-    (enabled and 'Enabled ' or 'Disabled ') .. 'Inlay Hints',
-    vim.log.levels.INFO,
-    { title = 'Option toggled' }
-  )
-end
-
 -- Ported from tpope/vim-unimpaired
 local function _wrap(operation, addr, count, map, visual)
   local old_fdm = vim.wo.foldmethod
@@ -91,16 +72,9 @@ wk.add {
 
 -- stylua: ignore
 wk.add {
-  {'<Leader>/', '<Cmd>let v:hlsearch = !v:hlsearch<CR>', desc = 'Toggle Search Highlighting' },
   { '<Leader>tb', util.toggle_background, desc = 'Toggle background' },
-  { '<Leader>tc', util.partial(toggle, 'list'), desc = 'Toggle listchars', },
-  { '<Leader>td', util.partial(util.toggle_diagnostics, 0), desc = 'Toggle diagnostics' },
   { '<Leader>tf', format.toggle, desc = 'Toggle format on write' },
-  { '<Leader>th', toggle_inlay_hints, desc = 'Toggle LSP Inlay Hints' },
   { '<Leader>tl', lint.toggle, desc = 'Toggle automatic linting' },
-  { '<Leader>ts', util.partial(toggle, 'spell'), desc = 'Toggle Spellcheck', },
-  { '<Leader>tw', util.partial(toggle, 'wrap'), desc = 'Toggle word wrap' },
-  { '<Leader>t/', util.partial(toggle, 'hlsearch'), desc = 'Toggle hlsearch' },
   { '<Leader>ui', vim.show_pos, desc = 'Inspect cursor position' },
   { '<Leader>xL', vim.diagnostic.setloclist, desc = 'Dump diagnostics to location list' },
   { '<Leader>xQ', vim.diagnostic.setqflist, desc = 'Dump diagnostics to quickfix list' },

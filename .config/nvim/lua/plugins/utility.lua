@@ -8,15 +8,6 @@
 return {
   -- Utilities
   { 'dstein64/vim-startuptime', cmd = 'StartupTime' },
-  {
-    'bfredl/nvim-luadev',
-    cmd = 'Luadev',
-    keys = {
-      { '<LocalLeader>x', '<Plug>(Luadev-Run)', desc = 'Run Lua code (motion)' },
-      { '<LocalLeader>xx', '<Plug>(Luadev-RunLine)', desc = 'Run current line of Lua code' },
-      { '<LocalLeader>xw', '<Plug>(Luadev-RunWord)', desc = 'Evaluate Lua identifier under cursor' },
-    },
-  },
   { 'tpope/vim-dispatch', cmd = { 'Make', 'Dispatch', 'Start', 'Spawn' } }, -- TBD: keep this?
   { 'tpope/vim-eunuch', event = 'VeryLazy' },
 
@@ -26,8 +17,16 @@ return {
     keys = function()
       -- stylua: ignore
       return {
-        { '<Leader>bd', function() require('mini.bufremove').delete(0, false) end, desc = 'Delete buffer but keep window' },
-        { '<Leader>bD', function() require('mini.bufremove').delete(0, true) end, desc = 'Delete buffer but keep window (force)' },
+        {
+          '<Leader>bd',
+          function() require('snacks').bufdelete.delete() end,
+          desc = 'Delete buffer but keep window',
+        },
+        {
+          '<Leader>bD',
+          function() require('snacks').bufdelete.delete { force = true } end,
+          desc = 'Delete buffer but keep window (force)',
+        },
       }
     end,
   },
@@ -75,6 +74,96 @@ return {
         style = 'glyph',
         lsp = lsp,
       }
+    end,
+  },
+
+  -- NOTE: Snacks creates a global reference to itself as `Snacks`
+  {
+    'folke/snacks.nvim',
+    priority = 1000,
+    lazy = false,
+    ---@type snacks.Config
+    opts = {
+      bigfile = {
+        enabled = true,
+        notify = true,
+        size = 2 * 1024 * 1024,
+        config = function(opts, defaults)
+          opts.setup = function(ctx)
+            vim.b[ctx.buf].lsp_allow_attach = false
+            vim.b[ctx.buf].auto_lint = false
+            defaults.setup(ctx)
+          end
+        end,
+      },
+      dashboard = require 'zeroknight.startup',
+      debug = { enabled = true },
+      notify = { enabled = true },
+      rename = { enabled = true },
+      scratch = { enabled = true },
+      terminal = { enabled = true },
+      toggle = { enabled = true },
+    },
+    keys = {
+      {
+        '<Leader>.',
+        function()
+          Snacks.scratch()
+        end,
+        desc = 'Toggle Scratch Buffer',
+      },
+      {
+        '<Leader>f.',
+        function()
+          Snacks.scratch.select()
+        end,
+        desc = 'Find Scratch Buffer',
+      },
+      {
+        '<C-/>',
+        function()
+          Snacks.terminal()
+        end,
+        desc = 'Toggle terminal',
+      },
+    },
+    init = function()
+      vim.api.nvim_create_autocmd('User', {
+        pattern = 'VeryLazy',
+        callback = function()
+          _G.dd = function(...)
+            Snacks.debug.inspect(...)
+          end
+          _G.bt = function()
+            Snacks.debug.backtrace()
+          end
+          vim.print = _G.dd -- Also overrides :=
+
+          -- NOTE: Snacks.toggle adds to Which-Key on our behalf
+          Snacks.toggle.option('spell', { name = 'Spellcheck' }):map '<Leader>ts'
+          Snacks.toggle.option('wrap', { name = 'Word Wrap' }):map '<Leader>tw'
+          Snacks.toggle.option('hlsearch', { name = 'Toggle hlsearch' }):map '<Leader>t/'
+          Snacks.toggle.option('list', { name = 'Toggle listchars' }):map '<Leader>tc'
+          Snacks.toggle.diagnostics():map '<Leader>td'
+          Snacks.toggle.inlay_hints():map '<Leader>th'
+
+          Snacks.toggle
+            .new({
+              name = 'Search Highlighting',
+              get = function()
+                return vim.v.hlsearch == 1
+              end,
+              set = function(state)
+                vim.v.hlsearch = state and 1 or 0
+              end,
+            })
+            :map '<Leader>/'
+
+          vim.api.nvim_create_user_command('Rename', function()
+            Snacks.rename.rename_file()
+          end, {})
+        end,
+      })
     end,
   },
 

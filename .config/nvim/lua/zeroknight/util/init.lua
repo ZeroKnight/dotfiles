@@ -87,19 +87,6 @@ function M.python_version(interpreter)
   return vim.fn.system(format('%s -c %s', interpreter, ver_cmd))
 end
 
--- Toggle diagnostics reporting for the given buffer, or the current if `nil`
----@param buffer number?
-function M.toggle_diagnostics(buffer)
-  buffer = buffer or 0
-  if vim.diagnostic.is_disabled(buffer) then
-    vim.diagnostic.enable(buffer)
-    vim.notify('Enabled diagnostics', vim.log.levels.INFO, { title = 'Diagnostics' })
-  else
-    vim.diagnostic.disable(buffer)
-    vim.notify('Disabled diagnostics', vim.log.levels.INFO, { title = 'Diagnostics' })
-  end
-end
-
 -- Toggle the `background` vim option
 function M.toggle_background()
   if vim.o.background == 'light' then
@@ -216,6 +203,7 @@ end
 -- `cwd` to the result of `util.get_root`.
 ---@param picker string
 ---@param opts table?
+---@return fun()
 function M.telescope(picker, opts)
   return function()
     local _opts = vim.tbl_deep_extend('keep', opts or {}, { cwd = M.get_root() })
