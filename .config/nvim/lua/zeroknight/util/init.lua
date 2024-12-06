@@ -4,6 +4,7 @@ local format = string.format
 
 local M = {}
 
+_G.zeroknight.lsp_allow_attach = _G.zeroknight.lsp_allow_attach or true
 M.root_patterns = { '.git', '' }
 
 -- Returns the module name of the calling function at the given level
@@ -185,7 +186,9 @@ function M.on_attach(on_attach, desc)
       if client == nil then
         error 'client is somehow nil in LspAttach callback'
       end
-      on_attach(client, buffer)
+      if vim.b.lsp_allow_attach or _G.zeroknight.lsp_allow_attach then
+        on_attach(client, buffer)
+      end
     end,
   })
 end
