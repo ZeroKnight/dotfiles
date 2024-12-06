@@ -11,7 +11,7 @@ local function has_lazy()
   if vim.uv.fs_stat(lazy_path) then
     return true
   end
-  util.warn 'Cannot load config until Lazy.nvim is set up. Run ansible!'
+  vim.notify('Cannot load config until Lazy.nvim is set up. Run ansible!', 'warn')
   return false
 end
 
