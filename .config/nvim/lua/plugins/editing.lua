@@ -179,7 +179,7 @@ return {
           PERF = {
             icon = ' ',
             color = 'default',
-            alt = { 'PERFORMANCE', 'OPTI', 'OPTIMIZE', 'OPTIMIZATION' },
+            alt = { 'PERFORMANCE', 'OPTI', 'OPTIM', 'OPTIMIZE', 'OPTIMIZATION' },
           },
         },
       }
