@@ -8,8 +8,8 @@ case $distro {
     opensuse*)
         alias zypper='sudo zypper'
         alias zyp='zypper'
-        export ZYPP_MULTICURL=0    # Don't use metalink/zsync stuff
-        export ZYPP_MEDIANETWORK=1 # Use new multithreaded backend
+        export ZYPP_CURL2=1 # Newer, simplified CURL backend. Overrules ZYPP_MULTICURL
+        export ZYPP_PCK_PRELOAD=1
         ;;
     arch)
         alias pacman='sudo pacman'
