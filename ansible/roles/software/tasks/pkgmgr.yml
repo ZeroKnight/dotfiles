@@ -1,5 +1,9 @@
 # vim: ft=yaml.ansible
 
+- name: Gather package facts
+  ansible.builtin.package_facts:
+    manager: auto
+
 - name: Configure package manager (Suse)
   become: true
   when: ansible_os_family == 'Suse'
@@ -31,12 +35,27 @@
         line: "repo.refresh.delay = 1080"
 
     # Disable chunking package downloads across multiple mirrors when metalink
-    # data is present.
+    # data is present. Prior to the libzypp-17.36.4 / zypper-1.14.87 update, the
+    # MULTICURL backend used this for connection chunking.
     - name: "[mirrorsorcerer] Do not chunk connections to avoid tanking performance"
       ansible.builtin.lineinfile:
         path: "{{ config }}"
         regexp: "download\\.max_concurrent_connections\\s*=\\s*\\d*"
         line: "download.max_concurrent_connections = 1"
+      when: >-
+        ansible_facts.packages['libzypp'] | selectattr('version', 'version', '17.36.4', '<') is any and
+        ansible_facts.packages['zypper'] | selectattr('version', 'version', '1.14.87', '<') is any
+
+    # As of libzypp-17.36.4 / zypper-1.14.87, actual parallel downloads will
+    # will be used. Increase the max download count a bit.
+    - name: "[zypp-parallel] Increase max concurrent downloads to 8"
+      ansible.builtin.lineinfile:
+        path: "{{ config }}"
+        regexp: "download\\.max_concurrent_connections\\s*=\\s*\\d*"
+        line: "download.max_concurrent_connections = 8"
+      when: >-
+        ansible_facts.packages['libzypp'] | selectattr('version', 'version', '17.36.4', '>=') is any and
+        ansible_facts.packages['zypper'] | selectattr('version', 'version', '1.14.87', '>=') is any
 
     # By default, this is unset and just means zypper picks a "sane default".
     # Let's be explicit.
