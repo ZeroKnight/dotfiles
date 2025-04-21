@@ -104,17 +104,6 @@ listscroll-skip() {
 zle -N listscroll-skip
 bindkey -M listscroll '^I' listscroll-skip
 
-double-dot-expand() {
-  # XXX: Can't use negative lookbehind, so this'll have to do
-  if [[ $LBUFFER =~ '\B\.{2}' && $LBUFFER[-3] != '.' ]]; then
-    LBUFFER+='/..'
-  else
-    LBUFFER+='.'
-  fi
-}
-zle -N double-dot-expand
-bindkey '.' double-dot-expand
-
 # Busy-indicator for completion
 complete-word-with-indicator() {
   print -Pn " %{%F{magenta}\u231B%f%}"
