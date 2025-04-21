@@ -4,4 +4,5 @@
 
 typeset -g ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 
-bindkey '\ey' autosuggest-execute
+bindkey '^Y' autosuggest-execute
+bindkey '^F' autosuggest-accept
