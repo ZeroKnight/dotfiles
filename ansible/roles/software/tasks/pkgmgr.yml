@@ -64,3 +64,10 @@
         path: "{{ config }}"
         regexp: "commit\\.downloadMode\\s*="
         line: "commit.downloadMode = DownloadInAdvance"
+
+    # Don't waste time on slow connections
+    - name: Set minimum download speed to 25KB/s
+      ansible.builtin.lineinfile:
+        path: "{{ config }}"
+        regexp: "download\\.min_download_speed\\s*=\\s*\\d*"
+        line: "download.min_download_speed = {{ 1024 * 25 }}"
