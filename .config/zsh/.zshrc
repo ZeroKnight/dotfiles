@@ -5,6 +5,8 @@
 # Set up PATHs
 path=(
     ~/.local/bin
+    /usr/local/sbin
+    /usr/sbin
     $path
 )
 
