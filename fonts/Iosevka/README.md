@@ -2,26 +2,38 @@
 
 My customized Iosevka font family.
 
-## Building
+## Build via Ansible
 
-1. Grab the [iosevka-build][1] Docker image and follow [these instructions][2]
-    1. Symlink `private-build-plans.toml` to `iosevka-zero-build-plans.toml`;
-      the docker image expects this name
-    2. Pass `ttf::iosevka-zero` as an argument to the `docker run` command to
-       avoid building more than is necessary
-2. Grab the [nerdfonts/patcher][3] Docker image and follow the instructions
-    - Also grab the [VSCode Codicons][4] font for LSP Kind icons
-        - Include a directory with `codicon.ttf` as a bind mount (`-v`)
-        - Run the patcher image *without* `--rm` and with `--entrypoint sh` in order to copy `codicon.ttf` to
-          `/nerd/src/glyphs`
-        - Start patching via `docker exec <container name> sh /nerd/bin/scripts/docker-entrypoint.sh`. Include
-          `--custom codicon` and any other desired font arguments
-    - Might need to pass absolute paths to the `-v` options to get it to work
-3. (Optional) Use [unitettc][5] to merge the patched ttfs into a single ttc
+1. Install Docker
+2. Install Ansible
+
+Then just run the [ansible playbook](../../ansible/iosevka.yml).
+
+## Building Manually
+
+### Prerequisites
+
+1. Install Docker
+2. Clone the [Iosevka repository][1]
+    - Or at least just the `docker` subtree
+3. Pull the [`nerdfonts/patcher`][2] Docker image
+
+### Building
+
+1. Build the Iosevka `fontcc` [docker image][2]
+    1. `cd Iosevka/docker`
+    2. `docker build -t=fontcc .`
+2. Symlink `private-build-plans.toml` to `iosevka-zero-build-plans.toml`; the docker image expects this name
+3. Spin up a `fontcc` container to build the base font family
+    - `docker run -it --rm -v "dotfiles/fonts/Iosevka:/work" fontcc 'ttf::iosevka-zero'`
+    - Passing `ttf::iosevka-zero` as an argument avoids building more than is necessary
+    - Built fonts will be output to the `dist` directory
+4. Spin up a `nerdfonts/patcher` container to [patch the font family][3]
+    - `docker run -it -v ./dist/iosevka-zero/TTF:/in:Z -v ./../nerdfont:/out:Z -e 'PN=16' nerdfonts/patcher -c --makegroups -1`
+5. (Optional) Use [unitettc][4] to merge the patched ttfs into a single ttc
 
 
-[1]: https://github.com/avivace/fonts-iosevka
-[2]: https://github.com/be5invis/Iosevka#using-a-docker-container
+[1]: https://github.com/be5invis/Iosevka
+[2]: https://github.com/be5invis/Iosevka/blob/main/docker
 [3]: https://github.com/ryanoasis/nerd-fonts/#font-patcher
-[4]: https://github.com/microsoft/vscode-codicons/blob/main/dist/codicon.ttf
-[5]: http://yozvox.web.fc2.com/556E697465545443.html
+[4]: http://yozvox.web.fc2.com/556E697465545443.html

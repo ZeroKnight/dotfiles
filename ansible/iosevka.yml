@@ -1,0 +1,71 @@
+# vim: ft=yaml.ansible
+
+- name: Build customized Iosevka Font Family
+  hosts: localhost
+  vars_files:
+    - vars/main.yml
+  vars:
+    iosevka_dir: "{{ (dotfiles, 'fonts', 'Iosevka') | path_join }}"
+  tasks:
+    - name: Check if fonts are built
+      ansible.builtin.stat:
+        path: "{{ (iosevka_dir, 'dist') | path_join }}"
+      register: dist_stat
+
+    - name: Build font
+      when: not dist_stat.stat.exists
+      block:
+        # TODO: We only need the docker sub-tree
+        - name: Clone be5invis/Iosevka
+          ansible.builtin.git:
+            repo: 'https://github.com/be5invis/Iosevka'
+            dest: "{{ (src_dir, 'Iosevka') | path_join }}"
+            version: main
+            depth: 1
+
+        - name: Build fontcc container
+          community.docker.docker_image_build:
+            name: fontcc
+            path: "{{ (src_dir, 'Iosevka', 'docker') | path_join }}"
+
+        - name: Link build plan
+          ansible.builtin.file:
+            src: "{{ (iosevka_dir, 'iosevka-zero-build-plans.toml' }}"
+            dest: "{{ (iosevka_dir, 'private-build-plans.toml' }}"
+            state: link
+
+        - name: Compile Iosevka Zero
+          community.docker.docker_container:
+            name: ansible-build-iosevka-zero
+            image: fontcc
+            command: ttf::iosevka-zero
+            working_dir: "{{ iosevka_dir }}"
+            volumes:
+              - "{{ iosevka_dir }}:/work"
+            cleanup: true
+            detach: false # Wait for container to exit
+            pull: never
+
+    - name: Pull nerdfonts/patcher
+      community.docker.docker_image_pull:
+        name: nerdfonts/patcher
+
+    - name: Patch Iosevka Zero
+      community.docker.docker_container:
+        name: ansible-patch-iosevka-zero
+        image: nerdfonts/patcher
+        command: -c --makegroups -1
+        working_dir: "{{ iosevka_dir }}"
+        volumes:
+          - "{{ (iosevka_dir, 'dist/iosevka-zero/TTF') | path_join }}:/in"
+          - "{{ (iosevka_dir, 'nerdfont') | path_join }}:/out"
+        env:
+          PN: "16" # job count
+        cleanup: true
+        detach: false # Wait for container to exit
+
+    - name: Deploy Iosevka Zero
+      ansible.builtin.copy:
+        src: "{{ iosevka_dir }}/nerdfont/"
+        dest: "{{ (data_dir, 'fonts') | path_join }}"
+        mode: "644"
