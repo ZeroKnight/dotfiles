@@ -1,0 +1,12 @@
+# Personal logrotation
+[Unit]
+Description=Rotate logs in home directory
+
+[Service]
+Type=oneshot
+ExecStart=/usr/sbin/logrotate --state=%S/logrotate.status %E/logrotate.d
+
+# Yanked from openSUSE logrotate.service
+Nice=19
+IOSchedulingClass=best-effort
+IOSchedulingPriority=7

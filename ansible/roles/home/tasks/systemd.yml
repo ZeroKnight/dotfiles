@@ -1,0 +1,8 @@
+# vim: ft=yaml.ansible
+
+- name: Start home directory log rotation service timer
+  ansible.builtin.systemd_service:
+    name: logrotate.timer
+    state: started
+    enabled: true
+    scope: user

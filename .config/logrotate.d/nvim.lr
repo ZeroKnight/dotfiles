@@ -1,0 +1,23 @@
+# Neovim log files
+
+compress
+compresscmd /usr/bin/zstd
+compressext .zst
+compressoptions -T0 --long
+uncompresscmd /usr/bin/unzstd
+
+daily
+missingok
+notifempty
+copytruncate
+
+~/.local/state/nvim/*.log {
+    rotate 2
+    minsize 2M
+}
+
+# Not sure what's making this log file
+~/.local/state/nvim/log {
+    rotate 0
+    minsize 50K
+}

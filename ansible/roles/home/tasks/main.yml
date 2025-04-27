@@ -61,3 +61,8 @@
       loop: "{{ link_targets.files }}"
       loop_control:
         label: "{{ item.path }}"
+
+- name: Set up user level systemd
+  ansible.builtin.import_tasks: systemd.yml
+  tags:
+    - systemd
