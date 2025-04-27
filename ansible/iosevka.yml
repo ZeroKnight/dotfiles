@@ -7,27 +7,38 @@
   vars:
     build_plans: "{{ (iosevka_dir, 'iosevka-zero-build-plans.toml') | path_join }}"
     iosevka_dir: "{{ (dotfiles, 'fonts', 'Iosevka') | path_join }}"
+    iosevka_docker: /tmp/Iosevka/docker
+    patched_fonts: "{{ (iosevka_dir, 'patched') | path_join }}"
   tasks:
-    - name: Check if fonts are built
+    - name: Check dists directory
       ansible.builtin.stat:
         path: "{{ (iosevka_dir, 'dist') | path_join }}"
-      register: dist_stat
+      register: st_dist
+
+    - name: Check build plans
+      ansible.builtin.stat:
+        path: "{{ build_plans }}"
+      register: st_plans
+      failed_when: not st_plans.stat.exists
 
     - name: Build font
-      when: not dist_stat.stat.exists
+      when: not st_dist.stat.exists or st_plans.stat.mtime > st_dist.stat.mtime
       block:
-        # TODO: We only need the docker sub-tree
-        - name: Clone be5invis/Iosevka
-          ansible.builtin.git:
-            repo: 'https://github.com/be5invis/Iosevka'
-            dest: "{{ (src_dir, 'Iosevka') | path_join }}"
-            version: main
-            depth: 1
+        # NOTE: We only need the docker subtree; the resulting container will
+        # always pull the latest Iosevka release for building
+        - name: Sparse clone be5invis/Iosevka
+          # noqa: command-instead-of-module
+          ansible.builtin.command: |
+            git clone --sparse --filter=blob:none 'https://github.com/be5invis/Iosevka'
+            git sparse-checkout set docker/
+          args:
+            chdir: /tmp
+            creates: "{{ (iosevka_docker, 'Dockerfile') | path_join }}"
 
         - name: Build fontcc container
           community.docker.docker_image_build:
             name: fontcc
-            path: "{{ (src_dir, 'Iosevka', 'docker') | path_join }}"
+            path: "{{ iosevka_docker }}"
 
         - name: Link build plan
           ansible.builtin.file:
@@ -46,6 +57,7 @@
             cleanup: true
             detach: false # Wait for container to exit
             pull: never
+          tags: build
 
     - name: Pull nerdfonts/patcher
       community.docker.docker_image_pull:
@@ -59,14 +71,26 @@
         working_dir: "{{ iosevka_dir }}"
         volumes:
           - "{{ (iosevka_dir, 'dist/iosevka-zero/TTF') | path_join }}:/in"
-          - "{{ (iosevka_dir, 'nerdfont') | path_join }}:/out"
+          - "{{ patched_fonts }}:/out"
         env:
           PN: "16" # job count
         cleanup: true
         detach: false # Wait for container to exit
+      tags: build
 
-    - name: Deploy Iosevka Zero
-      ansible.builtin.copy:
-        src: "{{ iosevka_dir }}/nerdfont/"
-        dest: "{{ (data_dir, 'fonts') | path_join }}"
-        mode: "644"
+    - name: Deploy font
+      block:
+        - name: Gather font files
+          ansible.builtin.find:
+            paths: "{{ patched_fonts }}"
+          register: fonts
+
+        - name: Deploy Iosevka Zero font
+          ansible.builtin.file:
+            src: "{{ item.path }}"
+            dest: "{{ (data_dir, 'fonts', (item.path | basename)) | path_join }}"
+            state: link
+            force: true
+          loop: "{{ fonts.files }}"
+          loop_control:
+            label: "{{ item.path }}"
