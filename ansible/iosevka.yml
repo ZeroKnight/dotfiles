@@ -5,6 +5,7 @@
   vars_files:
     - vars/main.yml
   vars:
+    build_plans: "{{ (iosevka_dir, 'iosevka-zero-build-plans.toml') | path_join }}"
     iosevka_dir: "{{ (dotfiles, 'fonts', 'Iosevka') | path_join }}"
   tasks:
     - name: Check if fonts are built
@@ -30,8 +31,8 @@
 
         - name: Link build plan
           ansible.builtin.file:
-            src: "{{ (iosevka_dir, 'iosevka-zero-build-plans.toml' }}"
-            dest: "{{ (iosevka_dir, 'private-build-plans.toml' }}"
+            src: "{{ build_plans }}"
+            dest: "{{ (iosevka_dir, 'private-build-plans.toml') | path_join }}"
             state: link
 
         - name: Compile Iosevka Zero
