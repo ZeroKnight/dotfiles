@@ -38,6 +38,7 @@ local M = {
       file_blank = ' ',
       folder = ' ',
       folder_open = ' ',
+      prompt = '',
     },
     folds = {
       open = '󰅀',
@@ -65,11 +66,11 @@ local M = {
       Hint = ' ',
     },
     logging = {
-      TRACE = ' ',
-      DEBUG = ' ',
-      INFO = ' ',
-      WARN = '󰀪 ',
-      ERROR = '󰅚 ',
+      error = '󰅚 ',
+      warn = '󰀪 ',
+      info = ' ',
+      debug = ' ',
+      trace = '  ',
     },
     kinds = {
       Array = ' ',

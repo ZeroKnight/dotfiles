@@ -4,6 +4,9 @@
 -- subsystems for other plugins, or even just extra docs. Things that don't
 -- belong anywhere else will have a home here.
 
+local ui = require 'zeroknight.config.ui'
+local util = require 'zeroknight.util'
+
 ---@type LazySpec
 return {
   -- Utilities
@@ -64,7 +67,7 @@ return {
     version = false,
     opts = function()
       local lsp = {}
-      for k, v in pairs(require('zeroknight.config.ui').icons.kinds) do
+      for k, v in pairs(ui.icons.kinds) do
         lsp[k:lower()] = { glyph = v }
       end
       return {
@@ -81,6 +84,9 @@ return {
     lazy = false,
     ---@type snacks.Config
     opts = {
+      animate = {
+        duration = { step = 15, total = 300 },
+      },
       bigfile = {
         enabled = true,
         notify = true,
@@ -95,13 +101,52 @@ return {
       },
       dashboard = require 'zeroknight.startup',
       debug = { enabled = true },
-      notify = { enabled = true },
+      dim = {
+        enabled = true,
+        animate = { easing = 'outCubic' },
+        filter = function(buffer) return util.flag('snacks_dim', buffer) and util.is_normal_buffer(buffer) end,
+      },
+      indent = {
+        enabled = true,
+        indent = {
+          char = '│',
+          hl = 'LineNr',
+        },
+        scope = {
+          char = '│',
+          only_current = true,
+        },
+        animate = {
+          duration = { total = 500 },
+        },
+        filter = function(buffer)
+          return util.flag('snacks_indent', buffer)
+            and util.is_normal_buffer(buffer)
+            and not util.is_filetype(buffer, { 'text', 'markdown' })
+        end,
+      },
+      input = {
+        icon = ui.icons.common.prompt,
+        prompt_pos = 'title',
+      },
+      notifier = {
+        enabled = true,
+        timeout = 5000,
+        icons = ui.icons.logging,
+        style = 'compact',
+      },
       rename = { enabled = true },
       scratch = { enabled = true },
       terminal = { enabled = true },
       toggle = { enabled = true },
+      quickfile = { enabled = true },
     },
     keys = {
+      {
+        '<Leader>un',
+        function() Snacks.notifier.hide() end,
+        desc = 'Dismiss notifications',
+      },
       {
         '<Leader>.',
         function() Snacks.scratch() end,
@@ -132,6 +177,8 @@ return {
           Snacks.toggle.option('hlsearch', { name = 'Toggle hlsearch' }):map '<Leader>t/'
           Snacks.toggle.option('list', { name = 'Toggle listchars' }):map '<Leader>tc'
           Snacks.toggle.diagnostics():map '<Leader>td'
+          Snacks.toggle.dim():map '<Leader>ud'
+          Snacks.toggle.indent():map '<Leader>ti'
           Snacks.toggle.inlay_hints():map '<Leader>th'
 
           Snacks.toggle
@@ -143,6 +190,7 @@ return {
             :map '<Leader>/'
 
           vim.api.nvim_create_user_command('Rename', function() Snacks.rename.rename_file() end, {})
+          vim.api.nvim_create_user_command('Notifications', function() Snacks.notifier.show_history() end, {})
         end,
       })
     end,

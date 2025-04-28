@@ -216,4 +216,11 @@ function M.is_filetype(buffer, filetypes)
   return vim.iter(filetypes):any(function(ft) return vim.bo[buffer].filetype == ft end)
 end
 
+-- Check if a flag-style custom/plugin option is set, e.g. a plugin feature
+-- that can be disabled globally or per buffer, with the buffer scope
+-- taking precedence.
+---@param name string
+---@param buffer number?
+function M.flag(name, buffer) return vim.b[buffer or 0][name] ~= false and vim.g[name] ~= false end
+
 return M

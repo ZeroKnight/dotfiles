@@ -58,48 +58,6 @@ return {
   },
 
   {
-    'lukas-reineke/indent-blankline.nvim',
-    main = 'ibl',
-    event = { 'BufReadPost', 'BufNewFile' },
-    keys = {
-      { '<Leader>ti', '<Cmd>IBLToggle<CR>', desc = 'Toggle indent guides' },
-    },
-    opts = {
-      enabled = true,
-      indent = {
-        char = '│',
-        smart_indent_cap = true,
-      },
-      scope = {
-        enabled = true,
-        show_start = false,
-        show_end = false,
-      },
-      exclude = {
-        filetypes = {
-          'lazy',
-          'lspinfo',
-          'checkhealth',
-          'help',
-          'man',
-          'gitcommit',
-          'TelescopePrompt',
-          'TelescopeResults',
-          'text',
-          'markdown',
-          '',
-        },
-        buftypes = {
-          'terminal',
-          'nofile',
-          'quickfix',
-          'prompt',
-        },
-      },
-    },
-  },
-
-  {
     'mbbill/undotree',
     cmd = { 'UndotreeFocus', 'UndotreeHide', 'UndotreeShow', 'UndotreeToggle' },
     keys = { { '<F5>', '<Cmd>UndotreeToggle<CR>', desc = 'Toggle Undo Tree', mode = { 'n', 'i' } } },
@@ -328,81 +286,6 @@ return {
       },
     },
     config = function(_, opts) require('colorizer').setup(opts.filetypes, opts.defaults) end,
-  },
-
-  {
-    'stevearc/dressing.nvim',
-    lazy = true,
-    opts = function()
-      return {
-        input = { -- vim.ui.input
-          enabled = false, -- using noice
-          border = ui.borders,
-        },
-        select = { -- vim.ui.select
-          enabled = true,
-          nui = { border = { style = ui.borders } },
-          builtin = { border = ui.borders },
-          format_item_override = {
-            codeaction = function(action_tuple)
-              -- Show language server per action
-              local title = action_tuple[2].title:gsub('\r\n', '\\r\\n')
-              local client = vim.lsp.get_client_by_id(action_tuple[1])
-              return string.format('%s\t[%s]', title:gsub('\n', '\\n'), client.name)
-            end,
-          },
-          get_config = function(opts)
-            if opts.kind == 'codeaction' then
-              return {
-                telescope = require('telescope.themes').get_cursor(),
-              }
-            end
-          end,
-        },
-      }
-    end,
-    init = function(plugin)
-      -- Lazy load when vim.ui.* is called. Tweaked from LazyVim.
-      if util.plugin_opts(plugin).input.enabled then
-        ---@diagnostic disable-next-line: duplicate-set-field
-        vim.ui.input = function(...)
-          require('lazy').load { plugins = { 'dressing.nvim' } }
-          return vim.ui.input(...)
-        end
-      end
-      if util.plugin_opts(plugin).select.enabled then
-        ---@diagnostic disable-next-line: duplicate-set-field
-        vim.ui.select = function(...)
-          require('lazy').load { plugins = { 'dressing.nvim' } }
-          return vim.ui.select(...)
-        end
-      end
-    end,
-  },
-
-  {
-    'rcarriga/nvim-notify',
-    opts = function()
-      return {
-        icons = require('zeroknight.config.ui').icons.logging,
-        timeout = 5000,
-        max_height = function() return math.floor(vim.o.lines * 0.75) end,
-        max_width = function() return math.floor(vim.o.columns * 0.75) end,
-      }
-    end,
-    config = function(_, opts)
-      local notify = require 'notify'
-      vim.notify = notify
-      notify.setup(opts)
-      require('plugins.telescope.ext').add_extension 'notify'
-    end,
-    keys = {
-      {
-        '<Leader>un',
-        function() require('notify').dismiss { silent = true, pending = true } end,
-        desc = 'Dismiss notifications',
-      },
-    },
   },
 
   {
