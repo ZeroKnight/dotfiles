@@ -441,7 +441,9 @@ return {
     dependencies = { 'kevinhwang91/promise-async' },
     event = { 'BufReadPost', 'BufNewFile' },
     keys = {
-      { 'zR', function() require('ufo').openFoldsExceptKinds() end, desc = 'Open all folds' },
+      { 'zr', function() require('ufo').openFoldsExceptKinds() end, desc = 'Fold less' },
+      { 'zm', function() require('ufo').closeFoldsWith() end, desc = 'Fold more' },
+      { 'zR', function() require('ufo').openAllFolds() end, desc = 'Open all folds' },
       { 'zM', function() require('ufo').closeAllFolds() end, desc = 'Close all folds' },
     },
     opts = {
