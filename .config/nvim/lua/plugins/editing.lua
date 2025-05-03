@@ -74,6 +74,13 @@ return {
   },
 
   {
+    'echasnovski/mini.splitjoin',
+    version = false,
+    event = { 'BufReadPost', 'BufNewFile' },
+    opts = { toggle = 'gA' },
+  },
+
+  {
     'tpope/vim-abolish',
     event = { 'BufReadPost', 'BufNewFile' },
     config = function()
