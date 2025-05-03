@@ -416,8 +416,8 @@ return {
     keys = function()
       local keymaps = {
         { '<Leader>H', function() require('harpoon.ui').toggle_quick_menu() end, 'Harpoon Menu' },
-        { ']H', function() require('harpoon.ui').nav_next() end, 'Next Harpooned file' },
-        { '[H', function() require('harpoon.ui').nav_prev() end, 'Previous Harpooned file' },
+        { ']n', function() require('harpoon.ui').nav_next() end, desc = 'Next Harpooned file' },
+        { '[n', function() require('harpoon.ui').nav_prev() end, desc = 'Previous Harpooned file' },
       }
       for i = 0, 9 do
         table.insert(keymaps, {

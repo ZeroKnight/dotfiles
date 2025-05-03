@@ -38,8 +38,10 @@ return {
 
         wk.add {
           buffer = buffer,
-          { ']h', gs.next_hunk, desc = 'Next hunk' },
-          { '[h', gs.prev_hunk, desc = 'Previous hunk' },
+          { ']h', util.partial(gs.nav_hunk, 'next', { preview = true }), desc = 'Next hunk' },
+          { '[h', util.partial(gs.nav_hunk, 'prev', { preview = true }), desc = 'Previous hunk' },
+          { ']H', util.partial(gs.nav_hunk, 'last', { preview = true }), desc = 'First hunk' },
+          { '[H', util.partial(gs.nav_hunk, 'first', { preview = true }), desc = 'Last hunk' },
           {
             group = 'hunks',
             { '<LocalLeader>hu', gs.undo_stage_hunk, desc = 'Undo Stage Hunk' },
@@ -48,10 +50,12 @@ return {
             { '<LocalLeader>hR', gs.reset_buffer, desc = 'Reset Buffer (All hunks)' },
             { '<LocalLeader>hS', gs.stage_buffer, desc = 'Stage Buffer (All hunks)' },
             { '<LocalLeader>hU', gs.reset_buffer_index, desc = 'Reset Buffer Index' },
+            { '<LocalLeader>hd', gs.toggle_deleted, desc = 'Toggle deleted lines' },
+            { '<LocalLeader>hw', gs.toggle_word_diff, desc = 'Toggle word diff' },
             {
               mode = { 'n', 'v' },
-              { '<LocalLeader>hs', ':Gitsigns stage_hunk<CR>', desc = 'Stage hunk' },
-              { '<LocalLeader>hr', ':Gitsigns reset_hunk<CR>', desc = 'Reset hunk' },
+              { 'gh', ':Gitsigns stage_hunk<CR>', desc = 'Stage hunk' },
+              { 'gH', ':Gitsigns reset_hunk<CR>', desc = 'Reset hunk' },
             },
           },
           {
@@ -62,10 +66,8 @@ return {
               util.partial(gs.blame_line, { full = true, ignore_whitespace = true }),
               desc = 'Blame line',
             },
-            { '<LocalLeader>gd', gs.toggle_deleted, desc = 'Toggle deleted lines' },
-            { '<LocalLeader>gw', gs.toggle_word_diff, desc = 'Toggle word diff' },
           },
-          { 'ih', '<Cmd>Gitsigns select_hunk<CR>', mode = { 'o', 'x' } },
+          { 'gh', '<Cmd>Gitsigns select_hunk<CR>', mode = { 'o', 'x' } },
         }
       end,
     },
