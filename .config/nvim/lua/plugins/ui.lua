@@ -48,6 +48,10 @@ return {
         win = {
           border = require('zeroknight.config.ui').borders,
         },
+        triggers = {
+          -- BUG: Work around which-key#824 breaking v:count in visual mode
+          { '<auto>', mode = 'nisotc' },
+        },
       }
     end,
   },
