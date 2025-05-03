@@ -174,8 +174,8 @@ return {
           -- NOTE: Snacks.toggle adds to Which-Key on our behalf
           Snacks.toggle.option('spell', { name = 'Spellcheck' }):map '<Leader>ts'
           Snacks.toggle.option('wrap', { name = 'Word Wrap' }):map '<Leader>tw'
-          Snacks.toggle.option('hlsearch', { name = 'Toggle hlsearch' }):map '<Leader>t/'
-          Snacks.toggle.option('list', { name = 'Toggle listchars' }):map '<Leader>tc'
+          Snacks.toggle.option('hlsearch', { name = 'hlsearch' }):map '<Leader>t/'
+          Snacks.toggle.option('list', { name = 'listchars' }):map '<Leader>tc'
           Snacks.toggle.diagnostics():map '<Leader>td'
           Snacks.toggle.dim():map '<Leader>ud'
           Snacks.toggle.indent():map '<Leader>ti'
