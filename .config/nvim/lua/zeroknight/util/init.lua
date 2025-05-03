@@ -48,11 +48,10 @@ function M.capitalize(str) return format('%s%s', string.upper(str:sub(1, 1)), st
 -- Create a partial function
 ---@param func function
 ---@param ... any
----@return function|nil
+---@return function
 function M.partial(func, ...)
   if func == nil then
     error('cannot make partial function out of nil', 2)
-    return
   end
   local frozen_args = { ... }
   return function(...) return func(unpack(frozen_args), ...) end
