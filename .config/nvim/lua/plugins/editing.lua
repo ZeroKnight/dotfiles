@@ -39,20 +39,6 @@ return {
   },
 
   {
-    'echasnovski/mini.bracketed',
-    version = false,
-    event = 'VeryLazy',
-    opts = {
-      comment = { suffix = 'm', opts = { add_to_jumplist = true } },
-      conflict = { suffix = 'x', opts = { add_to_jumplist = true } },
-      file = { suffix = '' },
-      undo = { suffix = '' },
-      window = { suffix = '' },
-      yank = { suffix = '' },
-    },
-  },
-
-  {
     'echasnovski/mini.align',
     version = false,
     keys = {
@@ -64,6 +50,20 @@ return {
         mappings = { start = plugin.keys[1][1], start_with_preview = plugin.keys[2][1] },
       }
     end,
+  },
+
+  {
+    'echasnovski/mini.bracketed',
+    version = false,
+    event = 'VeryLazy',
+    opts = {
+      comment = { suffix = 'm', opts = { add_to_jumplist = true } },
+      conflict = { suffix = 'x', opts = { add_to_jumplist = true } },
+      file = { suffix = '' },
+      undo = { suffix = '' },
+      window = { suffix = '' },
+      yank = { suffix = '' },
+    },
   },
 
   {
