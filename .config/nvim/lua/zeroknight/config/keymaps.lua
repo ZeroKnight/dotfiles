@@ -12,28 +12,8 @@ local lint = require 'zeroknight.lint'
 local api = vim.api
 local diag = vim.diagnostic
 
--- Ported from tpope/vim-unimpaired
-local function _wrap(operation, addr, count, map, visual)
-  local old_fdm = vim.wo.foldmethod
-  vim.wo.foldmethod = 'manual'
-  operation(addr, count, visual)
-  vim.wo.foldmethod = old_fdm
-  vim.fn['repeat#set'](map, count)
-end
-
-local function move(addr, count, visual)
-  if visual then
-    api.nvim_feedkeys('V', 'x', true) -- Make nvim update visual marks
-    util.cmdf([[silent! execute "'<,'>move %s%d"]], addr, count)
-    vim.cmd 'normal! gv=gv'
-  else
-    util.cmdf('silent! execute "move %s%d"', addr, count)
-    vim.cmd 'normal! =='
-  end
-end
-
-local function copy(addr, count, visual)
-  if visual then
+local function copy(addr, count)
+  if string.find(vim.fn.mode(), '[vVsS\22\23]') then
     api.nvim_feedkeys('V', 'x', true) -- Make nvim update visual marks
     util.cmdf([[silent! execute "'<,'>copy %s%d"]], addr, count)
     api.nvim_feedkeys("'[V']", 'n', false)
@@ -100,11 +80,9 @@ wk.add {
 -- Everything else {{{1
 -- stylua: ignore
 wk.add {
-  { '[y', function() _wrap(copy, '-', vim.v.count1, '[y', false) end, desc = 'Copy line up' },
-  { '[e', function() _wrap(move, '--', vim.v.count1, '[e', false) end, desc = 'Move line up' },
+  { '[y', function() copy('-', vim.v.count1) end, desc = 'Copy line up', },
   { '[<Space>', function() blank('up', vim.v.count1) end, desc = 'Add blank line up' },
-  { ']y', function() _wrap(copy, '+-', vim.v.count1, ']y', false) end, desc = 'Copy line down' },
-  { ']e', function() _wrap(move, '+', vim.v.count1, ']e', false) end, desc = 'Move line down' },
+  { ']y', function() copy('+-', vim.v.count1) end, desc = 'Copy line down' },
   { ']<Space>', function() blank('down', vim.v.count1) end, desc = 'Add blank line down' },
   { 'gy', '<Cmd>%y+<CR>', desc = 'Yank buffer to clipboard' },
   { 'gK', 'f<Space>r<CR>', desc = 'Split line' },
@@ -113,10 +91,8 @@ wk.add {
   { '<M-d>', util.partial(diag.open_float, 0, { scope = 'line' }), desc = 'Show diagnostics for line', mode = { 'n', 'i' } },
   {
     mode = 'v',
-    { '[y', function() _wrap(copy, "'<-", vim.v.count1, '[y', true) end, desc = 'Copy line up' },
-    { '[e', function() _wrap(move, "'<--", vim.v.count1, '[e', true) end, desc = 'Move line up' },
-    { ']y', function() _wrap(copy, "'>.", vim.v.count1, ']y', true) end, desc = 'Copy line down' },
-    { ']e', function() _wrap(move, "'>+", vim.v.count1, ']e', true) end, desc = 'Move line down' },
+    { '[y', function() copy("'<-", vim.v.count1) end, desc = 'Copy line(s) up' },
+    { ']y', function() copy("'>.", vim.v.count1) end, desc = 'Copy line(s) down' },
   },
 }
 
@@ -153,17 +129,12 @@ vim.keymap.set('i', ';', ';<C-g>u')
 vim.keymap.set('x', 'v', '<C-v>', { desc = 'Switch to Visual-Block mode from Visual mode a bit quicker' })
 vim.keymap.set('x', '.', '<Cmd>normal .<CR>', { desc = 'Enable . in visual mode' })
 
--- Copy/Move the current line while in Insert/Visual mode like in other editors.
--- A nice companion to tpope/unimpaired or mini.bracketed
-vim.keymap.set('i', '<M-Up>', '<Esc><Cmd>move -2<CR>==gi', { desc = 'Move line up', silent = true })
-vim.keymap.set('i', '<M-Down>', '<Esc><Cmd>move +1<CR>==gi', { desc = 'Move line down', silent = true })
-vim.keymap.set('i', '<M-S-Up>', '<Cmd>copy -1<CR>', { desc = 'Copy line up' })
-vim.keymap.set('i', '<M-S-Down>', '<Cmd>copy .<CR>', { desc = 'Copy line down' })
-
-vim.keymap.set('v', 'K', ":move '<-2<CR>gv=gv", { desc = 'Move selection up', silent = true })
-vim.keymap.set('v', 'J', ":move '>+1<CR>gv=gv", { desc = 'Move selection up', silent = true })
-vim.keymap.set('v', '<M-S-Up>', ':copy -<CR>', { desc = 'Copy line up', silent = true })
-vim.keymap.set('v', '<M-S-Down>', ':copy +<CR>', { desc = 'Copy line down', silent = true })
+-- Copy lines up/down in visual or insert mode.
+-- Companion mappings to [y and ]y
+vim.keymap.set('i', '<M-K>', '<Cmd>copy -1<CR>', { desc = 'Copy line up' })
+vim.keymap.set('i', '<M-J>', '<Cmd>copy .<CR>', { desc = 'Copy line down' })
+vim.keymap.set('v', '<M-K>', function() copy("'<-", vim.v.count1) end, { desc = 'Copy line up' })
+vim.keymap.set('v', '<M-J>', function() copy("'>.", vim.v.count1) end, { desc = 'Copy line down' })
 
 -- Quickly start a :lua command line
 vim.keymap.set('n', '<M-;>', ':lua ', { desc = 'Quick :lua prompt' })

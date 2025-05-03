@@ -67,6 +67,13 @@ return {
   },
 
   {
+    'echasnovski/mini.move',
+    version = false,
+    event = { 'BufReadPost', 'BufNewFile' },
+    config = true,
+  },
+
+  {
     'tpope/vim-abolish',
     event = { 'BufReadPost', 'BufNewFile' },
     config = function()
