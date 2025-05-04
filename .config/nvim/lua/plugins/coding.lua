@@ -4,6 +4,7 @@
 -- linting, formatting, or transforming code.
 
 local util = require 'zeroknight.util'
+local ui = require 'zeroknight.config.ui'
 
 ---@type LazySpec
 return {
@@ -85,6 +86,19 @@ return {
   },
 
   {
+    'danymat/neogen',
+    version = '*',
+    cmd = 'Neogen',
+    opts = {
+      enabled = true,
+      snippet_engine = 'luasnip',
+      languages = {
+        lua = { annotatino_convention = 'emmylua' },
+      },
+    },
+  },
+
+  {
     'klen/nvim-test',
     cmd = { 'TestSuite', 'TestClass', 'TestFile', 'TestNearest', 'TestLast', 'TestVisit' },
     keys = {
@@ -154,5 +168,16 @@ return {
         { '<Leader>rp', group = 'Print-Debugging', mode = { 'n', 'v' } },
       }
     end,
+  },
+
+  {
+    'cshuaimin/ssr.nvim',
+    keys = {
+      { '<Leader>rs', function() require('ssr').open() end, desc = 'Structured Search/Replace', mode = { 'n', 'x' } },
+    },
+    opts = {
+      border = ui.borders,
+      keymaps = { replace_all = '<S-Enter>' },
+    },
   },
 }

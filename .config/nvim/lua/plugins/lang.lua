@@ -186,4 +186,17 @@ return {
       min_window_height = 10,
     },
   },
+
+  {
+    'MeanderingProgrammer/render-markdown.nvim',
+    dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.icons' },
+    ft = 'markdown',
+    opts = {
+      completions = { lsp = { enabled = true } },
+      on = {
+        render = function() vim.diagnostic.enable(false, { bufnr = 0 }) end,
+        clear = function() vim.diagnostic.enable(true, { bufnr = 0 }) end,
+      },
+    },
+  },
 }

@@ -598,4 +598,16 @@ return {
       }
     end,
   },
+
+  {
+    'petertriho/nvim-scrollbar',
+    event = { 'BufReadPost', 'BufNewFile' },
+    opts = {
+      show_in_active_only = true,
+      handle = {
+        blend = 30,
+        highlight = 'PmenuThumb',
+      },
+    },
+  },
 }
