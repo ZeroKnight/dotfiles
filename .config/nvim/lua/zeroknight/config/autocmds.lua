@@ -44,7 +44,7 @@ autocmd('FileType', {
 
 local relnum_off_events = { 'WinLeave', 'InsertEnter' }
 local relnum_on_events = { 'WinEnter', 'BufWinEnter', 'VimEnter', 'InsertLeave' }
-autocmd(vim.tbl_flatten { relnum_off_events, relnum_on_events }, {
+autocmd(vim.iter({ relnum_off_events, relnum_on_events }):flatten():totable(), {
   desc = 'Toggle relative line-numbering in various cases',
   callback = function(ctx)
     if vim.o.number then
@@ -79,7 +79,7 @@ autocmd('TermOpen', {
 autocmd('TextYankPost', {
   desc = 'Highlight yanked text',
   callback = function()
-    require('vim.highlight').on_yank {
+    vim.hl.on_yank {
       timeout = ui.highlight.indicator_duration,
       higroup = 'LspReferenceWrite',
       on_visual = false,

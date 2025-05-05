@@ -281,20 +281,19 @@ return {
   },
 
   {
-    'norcalli/nvim-colorizer.lua',
-    event = 'VeryLazy',
+    'catgoose/nvim-colorizer.lua',
+    event = 'BufReadPre',
     opts = {
       filetypes = {
         '*',
         css = { css = true },
         html = { names = true },
       },
-      defaults = {
+      user_default_options = {
         mode = 'background',
         names = false,
       },
     },
-    config = function(_, opts) require('colorizer').setup(opts.filetypes, opts.defaults) end,
   },
 
   {

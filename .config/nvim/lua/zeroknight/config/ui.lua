@@ -156,7 +156,7 @@ function M.make_highlights()
 end
 
 function M.statuscolumn()
-  local segments = { fold = '', line = '' }
+  local segments = { fold = '', sign = '', line = '' }
 
   if vim.wo.foldcolumn ~= 0 then
     local foldlevel = vim.fn.foldlevel
@@ -174,20 +174,10 @@ function M.statuscolumn()
     segments.fold = format('%%#FoldColumn#%s%%*', content)
   end
 
-  if vim.wo.number or vim.wo.relativenumber then
-    if vim.v.relnum == 0 then -- Current line
-      if vim.wo.number then
-        local total_lines = tostring(vim.api.nvim_buf_line_count(0))
-        segments.line = format('%%%d{v:lnum}', #total_lines)
-      else
-        segments.line = '%=' .. vim.v.relnum
-      end
-    else -- Other lines
-      segments.line = '%=' .. (vim.wo.relativenumber and vim.v.relnum or vim.v.lnum)
-    end
-  end
+  segments.sign = '%s'
+  segments.line = '%l'
 
-  return format('%s%%s%s ', segments.fold, segments.line)
+  return format('%s%s%s ', segments.fold, segments.sign, segments.line)
 end
 
 return M

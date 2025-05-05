@@ -9,7 +9,6 @@ return {
   {
     'nvim-telescope/telescope.nvim',
     lazy = true,
-    branch = '0.1.x',
     cmd = 'Telescope',
     init = function()
       vim.api.nvim_create_autocmd({ 'BufAdd', 'VimEnter' }, {

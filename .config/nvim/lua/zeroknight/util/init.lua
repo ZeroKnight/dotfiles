@@ -112,7 +112,7 @@ function M.get_root()
   ---@type string[]
   local roots = {}
   if path then
-    for _, client in pairs(vim.lsp.get_active_clients { bufnr = 0 }) do
+    for _, client in pairs(vim.lsp.get_clients { bufnr = 0 }) do
       local workspace = client.config.workspace_folders
       local paths = workspace and vim.tbl_map(function(ws) return vim.uri_to_fname(ws.uri) end, workspace)
         or client.config.root_dir and { client.config.root_dir }
@@ -172,7 +172,8 @@ end
 ---@param server string
 ---@param settings lspconfig.settings
 function M.update_ls_settings(server, settings)
-  vim.validate { server = { server, 'string' }, settings = { settings, 'table' } }
+  vim.validate('server', server, 'string')
+  vim.validate('settings', settings, 'table')
   local config = vim.tbl_get(require 'lspconfig.configs', server, 'manager', 'config')
   if config == nil then
     return

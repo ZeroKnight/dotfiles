@@ -57,8 +57,8 @@ function M.get_comment()
   if cms:match '%%s$' then
     return vim.trim(cms:sub(0, -3))
   end
-  for _, part in vim.gsplit(vim.opt.comments:get(), ',', true) do
-    local flags, text = unpack(vim.split(part, ':', true))
+  for _, part in vim.gsplit(vim.opt.comments:get(), ',', { plain = true }) do
+    local flags, text = unpack(vim.split(part, ':', { plain = true }))
     if flags == '' or flags == 'b' then
       return text
     end
@@ -67,13 +67,13 @@ end
 
 function M.get_foldmarker(marker)
   ---@diagnostic disable-next-line: redundant-parameter
-  vim.validate {
-    marker = {
-      marker,
-      function(x) return x == nil or x == 'open' or x == 'close' end,
-      "'open', 'close', or nil",
-    },
-  }
+  vim.validate(
+    'marker',
+    marker,
+    function(x) return x == nil or x == 'open' or x == 'close' end,
+    true,
+    "'open', 'close', or nil"
+  )
   local fmr = vim.opt.foldmarker:get()
   if marker ~= nil then
     local map = { open = 1, close = 2 }

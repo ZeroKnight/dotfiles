@@ -176,10 +176,26 @@ return {
           Snacks.toggle.option('wrap', { name = 'Word Wrap' }):map '<Leader>tw'
           Snacks.toggle.option('hlsearch', { name = 'hlsearch' }):map '<Leader>t/'
           Snacks.toggle.option('list', { name = 'listchars' }):map '<Leader>tc'
-          Snacks.toggle.diagnostics():map '<Leader>td'
           Snacks.toggle.dim():map '<Leader>ud'
           Snacks.toggle.indent():map '<Leader>ti'
           Snacks.toggle.inlay_hints():map '<Leader>th'
+          Snacks.toggle.diagnostics():map '<Leader>tdd'
+
+          Snacks.toggle
+            .new({
+              name = 'Diagnostic Virtual Lines',
+              get = function() return vim.diagnostic.config().virtual_lines end,
+              set = function(state) return vim.diagnostic.config { virtual_lines = state } end,
+            })
+            :map '<Leader>tdl'
+
+          Snacks.toggle
+            .new({
+              name = 'Diagnostic Virtual Text',
+              get = function() return vim.diagnostic.config().virtual_text end,
+              set = function(state) return vim.diagnostic.config { virtual_text = state } end,
+            })
+            :map '<Leader>tdt'
 
           Snacks.toggle
             .new({

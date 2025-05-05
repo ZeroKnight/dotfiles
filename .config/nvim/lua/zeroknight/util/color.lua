@@ -7,7 +7,7 @@ local M = {}
 -- Convert an integer color into hexadecimal format
 ---@param color number
 function M.to_hex(color)
-  vim.validate { color = { color, 'number' } }
+  vim.validate('color', color, 'number')
   return string.format('#%06x', color)
 end
 
@@ -53,7 +53,7 @@ Color.__index = Color
 ---@param color string|number|table
 ---@return zeroknight.Color
 function Color:new(color)
-  vim.validate { color = { color, { 'string', 'number', 'table' } } }
+  vim.validate('color', color, { 'string', 'number', 'table' })
   if type(color) == 'string' or type(color) == 'number' then
     color = M.extract_rgb(color)
   end

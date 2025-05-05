@@ -94,7 +94,7 @@ return {
       'joosepAlviste/nvim-ts-context-commentstring',
     },
     opts = {
-      ensure_installed = vim.tbl_flatten(vim.tbl_values(wanted_ts_parsers)),
+      ensure_installed = vim.iter(vim.tbl_values(wanted_ts_parsers)):flatten():totable(),
       highlight = {
         enable = true,
         custom_captures = {},

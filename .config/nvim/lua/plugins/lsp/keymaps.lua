@@ -7,10 +7,21 @@ local lsp = vim.lsp
 
 -- Set up primary group names
 require('which-key').add {
-  mode = { 'n', 'v' },
-  { '<LocalLeader>c', group = 'code' },
-  { '<LocalLeader>p', group = 'preview/peek' },
+  {
+    { 'gl', group = 'LSP' },
+  },
+  {
+    mode = { 'n', 'v' },
+    { '<LocalLeader>c', group = 'code' },
+    { '<LocalLeader>p', group = 'preview/peek' },
+  },
 }
+
+-- Unmap default LSP keymaps
+for _, map in ipairs { 'grn', 'gra', 'grr', 'gri', 'gO' } do
+  vim.keymap.del('n', map)
+end
+vim.keymap.del('i', '<C-S>')
 
 local M = {}
 
@@ -19,8 +30,9 @@ M.keys = {
   { 'gr', '<Cmd>Telescope lsp_references<CR>', desc = 'Find References', has = 'references' },
   { 'gd', '<Cmd>Telescope lsp_definitions<CR>', desc = 'Jump to Definition', has = 'definition' },
   { 'gD', lsp.buf.declaration, desc = 'Jump to Declaration', has = 'declaration' },
-  { 'gy', '<Cmd>Telescope lsp_type_definitions<CR>', desc = 'Jump to Type Definition', has = 'typeDefinition' },
-  { 'gI', '<Cmd>Telescope lsp_implementations<CR>', desc = 'Jump to Implementation', has = 'implementationProvider' },
+  { 'gO', '<Cmd>Telescope lsp_document_symbols<CR>', desc = 'Find Symbol' },
+  { 'glt', '<Cmd>Telescope lsp_type_definitions<CR>', desc = 'Jump to Type Definition', has = 'typeDefinition' },
+  { 'gli', '<Cmd>Telescope lsp_implementations<CR>', desc = 'Jump to Implementation', has = 'implementationProvider' },
   { 'K', lsp.buf.hover, desc = 'Show Hover Info', has = 'hover' },
   { '<F2>', lsp.buf.rename, desc = 'Rename Symbol', has = 'rename' },
   { '<C-s>', lsp.buf.signature_help, desc = 'Show Signature Help', mode = 'i', has = 'signatureHelp' },
@@ -28,7 +40,6 @@ M.keys = {
   { '<LocalLeader>ca', function() require('actions-preview').code_actions() end, desc = 'Code Actions', mode = { 'n', 'v' }, has = 'codeAction' },
   { '<LocalLeader>ci', '<Cmd>Telescope lsp_incoming_calls<CR>', desc = 'Incoming calls', has = 'callHierarchy' },
   { '<LocalLeader>co', '<Cmd>Telescope lsp_outgoing_calls<CR>', desc = 'Outgoing calls', has = 'callHierarchy' },
-  { '<LocalLeader>cs', '<Cmd>Telescope lsp_document_symbols<CR>', desc = 'Find Symbol' },
   { '<LocalLeader>cS', '<Cmd>Telescope lsp_dynamic_workspace_symbols<CR>', desc = 'Find Symbol (Workspace)' },
   { '<LocalLeader>ch', lsp.buf.typehierarchy, desc = 'Show Type Hierarchy', has = 'prepareTypeHierarchy' },
 
