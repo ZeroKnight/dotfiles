@@ -314,7 +314,7 @@ return {
           enabled = true,
         },
         signature = {
-          enabled = false,
+          enabled = true,
         },
         override = {
           ['vim.lsp.util.convert_input_to_markdown_lines'] = true,
@@ -488,25 +488,6 @@ return {
         })
       end)
     end,
-  },
-
-  {
-    'ray-x/lsp_signature.nvim',
-    lazy = true,
-    opts = {
-      hint_prefix = '🐍 ', -- Signature Snake :)
-      hint_scheme = 'Special',
-      noice = true,
-      handler_opts = { border = require('zeroknight.config.ui').borders },
-      select_signature_key = '<M-o>', -- "O" for "Overload"
-    },
-    init = function(plugin)
-      util.on_attach(
-        function(_, buffer) require('lsp_signature').on_attach(plugin.opts, buffer) end,
-        'LSP Signature Handler'
-      )
-    end,
-    config = false,
   },
 
   {
