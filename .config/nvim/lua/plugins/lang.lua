@@ -197,6 +197,10 @@ return {
         render = function() vim.diagnostic.enable(false, { bufnr = 0 }) end,
         clear = function() vim.diagnostic.enable(true, { bufnr = 0 }) end,
       },
+      overrides = {
+        -- Don't auto-activate on `nofile` buffers to avoid breaking plugins
+        buftype = { nofile = { enabled = false } },
+      },
     },
   },
 }
