@@ -446,36 +446,6 @@ return {
     end,
   },
 
-  {
-    'kevinhwang91/nvim-ufo',
-    dependencies = { 'kevinhwang91/promise-async' },
-    event = { 'BufReadPost', 'BufNewFile' },
-    keys = {
-      { 'zr', function() require('ufo').openFoldsExceptKinds() end, desc = 'Fold less' },
-      { 'zm', function() require('ufo').closeFoldsWith() end, desc = 'Fold more' },
-      { 'zR', function() require('ufo').openAllFolds() end, desc = 'Open all folds' },
-      { 'zM', function() require('ufo').closeAllFolds() end, desc = 'Close all folds' },
-    },
-    opts = {
-      close_fold_kinds_for_ft = { default = { 'imports' } },
-      open_fold_hl_timeout = ui.highlight.indicator_duration,
-      preview = {
-        win_config = {
-          border = ui.borders,
-          maxheight = 15,
-        },
-      },
-      provider_selector = function()
-        -- Use TS instead of LSP. It should give the same results much faster.
-        return { 'treesitter', 'indent' }
-      end,
-    },
-    init = function()
-      vim.o.foldlevel = 99 -- ufo is designed to work with a high foldlevel
-      vim.o.foldlevelstart = 99
-    end,
-  },
-
   -- LSP-Related UI
 
   {

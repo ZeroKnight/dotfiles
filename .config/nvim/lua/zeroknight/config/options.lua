@@ -124,6 +124,9 @@ opt.completeopt = {
 -- Fold Options
 opt.foldcolumn = 'auto:1' -- Minimal fold column
 opt.foldopen:append { 'jump' }
+opt.foldmethod = 'expr'
+opt.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+opt.foldlevel = 99 -- Start with all folds open
 
 opt.belloff = 'all' -- Bells are evil, kill them with fire
 opt.whichwrap:append '<,>,[,]'
