@@ -25,8 +25,7 @@ M.keys = {
   { '<F2>', lsp.buf.rename, desc = 'Rename Symbol', has = 'rename' },
   { '<C-s>', lsp.buf.signature_help, desc = 'Show Signature Help', mode = 'i', has = 'signatureHelp' },
 
-  { '<LocalLeader>ca', '<Cmd>CodeActionMenu<CR>', desc = 'Code Actions', mode = { 'n', 'v' }, has = 'codeAction' },
-  { '<LocalLeader>cA', lsp.buf.code_action, desc = 'Code Actions (Native)', mode = { 'n', 'v' }, has = 'codeAction' },
+  { '<LocalLeader>ca', function() require('actions-preview').code_actions() end, desc = 'Code Actions', mode = { 'n', 'v' }, has = 'codeAction' },
   { '<LocalLeader>ci', '<Cmd>Telescope lsp_incoming_calls<CR>', desc = 'Incoming calls', has = 'callHierarchy' },
   { '<LocalLeader>co', '<Cmd>Telescope lsp_outgoing_calls<CR>', desc = 'Outgoing calls', has = 'callHierarchy' },
   { '<LocalLeader>cs', '<Cmd>Telescope lsp_document_symbols<CR>', desc = 'Find Symbol' },

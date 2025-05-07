@@ -554,9 +554,22 @@ return {
   },
 
   {
-    'weilbith/nvim-code-action-menu',
-    cmd = 'CodeActionMenu',
-    init = function() vim.g.code_action_menu_window_border = require('zeroknight.config.ui').borders end,
+    'aznhe21/actions-preview.nvim',
+    lazy = true,
+    opts = function()
+      return {
+        highlight_command = { require('actions-preview.highlight').delta() },
+        ---@type telescope.picker.opts
+        telescope = {
+          sorting_strategy = 'ascending',
+          layout_strategy = 'vertical',
+          layout_config = {
+            prompt_position = 'top',
+            preview_height = 0.75,
+          },
+        },
+      }
+    end,
   },
 
   {
