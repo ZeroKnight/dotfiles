@@ -303,7 +303,7 @@ return {
     dependencies = {
       { 'MunifTanjim/nui.nvim', lazy = true },
     },
-    opts = {
+    opts = { ---@type NoiceConfig
       presets = {
         bottom_search = true,
         long_message_to_split = true,
@@ -321,12 +321,13 @@ return {
           enabled = true,
         },
         override = {
+          -- Overrides various markdown renderers to use Treesitter instead
           ['vim.lsp.util.convert_input_to_markdown_lines'] = true,
           ['vim.lsp.util.stylize_markdown'] = true,
           ['cmp.entry.get_documentation'] = true,
         },
       },
-      routes = {
+      routes = { ---@type NoiceRouteConfig[]
         {
           -- Show "recording @x" in a mini view
           filter = { event = 'msg_showmode' },
@@ -365,6 +366,8 @@ return {
               { event = 'lsp', kind = 'progress', find = 'code_action' },
               { event = 'lsp', kind = 'progress', find = 'diagnostics' },
               { event = 'lsp', kind = 'progress', find = 'lint:' },
+              { event = 'lsp', kind = 'progress', find = 'file symbols' },
+              { event = 'lsp', kind = 'progress', find = 'semantic tokens' },
               {
                 event = 'lsp',
                 kind = 'progress',
