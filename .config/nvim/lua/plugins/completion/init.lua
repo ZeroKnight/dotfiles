@@ -3,6 +3,8 @@
 -- Plugins that facilitate automatic completion, generally from a variety of
 -- sources. Includes completion engines themselves, interfaces, functions, etc.
 
+local ui = require 'zeroknight.config.ui'
+
 ---@type LazySpec
 return {
   {
@@ -21,15 +23,9 @@ return {
       { 'hrsh7th/cmp-nvim-lsp-document-symbol' },
       { 'ray-x/cmp-treesitter' },
     },
-    init = function()
-      -- Required by cmp
-      vim.opt.completeopt = { 'menuone', 'noselect' }
-    end,
     opts = function()
       local cmp = require 'cmp'
       local compare = require 'plugins.completion.compare'
-
-      local ui = require 'zeroknight.config.ui'
 
       local menu_text = {
         buffer = 'buf',
@@ -40,6 +36,7 @@ return {
         treesitter = 'TS',
       }
 
+      ---@type cmp.ConfigSchema
       return {
         enabled = true,
         completion = {
@@ -51,11 +48,9 @@ return {
           },
         },
         preselect = cmp.PreselectMode.Item, -- Auto-select the source-specified item
-
         snippet = {
           expand = function(args) require('luasnip').lsp_expand(args.body) end,
         },
-
         sources = cmp.config.sources {
           { name = 'nvim_lsp' },
           { name = 'treesitter' },
@@ -64,7 +59,6 @@ return {
           { name = 'calc', keyword_length = 3 },
           { name = 'buffer', keyword_length = 5 },
         },
-
         formatting = {
           format = function(entry, item)
             local name = menu_text[entry.source.name]
@@ -73,7 +67,9 @@ return {
             return item
           end,
         },
-
+        window = {
+          documentation = cmp.config.window.bordered(),
+        },
         sorting = {
           comparators = {
             compare.offset,
@@ -89,7 +85,6 @@ return {
             compare.order,
           },
         },
-
         mapping = {
           ['<CR>'] = function(fallback)
             if cmp.visible() then
@@ -105,6 +100,7 @@ return {
               fallback()
             end
           end,
+
           ['<C-e>'] = cmp.mapping {
             i = cmp.mapping.abort(),
             c = cmp.mapping.close(),
@@ -128,6 +124,14 @@ return {
                 cmp.complete()
               end
             end,
+          },
+          ['<C-p>'] = cmp.mapping {
+            i = cmp.mapping.complete {
+              config = {
+                sources = { { name = 'luasnip' } },
+                experimental = { ghost_text = false },
+              },
+            },
           },
           ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
           ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),

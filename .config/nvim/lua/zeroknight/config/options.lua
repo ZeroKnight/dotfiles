@@ -114,6 +114,13 @@ opt.wildignore = {
 opt.pumheight = 20 -- Don't take up the entire screen height
 opt.pumblend = 17 -- Transparent menu
 
+-- ins-completion
+opt.completeopt = {
+  'menuone', -- Show popup even with a single match
+  'noselect', -- Do not pre-select completions
+  'fuzzy', -- Enable fuzzy matching for candidates
+}
+
 -- Fold Options
 opt.foldcolumn = 'auto:1' -- Minimal fold column
 opt.foldopen:append { 'jump' }
