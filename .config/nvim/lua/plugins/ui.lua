@@ -14,9 +14,14 @@ return {
   {
     'ggandor/leap.nvim',
     lazy = false,
+    keys = {
+      { 's', '<Plug>(leap)', desc = 'Leap', mode = { 'n', 'x', 'o' } },
+      { 'S', '<Plug>(leap-from-window)', desc = 'Leap (Window)' },
+      { 'R', function() require('leap.treesitter').select() end, desc = 'Leap (Treeistter)', mode = { 'x', 'o' } },
+    },
     config = function()
       local leap = require 'leap'
-      leap.add_default_mappings()
+      leap.opts.case_sensitive = false
       leap.opts.highlight_unlabeled_phase_one_targets = true
     end,
   },
