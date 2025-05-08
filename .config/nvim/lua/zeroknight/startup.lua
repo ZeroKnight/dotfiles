@@ -63,12 +63,7 @@ return {
         { icon = ' ', key = 'r', desc = 'Recent Files', action = ':Telescope oldfiles' },
         { icon = icons.common.file_blank, key = 'n', desc = 'New File', action = ':ene | startinsert' },
         { icon = ' ', key = 'g', desc = 'Find Text', action = ':Telescope live_grep' },
-        {
-          icon = ' ',
-          key = 'c',
-          desc = 'Config',
-          action = util.telescope 'nvim_config',
-        },
+        { icon = ' ', key = 'c', desc = 'Config', action = util.telescope 'nvim_config' },
         { icon = ' ', key = 'm', desc = 'Man Pages', action = ':Telescope man_pages' },
         { icon = ' ', key = 's', desc = 'Restore Session', section = 'session' },
         { icon = '󰒲 ', key = 'L', desc = 'Lazy', action = ':Lazy', enabled = package.loaded.lazy ~= nil },
@@ -97,11 +92,11 @@ return {
       icon = icons.common.folder_open,
       title = 'Projects',
       section = 'projects',
+      enabled = function() return Snacks.git.get_root() == nil end,
     },
     function()
       local root = Snacks.git.get_root()
-      local in_repo = root ~= nil
-      local sections = {
+      local sections = { ---@type snacks.dashboard.Section[]
         {
           indent = 0,
           icon = ' ',
@@ -127,9 +122,11 @@ return {
           icon = '󰪶 ',
           title = 'Git Stash',
           section = 'terminal',
-          height = 5,
+          height = 3,
           cmd = "git --no-pager stash list --pretty=format:'%C(magenta)%gd%C(reset): %gs'",
-          enabled = function() return in_repo and vim.fn.filereadable(vim.fs.joinpath(root, '.git/refs/stash')) == 1 end,
+          enabled = function()
+            return root ~= nil and vim.fn.filereadable(vim.fs.joinpath(root, '.git/refs/stash')) == 1
+          end,
         },
       }
       return vim.tbl_map(
@@ -138,7 +135,7 @@ return {
             pane = 2,
             indent = 2,
             padding = 1,
-            enabled = in_repo,
+            enabled = root ~= nil,
           })
         end,
         sections
