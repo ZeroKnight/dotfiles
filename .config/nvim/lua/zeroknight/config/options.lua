@@ -72,6 +72,11 @@ opt.listchars = {
   precedes = '❮',
 }
 
+-- Filler characters for virtual lines, separators, etc.
+opt.fillchars = {
+  fold = ' ', -- Don't show dots for folded lines
+}
+
 -- Wild Menu
 opt.wildmenu = true
 opt.wildmode = { 'longest', 'full' }
