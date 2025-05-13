@@ -180,4 +180,59 @@ function M.statuscolumn()
   return format('%s%s%s ', segments.fold, segments.sign, segments.line)
 end
 
+function M.foldtext()
+  --[[
+    - Indentation is apparent
+    - Avoid useless lone brackets as fold text
+      - Join them with the next line?
+      - Omit them completely?
+    - Syntax highlighting like with foldtext=
+      - Will have to get ts highlights and transform them into extmark-like pairs
+  --]]
+  local join_stop = vim.v.foldstart
+  local indent = string.rep(' ', vim.fn.indent(vim.v.foldstart))
+  for _, line in ipairs(vim.api.nvim_buf_get_lines(0, vim.v.foldstart - 1, vim.v.foldend, true)) do
+    if not line:match '^%s*[{[(]?$' then
+      break
+    end
+    join_stop = join_stop + 1
+  end
+
+  local parser = vim.treesitter.get_parser()
+  local query = vim.treesitter.query.get(parser:lang(), 'highlights')
+  local tree = parser:parse({ vim.v.foldstart - 1, join_stop })[1]
+  local chunks = {}
+  local prev_node
+  for id, node in query:iter_captures(tree:root(), 0, vim.v.foldstart - 1, join_stop) do
+    local capture = query.captures[id]
+    local text = vim.treesitter.get_node_text(node, 0)
+    local hl = '@' .. capture
+    if prev_node == nil then
+      chunks[#chunks + 1] = { text, hl }
+    elseif node:equal(prev_node) then
+      chunks[#chunks] = { text, hl }
+    else
+      local start_row, start_col = node:start()
+      local prev_end_row, prev_end_col = prev_node:end_()
+      if start_row > prev_end_row then
+        chunks[#chunks + 1] = { ' ', 'Folded' } -- Fold newlines
+      elseif start_col > prev_end_col then
+        local fill = vim.api.nvim_buf_get_text(0, start_row, prev_end_col, start_row, start_col, {})[1]
+        chunks[#chunks + 1] = { fill, 'Folded' }
+      end
+      dd(chunks)
+      chunks[#chunks + 1] = { text, hl }
+    end
+    prev_node = node
+  end
+  return { { indent, 'Folded' }, unpack(chunks) }
+
+  -- return indent
+  --   .. vim
+  --     .iter(vim.api.nvim_buf_get_lines(0, vim.v.foldstart - 1, join_stop, true), ' ')
+  --     :map(function(v) return vim.trim(v) end)
+  --     :join ' '
+end
+vim.opt.foldtext = "v:lua.require('zeroknight.config.ui').foldtext()"
+
 return M
