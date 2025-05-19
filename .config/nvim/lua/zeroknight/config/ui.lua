@@ -200,7 +200,6 @@ local parser_cache = setmetatable({}, {
   end,
 })
 
--- TODO: make this a metatable with __call, __index (parser_cache), and setting storage (foldtext.opts)
 -- TODO: account for semantic token highlights? e.g. `vim.`
 function M.foldtext()
   local indent = string.rep(' ', vim.fn.indent(vim.v.foldstart))
@@ -233,12 +232,30 @@ function M.foldtext()
   local tree = parser:parse({ vim.v.foldstart - 1, join_stop })[1]
 
   -- Build the foldtext out of extmarks-like { text, hl } pairs with info from
-  -- the Treesitter node captures
+  -- the Treesitter node captures and any semantic highlighting extmarks
   local prev_node
   for id, node in query:iter_captures(tree:root(), 0, vim.v.foldstart - 1, join_stop) do
     local capture = query.captures[id]
     local text = vim.treesitter.get_node_text(node, 0)
-    local hl = '@' .. capture
+
+    local start_row, start_col, end_row, end_col = node:range()
+    local extmark = vim
+      .iter(
+        vim.api.nvim_buf_get_extmarks(
+          0,
+          -1,
+          { start_row, start_col },
+          { end_row, end_col },
+          { type = 'highlight', details = true }
+        )
+      )
+      :filter(function(extmark) return extmark[4].hl_group:find '@lsp.' == 1 end)
+      :fold({ 0, 0, 0, { priority = -1 } }, function(acc, extmark)
+        acc = extmark[4].priority > acc[4].priority and extmark or acc
+        return acc
+      end)
+    local extmark = false
+    local hl = extmark and extmark[4].hl_group or ('@' .. capture)
 
     if prev_node == nil then
       chunks[#chunks + 1] = { text, hl }
