@@ -211,16 +211,16 @@ function M.foldtext()
     vim.schedule(function() vim.wo.foldtext = '' end)
   end
 
-  local parser = parser_cache[vim.api.nvim_get_current_buf()] --- @type TSTree
+  local parser = parser_cache[vim.api.nvim_get_current_buf()] --- @type vim.treesitter.LanguageTree
   if not parser then
     _fallback "No Treesitter parser for buffer with filetype '%s'"
     return
   end
-  local query = vim.treesitter.query.get(parser:lang(), 'highlights')
-  if not query then
-    _fallback "No highlight queries for buffer with filetype '%s'"
-    return
-  end
+  -- local query = vim.treesitter.query.get(parser:lang(), 'highlights')
+  -- if not query then
+  --   _fallback "No highlight queries for buffer with filetype '%s'"
+  --   return
+  -- end
 
   -- Find first non-blank line that is also not only opening brackets
   local join_stop = vim.v.foldstart
@@ -230,40 +230,60 @@ function M.foldtext()
     end
     join_stop = join_stop + 1
   end
-  local tree = parser:parse({ vim.v.foldstart - 1, join_stop })[1]
 
-  -- Build the foldtext out of extmarks-like { text, hl } pairs with info from
-  -- the Treesitter node captures
-  local prev_node
-  for id, node in query:iter_captures(tree:root(), 0, vim.v.foldstart - 1, join_stop) do
-    local capture = query.captures[id]
-    local text = vim.treesitter.get_node_text(node, 0)
-    local hl = '@' .. capture
-
-    if prev_node == nil then
-      chunks[#chunks + 1] = { text, hl }
-    elseif node:equal(prev_node) then
-      -- Multiple queries can match the same node. Generally, the last one
-      -- tends to be the most specific capture and therefore the "correct" one
-      -- for highlighting purposes
-      chunks[#chunks] = { text, hl }
-    else -- Next node
-      local start_row, start_col = node:start()
-      local prev_end_row, prev_end_col = prev_node:end_()
-
-      if start_row > prev_end_row then
-        -- Coalesce newlines lines in our join range
-        chunks[#chunks + 1] = { ' ', 'Folded' }
-      elseif start_col > prev_end_col then
-        -- Fill in uncaptured text between nodes
-        local fill = vim.api.nvim_buf_get_text(0, start_row, prev_end_col, start_row, start_col, {})[1]
-        chunks[#chunks + 1] = { fill, 'Folded' }
-      end
-
-      chunks[#chunks + 1] = { text, hl }
+  local bing = 0
+  parser:for_each_tree(function(tstree, tree)
+    if not tstree then
+      return
     end
-    prev_node = node
-  end
+    bing = bing + 1
+    print(bing)
+    local root = tstree:root()
+    local root_start_row, _, root_end_row, _ = root:range()
+
+    -- Only worry about trees within the line range
+    if root_start_row > vim.v.foldstart - 1 or root_end_row < vim.v.foldstart - 1 then
+      return
+    end
+
+    local query = vim.treesitter.query.get(tree:lang(), 'highlights')
+    if not query then
+      return
+    end
+
+    -- Build the foldtext out of extmarks-like { text, hl } pairs with info from
+    -- the Treesitter node captures
+    local prev_node
+    for id, node in query:iter_captures(root, 0, vim.v.foldstart - 1, join_stop) do
+      local capture = query.captures[id]
+      local text = vim.treesitter.get_node_text(node, 0)
+      local hl = '@' .. capture
+
+      if prev_node == nil then
+        chunks[#chunks + 1] = { text, hl }
+      elseif node:equal(prev_node) then
+        -- Multiple queries can match the same node. Generally, the last one
+        -- tends to be the most specific capture and therefore the "correct" one
+        -- for highlighting purposes
+        chunks[#chunks] = { text, hl }
+      else -- Next node
+        local start_row, start_col = node:start()
+        local prev_end_row, prev_end_col = prev_node:end_()
+
+        if start_row > prev_end_row then
+          -- Coalesce newlines lines in our join range
+          chunks[#chunks + 1] = { ' ', 'Folded' }
+        elseif start_col > prev_end_col then
+          -- Fill in uncaptured text between nodes
+          local fill = vim.api.nvim_buf_get_text(0, start_row, prev_end_col, start_row, start_col, {})[1]
+          chunks[#chunks + 1] = { fill, 'Folded' }
+        end
+
+        chunks[#chunks + 1] = { text, hl }
+      end
+      prev_node = node
+    end
+  end)
 
   -- Right-aligned text
 
