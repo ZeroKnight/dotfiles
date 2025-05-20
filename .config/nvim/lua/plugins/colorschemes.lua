@@ -27,6 +27,11 @@ return {
         'undotree',
       },
     },
+    config = function(_, opts)
+      local tokyonight = require 'tokyonight'
+      tokyonight.styles = { light = 'day', dark = 'storm' }
+      tokyonight.setup(opts)
+    end,
   },
 
   {
