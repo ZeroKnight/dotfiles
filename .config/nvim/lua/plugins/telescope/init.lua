@@ -227,4 +227,5 @@ return {
   ext.spec('benfowler/telescope-luasnip.nvim', 'luasnip'),
   ext.spec('tsakirist/telescope-lazy.nvim', 'lazy'),
   ext.spec('nvim-telescope/telescope-z.nvim', 'z'),
+  ext.spec('nvim-telescope/telescope-ui-select.nvim', 'ui-select'),
 }
