@@ -9,7 +9,7 @@ cmp.setup.filetype({ 'TelescopePrompt' }, {
 
 cmp.setup.filetype({ 'lua', 'vim' }, {
   sources = cmp.config.sources {
-    { name = 'nvim_lua' },
+    { name = 'lazydev' },
     { name = 'nvim_lsp' },
     { name = 'treesitter' },
     { name = 'path' },

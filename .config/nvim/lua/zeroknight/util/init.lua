@@ -115,8 +115,8 @@ function M.get_root()
     for _, client in pairs(vim.lsp.get_clients { bufnr = 0 }) do
       local workspace = client.config.workspace_folders
       local paths = workspace and vim.tbl_map(function(ws) return vim.uri_to_fname(ws.uri) end, workspace)
-        or client.config.root_dir and { client.config.root_dir }
-        or {}
+          or client.config.root_dir and { client.config.root_dir }
+          or {}
       for _, p in ipairs(paths) do
         local r = vim.uv.fs_realpath(p)
         if path:find(r, 1, true) then
@@ -147,7 +147,7 @@ function M.has_plugin(plugin) return require('lazy.core.config').plugins[plugin]
 function M.plugin_opts(plugin) return require('lazy.core.plugin').values(plugin, 'opts', false) end
 
 -- Add an LspAttach callback
----@param on_attach fun(client: lsp.Client, buffer: number)
+---@param on_attach fun(client: vim.lsp.Client, buffer: number)
 ---@param desc string?
 function M.on_attach(on_attach, desc)
   vim.api.nvim_create_autocmd('LspAttach', {
@@ -166,22 +166,17 @@ function M.on_attach(on_attach, desc)
   })
 end
 
--- Update settings for a language server that has already been configured
--- by lspconfig. Sends a `workspace/didChangeConfiguration` notification to
--- running servers as well.
+-- Update language server configuration for a specific language server.
+-- Sends a `workspace/didChangeConfiguration` notification to running servers
+-- and updates the static configuration in `vim.lsp.config`.
 ---@param server string
----@param settings lspconfig.settings
-function M.update_ls_settings(server, settings)
+---@param config vim.lsp.Config
+function M.update_ls_config(server, config)
   vim.validate('server', server, 'string')
-  vim.validate('settings', settings, 'table')
-  local config = vim.tbl_get(require 'lspconfig.configs', server, 'manager', 'config')
-  if config == nil then
-    return
-  end
-
-  config.settings = vim.tbl_deep_extend('force', config.settings, settings)
+  vim.validate('settings', config, 'table')
+  vim.lsp.config(server, config)
   for _, client in ipairs(vim.lsp.get_clients { name = server }) do
-    client.workspace_did_change_configuration(settings)
+    client:notify(vim.lsp.protocol.Methods.workspace_didChangeConfiguration, { settings = config.settings })
   end
 end
 

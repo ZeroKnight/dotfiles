@@ -11,7 +11,16 @@ return {
     'neovim/nvim-lspconfig',
     event = { 'BufReadPre', 'BufNewFile' },
     dependencies = {
-      { 'folke/neodev.nvim', opts = {} },
+      {
+        'folke/lazydev.nvim',
+        ft = 'lua',
+        opts = {
+          cmp = true,
+          library = {
+            { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
+          },
+        },
+      },
       { 'folke/neoconf.nvim', opts = {} },
       'mason.nvim',
       'mason-lspconfig.nvim',
@@ -20,40 +29,36 @@ return {
     -- LSP options here.
     opts = function()
       return {
-        capabilities = {
-          textDocument = {
-            completion = { completionItem = { snippetSupport = true } },
-            foldingRange = { dynamicRegistration = false, lineFoldingOnly = true },
-          },
-        },
+        capabilities = {},
       }
     end,
     config = function(_, opts)
-      -- Main LSP on_attach
-      util.on_attach(
-        function(client, buffer) require('plugins.lsp.keymaps').on_attach(client, buffer) end,
-        'Initialize core LSP functionality'
-      )
+      util.on_attach(require('plugins.lsp.keymaps').on_attach, 'Set up LSP-related keymaps')
 
-      -- Build our client capabilities
-      local capabilities = vim.tbl_deep_extend(
-        'force',
-        vim.lsp.protocol.make_client_capabilities(),
-        require('cmp_nvim_lsp').default_capabilities(),
-        opts.capabilities
-      )
+      util.on_attach(function(client, _)
+        if client:supports_method(vim.lsp.protocol.Methods.textDocument_foldingRange) then
+          local win = vim.api.nvim_get_current_win()
+          -- TODO: does Conform's formatexpr call vim.lsp.formatexpr?
+          vim.wo[win][0].foldmethod = 'expr'
+          vim.wo[win][0].foldexpr = 'v:lua.vim.lsp.foldexpr()'
+        end
+      end, 'Enable LSP-provided folding when available')
 
-      -- Proxy server setup through mason-lspconfig so that it can dynamically
-      -- configure newly-installed servers.
-      require('mason-lspconfig').setup_handlers {
-        function(server)
-          local config = vim.deepcopy(require('plugins.lsp.servers')[server]) or {}
-          if not config.disabled then
-            config.capabilities = vim.tbl_deep_extend('force', capabilities, config.capabilities or {})
-            require('lspconfig')[server].setup(config)
-          end
-        end,
-      }
+      -- Build our default client capabilities
+      vim.lsp.config('*', {
+        capabilities = vim.tbl_deep_extend(
+          'force',
+          vim.lsp.protocol.make_client_capabilities(),
+          require('cmp_nvim_lsp').default_capabilities(),
+          opts.capabilities
+        ),
+      })
+
+      for server, config in pairs(require 'plugins.lsp.servers') do
+        if not config.disabled then
+          vim.lsp.config(server, config)
+        end
+      end
 
       -- Live reload LS settings when server settings change
       vim.api.nvim_create_autocmd('BufWritePost', {
@@ -63,12 +68,12 @@ return {
         callback = function()
           local servers = rerequire 'plugins.lsp.servers'
           vim.notify(
-            'Language Server settings file changed. Updating servers...',
+            'Language Server settings file changed. Updating server configurations.',
             vim.log.levels.WARN,
             { title = 'ZeroKnight LSP' }
           )
           for server, config in pairs(servers) do
-            util.update_ls_settings(server, config.settings or {})
+            util.update_ls_config(server, config or {})
           end
         end,
       })
@@ -94,7 +99,7 @@ return {
     dependencies = { 'mason.nvim' },
     lazy = true,
     opts = {
-      automatic_installation = true,
+      automatic_enable = true,
       ensure_installed = { 'lua_ls', 'jsonls', 'taplo' },
     },
   },
