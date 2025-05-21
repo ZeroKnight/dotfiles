@@ -19,6 +19,7 @@
   "committia.vim": { "branch": "master", "commit": "a187b8633694027ab5ef8a834527d33093282f95" },
   "conform.nvim": { "branch": "master", "commit": "dc950e5717f1da65b1fcd986b1bbff0d6bd0e2ee" },
   "dracula": { "branch": "master", "commit": "28874a1e9d583eb0b1dfebb9191445b822812ea3" },
+  "dropbar.nvim": { "branch": "master", "commit": "67d6cae8ed26605f69c7b1826a67196a56811219" },
   "emmet-vim": { "branch": "master", "commit": "def5d57a1ae5afb1b96ebe83c4652d1c03640f4d" },
   "gitsigns.nvim": { "branch": "main", "commit": "805610a9393fa231f2c2b49cb521bfa413fadb3d" },
   "harpoon": { "branch": "master", "commit": "ccae1b9bec717ae284906b0bf83d720e59d12b91" },

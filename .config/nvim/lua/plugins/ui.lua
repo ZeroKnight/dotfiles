@@ -241,16 +241,6 @@ return {
             filetypes = { 'undotree' },
           },
         },
-        winbar = {
-          lualine_a = { empty(navic_available) },
-          lualine_b = { empty(navic_available) },
-          lualine_c = {
-            {
-              function() return require('nvim-navic').get_location() end,
-              cond = navic_available,
-            },
-          },
-        },
         tabline = {
           lualine_a = {
             {
@@ -549,24 +539,53 @@ return {
   },
 
   {
-    'SmiteshP/nvim-navic',
-    lazy = true,
-    init = function()
-      util.on_attach(function(client, buffer)
-        if client.server_capabilities.documentSymbolProvider then
-          require('nvim-navic').attach(client, buffer)
-        end
-      end, 'Navic LSP symbol context')
-    end,
-    opts = function()
-      return {
-        separator = string.format(' %s ', ui.icons.separators.breadcrumb),
-        icons = vim.tbl_map(function(x) return x .. ' ' end, ui.icons.kinds),
-        highlight = true,
-        safe_output = true,
-        click = true,
-      }
-    end,
+    'Bekaboo/dropbar.nvim',
+    event = 'VeryLazy',
+    -- NOTE: Dropbar highlights will be wrong on initial load until it is
+    -- refreshed (e.g. BufEnter) regardless of being lazy-loaded or not. This
+    -- seems to be a Dropbar bug.
+    config = function(_, opts) require('dropbar.configs').set(opts) end,
+    opts = {
+      bar = {
+        sources = function(buffer, _)
+          local sources = require 'dropbar.sources'
+          local utils = require 'dropbar.utils'
+          if vim.bo[buffer].ft == 'markdown' then
+            return {
+              sources.path,
+              sources.markdown,
+            }
+          end
+          if vim.bo[buffer].buftype == 'terminal' then
+            return {
+              sources.terminal,
+            }
+          end
+          return {
+            utils.source.fallback {
+              sources.lsp,
+              sources.treesitter,
+            },
+          }
+        end,
+      },
+      icons = {
+        kinds = {
+          dir_icon = ui.icons.common.folder,
+          file_icon = ui.icons.common.file,
+          symbols = vim.tbl_extend('error', ui.icons.kinds, {
+            Identifier = ui.icons.kinds.Variable,
+            List = ui.icons.kinds.Array,
+            Pair = ui.icons.kinds.Array,
+            Scope = ui.icons.kinds.Namespace,
+            Statement = ui.icons.kinds.Keyword,
+          }),
+        },
+        ui = {
+          bar = { separator = string.format(' %s ', ui.icons.separators.left.b) },
+        },
+      },
+    },
   },
 
   {
