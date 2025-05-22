@@ -38,11 +38,18 @@ return {
       util.on_attach(function(client, _)
         if client:supports_method(vim.lsp.protocol.Methods.textDocument_foldingRange) then
           local win = vim.api.nvim_get_current_win()
-          -- TODO: does Conform's formatexpr call vim.lsp.formatexpr?
           vim.wo[win][0].foldmethod = 'expr'
           vim.wo[win][0].foldexpr = 'v:lua.vim.lsp.foldexpr()'
         end
       end, 'Enable LSP-provided folding when available')
+
+      if not util.has_plugin 'conform.nvim' then
+        util.on_attach(function(client, buffer)
+          if client:supports_method(vim.lsp.protocol.Methods.textDocument_formatting) then
+            vim.bo[buffer].formatexpr = 'v:lua.vim.lsp.formatexpr()'
+          end
+        end, 'Use LSP-backed foldexpr')
+      end
 
       -- Build our default client capabilities
       vim.lsp.config('*', {
