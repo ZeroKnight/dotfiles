@@ -38,6 +38,8 @@ return {
       },
     },
   },
+  -- NOTE: lua_ls will not (yet) use the passed settings in a
+  -- workspace/didChangeConfiguration notification. See issue #2899.
   lua_ls = {
     settings = {
       Lua = {
@@ -74,8 +76,6 @@ return {
           enable = true,
         },
         workspace = {},
-        -- Sumneko's telemetry looks minimal and non-invasive.
-        telemetry = { enable = true },
       },
     },
   },
