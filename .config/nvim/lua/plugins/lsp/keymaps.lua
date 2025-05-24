@@ -21,7 +21,7 @@ require('which-key').add {
 for _, map in ipairs { 'grn', 'gra', 'grr', 'gri', 'gO' } do
   vim.keymap.del('n', map)
 end
-vim.keymap.del('i', '<C-S>')
+vim.keymap.del('i', '<C-s>')
 
 local M = {}
 
@@ -49,10 +49,10 @@ M.keys = {
 
 -- Callback to set LSP-related keymaps.
 -- Tweaked from LazyVim.
+---@diagnostic disable inject-field
 function M.on_attach(client, buffer)
   local Keys = require 'lazy.core.handler.keys'
-  for _, spec in ipairs(M.keys) do
-    local keymap = Keys.parse(spec)
+  for _, keymap in pairs(Keys.resolve(M.keys)) do
     if not keymap.has or client.server_capabilities[keymap.has .. 'Provider'] then
       local opts = Keys.opts(keymap)
       opts.has = nil
