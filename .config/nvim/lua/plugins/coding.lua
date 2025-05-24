@@ -125,9 +125,10 @@ return {
       local function refactor(opts)
         return {
           opts[1],
-          string.format([[<Esc><Cmd>lua require('refactoring').refactor('%s')<CR>]], opts[2]),
+          function() return require('refactoring').refactor(opts[2]) end,
           desc = opts[2],
-          mode = opts.mode or 'n',
+          mode = opts.mode or { 'n', 'v' },
+          expr = true,
         }
       end
 
@@ -147,13 +148,13 @@ return {
           desc = 'Select Refactor',
         },
 
-        refactor { '<Leader>rf', 'Extract Function', mode = 'v' },
-        refactor { '<Leader>rF', 'Extract Function To File', mode = 'v' },
-        refactor { '<Leader>rv', 'Extract Variable', mode = 'v' },
-        refactor { '<Leader>rV', 'Inline Variable', mode = 'v' },
-        refactor { '<Leader>rV', 'Inline Variable' },
+        refactor { '<Leader>rf', 'Extract Function' },
+        refactor { '<Leader>rv', 'Extract Variable' },
         refactor { '<Leader>rb', 'Extract Block' },
-        refactor { '<Leader>rB', 'Extract Block To File' },
+        refactor { '<Leader>r<C-f>', 'Extract Function To File' },
+        refactor { '<Leader>r<C-b>', 'Extract Block To File' },
+        refactor { '<Leader>rF', 'Inline Function' },
+        refactor { '<Leader>rV', 'Inline Variable' },
 
         debug { '<Leader>rpv', 'print_var({ normal = true })', desc = 'Debug: Print variable' },
         debug { '<Leader>rpv', 'print_var({})', desc = 'Debug: Print variable', mode = 'v' },
