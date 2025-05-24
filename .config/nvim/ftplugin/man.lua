@@ -2,6 +2,8 @@
 
 local format = string.format
 
+vim.wo.statuscolumn = ''
+
 -- These maps should be recursive so that it actually performs the rhs mapping
 -- set by man.vim
 vim.keymap.set('n', '<CR>', '<C-]>', { buffer = true, remap = true })
