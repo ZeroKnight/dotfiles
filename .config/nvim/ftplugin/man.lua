@@ -10,7 +10,7 @@ vim.keymap.set('n', '<CR>', '<C-]>', { buffer = true, remap = true })
 vim.keymap.set('n', '<BS>', '<C-T>', { buffer = true, remap = true })
 
 -- From bruno-/vim-man, with some edits
-local sid = vim.api.nvim_exec(
+local sid = vim.api.nvim_exec2(
   [[
   function! s:move_to_section(direction, mode, count) abort
     norm! m'
@@ -25,8 +25,8 @@ local sid = vim.api.nvim_exec(
   endfunction
   echo expand('<SID>')
 ]],
-  true
-)
+  { output = true }
+).output
 
 -- Jump between sections
 vim.keymap.set(
