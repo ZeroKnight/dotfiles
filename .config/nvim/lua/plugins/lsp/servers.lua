@@ -58,7 +58,7 @@ return {
         diagnostics = {
           enable = true,
           -- Disabled diagnostic categories
-          disable = { 'undefined-field', 'undefined-global' },
+          disable = {},
           libraryFiles = 'Disable',
         },
         format = {
