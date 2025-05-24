@@ -17,6 +17,8 @@ return {
         opts = {
           cmp = true,
           library = {
+            'lazy.nvim',
+            'nvim-lspconfig',
             { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
           },
         },
