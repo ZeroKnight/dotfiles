@@ -212,6 +212,56 @@ return {
     end,
   },
 
+  {
+    'anuvyklack/hydra.nvim',
+    event = { 'BufReadPre', 'BufNewFile' },
+    config = function()
+      local Hydra = require 'hydra'
+      local cmd = require('hydra.keymap-util').cmd
+      local pcmd = require('hydra.keymap-util').pcmd
+
+      Hydra {
+        name = 'Windows',
+        hint = [[...]],
+        config = {
+          invoke_on_body = true,
+        },
+        mode = 'n',
+        body = '<C-w>',
+        heads = {
+          { 'h', '<C-w>h' },
+          { 'j', '<C-w>j' },
+          { 'k', pcmd('wincmd k', 'E11', 'close') },
+          { 'l', '<C-w>l' },
+
+          { 'H', '<C-w>H' },
+          { 'J', '<C-w>J' },
+          { 'K', '<C-w>K' },
+          { 'L', '<C-w>L' },
+
+          { '+', cmd '5wincmd +' },
+          { '-', cmd '5wincmd -' },
+          { '>', cmd '5wincmd >' },
+          { '<', cmd '5wincmd <' },
+          { '=', '<C-w>=' },
+
+          { 's', pcmd('split', 'E36') },
+          { 'v', pcmd('vsplit', 'E36') },
+
+          { 'w', '<C-w>w', { exit = true, desc = false } },
+          { 'W', '<C-w>W', { exit = true, desc = false } },
+          { '<C-w>', '<C-w>w', { exit = true, desc = false } },
+
+          { 'c', pcmd('close', 'E444') },
+          { 'q', pcmd('close', 'E444') },
+          { '<C-q>', pcmd('close', 'E444') },
+          { 'o', '<C-w>o' },
+          { '<C-o>', '<C-w>o' },
+        },
+      }
+    end,
+  },
+
   -- Extra Documentation
   'nanotee/nvim-lua-guide',
   'nanotee/luv-vimdocs',
