@@ -129,6 +129,7 @@ function M.init()
   vim.cmd.colorscheme 'tokyonight'
   vim.opt.statuscolumn = "%{%v:lua.require('zeroknight.config.ui').statuscolumn()%}"
   vim.opt.foldtext = ''
+  vim.opt.winborder = M.borders
 end
 
 function M.make_highlights()
