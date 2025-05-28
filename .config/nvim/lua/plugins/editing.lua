@@ -2,6 +2,8 @@
 --
 -- Plugins that enhance the actual text-editing experience.
 
+local util = require 'zeroknight.util'
+
 ---@type LazySpec
 return {
   { 'christoomey/vim-sort-motion', keys = { 'gs', 'gss' } },
@@ -264,6 +266,44 @@ return {
         group = vim.api.nvim_create_augroup('ZeroKnight.plugins.editing.illuminate', { clear = true }),
         callback = _highlight,
       })
+    end,
+  },
+
+  {
+    'gbprod/yanky.nvim',
+    opts = {
+      ring = {
+        history_length = 25,
+        storage = 'shada',
+        sync_with_numbered_registers = true,
+      },
+      system_clipboard = { sync_with_ring = true },
+      highlight = { on_put = false, on_yank = false },
+    },
+    keys = {
+      { '<Leader>fy', util.telescope 'yank_history.yank_history', desc = 'Find Yank' },
+      { '<M-p>', '<Plug>(YankyPreviousEntry)', desc = 'Yank-Ring Previous' },
+      { '<M-n>', '<Plug>(YankyNextEntry)', desc = 'Yank-Ring Next' },
+
+      { 'p', '<Plug>(YankyPutAfter)', mode = { 'n', 'x' } },
+      { 'P', '<Plug>(YankyPutBefore)', mode = { 'n', 'x' } },
+      { 'gp', '<Plug>(YankyGPutAfter)', desc = 'Put After, cursor after text', mode = { 'n', 'x' } },
+      { 'gP', '<Plug>(YankyGPutBefore)', desc = 'Put Before, cursor after text', mode = { 'n', 'x' } },
+
+      { '[p', '<Plug>(YankyPutIndentBeforeLinewise)', desc = 'Put Before, Indent' },
+      { ']p', '<Plug>(YankyPutIndentAfterLinewise)', desc = 'Put After, Indent' },
+
+      { '<p', '<Plug>(YankyPutIndentAfterShiftLeft)', desc = 'Put After, Indent, Shift Left' },
+      { '>p', '<Plug>(YankyPutIndentAfterShiftRight)', desc = 'Put After, Indent, Shift Right' },
+      { '<P', '<Plug>(YankyPutIndentBeforeShiftLeft)', desc = 'Put Before, Indent, Shift Left' },
+      { '>P', '<Plug>(YankyPutIndentBeforeShiftRight)', desc = 'Put Before, Indent, Shift Right' },
+
+      { '=p', '<Plug>(YankyPutAfterFilter)', desc = 'Put After, Filtered' },
+      { '=P', '<Plug>(YankyPutBeforeFilter)', desc = 'Put Before, Filtered' },
+    },
+    config = function(_, opts)
+      require('yanky').setup(opts)
+      require('plugins.telescope.ext').add_extension 'yank_history'
     end,
   },
 }
