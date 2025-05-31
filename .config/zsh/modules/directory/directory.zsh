@@ -43,7 +43,6 @@ alias -- -='cd -'
 
 # Directory Listing
 if (( $+commands[eza] )); then
-  export TIME_STYLE='default'  # Maybe switch to long-iso
   export EZA_ICON_SPACING=2  # Accommodate kitty
 
   alias eza='eza --group --icons --group-directories-first --hyperlink'
