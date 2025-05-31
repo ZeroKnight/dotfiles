@@ -33,9 +33,9 @@ M.keys = {
   { 'gO', '<Cmd>Telescope lsp_document_symbols<CR>', desc = 'Find Symbol' },
   { 'glt', '<Cmd>Telescope lsp_type_definitions<CR>', desc = 'Jump to Type Definition', has = 'typeDefinition' },
   { 'gli', '<Cmd>Telescope lsp_implementations<CR>', desc = 'Jump to Implementation', has = 'implementationProvider' },
-  { 'K', lsp.buf.hover, desc = 'Show Hover Info', has = 'hover' },
+  { 'K', require('noice.lsp').hover, desc = 'Show Hover Info', has = 'hover' },
   { '<F2>', lsp.buf.rename, desc = 'Rename Symbol', has = 'rename' },
-  { '<C-s>', lsp.buf.signature_help, desc = 'Show Signature Help', mode = 'i', has = 'signatureHelp' },
+  { '<C-s>', require('noice.lsp').signature, desc = 'Show Signature Help', mode = 'i', has = 'signatureHelp' },
 
   { '<LocalLeader>ca', function() require('actions-preview').code_actions() end, desc = 'Code Actions', mode = { 'n', 'v' }, has = 'codeAction' },
   { '<LocalLeader>ci', '<Cmd>Telescope lsp_incoming_calls<CR>', desc = 'Incoming calls', has = 'callHierarchy' },
