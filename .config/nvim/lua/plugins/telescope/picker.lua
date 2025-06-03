@@ -1,5 +1,7 @@
 -- Custom Telescope Pickers
 
+local utils = require 'telescope.utils'
+
 local M = {}
 
 -- Pick from Neovim configuration files
@@ -61,12 +63,20 @@ end
 -- Pick a directory from z.lua
 function M.z()
   require('telescope').extensions.z.list {
-    cmd = { vim.o.shell, '-c', string.format('%s %s -l', vim.env.ZLUA_LUAEXE, vim.env.ZLUA_SCRIPT) },
+    cmd = { vim.o.shell, '-c', string.format('%s %s -l | tac', vim.env.ZLUA_LUAEXE, vim.env.ZLUA_SCRIPT) },
+    maker = function(dirname)
+      if vim.fn.executable 'eza' then
+        return { 'eza', '-lg', '--icons', '--group-directories-first', utils.path_expand(dirname) }
+      else
+        return { 'ls', '-lhF', '--color', '--group-directories-first', utils.path_expand(dirname) }
+      end
+    end,
+    layout_strategy = 'vertical',
   }
 end
 
 -- Pick a snippet
-function M.snippets() require('telescope').extensions.luasnip.luasnip { require('telescope.themes').get_ivy() } end
+function M.snippets() require('telescope').extensions.luasnip.luasnip(require('telescope.themes').get_ivy()) end
 
 return setmetatable(M, {
   __index = function(_, k)

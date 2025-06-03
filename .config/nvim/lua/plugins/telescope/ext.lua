@@ -11,14 +11,15 @@ function M.add_extension(name) table.insert(M.to_load, name) end
 --- to lazy load along with Telescope.
 ---@param source string: Plugin source, e.g. repo name
 ---@param name string: The extension name given to `load_extension`
+---@param opts LazySpec?: Additional spec fields
 ---@return LazyPluginSpec
-function M.spec(source, name)
-  return {
+function M.spec(source, name, opts)
+  return vim.tbl_extend('error', {
     source,
     lazy = true,
     init = function() M.add_extension(name) end,
     dependencies = { 'nvim-telescope/telescope.nvim' },
-  }
+  }, opts or {})
 end
 
 return M

@@ -1,7 +1,6 @@
 -- Telescope configuration
 
 local util = require 'zeroknight.util'
-local actions = require 'plugins.telescope.actions'
 local ext = require 'plugins.telescope.ext'
 
 ---@type LazySpec
@@ -26,20 +25,32 @@ return {
     opts = function()
       local telescope = require 'telescope'
       local layout = require 'telescope.actions.layout'
+      local actions = require 'plugins.telescope.actions'
+      local fb_actions = require('telescope').extensions.file_browser.actions
 
       -- When using the flex layout with the default picker layout settings,
       -- there is a point where the horizontal preview disappears due to a lack
       -- of columns, but there are still enough that it doesn't switch over to
       -- the vertical layout. Setting `flip_columns` and `horizontal.preview_cutoff`
       -- to the same value makes the transition seamless.
-      local flex_threshold = 120
+      local flex_threshold = 150
 
-      return {
+      -- Customize Telescope's keymap help
+      local custom_wk = require('telescope.actions.generate').which_key {
+        only_show_current_mode = true,
+        keybind_width = 10,
+      }
+
+      local ret = {
         defaults = {
-          prompt_prefix = '  ',
+          prompt_prefix = '   ',
           selection_caret = '❯ ',
           winblend = 13,
           dynamic_preview_title = true,
+          preview = {
+            highlight_limit = Snacks.config.bigfile.size / 1024 / 1024,
+            filesize_limit = Snacks.config.bigfile.size / 1024 / 1024 * 2,
+          },
           layout_strategy = 'flex',
           layout_config = {
             flex = {
@@ -49,7 +60,7 @@ return {
               },
             },
           },
-          cycle_layout_list = { 'flex', 'vertical', 'horizontal', 'center' },
+          cycle_layout_list = { 'vertical', 'horizontal', 'center' },
           history = { limit = 256, path = as_stdpath('state', 'telescope_history') },
           file_ignore_patterns = {
             '%.luac',
@@ -57,32 +68,53 @@ return {
             'swap/.*%.sw[pno]',
           },
           mappings = {
-            i = {
-              ['<C-j>'] = 'move_selection_next',
-              ['<C-k>'] = 'move_selection_previous',
+            both = {
+              ['<M-f>'] = false,
+              ['<M-k>'] = false,
+              ['<C-f>'] = false,
+
               ['<C-n>'] = layout.cycle_layout_next,
               ['<C-p>'] = layout.cycle_layout_prev,
-              ['<M-p>'] = layout.toggle_preview,
-              ['<C-Down>'] = 'cycle_history_next',
-              ['<C-Up>'] = 'cycle_history_prev',
+              ['<M-n>'] = actions.cycle_previewers_next,
+              ['<M-p>'] = actions.cycle_previewers_prev,
+              ['<Down>'] = actions.cycle_history_next,
+              ['<Up>'] = actions.cycle_history_prev,
 
-              ['<C-s>'] = 'select_horizontal',
+              ['<C-l>'] = actions.preview_scrolling_right,
+              ['<C-h>'] = actions.preview_scrolling_left,
+
+              ['<C-s>'] = actions.select_horizontal,
+              ['<C-t>'] = actions.select_tab,
               ['<C-x>'] = actions.open_with_trouble,
               ['<M-b>'] = actions.open_in_file_browser,
+              ['<C-q>'] = actions.smart_send_to_qflist + actions.open_qflist,
+              ['<M-q>'] = actions.smart_add_to_qflist,
+              ['<C-o>'] = actions.smart_send_to_loclist + actions.open_loclist,
+              ['<M-o>'] = actions.smart_add_to_loclist,
+            },
+            i = {
+              ['<C-j>'] = actions.move_selection_next,
+              ['<C-k>'] = actions.move_selection_previous,
+              ['<C-Space>'] = actions.complete_tag,
+
+              ['<C-/>'] = custom_wk,
             },
             n = {
-              ['q'] = 'close',
-              ['c'] = 'drop_all',
+              ['<C-k>'] = false,
 
-              ['<C-n>'] = layout.cycle_layout_next,
-              ['<C-p>'] = layout.cycle_layout_prev,
-              ['<M-p>'] = layout.toggle_preview,
-              ['<C-Down>'] = 'cycle_history_next',
-              ['<C-Up>'] = 'cycle_history_prev',
+              ['q'] = actions.close,
+              ['c'] = actions.drop_all,
+              ['v'] = actions.toggle_all,
 
-              ['<C-s>'] = 'select_horizontal',
-              ['<C-x>'] = actions.open_with_trouble,
-              ['<M-b>'] = actions.open_in_file_browser,
+              ['p'] = layout.toggle_preview,
+              ['L'] = actions.results_scrolling_right,
+              ['H'] = actions.results_scrolling_left,
+
+              ['<C-c>c'] = actions.change_directory,
+              ['<C-c>l'] = actions.change_directory_win,
+              ['<C-c>t'] = actions.change_directory_tab,
+
+              ['?'] = custom_wk,
             },
           },
         },
@@ -90,22 +122,22 @@ return {
           find_files = {
             mappings = {
               i = {
-                ['<C-h>'] = actions.fd_toggle_hidden,
+                ['<M-h>'] = actions.fd_toggle_hidden,
                 ['<M-i>'] = actions.fd_toggle_ignore,
               },
               n = {
-                ['h'] = actions.fd_toggle_hidden,
-                ['<M-i>'] = actions.fd_toggle_ignore,
+                ['zh'] = actions.fd_toggle_hidden,
+                ['zi'] = actions.fd_toggle_ignore,
               },
             },
           },
           buffers = {
             mappings = {
               i = {
-                ['<M-d>'] = 'delete_buffer',
+                ['<M-d>'] = actions.delete_buffer,
               },
               n = {
-                ['<M-d>'] = 'delete_buffer',
+                ['<M-d>'] = actions.delete_buffer,
               },
             },
           },
@@ -128,6 +160,7 @@ return {
           colorscheme = { theme = 'dropdown' },
           vim_options = { theme = 'dropdown' },
           filetypes = { theme = 'dropdown' },
+          spell_suggest = { theme = 'cursor' },
         },
         extensions = {
           file_browser = {
@@ -136,34 +169,59 @@ return {
             hijack_netrw = true,
             grouped = true,
             prompt_path = true,
+            hide_parent_dir = true,
             -- Standard picker options
             initial_mode = 'normal',
             scroll_strategy = 'limit',
             selection_strategy = 'follow',
             mappings = {
               i = {
-                ['<C-t>'] = 'select_tab',
-                ['<M-w>'] = telescope.extensions.file_browser.actions.change_cwd,
+                ['<M-b>'] = false,
               },
               n = {
                 ['g'] = false,
-                ['u'] = telescope.extensions.file_browser.actions.goto_parent_dir,
+                ['e'] = false,
+                ['s'] = false,
+                ['t'] = false,
+                ['<M-b>'] = false,
+
+                ['h'] = fb_actions.goto_parent_dir,
+                ['l'] = actions.select_default,
+                ['gh'] = fb_actions.goto_home_dir,
+
+                ['sd'] = fb_actions.sort_by_date,
+                ['ss'] = fb_actions.sort_by_size,
+                ['v'] = fb_actions.toggle_all,
+                ['zh'] = fb_actions.toggle_hidden,
+                ['zi'] = fb_actions.toggle_respect_gitignore,
               },
             },
           },
-          fzy_native = {
-            override_generic_sorter = true,
-            override_file_sorter = true,
+          lazy = {
+            mappings = {
+              open_in_file_browser = '<M-b>',
+              open_in_browser = '<C-b>',
+              open_in_terminal = '<M-t>',
+              -- Dynamic mapping that goes back to the lazy picker after an action
+              open_plugins_picker = '<M-l>',
+            },
           },
         },
       }
+      local mappings = ret.defaults.mappings
+      if mappings.both then
+        mappings.i = vim.tbl_extend('error', mappings.i, mappings.both)
+        mappings.n = vim.tbl_extend('error', mappings.n, mappings.both)
+        mappings.both = nil
+      end
+      return ret
     end,
     keys = {
       { '<C-p>', util.telescope('buffers', { sort_mru = true, cwd = false }), desc = 'Find Buffer' },
       { '<Leader>F', util.telescope 'file_browser.file_browser', desc = 'Browse Files' },
       { '<Leader>ff', util.telescope 'find_files', desc = 'Find File' },
       { '<Leader>fF', util.telescope('find_files', { cwd = false }), desc = 'Find File (cwd)' },
-      { '<Leader>fo', util.telescope 'oldfiles', desc = 'Find Old File' },
+      { '<Leader>fo', util.telescope('oldfiles', { cwd = false }), desc = 'Find Old File' },
       { '<Leader>fO', util.telescope('oldfiles', { only_cwd = true }), desc = 'Find Old File (cwd)' },
       { '<Leader>fz', util.telescope 'z', desc = 'Find Directory via z' },
 
@@ -209,7 +267,6 @@ return {
       { '<Leader>sb', util.telescope 'current_buffer_fuzzy_find', desc = 'Search in Buffer' },
       { '<Leader>sj', util.telescope 'jumplist', desc = 'Search Jump List' },
       { '<Leader>st', util.telescope 'tagstack', desc = 'Search Tag Stack' },
-      { '<Leader>sn', util.telescope 'notify.notify', desc = 'Search Notifications' },
 
       { '<M-s>', util.telescope 'snippets', desc = 'Find Snippet', mode = 'i' },
     },
@@ -222,10 +279,14 @@ return {
 
   -- Extensions
   ext.spec('nvim-telescope/telescope-file-browser.nvim', 'file_browser'),
-  ext.spec('nvim-telescope/telescope-fzy-native.nvim', 'fzy_native'),
   ext.spec('nvim-telescope/telescope-github.nvim', 'gh'),
   ext.spec('benfowler/telescope-luasnip.nvim', 'luasnip'),
   ext.spec('tsakirist/telescope-lazy.nvim', 'lazy'),
   ext.spec('nvim-telescope/telescope-z.nvim', 'z'),
   ext.spec('nvim-telescope/telescope-ui-select.nvim', 'ui-select'),
+  ext.spec(
+    'nvim-telescope/telescope-fzf-native.nvim',
+    'fzf',
+    { build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release' }
+  ),
 }
