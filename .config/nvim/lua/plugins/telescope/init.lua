@@ -197,14 +197,11 @@ return {
               },
             },
           },
-          lazy = {
-            mappings = {
-              open_in_file_browser = '<M-b>',
-              open_in_browser = '<C-b>',
-              open_in_terminal = '<M-t>',
-              -- Dynamic mapping that goes back to the lazy picker after an action
-              open_plugins_picker = '<M-l>',
-            },
+          lazy_plugins = {
+            lazy_config = vim.env.MYVIMRC,
+            name_only = true,
+            show_disabled = true,
+            auto_rescan = true,
           },
         },
       }
@@ -231,7 +228,7 @@ return {
       { '<Leader>fq', util.telescope 'quickfix', desc = 'Find Quickfix' },
       { '<Leader>fl', util.telescope 'loclist', desc = 'Find Location' },
       { '<Leader>fd', util.telescope 'diagnostics', desc = 'Find Diagnostic' },
-      { '<Leader>fp', util.telescope 'lazy.lazy', desc = 'Find Plugin' },
+      { '<Leader>fp', util.telescope 'lazy_plugins.lazy_plugins', desc = 'Find Plugin' },
 
       { '<Leader>fgf', util.telescope 'git_files', desc = 'Find Git File' },
       { '<Leader>fgc', util.telescope 'git_commits', desc = 'Find Commit' },
@@ -281,9 +278,18 @@ return {
   ext.spec('nvim-telescope/telescope-file-browser.nvim', 'file_browser'),
   ext.spec('nvim-telescope/telescope-github.nvim', 'gh'),
   ext.spec('benfowler/telescope-luasnip.nvim', 'luasnip'),
-  ext.spec('tsakirist/telescope-lazy.nvim', 'lazy'),
   ext.spec('nvim-telescope/telescope-z.nvim', 'z'),
   ext.spec('nvim-telescope/telescope-ui-select.nvim', 'ui-select'),
+
+  ext.spec('polirritmico/telescope-lazy-plugins.nvim', 'lazy_plugins', {
+    config = function()
+      -- Match the highlighting of indicators in :Lazy
+      for _, state in ipairs { 'Enabled', 'Disabled' } do
+        vim.api.nvim_set_hl(0, 'TelescopeLazyPlugins' .. state, { link = require('lazy.view.colors').colors.Special })
+      end
+    end,
+  }),
+
   ext.spec(
     'nvim-telescope/telescope-fzf-native.nvim',
     'fzf',

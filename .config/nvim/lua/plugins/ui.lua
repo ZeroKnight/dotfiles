@@ -369,6 +369,14 @@ return {
           opts = { skip = true },
         },
         {
+          -- Filter trace messages from telescope-lazy-plugins
+          filter = {
+            event = 'notify',
+            find = "Can't find '[^']*' from line %d+ inside the '[^']*' file. Use checkhealth for details.",
+          },
+          opts = { skip = true },
+        },
+        {
           -- Send huge messages/notifications to a split
           filter = {
             any = {
