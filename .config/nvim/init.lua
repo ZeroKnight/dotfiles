@@ -12,7 +12,7 @@ if not require 'zeroknight.bootstrap'() then
   return
 end
 
-vim.g.sessiondir = as_stdpath('state', 'session')
+vim.g.sessiondir = join_stdpath('state', 'session')
 
 -- Load plugins
 require('lazy').setup('plugins', {

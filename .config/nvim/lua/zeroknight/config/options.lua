@@ -227,7 +227,7 @@ if vim.fn.executable 'rg' then
   opt.grepprg = 'rg -H --no-heading --vimgrep'
 end
 
-opt.spellfile = as_stdpath('config', 'en.utf-8.add')
+opt.spellfile = join_stdpath('config', 'en.utf-8.add')
 
 opt.tags:append { 'src/**/tags', '.git/tags' }
 
@@ -242,7 +242,7 @@ end
 -- }}}
 
 -- Use local config, if available
-local local_init = as_stdpath('data', 'init.local.lua')
+local local_init = join_stdpath('data', 'init.local.lua')
 if vim.fn.filereadable(local_init) == 1 then
   dofile(local_init)
 end

@@ -61,7 +61,7 @@ return {
             },
           },
           cycle_layout_list = { 'vertical', 'horizontal', 'center' },
-          history = { limit = 256, path = as_stdpath('state', 'telescope_history') },
+          history = { limit = 256, path = join_stdpath('state', 'telescope_history') },
           file_ignore_patterns = {
             '%.luac',
             '%.shada',

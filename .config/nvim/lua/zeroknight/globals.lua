@@ -7,14 +7,15 @@ _G.zeroknight = _G.zeroknight or {}
 
 -- Return a subpath under a standard path
 --- @param what 'cache'|'config'|'config_dirs'|'data'|'data_dirs'|'log'|'run'|'state'
---- @param path string
+--- @param ... string
 --- @return string|string[]
-function _G.as_stdpath(what, path)
+function _G.join_stdpath(what, ...)
   local stdpath = vim.fn.stdpath(what)
   if type(stdpath) == 'table' then
-    return vim.tbl_map(function(x) return string.format('%s/%s', x, path) end, stdpath)
+    local args = { ... }
+    return vim.tbl_map(function(x) return vim.fs.joinpath(x, unpack(args)) end, stdpath)
   end
-  return string.format('%s/%s', stdpath, path)
+  return vim.fs.joinpath(stdpath, ...)
 end
 
 -- Lua shorthand for VimL has()

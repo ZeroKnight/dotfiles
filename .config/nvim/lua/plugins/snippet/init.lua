@@ -4,8 +4,8 @@ local Color = require('zeroknight.util.color').Color
 
 local keymaps = require 'plugins.snippet.keymaps'
 
-local snippets_path = as_stdpath('config', 'snippets/luasnip')
-local external_snippets_path = as_stdpath('data', 'external_snippets')
+local snippets_path = join_stdpath('config', 'snippets/luasnip')
+local external_snippets_path = join_stdpath('data', 'external_snippets')
 
 ---@type LazySpec
 return {
