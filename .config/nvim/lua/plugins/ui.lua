@@ -36,6 +36,7 @@ return {
     lazy = true,
     priority = 100,
     opts = function()
+      ---@module 'which-key'
       ---@type wk.Opts
       return {
         plugins = {
