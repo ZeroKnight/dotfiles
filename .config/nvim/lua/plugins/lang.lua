@@ -94,12 +94,8 @@ return {
       'joosepAlviste/nvim-ts-context-commentstring',
     },
     opts = {
+      install_dir = as_stdpath('data', 'treesitter/parser'),
       ensure_installed = vim.iter(vim.tbl_values(wanted_ts_parsers)):flatten():totable(),
-      highlight = {
-        enable = true,
-        custom_captures = {},
-        additional_vim_regex_highlighting = false,
-      },
       incremental_selection = {
         enable = true,
         keymaps = {
@@ -166,7 +162,14 @@ return {
         },
       },
     },
-    config = function(_, opts) require('nvim-treesitter.configs').setup(opts) end,
+    config = function(_, opts)
+      require('nvim-treesitter.configs').setup(opts)
+      vim.api.nvim_create_autocmd('FileType', {
+        pattern = '*', -- TODO: leverage get_installed() here?
+        desc = 'Treesitter Highlighting',
+        callback = function() vim.treesitter.start() end,
+      })
+    end,
   },
 
   {
