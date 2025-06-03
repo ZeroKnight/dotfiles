@@ -240,6 +240,7 @@ return {
       { '<Leader>fgp', util.telescope 'gh.pull_request', desc = 'Find Pull Request' },
       { '<Leader>fgg', util.telescope 'gh.gist', desc = 'Find Gist' },
       { '<Leader>fgw', util.telescope 'gh.run', desc = 'Workflow Runs' },
+      { '<Leader>fgx', util.telescope 'conflicts.conflicts', desc = 'Git Conflicts' },
 
       { '<Leader><Leader>nc', util.telescope 'nvim_config', desc = 'Find Neovim Config File' },
       { '<Leader><Leader>nl', util.telescope 'nvim_logs', desc = 'Find Neovim Log File' },
@@ -250,6 +251,7 @@ return {
       { '<F1>', util.telescope 'help_tags', desc = 'Help Pages' },
       { '<F3>', util.telescope 'resume', desc = 'Resume last Telescope Picker' },
       { '<Leader>hh', util.telescope 'help_tags', desc = 'Help Pages' },
+      { '<Leader>hg', util.telescope 'helpgrep.helpgrep', desc = 'Grep Help Pages' },
       { '<Leader>hm', util.telescope 'man_pages', desc = 'Man Pages' },
       { '<Leader>hk', util.telescope 'keymaps', desc = 'Keymaps' },
       { '<Leader>hc', util.telescope 'commands', desc = 'Commands' },
@@ -264,6 +266,8 @@ return {
       { '<Leader>sb', util.telescope 'current_buffer_fuzzy_find', desc = 'Search in Buffer' },
       { '<Leader>sj', util.telescope 'jumplist', desc = 'Search Jump List' },
       { '<Leader>st', util.telescope 'tagstack', desc = 'Search Tag Stack' },
+      { '<Leader>sm', util.telescope 'messages.messages', desc = 'Search Messages' },
+      { '<Leader>si', util.telescope 'import.import', desc = 'Search Imports' },
 
       { '<M-s>', util.telescope 'snippets', desc = 'Find Snippet', mode = 'i' },
     },
@@ -280,6 +284,10 @@ return {
   ext.spec('benfowler/telescope-luasnip.nvim', 'luasnip'),
   ext.spec('nvim-telescope/telescope-z.nvim', 'z'),
   ext.spec('nvim-telescope/telescope-ui-select.nvim', 'ui-select'),
+  ext.spec('d4wns-l1ght/telescope-messages.nvim', 'messages'),
+  ext.spec('catgoose/telescope-helpgrep.nvim', 'helpgrep'),
+  ext.spec('Snikimonkd/telescope-git-conflicts.nvim', 'conflicts'),
+  ext.spec('piersolenski/telescope-import.nvim', 'import'),
 
   ext.spec('polirritmico/telescope-lazy-plugins.nvim', 'lazy_plugins', {
     config = function()
