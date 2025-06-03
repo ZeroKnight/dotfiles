@@ -13,7 +13,7 @@ return {
     'echasnovski/mini.ai',
     version = false,
     event = 'VeryLazy',
-    dependencies = { 'nvim-treesitter-textobjects' },
+    dependencies = { 'nvim-treesitter/nvim-treesitter-textobjects' },
     opts = function()
       -- NOTE: Remember that g[ and g] are useful mappings!
       local spec_treesitter = require('mini.ai').gen_spec.treesitter
@@ -118,6 +118,7 @@ return {
 
   {
     'ZeroKnight/vim-signjump',
+    enabled = false,
     dev = true,
     keys = {
       { ']s', desc = 'Next sign' },

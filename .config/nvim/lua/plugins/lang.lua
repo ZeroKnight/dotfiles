@@ -86,20 +86,123 @@ return {
   -- Treesitter
   {
     'nvim-treesitter/nvim-treesitter',
+    branch = 'main',
     build = ':TSUpdate',
-    event = { 'BufReadPost', 'BufNewFile' },
-    dependencies = {
-      'nvim-treesitter/playground',
-      'nvim-treesitter/nvim-treesitter-textobjects',
-      'joosepAlviste/nvim-ts-context-commentstring',
-    },
+    lazy = false,
     opts = {
-      ensure_installed = vim.iter(vim.tbl_values(wanted_ts_parsers)):flatten():totable(),
-      highlight = {
+      install_dir = join_stdpath('data', 'treesitter'),
+    },
+    init = function()
+      vim.api.nvim_create_autocmd('FileType', {
+        group = vim.api.nvim_create_augroup('treesitter.setup', {}),
+        desc = 'Set up Treesitter-powered functionality for buffer',
+        callback = function(args)
+          local buf = args.buf
+          local ft = args.match
+          local lang = vim.treesitter.language.get_lang(ft) or ft
+
+          if not vim.treesitter.language.add(lang) then
+            return
+          end
+
+          vim.wo.foldmethod = 'expr'
+          vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+          if not vim.tbl_contains({ 'python' }, ft) then
+            vim.bo[buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+          end
+
+          vim.treesitter.start()
+        end,
+      })
+    end,
+    config = function(_, opts)
+      local nvim_treesitter = require 'nvim-treesitter'
+      nvim_treesitter.setup(opts)
+      nvim_treesitter.install(vim.iter(vim.tbl_values(wanted_ts_parsers)):flatten():totable())
+    end,
+  },
+
+  {
+    'nvim-treesitter/nvim-treesitter-textobjects',
+    branch = 'main',
+    dependencies = { 'nvim-treesitter/nvim-treesitter' },
+    opts = {
+      select = {
         enable = true,
-        custom_captures = {},
-        additional_vim_regex_highlighting = false,
+        lookahead = true, -- Jump ahead to next-nearest text-object if needed
+        selection_modes = {
+          ['@block.inner'] = 'V',
+          ['@class.inner'] = 'V',
+          ['@function.inner'] = 'V',
+          ['@loop.inner'] = 'V',
+        },
       },
+      move = {
+        set_jumps = true,
+      },
+    },
+    keys = {
+      {
+        ']a',
+        function() require('nvim-treesitter-textobjects.swap').swap_next '@parameter.inner' end,
+        desc = 'Swap argument with next',
+      },
+      {
+        '[a',
+        function() require('nvim-treesitter-textobjects.swap').swap_previous '@parameter.inner' end,
+        desc = 'Swap argument with previous',
+      },
+      {
+        ']f',
+        function() require('nvim-treesitter-textobjects.move').goto_next_start('@function.outer', 'textobjects') end,
+        desc = 'Next function start',
+      },
+      {
+        ']]',
+        function() require('nvim-treesitter-textobjects.move').goto_next_start('@class.outer', 'textobjects') end,
+        desc = 'Next class start',
+      },
+      {
+        ']F',
+        function() require('nvim-treesitter-textobjects.move').goto_next_end('@function.outer', 'textobjects') end,
+        desc = 'Next function end',
+      },
+      {
+        '][',
+        function() require('nvim-treesitter-textobjects.move').goto_next_end('@class.outer', 'textobjects') end,
+        desc = 'Next class end',
+      },
+      {
+        '[f',
+        function() require('nvim-treesitter-textobjects.move').goto_previous_start('@function.outer', 'textobjects') end,
+        desc = 'Previous function start',
+      },
+      {
+        '[[',
+        function() require('nvim-treesitter-textobjects.move').goto_previous_start('@class.outer', 'textobjects') end,
+        desc = 'Previous class start',
+      },
+      {
+        '[F',
+        function() require('nvim-treesitter-textobjects.move').goto_previous_end('@function.outer', 'textobjects') end,
+        desc = 'Previous function end',
+      },
+      {
+        '[]',
+        function() require('nvim-treesitter-textobjects.move').goto_previous_end('@class.outer', 'textobjects') end,
+        desc = 'Previous class end',
+      },
+    },
+  },
+
+  -- FIXME: Temporary stop-gap for now. Maybe try out the new
+  -- vim.lsp.buf.selection_range in 0.12, which is similar
+  {
+    'MeanderingProgrammer/treesitter-modules.nvim',
+    dependencies = { 'nvim-treesitter/nvim-treesitter' },
+    ---@module 'treesitter-modules'
+    ---@type ts.mod.UserConfig
+    opts = {
       incremental_selection = {
         enable = true,
         keymaps = {
@@ -109,65 +212,10 @@ return {
           scope_incremental = '<C-s>',
         },
       },
-      indent = {
-        enable = true,
-        disable = { 'python' },
-      },
-      playground = {
-        enable = true,
-      },
-      textobjects = {
-        select = {
-          enable = true,
-          lookahead = true, -- Jump ahead to next-nearest text-object if needed
-          selection_modes = {
-            ['@block.inner'] = 'V',
-            ['@class.inner'] = 'V',
-            ['@function.inner'] = 'V',
-            ['@loop.inner'] = 'V',
-          },
-          lsp_interop = {
-            enable = true,
-            floating_preview_opts = { border = require('zeroknight.config.ui').borders },
-            peek_definition_code = {
-              ['<LocalLeader>pdc'] = '@class.outer',
-              ['<LocalLeader>pdf'] = '@function.outer',
-            },
-          },
-        },
-        swap = {
-          enable = true,
-          swap_next = {
-            [']a'] = { query = '@parameter.inner', desc = 'Swap argument with next' },
-          },
-          swap_previous = {
-            ['[a'] = { query = '@parameter.inner', desc = 'Swap argument with previous' },
-          },
-        },
-        move = {
-          enable = true,
-          set_jumps = true,
-          goto_next_start = {
-            [']f'] = { query = '@function.outer', desc = 'Next function start' },
-            [']]'] = { query = '@class.outer', desc = 'Next class start' },
-          },
-          goto_next_end = {
-            [']F'] = { query = '@function.outer', desc = 'Next function end' },
-            [']['] = { query = '@class.outer', desc = 'Next class end' },
-          },
-          goto_previous_start = {
-            ['[f'] = { query = '@function.outer', desc = 'Previous function start' },
-            ['[['] = { query = '@class.outer', desc = 'Previous class start' },
-          },
-          goto_previous_end = {
-            ['[F'] = { query = '@function.outer', desc = 'Previous function end' },
-            ['[]'] = { query = '@class.outer', desc = 'Previous class end' },
-          },
-        },
-      },
     },
-    config = function(_, opts) require('nvim-treesitter.configs').setup(opts) end,
   },
+
+  -- TODO: Reimplement context-commentstring
 
   {
     'nvim-treesitter/nvim-treesitter-context',
