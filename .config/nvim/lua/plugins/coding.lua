@@ -93,7 +93,7 @@ return {
       enabled = true,
       snippet_engine = 'luasnip',
       languages = {
-        lua = { annotatino_convention = 'emmylua' },
+        lua = { annotation_convention = 'emmylua' },
       },
     },
   },
