@@ -11,6 +11,11 @@ export _ZL_EXCLUDE_DIRS='/tmp'
 export _ZL_MATCH_MODE=1  # Use enhanced matching
 export _ZL_FZF_FLAG="+s -0 -1 --prompt 'z.lua > ' --preview 'exa --oneline --icons --group-directories-first {2}'"
 
+
+if ! [[ -e "$ZLUA_SCRIPT" && -n "$ZLUA_LUAEXE" ]]; then
+  return
+fi
+
 autoload -Uz add-zsh-hook
 add-zsh-hook precmd _zlua_precmd
 
