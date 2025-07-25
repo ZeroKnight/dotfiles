@@ -2,7 +2,7 @@
 # Command history configuration
 #
 
-HISTFILE="$ZDATADIR/zhistory"
+HISTFILE="$ZSTATEDIR/zhistory"
 
 # HISTFILE should be larger than HISTSAVE to provide a buffer for
 # HIST_EXPIRE_DUPS_FIRST
@@ -33,4 +33,3 @@ alias recent='fc -lf -15'
 # List full history
 alias hist='fc -lf 1'
 alias rhist='fc -lfr 1'
-

@@ -18,9 +18,10 @@ fi
 export ZDOTDIR="${XDG_CONFIG_HOME:-"$HOME/.config"}/zsh"
 export ZSH="$ZDOTDIR"
 export ZDATADIR="${XDG_DATA_HOME:-"$HOME/.local/share"}/zsh"
+export ZSTATEDIR="${XDG_STATE_HOME:-"$HOME/.local/state"}/zsh"
 export ZCACHEDIR="${XDG_CACHE_HOME:-"$HOME/.cache"}/zsh"
 
-for dir in "$ZDOTDIR" "$ZDATADIR" "$ZCACHEDIR"; do
+for dir in "$ZDOTDIR" "$ZDATADIR" "$ZCACHEDIR" "$ZSTATEDIR"; do
     [[ -d "$dir" ]] || mkdir -p "$dir"
 done
 
