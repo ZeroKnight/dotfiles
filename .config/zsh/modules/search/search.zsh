@@ -10,6 +10,6 @@ export RIPGREP_CONFIG_PATH=$HOME/.config/ripgrep
 
 # fzf
 if (( $+commands[fzf] )); then
-  export FZF_DEFAULT_COMMAND='fd --type file --color=always --follow --hidden --exclude .git'
+  export FZF_DEFAULT_COMMAND='fd --type file --color=auto --follow --hidden --exclude .git'
   export FZF_DEFAULT_OPTS='--ansi --height 40%'
 fi

@@ -4,10 +4,11 @@
 
 ### Aliases
 
-alias zopts='set -o | grep --color=always'
+alias zopts='set -o | grep --color=auto'
 
 # Enable colors
-alias diff='diff --color=always'
+alias diff='diff --color=auto'
+alias ip='ip -color=auto'
 
 # Quick Screenshot
 alias screenshot='maim -s "$HOME/Pictures/Screenshots/SCREENSHOT_$(date "+%F_%T").png"'
@@ -26,4 +27,3 @@ setopt no_beep no_list_beep
 autoload -Uz run-help
 (( $+aliases[run-help] )) && unalias run-help
 alias zhelp='run-help'
-
