@@ -76,6 +76,11 @@ zstyle ':completion:*:*:-tilde-:*' group-name ''
 zstyle ':completion:*:*:-tilde-:*' group-order users named-directories
 zstyle ':completion:*:*:-tilde-:*' tag-order 'users named-directories'
 
+# Allow completing `..` in path contexts only when it's the current prefix
+# NOTE: The `#` in the pattern below is part of filename generation
+zstyle -e ':completion:*:paths' special-dirs \
+    '[[ $PREFIX = (../)#(|..) ]] && reply=(..)'
+
 # Use menu selection when the list of matches fits on screen, otherwise use
 # menu completion to prevent scrolling
 zstyle ':completion:*:*:cd:*:directory-stack' menu true=long select
