@@ -111,7 +111,12 @@ complete-word-with-indicator() {
   zle redisplay
 }
 zle -N complete-word-with-indicator
-bindkey '^I' complete-word-with-indicator
+
+if (( $+commands[fzf] )); then
+  fzf_default_completion='complete-word-with-indicator'
+else
+  bindkey '^I' complete-word-with-indicator
+fi
 
 # Smart URL Pasting and escaping
 autoload -Uz is-at-least
@@ -152,3 +157,6 @@ bindkey '^S' zle-prepend-sudo
 # Perform a path search even on command names with slashes in them.
 # Ex: path=(... /usr/local/bin); X11/xinit ~> /usr/local/bin/X11/xinit
 setopt path_dirs
+
+### fzf keybinds
+(( $+commands[fzf] )) && source "${commands[fzf]:h:h}/share/fzf/shell/key-bindings.zsh"

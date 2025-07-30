@@ -8,6 +8,8 @@ autoload -U is-at-least
 # Load extra compdefs
 source ${0:h}/compdefs.zsh
 
+(( $+commands[fzf] )) && source "${commands[fzf]:h:h}/share/fzf/shell/completion.zsh"
+
 # Zsh completion options
 
 setopt always_to_end complete_in_word

@@ -1,0 +1,17 @@
+#
+# Customize fzf zsh completion
+#
+
+# From recipe in fzf README
+
+local cmd="$1"
+shift
+
+case "$cmd" in
+    cd)           fzf --preview 'tree -C {} | head -n 200' "$@" ;;
+    export|unset) fzf --preview "eval 'echo \$'{}" "$@" ;;
+    ssh)          fzf --preview 'dig {}' "$@" ;;
+    *)            fzf --preview 'bat -n --color=always {}' "$@" ;;
+esac
+
+# vim: ft=zsh
