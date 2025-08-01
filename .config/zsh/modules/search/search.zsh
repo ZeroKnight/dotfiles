@@ -21,6 +21,11 @@ if (( $+commands[fzf] )); then
   else
     export FZF_DEFAULT_COMMAND='find -type f -L'
   fi
-  export FZF_DEFAULT_OPTS='--ansi --height 40%'
+
+  export FZF_DEFAULT_OPTS='--ansi'
+
+  local _tokyonight_extras="$HOME/.local/opt/tokyonight-extras"
+  [[ -d "$_tokyonight_extras/extras/fzf" ]] && source "$_tokyonight_extras/extras/fzf/tokyonight_storm.sh"
+
   autoload -U +X _fzf_comprun
 fi
