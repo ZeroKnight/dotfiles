@@ -345,6 +345,8 @@ return {
             any = {
               { event = 'msg_show', kind = '', find = 'lines >ed' },
               { event = 'msg_show', kind = '', find = 'lines <ed' },
+              { event = 'msg_show', kind = '', find = ':!rg' },
+              { event = 'msg_show', kind = 'bufwrite', find = ':!scp' },
             },
           },
           opts = { skip = true },
