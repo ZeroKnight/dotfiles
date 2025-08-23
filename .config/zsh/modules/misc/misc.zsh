@@ -10,10 +10,6 @@ alias zopts='set -o | grep --color=auto'
 alias diff='diff --color=auto'
 alias ip='ip -color=auto'
 
-# Quick Screenshot
-alias screenshot='maim -s "$HOME/Pictures/Screenshots/SCREENSHOT_$(date "+%F_%T").png"'
-alias screenshotf='maim "$HOME/Pictures/Screenshots/SCREENSHOT_$(date "+%F_%T").png"'
-
 alias rsync='rsync -h'
 
 ### Misc zsh options
