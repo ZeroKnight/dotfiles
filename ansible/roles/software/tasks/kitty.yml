@@ -15,4 +15,4 @@
   ansible.builtin.unarchive:
     src: "{{ asset.browser_download_url }}"
     remote_src: true
-    dest: /usr/local
+    dest: "{{ local_prefix }}"
