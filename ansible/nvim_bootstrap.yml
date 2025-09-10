@@ -2,6 +2,7 @@
 
 - name: Bootstrap Neovim setup
   hosts: localhost
+  connection: local
   vars_files:
     - vars/main.yml
   tasks:
@@ -9,16 +10,19 @@
       ansible.builtin.import_role:
         name: nvim
         tasks_from: build_deps
+      tags: build
 
     - name: Clone Neovim repository
       ansible.builtin.import_role:
         name: nvim
         tasks_from: checkout
+      tags: build
 
     - name: Build and install Neovim
       ansible.builtin.import_role:
         name: nvim
         tasks_from: make
+      tags: build
 
     - name: Ensure nvim state directories
       ansible.builtin.file:
