@@ -1,3 +1,4 @@
+nvim_bin: /usr/local/bin/nvim
 nvim_config: "{{ (config_dir, 'nvim') | path_join }}"
 nvim_data: "{{ (data_dir, 'nvim') | path_join }}"
 build:
