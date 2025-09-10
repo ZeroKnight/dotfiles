@@ -84,17 +84,27 @@
     bin_file: "pistol-static-linux-{{ ansible_architecture }}"
   tags: shell
   block:
+    - name: Ensure local directories exist
+      become: "{{ local_prefix | startswith('/usr') }}"
+      ansible.builtin.file:
+        path: "{{ (local_prefix, item) | path_join }}"
+        state: directory
+        recurse: true
+      loop:
+        - bin
+        - share/man/man1
+
     - name: Get latest pistol release
       ansible.builtin.uri:
         url: "https://api.github.com/repos/{{ repo }}/releases/latest"
         method: GET
       register: pistol_release
 
-    - name: Download latest pistol release
+    - name: Download and install latest pistol release
       become: true
       ansible.builtin.get_url:
         url: "{{ item.src.browser_download_url }}"
-        dest: "{{ ('/usr/local', item.dest) | path_join }}"
+        dest: "{{ (local_prefix, item.dest) | path_join }}"
         mode: "{{ item.mode }}"
       loop:
         - src: "{{ pistol_release.json.assets | selectattr('name', 'eq', bin_file) | first }}"
