@@ -2,3 +2,5 @@ purge_and_lock:
   Suse:
     - "*-bash-completion"
     - "plasma5-pk-updates"
+zsh:
+  local_dir: "{{ (local_prefix, 'share/zsh') | path_join }}"

@@ -10,6 +10,11 @@ path=(
     $path
 )
 
+fpath=(
+    ~/.local/share/zsh/site-functions
+    $fpath
+)
+
 cdpath=(
     $ZDOTDIR
 )
