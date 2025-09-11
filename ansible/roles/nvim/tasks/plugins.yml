@@ -14,6 +14,12 @@
     version: stable
     depth: 1
 
+- name: Ensure npm is installed for Mason.nvim
+  become: true
+  ansible.builtin.package:
+    name: npm
+    state: present
+
 - name: Sync nvim plugins
   ansible.builtin.command:
     argv:
