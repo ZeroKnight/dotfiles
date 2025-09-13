@@ -36,7 +36,10 @@ cmp.setup.cmdline(':', {
     { name = 'path' },
     { name = 'calc' },
   }, {
-    { name = 'cmdline' },
+    {
+      name = 'cmdline',
+      option = { ignore_cmds = { '!' } },
+    },
   }),
 })
 
