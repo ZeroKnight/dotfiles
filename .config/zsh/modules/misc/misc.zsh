@@ -10,7 +10,8 @@ alias zopts='set -o | grep --color=auto'
 alias diff='diff --color=auto'
 alias ip='ip -color=auto'
 
-alias rsync='rsync -h'
+# Add some nice defaults to rsync (can disable as needed with --no-<option>)
+alias rsync='rsync -hhh --partial --info=stats1,progress2,name1'
 
 ### Misc zsh options
 
