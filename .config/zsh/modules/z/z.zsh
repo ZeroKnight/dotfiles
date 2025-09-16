@@ -5,7 +5,7 @@
 export ZLUA_SCRIPT="$HOME/.local/opt/zlua/z.lua"
 export ZLUA_LUAEXE="${commands[luajit]:-$commands[lua]}"
 
-export _ZL_DATA="${XDG_DATA_HOME:-"$HOME/.local/share/zlua"}"
+export _ZL_DATA="${XDG_DATA_HOME:-"$HOME/.local/share"}/zlua"
 export _ZL_NO_PROMPT_COMMAND=1
 export _ZL_EXCLUDE_DIRS='/tmp'
 export _ZL_MATCH_MODE=1  # Use enhanced matching
