@@ -23,6 +23,10 @@
           repo: https://ftp.fau.de/packman/suse/openSUSE_Tumbleweed/Essentials/
           priority: 98
           autorefresh: false
+        - name: packman-extra
+          repo: https://ftp.fau.de/packman/suse/openSUSE_Tumbleweed/Extra/
+          priority: 98
+          autorefresh: false
       loop_control:
         label: "{{ item.name | default(item.repo) }}"
 
