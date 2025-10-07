@@ -85,7 +85,7 @@
   tags: shell
   block:
     - name: Ensure local directories exist
-      become: "{{ local_prefix | startswith('/usr') }}"
+      become: "{{ local_prefix.startswith('/usr') }}"
       ansible.builtin.file:
         path: "{{ (local_prefix, item) | path_join }}"
         state: directory
