@@ -67,6 +67,7 @@
   "quick-scope": { "branch": "master", "commit": "f2b6043e04d9ef05205c8953e389304a4c1946f2" },
   "refactoring.nvim": { "branch": "master", "commit": "64dbe67bf7c28c864488262d267c799f80cae9ba" },
   "render-markdown.nvim": { "branch": "main", "commit": "dd620561843d5a62c917fffe77f2923c965d12c7" },
+  "powershell.nvim": { "branch": "main", "commit": "62c589a2fe4c0cf77e8757df1c6c72bfa72c81ed" },
   "snacks.nvim": { "branch": "main", "commit": "bc0630e43be5699bb94dadc302c0d21615421d93" },
   "ssr.nvim": { "branch": "main", "commit": "7c95cfa5836508f08ae833a4b31d2ed265560f64" },
   "tabular": { "branch": "master", "commit": "12437cd1b53488e24936ec4b091c9324cafee311" },

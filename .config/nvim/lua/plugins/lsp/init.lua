@@ -64,9 +64,8 @@ return {
       })
 
       for server, config in pairs(require 'plugins.lsp.servers') do
-        if not config.disabled then
-          vim.lsp.config(server, config)
-        end
+        vim.lsp.config(server, config)
+        vim.lsp.enable(server, not config.disabled)
       end
 
       -- Live reload LS settings when server settings change

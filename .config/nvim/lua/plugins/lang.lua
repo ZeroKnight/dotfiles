@@ -245,4 +245,21 @@ return {
       },
     },
   },
+
+  {
+    'TheLeoP/powershell.nvim',
+    event = { 'BufReadPre', 'BufNewFile' },
+    dependencies = { 'williamboman/mason.nvim', 'neovim/nvim-lspconfig' },
+    opts = function()
+      local config = vim.lsp.config.powershell_es
+      return { ---@type powershell.user_config
+        bundle_path = require('mason-core.installer.InstallLocation').global():package 'powershell-editor-services',
+        capabilities = config.capabilities,
+        settings = config.settings,
+        root_dir = function(buf)
+          return vim.fs.root(buf, config.root_markers) or vim.fs.dirname(vim.api.nvim_buf_get_name(buf))
+        end,
+      }
+    end,
+  },
 }

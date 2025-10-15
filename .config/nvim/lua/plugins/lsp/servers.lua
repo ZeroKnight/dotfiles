@@ -80,6 +80,9 @@ return {
     },
   },
   powershell_es = {
+    -- powershell.nvim handles starting the server since it does a bunch of
+    -- bookkeeping for the session and PSES terminal.
+    disabled = true,
     settings = {
       powershell = {
         codeFolding = { enable = true },
