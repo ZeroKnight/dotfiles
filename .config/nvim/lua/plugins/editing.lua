@@ -155,9 +155,6 @@ return {
     keys = {
       { 'gc' }, { 'gc', mode = 'v' }, { 'gb' }, { 'gb', mode = 'v' }, { 'gcc' }, { 'gco' }, { 'gcO' }, { 'gcA' }
     },
-    opts = {
-      pre_hook = function() require('ts_context_commentstring.internal').update_commentstring {} end,
-    },
   },
 
   {
