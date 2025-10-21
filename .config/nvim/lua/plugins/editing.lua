@@ -151,9 +151,18 @@ return {
 
   {
     'numToStr/Comment.nvim',
-    -- stylua: ignore
+    opts = {
+      padding = true,
+      sticky = true,
+      mappings = { basic = true, extra = true },
+    },
     keys = {
-      { 'gc' }, { 'gc', mode = 'v' }, { 'gb' }, { 'gb', mode = 'v' }, { 'gcc' }, { 'gco' }, { 'gcO' }, { 'gcA' }
+      { 'gc', mode = { 'n', 'v' } },
+      { 'gb', mode = { 'n', 'v' } },
+      { 'gcc' },
+      { 'gco' },
+      { 'gcO' },
+      { 'gcA' },
     },
   },
 
