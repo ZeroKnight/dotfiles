@@ -2,6 +2,10 @@
 
 local cmp = require 'cmp'
 
+-- NOTE: There are some useful helpers for contextual completion sources:
+-- - cmp.config.context.in_syntax_group
+-- - cmp.config.context.in_treesitter_capture
+
 -- Disabled filetypes
 cmp.setup.filetype({ 'TelescopePrompt' }, {
   sources = {},
@@ -11,8 +15,8 @@ cmp.setup.filetype({ 'lua', 'vim' }, {
   sources = cmp.config.sources {
     { name = 'lazydev' },
     { name = 'nvim_lsp' },
-    { name = 'treesitter' },
     { name = 'path' },
+    { name = 'treesitter' },
     { name = 'luasnip' },
     { name = 'calc', keyword_length = 3 },
     { name = 'buffer', keyword_length = 5 },

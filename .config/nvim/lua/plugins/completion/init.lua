@@ -52,8 +52,8 @@ return {
         },
         sources = cmp.config.sources {
           { name = 'nvim_lsp' },
-          { name = 'treesitter' },
           { name = 'path' },
+          { name = 'treesitter' },
           { name = 'luasnip' },
           { name = 'calc', keyword_length = 3 },
           { name = 'buffer', keyword_length = 5 },
