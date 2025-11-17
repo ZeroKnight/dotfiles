@@ -50,14 +50,6 @@ return {
         snippet = {
           expand = function(args) require('luasnip').lsp_expand(args.body) end,
         },
-        sources = cmp.config.sources {
-          { name = 'nvim_lsp' },
-          { name = 'path' },
-          { name = 'treesitter' },
-          { name = 'luasnip' },
-          { name = 'calc', keyword_length = 3 },
-          { name = 'buffer', keyword_length = 5 },
-        },
         formatting = {
           format = function(entry, item)
             local name = menu_text[entry.source.name]
