@@ -22,6 +22,7 @@ cmp.setup.global {
   sources = cmp.config.sources {
     source 'nvim_lsp',
     source 'path',
+    source 'diag-codes',
     source 'treesitter',
     source 'luasnip',
     source 'calc',
@@ -39,6 +40,7 @@ cmp.setup.filetype({ 'lua', 'vim' }, {
     { name = 'lazydev' },
     source 'nvim_lsp',
     source 'path',
+    source 'diag-codes',
     source 'treesitter',
     source 'luasnip',
     source 'calc',

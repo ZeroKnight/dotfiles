@@ -21,6 +21,7 @@ return {
       { 'hrsh7th/cmp-nvim-lsp' },
       { 'hrsh7th/cmp-nvim-lsp-document-symbol' },
       { 'ray-x/cmp-treesitter' },
+      { 'JMarkin/cmp-diag-codes' },
     },
     opts = function()
       local cmp = require 'cmp'
@@ -33,6 +34,7 @@ return {
         path = 'path',
         luasnip = 'snip',
         treesitter = 'TS',
+        ['diag-codes'] = 'diag',
       }
 
       ---@type cmp.ConfigSchema
