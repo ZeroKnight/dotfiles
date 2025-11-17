@@ -140,7 +140,6 @@ return {
     end,
     config = function(_, opts)
       local cmp = require 'cmp'
-      local ui = require 'zeroknight.config.ui'
 
       cmp.setup(opts)
       require 'plugins.completion.sources'
