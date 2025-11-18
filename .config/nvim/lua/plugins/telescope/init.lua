@@ -287,7 +287,7 @@ return {
   ext.spec('d4wns-l1ght/telescope-messages.nvim', 'messages'),
   ext.spec('catgoose/telescope-helpgrep.nvim', 'helpgrep'),
   ext.spec('Snikimonkd/telescope-git-conflicts.nvim', 'conflicts'),
-  ext.spec('piersolenski/telescope-import.nvim', 'import'),
+  ext.spec('piersolenski/import.nvim', 'import'),
 
   ext.spec('polirritmico/telescope-lazy-plugins.nvim', 'lazy_plugins', {
     config = function()
