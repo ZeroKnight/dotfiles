@@ -82,7 +82,8 @@ autocmd('TextYankPost', {
     vim.hl.on_yank {
       timeout = ui.highlight.indicator_duration,
       higroup = 'LspReferenceWrite',
-      on_visual = false,
+      priority = 300,
+      on_visual = true,
     }
   end,
 })
