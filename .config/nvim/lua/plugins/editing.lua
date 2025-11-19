@@ -278,15 +278,45 @@ return {
 
   {
     'gbprod/yanky.nvim',
-    opts = {
-      ring = {
-        history_length = 25,
-        storage = 'shada',
-        sync_with_numbered_registers = true,
-      },
-      system_clipboard = { sync_with_ring = true },
-      highlight = { on_put = false, on_yank = false },
-    },
+    opts = function()
+      local yanky_utils = require 'yanky.utils'
+      local mapping = require 'yanky.telescope.mapping'
+
+      local function put_and_set(type) return mapping.put_and_set_register(type, yanky_utils.get_default_register()) end
+
+      return {
+        ring = {
+          history_length = 25,
+          storage = 'shada',
+          sync_with_numbered_registers = true,
+        },
+        system_clipboard = { sync_with_ring = true },
+        highlight = { on_put = false, on_yank = false },
+        picker = {
+          telescope = {
+            use_default_mappings = false,
+            mappings = {
+              default = put_and_set 'p',
+              i = {
+                ['<S-CR>'] = put_and_set 'P',
+                ['<C-g>p'] = put_and_set 'gp',
+                ['<C-g>P'] = put_and_set 'gP',
+                ['<M-d>'] = mapping.delete(),
+                ['<C-r>'] = mapping.set_register(yanky_utils.get_default_register()),
+              },
+              n = {
+                p = put_and_set 'p',
+                P = put_and_set 'P',
+                gp = put_and_set 'gp',
+                gP = put_and_set 'gP',
+                d = mapping.delete(),
+                r = mapping.set_register(yanky_utils.get_default_register()),
+              },
+            },
+          },
+        },
+      }
+    end,
     keys = {
       { '<Leader>fy', util.telescope 'yank_history.yank_history', desc = 'Find Yank' },
       { '<M-p>', '<Plug>(YankyPreviousEntry)', desc = 'Yank-Ring Previous' },

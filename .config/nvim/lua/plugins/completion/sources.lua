@@ -19,15 +19,17 @@ local source = setmetatable({
 })
 
 cmp.setup.global {
-  sources = cmp.config.sources {
+  sources = cmp.config.sources({
     source 'nvim_lsp',
     source 'path',
     source 'diag-codes',
     source 'treesitter',
     source 'luasnip',
-    source 'calc',
     source 'buffer',
-  },
+  }, {
+    source 'cmp_yanky',
+    source 'calc',
+  }),
 }
 
 -- Disabled filetypes
@@ -36,16 +38,18 @@ cmp.setup.filetype({ 'TelescopePrompt' }, {
 })
 
 cmp.setup.filetype({ 'lua', 'vim' }, {
-  sources = cmp.config.sources {
+  sources = cmp.config.sources({
     { name = 'lazydev' },
     source 'nvim_lsp',
     source 'path',
     source 'diag-codes',
     source 'treesitter',
     source 'luasnip',
-    source 'calc',
     source 'buffer',
-  },
+  }, {
+    source 'cmp_yanky',
+    source 'calc',
+  }),
 })
 
 cmp.setup.filetype('gitcommit', {
@@ -55,8 +59,9 @@ cmp.setup.filetype('gitcommit', {
   }, {
     source 'path',
     source 'luasnip',
-    source 'calc',
     source('buffer', { keyword_length = 2 }),
+  }, {
+    source 'calc',
   }),
 })
 
@@ -65,10 +70,8 @@ cmp.setup.cmdline(':', {
     source 'path',
     source('calc', { keyword_length = 1 }),
   }, {
-    {
-      name = 'cmdline',
-      option = { ignore_cmds = { '!' } },
-    },
+    { name = 'cmdline', option = { ignore_cmds = { '!' } } },
+    source 'cmp_yanky',
   }),
 })
 
@@ -78,6 +81,8 @@ cmp.setup.cmdline('/', {
   }, {
     source 'path',
     source('buffer', { keyword_length = 2 }),
+  }, {
+    source 'calc',
   }),
 })
 
