@@ -31,7 +31,6 @@ return {
       local menu_text = {
         buffer = 'buf',
         nvim_lsp = 'LSP',
-        nvim_lua = 'vim',
         path = 'path',
         luasnip = 'snip',
         treesitter = 'TS',
