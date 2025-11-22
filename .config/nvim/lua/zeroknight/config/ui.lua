@@ -112,13 +112,8 @@ local M = {
 }
 
 function M.init()
-  -- Set initial background based on time of day
-  local hour = tonumber(os.date '%H')
-  if hour >= 6 and hour < 18 then
-    vim.opt.background = 'light'
-  else
-    vim.opt.background = 'dark'
-  end
+  -- Set initial background based on current system theme
+  vim.opt.background = M.system_theme()
 
   vim.api.nvim_create_autocmd('ColorScheme', {
     desc = 'Reload highlighting on colorscheme change',
@@ -129,6 +124,25 @@ function M.init()
   vim.cmd.colorscheme 'tokyonight'
   vim.opt.statuscolumn = "%{%v:lua.require('zeroknight.config.ui').statuscolumn()%}"
   vim.opt.foldtext = ''
+end
+
+function M.system_theme()
+  local preference_map = { [0] = vim.NIL, [1] = 'dark', [2] = 'light' }
+  local result = vim
+    .system({
+      'dbus-send',
+      '--session',
+      '--dest=org.freedesktop.portal.Desktop',
+      '--type=method_call',
+      '--print-reply=literal',
+      '/org/freedesktop/portal/desktop',
+      'org.freedesktop.portal.Settings.Read',
+      'string:org.freedesktop.appearance',
+      'string:color-scheme',
+    }, { text = true })
+    :wait()
+  local pref = vim.split(result.stdout, '%s+', { trimempty = true })[4]
+  return preference_map[tonumber(pref)]
 end
 
 function M.make_highlights()
