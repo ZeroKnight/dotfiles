@@ -57,11 +57,15 @@ return {
         formatting = {
           format = function(entry, item)
             local name = menu_text[entry.source.name]
+
+            -- Indicate that the server applied a specific sort
+            local sort_indicator = entry.completion_item.sortText ~= nil and ' 󰒿 ' or ''
+
             if entry.source.name == 'nvim_lsp_document_symbol' then
               item.kind = vim.lsp.protocol.SymbolKind[entry.completion_item.kind]
             end
             item.kind = string.format('%s  %s', ui.icons.kinds[item.kind] or '?', item.kind)
-            item.menu = name and string.format('[%s]', name) or ''
+            item.menu = name and string.format('[%s]%s', name, sort_indicator) or ''
             return item
           end,
         },
