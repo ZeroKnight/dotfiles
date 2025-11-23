@@ -5,6 +5,9 @@ local Color = require('zeroknight.util.color').Color
 
 local format = string.format
 
+local theme_preference_map = { [0] = vim.NIL, [1] = 'dark', [2] = 'light' }
+local last_theme_change_signal_time = 0
+
 local M = {
   borders = 'rounded',
   highlight = {
@@ -111,9 +114,67 @@ local M = {
   },
 }
 
+local function spawn_theme_monitor()
+  if vim.fn.executable 'dbus-monitor' == 0 then
+    return
+  end
+
+  local stdout, err = vim.uv.new_pipe() ---@cast stdout -nil
+  assert(not err, err)
+  local handle = vim.uv.spawn('dbus-monitor', { ---@diagnostic disable-line missing-fields
+    args = {
+      '--session',
+      table.concat({
+        'type=signal',
+        'interface=org.freedesktop.portal.Settings',
+        'member=SettingChanged',
+        'arg0=org.freedesktop.appearance',
+        'arg1=color-scheme',
+      }, ','),
+    },
+    stdio = { nil, stdout, nil },
+  }, function()
+    stdout:read_stop()
+    stdout:close()
+  end)
+
+  vim.uv.read_start(stdout, function(err, data)
+    assert(not err, err)
+    if data then
+      local lines = vim.split(data, '\n')
+      if not #lines == 4 then
+        return
+      end
+      local time = tonumber(string.match(lines[1], '^signal time=(%d+)'))
+      local pref = tonumber(string.match(lines[4], '^%s+variant%s+uint32%s+(%d)$'))
+      if not pref then
+        return
+      end
+
+      -- On theme change, the color-scheme setting changes 3 times for some
+      -- reason, so we'll debounce by 1 second in lieu of that.
+      if time > last_theme_change_signal_time + 1 then
+        last_theme_change_signal_time = time
+        vim.schedule(function() vim.opt.background = theme_preference_map[tonumber(pref)] end)
+      end
+    end
+  end)
+
+  vim.api.nvim_create_autocmd('VimLeavePre', {
+    desc = 'Close uv process handle for system theme dbus-monitor',
+    callback = function()
+      handle:kill 'sigterm'
+      handle:close()
+    end,
+  })
+end
+
 function M.init()
   -- Set initial background based on current system theme
   vim.opt.background = M.system_theme()
+
+  -- Set up dbus monitor to watch for changes to system theme
+  spawn_theme_monitor()
 
   vim.api.nvim_create_autocmd('ColorScheme', {
     desc = 'Reload highlighting on colorscheme change',
@@ -127,7 +188,6 @@ function M.init()
 end
 
 function M.system_theme()
-  local preference_map = { [0] = vim.NIL, [1] = 'dark', [2] = 'light' }
   local result = vim
     .system({
       'dbus-send',
@@ -142,7 +202,7 @@ function M.system_theme()
     }, { text = true })
     :wait()
   local pref = vim.split(result.stdout, '%s+', { trimempty = true })[4]
-  return preference_map[tonumber(pref)]
+  return theme_preference_map[tonumber(pref)]
 end
 
 function M.make_highlights()
