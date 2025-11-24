@@ -32,6 +32,7 @@ return {
           S = spec_treesitter { a = '@block_string.outer', i = '@block_string.inner' },
           b = spec_treesitter { a = '@block.outer', i = '@block.inner' },
           c = spec_treesitter { a = '@conditional.outer', i = '@conditional.inner' },
+          f = spec_treesitter { a = '@call.outer', i = '@call.inner' },
           l = spec_treesitter { a = '@loop.outer', i = '@loop.inner' },
           m = spec_treesitter { a = '@comment.outer', i = '@comment.inner' },
           r = spec_treesitter { a = '@return.outer', i = '@return.inner' },
