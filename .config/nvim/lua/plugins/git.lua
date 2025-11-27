@@ -45,13 +45,11 @@ return {
           { '[H', util.partial(gs.nav_hunk, 'first', { preview = true }), desc = 'Last hunk' },
           {
             group = 'hunks',
-            { '<LocalLeader>hu', gs.undo_stage_hunk, desc = 'Undo Stage Hunk' },
             { '<LocalLeader>hp', gs.preview_hunk, desc = 'Preview Hunk' },
             { '<LocalLeader>hP', gs.preview_hunk_inline, desc = 'Preview Hunk (Inline)' },
             { '<LocalLeader>hR', gs.reset_buffer, desc = 'Reset Buffer (All hunks)' },
             { '<LocalLeader>hS', gs.stage_buffer, desc = 'Stage Buffer (All hunks)' },
             { '<LocalLeader>hU', gs.reset_buffer_index, desc = 'Reset Buffer Index' },
-            { '<LocalLeader>hd', gs.toggle_deleted, desc = 'Toggle deleted lines' },
             { '<LocalLeader>hw', gs.toggle_word_diff, desc = 'Toggle word diff' },
             {
               mode = { 'n', 'v' },
