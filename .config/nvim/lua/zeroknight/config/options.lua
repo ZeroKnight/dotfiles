@@ -75,6 +75,7 @@ opt.listchars = {
 -- Filler characters for virtual lines, separators, etc.
 opt.fillchars = {
   fold = ' ', -- Don't show dots for folded lines
+  diff = '╱', -- Fill out deleted regions in diff mode
 }
 
 -- Wild Menu

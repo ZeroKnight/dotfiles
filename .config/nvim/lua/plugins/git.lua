@@ -1,5 +1,6 @@
 -- Git support and utilities
 
+local ui = require 'zeroknight.config.ui'
 local util = require 'zeroknight.util'
 
 ---@type LazySpec
@@ -70,6 +71,21 @@ return {
           { 'gh', '<Cmd>Gitsigns select_hunk<CR>', mode = { 'o', 'x' } },
         }
       end,
+    },
+  },
+
+  {
+    'sindrets/diffview.nvim',
+    opts = {
+      icons = {
+        folder_closed = ui.icons.common.folder,
+        folder_open = ui.icons.common.folder_open,
+      },
+      signs = {
+        fold_closed = ui.icons.folds.closed,
+        fold_open = ui.icons.folds.open,
+        done = ui.icons.common.check,
+      },
     },
   },
 }
