@@ -13,6 +13,9 @@ alias ip='ip -color=auto'
 # Add some nice defaults to rsync (can disable as needed with --no-<option>)
 alias rsync='rsync -hhh --partial --info=stats1,progress2,name1'
 
+# Frequent podman typo
+alias podamn='podman'
+
 ### Misc zsh options
 
 # BELL BEEPS ARE EVIL. DIE.
