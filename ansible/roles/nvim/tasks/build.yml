@@ -1,0 +1,15 @@
+# vim: ft=yaml.ansible
+
+- name: Install Neovim build dependencies
+  become: true
+  ansible.builtin.package:
+    name: "{{ item }}"
+    state: present
+  loop: "{{ nvim_build_deps }}"
+
+- name: Clone Neovim repository
+  ansible.builtin.git:
+    repo: "{{ nvim_repo }}"
+    dest: "{{ nvim_build.path }}"
+    version: "{{ nvim_build.tag }}"
+    update: false

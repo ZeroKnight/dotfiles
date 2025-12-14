@@ -1,0 +1,8 @@
+nvim_build_deps:
+  - ccache
+  - cmake
+  - curl
+  - g++
+  - gettext
+  - ninja-build
+  - unzip

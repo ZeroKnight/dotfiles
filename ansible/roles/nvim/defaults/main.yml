@@ -1,8 +1,8 @@
 nvim_bin: "{{ (local_prefix, 'bin/nvim') | path_join }}"
 nvim_config: "{{ (config_dir, 'nvim') | path_join }}"
 nvim_data: "{{ (data_dir, 'nvim') | path_join }}"
-build:
-  type: RelWithDebInfo
+nvim_repo: https://github.com/neovim/neovim
+nvim_build:
   tag: nightly
   path: "{{ (src_dir, 'neovim') | path_join }}"
 lazy_path: "{{ (nvim_data, 'lazy', 'lazy.nvim') | path_join }}"

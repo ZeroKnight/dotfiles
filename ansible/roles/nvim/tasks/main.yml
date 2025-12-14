@@ -1,0 +1,21 @@
+# vim: ft=yaml.ansible
+
+- name: Set distribution-specific variables
+  ansible.builtin.include_vars:
+    file: "{{ ansible_os_family }}.yml"
+
+- name: Bootstrap Lazy.nvim and install plugins
+  ansible.builtin.include_tasks: plugins.yml
+  tags: plugin
+
+- name: Set up plugin providers
+  ansible.builtin.include_tasks: providers.yml
+  tags:
+    - plugin
+    - provider
+
+- name: Set up prerequisites to build Neovim from source
+  ansible.builtin.include_tasks: build.yml
+  tags:
+    - never
+    - build
