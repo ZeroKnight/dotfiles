@@ -1,6 +1,7 @@
 nvim_bin: "{{ (local_prefix, 'bin/nvim') | path_join }}"
 nvim_config: "{{ (config_dir, 'nvim') | path_join }}"
 nvim_data: "{{ (data_dir, 'nvim') | path_join }}"
+nvim_state: "{{ (state_dir, 'nvim') | path_join }}"
 nvim_repo: https://github.com/neovim/neovim
 nvim_build:
   tag: nightly

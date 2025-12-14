@@ -27,7 +27,7 @@
       - --headless
       - +Lazy! install
       - +qa
-    creates: "{{ (state_dir, 'nvim', 'lazy') | path_join }}"
+    creates: "{{ (nvim_state, 'lazy') | path_join }}"
 
 - name: Install Treesitter parsers
   ansible.builtin.command:
