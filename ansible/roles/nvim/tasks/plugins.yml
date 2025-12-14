@@ -20,12 +20,12 @@
     name: npm
     state: present
 
-- name: Sync nvim plugins
+- name: Install nvim plugins
   ansible.builtin.command:
     argv:
       - "{{ nvim_bin }}"
       - --headless
-      - +Lazy! sync
+      - +Lazy! install
       - +qa
     creates: "{{ (state_dir, 'nvim', 'lazy') | path_join }}"
 
