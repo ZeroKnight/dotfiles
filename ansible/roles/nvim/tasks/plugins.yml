@@ -29,6 +29,16 @@
       - +qa
     creates: "{{ (state_dir, 'nvim', 'lazy') | path_join }}"
 
+- name: Install Treesitter parsers
+  ansible.builtin.command:
+    argv:
+      - "{{ nvim_bin }}"
+      - --headless
+      - "+lua require('nvim-treesitter').install(require('zeroknight.treesitter').wanted_parsers()):wait({{ _timeout }})"
+    creates: "{{ (nvim_data, 'treesitter/parser') | path_join }}"
+  vars:
+    _timeout: "{{ 5 * 60 * 1000 }}"
+
 - name: Ensure external_snippets directory exists
   ansible.builtin.file:
     path: "{{ (nvim_data, 'external_snippets', 'vscode') | path_join }}"

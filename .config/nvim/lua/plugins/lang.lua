@@ -5,49 +5,6 @@
 
 local util = require 'zeroknight.util'
 
-local wanted_ts_parsers = {
-  vendored = {
-    -- These ship with Neovim and *should* always be available anyway. Including them for completeness.
-    'c',
-    'lua',
-    'vim',
-    'vimdoc',
-  },
-  langs = {
-    -- Languages that I use often; not shipped with Neovim
-    'bash',
-    'cpp',
-    'jq',
-    'python',
-  },
-  docs = {
-    -- Documentation and other markup
-    'markdown',
-    'markdown_inline',
-    'rst',
-  },
-  data = {
-    -- Data formats, serialization, configuration, etc.
-    'cmake',
-    'dockerfile',
-    'gitattributes',
-    'json',
-    'jsonc',
-    'make',
-    'toml',
-    'yaml',
-  },
-  meta = {
-    -- Language constructs, meta-languages, extra syntax, etc.
-    'comment',
-    'diff',
-    'git_rebase',
-    'gitcommit',
-    'query',
-    'regex',
-  },
-}
-
 ---@type LazySpec
 return {
   { 'cespare/vim-toml', ft = 'toml' },
@@ -118,7 +75,7 @@ return {
     config = function(_, opts)
       local nvim_treesitter = require 'nvim-treesitter'
       nvim_treesitter.setup(opts)
-      nvim_treesitter.install(vim.iter(vim.tbl_values(wanted_ts_parsers)):flatten():totable())
+      nvim_treesitter.install(require('zeroknight.treesitter').wanted_parsers())
     end,
   },
 
