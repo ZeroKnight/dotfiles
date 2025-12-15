@@ -23,16 +23,21 @@
 - name: Install nvim plugins
   ansible.builtin.command:
     argv:
-      - "{{ nvim_bin }}"
+      - nvim
       - --headless
       - +Lazy! install
       - +qa
     creates: "{{ (nvim_state, 'lazy') | path_join }}"
 
+- name: Install Treesitter CLI
+  ansible.builtin.package:
+    name: "{{ nvim_treesitter_pkgs }}"
+    state: present
+
 - name: Install Treesitter parsers
   ansible.builtin.command:
     argv:
-      - "{{ nvim_bin }}"
+      - nvim
       - --headless
       - "+lua require('nvim-treesitter').install(require('zeroknight.treesitter').wanted_parsers()):wait({{ _timeout }})"
     creates: "{{ (nvim_data, 'treesitter/parser') | path_join }}"

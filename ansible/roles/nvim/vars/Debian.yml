@@ -6,3 +6,7 @@ nvim_build_deps:
   - gettext
   - ninja-build
   - unzip
+
+# NOTE: Available in trixie and up
+nvim_treesitter_pkgs:
+  - tree-sitter-cli

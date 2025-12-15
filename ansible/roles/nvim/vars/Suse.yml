@@ -6,3 +6,6 @@ nvim_build_deps:
   - gettext-tools
   - ninja
   - unzip
+
+nvim_treesitter_pkgs:
+  - tree-sitter
