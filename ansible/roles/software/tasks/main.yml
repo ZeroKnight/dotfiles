@@ -1,5 +1,9 @@
 # vim: ft=yaml.ansible
 
+- name: Set distribution-specific variables
+  ansible.builtin.include_vars:
+    file: "{{ ansible_os_family }}.yml"
+
 - name: Configure package manager
   ansible.builtin.import_tasks: pkgmgr.yml
   tags:

@@ -1,0 +1,3 @@
+software_lua_packages:
+  - lua51
+  - luajit

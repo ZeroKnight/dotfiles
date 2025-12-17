@@ -71,6 +71,12 @@
     dest: "{{ (config_dir, 'git', 'conf.enabled', 'delta.gitconfig') | path_join }}"
     state: link
 
+- name: Install Lua interpreters
+  become: true
+  ansible.builtin.package:
+    name: "{{ software_lua_packages }}"
+    state: present
+
 - name: Install z.lua
   ansible.builtin.git:
     repo: https://github.com/skywind3000/z.lua
