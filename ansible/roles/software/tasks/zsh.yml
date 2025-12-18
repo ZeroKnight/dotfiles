@@ -6,7 +6,7 @@
     name:
       - zsh
     state: latest
-  when: ansible_os_family == 'Suse'
+  when: ansible_distribution == "openSUSE Tumbleweed"
 
 - name: Install zsh (Debian)
   become: true
@@ -15,7 +15,7 @@
       - zsh
       - zsh-doc
     state: latest
-  when: ansible_os_family == 'Debian'
+  when: ansible_distribution == "Debian"
 
 - name: Create local zsh site-functions directory
   become: true
@@ -48,7 +48,7 @@
     depth: 1
 
 - name: Remove unwanted openSuse /etc/zshrc edits
-  when: ansible_os_family == 'Suse'
+  when: ansible_distribution == "openSUSE Tumbleweed"
   become: true
   block:
     - name: Don't run compinit in /etc/zshrc

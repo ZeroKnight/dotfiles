@@ -2,19 +2,7 @@
 
 - name: Set distribution-specific variables
   ansible.builtin.include_vars:
-    file: "{{ ansible_os_family }}.yml"
-
-- name: Configure package manager
-  ansible.builtin.import_tasks: pkgmgr.yml
-  tags:
-    - repo
-    - distro
-
-- name: Set up package repositories
-  ansible.builtin.import_tasks: repos.yml
-  tags:
-    - repo
-    - distro
+    file: "{{ ansible_distribution | replace(' ', '_') }}.yml"
 
 - name: Set up zsh
   ansible.builtin.import_tasks: zsh.yml

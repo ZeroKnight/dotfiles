@@ -1,0 +1,33 @@
+# vim: ft=yaml.ansible
+
+- name: Gather package facts
+  ansible.builtin.package_facts:
+    manager: auto
+
+- name: Set debian_arch fact
+  ansible.builtin.set_fact:
+    debian_arch: "{{ ansible_architecture | replace('x86_64', 'amd64') }}"
+  when: ansible_os_family == "Debian"
+
+- name: "Configure package manager ({{ ansible_pkg_mgr }})"
+  ansible.builtin.include_tasks:
+    file: "{{ item }}"
+  with_first_found:
+    - files:
+        - "{{ ansible_pkg_mgr }}.yml"
+      skip: true
+  when: ansible_pkg_mgr is defined
+
+
+- name: "Set up package repositories ({{ ansible_distribution }})"
+  ansible.builtin.include_tasks:
+    file: "{{ item }}"
+  with_first_found:
+    - files:
+        - "repos-{{ ansible_distribution | replace(' ', '_') }}.yml"
+      skip: true
+  tags:
+    - repo
+
+- name: Flush handlers to refresh/update repositories
+  ansible.builtin.meta: flush_handlers

@@ -1,0 +1,28 @@
+# vim: ft=yaml.ansible
+
+- name: Add package repositories
+  become: true
+  community.general.zypper_repository:
+    repo: "{{ item.repo }}"
+    name: "{{ item.name | default(omit) }}"
+    enabled: "{{ item.enabled | default(true) }}"
+    priority: "{{ item.priority | default(99) }}"
+    autorefresh: "{{ item.autorefresh | default(true) }}"
+    auto_import_keys: "{{ item.auto_import_keys | default(true) }}"
+    state: present
+    runrefresh: false
+  loop:
+    - name: github-cli
+      repo: https://cli.github.com/packages/rpm/
+      priority: 98
+    - name: packman-essentials
+      repo: https://ftp.fau.de/packman/suse/openSUSE_Tumbleweed/Essentials/
+      priority: 98
+      autorefresh: false
+    - name: packman-extra
+      repo: https://ftp.fau.de/packman/suse/openSUSE_Tumbleweed/Extra/
+      priority: 98
+      autorefresh: false
+  loop_control:
+    label: "{{ item.name | default(item.repo) }}"
+  notify: refresh repositories

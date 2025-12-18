@@ -2,7 +2,7 @@
 
 - name: Set distribution-specific variables
   ansible.builtin.include_vars:
-    file: "{{ ansible_os_family }}.yml"
+    file: "{{ ansible_distribution | replace(' ', '_') }}.yml"
 
 - name: Bootstrap Lazy.nvim and install plugins
   ansible.builtin.include_tasks: plugins.yml

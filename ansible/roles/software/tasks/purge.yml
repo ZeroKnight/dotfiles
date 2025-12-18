@@ -1,11 +1,28 @@
 # vim: ft=yaml.ansible
 
+- name: Purge and lock unwanted packages (openSUSE Tumbleweed)
+  become: true
+  when: ansible_distribution == "openSUSE Tumbleweed"
+  block:
+    - name: Remove unwanted packages (openSUSE Tumbleweed)
+      ansible.builtin.command:
+        cmd: "/usr/bin/zypper --quiet --non-interactive --xmlout remove '{{ item }}'"
+      loop: "{{ software_purge_packages.Suse }}"
+      register: zypper_remove
+      changed_when: zypper_remove.rc == 0
+      ignore_errors: true
+
+    - name: Add package locks
+      ansible.builtin.command:
+        cmd: "/usr/bin/zypper --quiet --non-interactive --xmlout addlock '{{ item }}'"
+      loop: "{{ software_purge_packages.Suse }}"
+      register: zypper_addlock
+      changed_when: "'<locks' in zypper_addlock.stdout"
+
 - name: Purge unwanted packages (Debian)
   become: true
   ansible.builtin.apt:
-    name:
-      - command-not-found
-      - snapd
+    name: "{{ software_purge_packages }}"
     state: absent
     purge: true
-  when: ansible_os_family == 'Debian'
+  when: ansible_os_family == "Debian"

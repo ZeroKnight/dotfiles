@@ -3,25 +3,17 @@
 - name: Install desktop applications (Suse)
   become: true
   community.general.zypper:
-    disable_recommends: false
+    name: "{{ software_desktop_packages }}"
     state: present
-    name:
-      - keepassxc
-      - firefox
-      - speedcrunch
-      - vlc
-  when: ansible_os_family == 'Suse'
+    disable_recommends: false
+  when: ansible_distribution == "openSUSE Tumbleweed"
 
 - name: Install desktop applications (Debian)
   become: true
   ansible.builtin.apt:
+    name: "{{ software_desktop_packages }}"
     state: present
-    name:
-      - keepassxc
-      - firefox
-      - speedcrunch
-      - vlc
-  when: ansible_os_family == 'Debian'
+  when: ansible_distribution == "Debian"
 
 - name: Install Kitty terminal
   ansible.builtin.import_tasks: kitty.yml

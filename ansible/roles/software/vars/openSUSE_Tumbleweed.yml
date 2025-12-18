@@ -1,24 +1,26 @@
 software_lua_packages:
-  - lua5.1
+  - lua51
   - luajit
 
 software_purge_packages:
-  - command-not-found
-  - snapd
+  - "*-bash-completion"
+  - "plasma5-pk-updates"
 
 software_utility_packages:
   - bat
   - curl
   - eza
-  - fd-find
-  - fortune-mod
+  - fd
+  - fortune
   - fzf
   - fzy
+  - gh
   - git-delta
+  - gnu_parallel
   - jq
   - keychain
   - kitty-terminfo
-  - parallel
+  - lf
   - plocate
   - ripgrep
   - sed

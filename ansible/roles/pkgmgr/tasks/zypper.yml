@@ -1,12 +1,7 @@
 # vim: ft=yaml.ansible
 
-- name: Gather package facts
-  ansible.builtin.package_facts:
-    manager: auto
-
-- name: Configure package manager (Suse)
+- name: Configure zypper
   become: true
-  when: ansible_os_family == 'Suse'
   vars:
     config: /etc/zypp/zypp.conf
   block:
@@ -42,9 +37,9 @@
         path: "{{ config }}"
         regexp: "download\\.max_concurrent_connections\\s*=\\s*\\d*"
         line: "download.max_concurrent_connections = 1"
-      when: >-
-        ansible_facts.packages['libzypp'] | selectattr('version', 'version', '17.36.4', '<') is any and
-        ansible_facts.packages['zypper'] | selectattr('version', 'version', '1.14.87', '<') is any
+      when:
+        - ansible_facts.packages['libzypp'] | selectattr('version', 'version', '17.36.4', '<') is any
+        - ansible_facts.packages['zypper'] | selectattr('version', 'version', '1.14.87', '<') is any
 
     # As of libzypp-17.36.4 / zypper-1.14.87, actual parallel downloads will
     # will be used. Increase the max download count a bit.
@@ -53,9 +48,9 @@
         path: "{{ config }}"
         regexp: "download\\.max_concurrent_connections\\s*=\\s*\\d*"
         line: "download.max_concurrent_connections = 8"
-      when: >-
-        ansible_facts.packages['libzypp'] | selectattr('version', 'version', '17.36.4', '>=') is any and
-        ansible_facts.packages['zypper'] | selectattr('version', 'version', '1.14.87', '>=') is any
+      when:
+        - ansible_facts.packages['libzypp'] | selectattr('version', 'version', '17.36.4', '>=') is any
+        - ansible_facts.packages['zypper'] | selectattr('version', 'version', '1.14.87', '>=') is any
 
     # By default, this is unset and just means zypper picks a "sane default".
     # Let's be explicit.

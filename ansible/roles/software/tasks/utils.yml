@@ -1,57 +1,21 @@
 # vim: ft=yaml.ansible
 
-- name: Install utilities (Suse)
+- name: "Install utilities (openSUSE Tumbleweed)"
   become: true
   community.general.zypper:
     disable_recommends: false
     state: present
-    name:
-      - bat
-      - curl
-      - eza
-      - fd
-      - fortune
-      - fzf
-      - fzy
-      - gh
-      - git-delta
-      - gnu_parallel
-      - jq
-      - keychain
-      - kitty-terminfo
-      - lf
-      - plocate
-      - ripgrep
-      - sed
-      - tmux
-      - tree
-  when: ansible_os_family == 'Suse'
+    name: "{{ software_utility_packages }}"
+  when: ansible_distribution == "openSUSE Tumbleweed"
 
-- name: Install utilities (Debian)
+- name: "Install utilities (Debian)"
   become: true
-  when: ansible_os_family == 'Debian'
+  when: ansible_os_family == "Debian"
   block:
     - name: Install utilities (Debian)
       ansible.builtin.apt:
         state: present
-        name:
-          - bat
-          - curl
-          - eza
-          - fd-find
-          - fortune-mod
-          - fzf
-          - fzy
-          - git-delta
-          - jq
-          - keychain
-          - kitty-terminfo
-          - parallel
-          - "{{ ansible_distribution_version is version('22.04', '>=') | ternary('plocate', 'mlocate') }}"
-          - ripgrep
-          - sed
-          - tmux
-          - tree
+        name: "{{ software_utility_packages }}"
 
     - name: Create link with proper executable name
       ansible.builtin.file:

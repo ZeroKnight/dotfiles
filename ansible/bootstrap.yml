@@ -26,6 +26,11 @@
         name: home
       tags: home
 
+    - name: Configure package manager and repositories
+      ansible.builtin.import_role:
+        name: pkgmgr
+      tags: pkgmgr
+
     - name: Install and set up software
       ansible.builtin.import_role:
         name: software
