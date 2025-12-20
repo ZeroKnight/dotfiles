@@ -4,6 +4,19 @@
   ansible.builtin.include_vars:
     file: "{{ ansible_distribution | replace(' ', '_') }}.yml"
 
+# NOTE: I'll almost always be using a more bleeding version of nvim for regular
+# use, but the repo version is handy for bootstrapping.
+- name: Install Neovim stable
+  ansible.builtin.package:
+    name: neovim
+    state: present
+
+- name: Set up prerequisites to build Neovim from source
+  ansible.builtin.include_tasks: build.yml
+  tags:
+    - never
+    - build
+
 - name: Bootstrap Lazy.nvim and install plugins
   ansible.builtin.include_tasks: plugins.yml
   tags: plugin
@@ -13,9 +26,3 @@
   tags:
     - plugin
     - provider
-
-- name: Set up prerequisites to build Neovim from source
-  ansible.builtin.include_tasks: build.yml
-  tags:
-    - never
-    - build
