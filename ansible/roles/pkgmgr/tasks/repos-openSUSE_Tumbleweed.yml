@@ -13,10 +13,6 @@
     state: present
     runrefresh: false
   loop:
-    - name: github-cli
-      description: Packages for Github CLI
-      repo: https://cli.github.com/packages/rpm/
-      priority: 98
     - name: packman-essentials
       repo: https://ftp.fau.de/packman/suse/openSUSE_Tumbleweed/Essentials/
       priority: 98
