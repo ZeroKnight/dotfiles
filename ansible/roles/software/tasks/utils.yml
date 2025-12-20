@@ -136,7 +136,7 @@
         - name: Rebuild bat cache
           ansible.builtin.command:
             cmd: bat cache --build
-            creates: "{{ (ansible_env.HOME, '.cache', 'bat') | path_join }}"
+            creates: "{{ (ansible_facts.env.HOME, '.cache', 'bat') | path_join }}"
 
     - name: Deploy Tokyo Night theme for kitty
       vars:

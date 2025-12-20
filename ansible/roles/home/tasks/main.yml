@@ -2,7 +2,7 @@
 
 - name: Ensure basic directories exist
   ansible.builtin.file:
-    path: "{{ (ansible_env.HOME, item) | path_join }}"
+    path: "{{ (ansible_facts.env.HOME, item) | path_join }}"
     mode: "0700"
     state: directory
   loop:
@@ -18,13 +18,13 @@
 
 - name: Ensure SSH directory exists
   ansible.builtin.file:
-    path: "{{ (ansible_env.HOME, '.ssh') | path_join }}"
+    path: "{{ (ansible_facts.env.HOME, '.ssh') | path_join }}"
     mode: "0700"
     state: directory
 
 - name: Remove unneeded bash files
   ansible.builtin.file:
-    path: "{{ (ansible_env.HOME, item) | path_join }}"
+    path: "{{ (ansible_facts.env.HOME, item) | path_join }}"
     state: absent
   loop:
     - .bash_history
@@ -39,7 +39,7 @@
     src: files/.config/user-tmpfiles.d/kwin-cache.conf
     dest: "{{ (config_dir, 'user-tmpfiles.d', 'kwin-cache.conf') | path_join }}"
     mode: "0644"
-  when: desktop == 'KDE'
+  when: desktop == "KDE"
   tags: desktop, kde
 
 - name: Deploy dotfiles
@@ -56,7 +56,7 @@
     - name: Create links to dotfiles
       ansible.builtin.file:
         src: "{{ item.path }}"
-        dest: "{{ item.path | replace(dotfiles, ansible_env.HOME) }}"
+        dest: "{{ item.path | replace(dotfiles, ansible_facts.env.HOME) }}"
         state: link
       loop: "{{ link_targets.files }}"
       loop_control:

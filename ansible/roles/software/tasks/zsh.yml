@@ -66,5 +66,5 @@
     path: "{{ item }}"
     state: absent
   loop:
-    - "{{ (ansible_env.HOME, '.zcompdump') | path_join }}"
-    - "{{ ((ansible_env.ZDOTDIR | default(config_dir, 'zsh')), '.zcompdump') | path_join }}"
+    - "{{ (ansible_facts.env.HOME, '.zcompdump') | path_join }}"
+    - "{{ ((ansible_facts.env.ZDOTDIR | default(config_dir, 'zsh')), '.zcompdump') | path_join }}"
