@@ -2,7 +2,7 @@
 
 - name: Set distribution-specific variables
   ansible.builtin.include_vars:
-    file: "{{ ansible_distribution | replace(' ', '_') }}.yml"
+    file: "{{ ansible_facts['distribution'] | replace(' ', '_') }}.yml"
 
 - name: Set up zsh
   ansible.builtin.import_tasks: zsh.yml

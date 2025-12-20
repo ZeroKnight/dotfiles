@@ -2,7 +2,7 @@
 
 - name: Set distribution-specific variables
   ansible.builtin.include_vars:
-    file: "{{ ansible_distribution | replace(' ', '_') }}.yml"
+    file: "{{ ansible_facts['distribution'] | replace(' ', '_') }}.yml"
 
 # NOTE: I'll almost always be using a more bleeding version of nvim for regular
 # use, but the repo version is handy for bootstrapping.

@@ -14,11 +14,11 @@ software_utility_packages:
   - fortune-mod
   - fzf
   - fzy
-  - "{{ ansible_distribution_version is version('13', '>=') | ternary('git-delta', False) }}"
+  - "{{ ansible_facts['distribution_version'] is version('13', '>=') | ternary('git-delta', False) }}"
   - jq
   - keychain
   - kitty-terminfo
-  - "{{ ansible_distribution_version is version('12', '>=') | ternary('lf', False) }}"
+  - "{{ ansible_facts['distribution_version'] is version('12', '>=') | ternary('lf', False) }}"
   - parallel
   - plocate
   - ripgrep

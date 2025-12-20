@@ -6,25 +6,25 @@
 
 - name: Set debian_arch fact
   ansible.builtin.set_fact:
-    debian_arch: "{{ ansible_architecture | replace('x86_64', 'amd64') }}"
-  when: ansible_os_family == "Debian"
+    debian_arch: "{{ ansible_facts['architecture'] | replace('x86_64', 'amd64') }}"
+  when: ansible_facts["os_family"] == "Debian"
 
-- name: "Configure package manager ({{ ansible_pkg_mgr }})"
+- name: "Configure package manager ({{ ansible_facts['pkg_mgr'] }})"
   ansible.builtin.include_tasks:
     file: "{{ item }}"
   with_first_found:
     - files:
-        - "{{ ansible_pkg_mgr }}.yml"
+        - "{{ ansible_facts['pkg_mgr'] }}.yml"
       skip: true
-  when: ansible_pkg_mgr is defined
+  when: ansible_facts["pkg_mgr"] is defined
 
 
-- name: "Set up package repositories ({{ ansible_distribution }})"
+- name: "Set up package repositories ({{ ansible_facts['distribution'] }})"
   ansible.builtin.include_tasks:
     file: "{{ item }}"
   with_first_found:
     - files:
-        - "repos-{{ ansible_distribution | replace(' ', '_') }}.yml"
+        - "repos-{{ ansible_facts['distribution'] | replace(' ', '_') }}.yml"
       skip: true
   tags:
     - repo

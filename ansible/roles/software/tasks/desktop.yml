@@ -6,14 +6,14 @@
     name: "{{ software_desktop_packages }}"
     state: present
     disable_recommends: false
-  when: ansible_distribution == "openSUSE Tumbleweed"
+  when: ansible_facts["distribution"] == "openSUSE Tumbleweed"
 
 - name: Install desktop applications (Debian)
   become: true
   ansible.builtin.apt:
     name: "{{ software_desktop_packages }}"
     state: present
-  when: ansible_distribution == "Debian"
+  when: ansible_facts["distribution"] == "Debian"
 
 - name: Install Kitty terminal
   ansible.builtin.import_tasks: kitty.yml

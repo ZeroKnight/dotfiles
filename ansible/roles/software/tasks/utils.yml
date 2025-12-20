@@ -6,11 +6,11 @@
     disable_recommends: false
     state: present
     name: "{{ software_utility_packages }}"
-  when: ansible_distribution == "openSUSE Tumbleweed"
+  when: ansible_facts["distribution"] == "openSUSE Tumbleweed"
 
 - name: "Install utilities (Debian)"
   become: true
-  when: ansible_os_family == "Debian"
+  when: ansible_facts["os_family"] == "Debian"
   block:
     - name: Install utilities (Debian)
       ansible.builtin.apt:
@@ -52,7 +52,7 @@
 - name: Install pistol for lf
   vars:
     repo: 'doronbehar/pistol'
-    bin_file: "pistol-static-linux-{{ ansible_architecture }}"
+    bin_file: "pistol-static-linux-{{ ansible_facts['architecture'] }}"
   tags: shell
   block:
     - name: Ensure local directories exist

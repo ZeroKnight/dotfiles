@@ -2,7 +2,7 @@
 
 - name: Purge and lock unwanted packages (openSUSE Tumbleweed)
   become: true
-  when: ansible_distribution == "openSUSE Tumbleweed"
+  when: ansible_facts["distribution"] == "openSUSE Tumbleweed"
   block:
     - name: Remove unwanted packages (openSUSE Tumbleweed)
       ansible.builtin.command:
@@ -25,4 +25,4 @@
     name: "{{ software_purge_packages }}"
     state: absent
     purge: true
-  when: ansible_os_family == "Debian"
+  when: ansible_facts["os_family"] == "Debian"

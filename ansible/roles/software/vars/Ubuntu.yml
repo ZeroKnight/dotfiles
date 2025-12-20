@@ -18,9 +18,9 @@ software_utility_packages:
   - jq
   - keychain
   - kitty-terminfo
-  - "{{ ansible_distribution_version is version('24.04', '>=') | ternary('lf', False) }}"
+  - "{{ ansible_facts['distribution_version'] is version('24.04', '>=') | ternary('lf', False) }}"
   - parallel
-  - "{{ ansible_distribution_version is version('22.04', '>=') | ternary('plocate', 'mlocate') }}"
+  - "{{ ansible_facts['distribution_version'] is version('22.04', '>=') | ternary('plocate', 'mlocate') }}"
   - ripgrep
   - sed
   - tmux

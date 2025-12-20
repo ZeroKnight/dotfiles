@@ -10,7 +10,7 @@
   become: true
   vars:
     version: "{{ kitty_release.json.tag_name | trim('v') }}"
-    filename: "kitty-{{ version }}-{{ ansible_architecture }}.txz"
+    filename: "kitty-{{ version }}-{{ ansible_facts['architecture'] }}.txz"
     asset: "{{ kitty_release.json.assets | selectattr('name', 'eq', filename) | first }}"
   ansible.builtin.unarchive:
     src: "{{ asset.browser_download_url }}"
