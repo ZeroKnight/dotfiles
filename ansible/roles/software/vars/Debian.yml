@@ -14,7 +14,7 @@ software_utility_packages:
   - fortune-mod
   - fzf
   - fzy
-  - git-delta
+  - "{{ ansible_distribution_version is version('13', '>=') | ternary('git-delta', False) }}"
   - jq
   - keychain
   - kitty-terminfo

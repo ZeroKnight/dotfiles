@@ -15,7 +15,7 @@
     - name: Install utilities (Debian)
       ansible.builtin.apt:
         state: present
-        name: "{{ software_utility_packages }}"
+        name: "{{ software_utility_packages | reject('false') }}"
 
     - name: Create link with proper executable name
       ansible.builtin.file:
@@ -34,6 +34,7 @@
     src: "{{ (config_dir, 'git', 'conf.d', 'delta.gitconfig') | path_join }}"
     dest: "{{ (config_dir, 'git', 'conf.enabled', 'delta.gitconfig') | path_join }}"
     state: link
+  when: "'/usr/bin/delta' is file"
 
 - name: Install Lua interpreters
   become: true
