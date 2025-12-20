@@ -5,6 +5,7 @@
   community.general.zypper_repository:
     repo: "{{ item.repo }}"
     name: "{{ item.name | default(omit) }}"
+    description: "{{ item.description | default(omit) }}"
     enabled: "{{ item.enabled | default(true) }}"
     priority: "{{ item.priority | default(99) }}"
     autorefresh: "{{ item.autorefresh | default(true) }}"
@@ -13,6 +14,7 @@
     runrefresh: false
   loop:
     - name: github-cli
+      description: Packages for Github CLI
       repo: https://cli.github.com/packages/rpm/
       priority: 98
     - name: packman-essentials
