@@ -21,7 +21,7 @@
       ansible.builtin.file:
         src: "/usr/bin/{{ item[0] }}"
         dest: "/usr/local/bin/{{ item[1] }}"
-        state: hard
+        state: link
         owner: root
         group: root
         mode: '0755'
