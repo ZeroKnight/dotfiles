@@ -3,8 +3,10 @@ bin_dir: "{{ (ansible_facts.env.HOME, '.local', 'bin') | path_join }}"
 src_dir: "{{ (ansible_facts.env.HOME, 'src') | path_join }}"
 opt_dir: "{{ (ansible_facts.env.HOME, '.local', 'opt') | path_join }}"
 
-config_dir: "{{ ansible_facts.env.XDG_CONFIG_HOME | defansible_facts.env((ansible_env.HOME, '.config') | path_join) }}"
-data_dir: "{{ ansible_facts.env.XDG_DATA_HOME | defansible_facts.env((ansible_env.HOME, '.local', 'share') | path_join) }}"
-state_dir: "{{ ansible_facts.env.XDG_STATE_HOME | defansible_facts.env((ansible_env.HOME, '.local', 'state') | path_join) }}"
+config_dir: "{{ ansible_facts.env.XDG_CONFIG_HOME | default((ansible_facts.env.HOME, '.config') | path_join) }}"
+data_dir: "{{ ansible_facts.env.XDG_DATA_HOME | default((ansible_facts.env.HOME, '.local', 'share') | path_join) }}"
+state_dir: "{{ ansible_facts.env.XDG_STATE_HOME | default((ansible_facts.env.HOME, '.local', 'state') | path_join) }}"
 
 local_prefix: "{{ (ansible_facts.env.HOME, '.local') | path_join }}"
+
+autostart_dir: "{{ (config_dir, 'autostart') | path_join }}"
