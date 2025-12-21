@@ -15,6 +15,12 @@
     state: present
   when: ansible_facts["distribution"] == "Debian"
 
+- name: Install and set up KeePassXC
+  ansible.builtin.import_role:
+    name: keepassxc
+  tags:
+    - keepassxc
+
 - name: Install Kitty terminal
   ansible.builtin.import_tasks: kitty.yml
   when: ((local_prefix, "bin/kitty") | path_join) is not file

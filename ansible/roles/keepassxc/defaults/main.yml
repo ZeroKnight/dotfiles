@@ -1,0 +1,42 @@
+keepassxc_config_file: "{{ (config_dir, 'keepassxc/keepassxc.ini') | path_join }}"
+
+# NOTE: Booleans are strings here so that ini_file doesn't end up title-casing
+# them, e.g. True, False. KeePassXC writes them in lower-case, so this would
+# cause a lot of churn otherwise.
+keepassxc_config:
+  Browser:
+    Enabled: 'true'
+    MatchUrlScheme: 'false'
+  General:
+    SingleInstance: 'true'
+    OpenPreviousDatabasesOnStartup: 'true'
+    AutoSaveAfterEveryChange: 'true'
+    AutoReloadOnChange: 'true'
+    AutoGeneratePasswordForNewEntries: 'true'
+    HideWindowOnCopy: 'true'
+    DropToBackgroundOnCopy: 'true'
+    MinimizeOnCopy: 'false'
+    FaviconDownloadTimeout: 5
+    UseGroupIconOnEntryCreation: 'true'
+  GUI:
+    ColorPasswords: 'true'
+    HideGroupPanel: 'false'
+    HidePasswords: 'false'
+    MinimizeOnClose: 'true'
+    MinimizeOnStartup: 'true'
+    MonospaceNotes: 'true'
+    ShowTrayIcon: 'true'
+    TrayIconAppearance: colorful
+  PasswordGenerator:
+    AdvancedMode: 'true'
+    Length: 30
+  Security:
+    ClearClipboard: 'true'
+    ClearClipboardTimeout: 10
+    LockDatabaseIdle: 'true'
+    LockDatabaseIdleSeconds: 900
+    LockDatabaseScreenLock: 'true'
+    LockDatabaseMinimize: 'false'
+    PasswordsHidden: 'true'
+    HidePasswordPreviewPanel: 'true'
+    IconDownloadFallback: 'true' # DuckDuckGo service

@@ -28,7 +28,6 @@ software_utility_packages:
   - tree
 
 software_desktop_packages:
-  - keepassxc
   - firefox
   - speedcrunch
   - vlc
