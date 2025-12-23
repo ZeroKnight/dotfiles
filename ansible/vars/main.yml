@@ -10,3 +10,7 @@ state_dir: "{{ ansible_facts.env.XDG_STATE_HOME | default((ansible_facts.env.HOM
 local_prefix: "{{ (ansible_facts.env.HOME, '.local') | path_join }}"
 
 autostart_dir: "{{ (config_dir, 'autostart') | path_join }}"
+
+user_id: "{{ ansible_facts.user_id }}"
+user_uid: "{{ ansible_facts.user_uid }}"
+user_gid: "{{ ansible_facts.user_gid }}"

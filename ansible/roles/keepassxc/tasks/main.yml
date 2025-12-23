@@ -11,20 +11,20 @@
   ansible.builtin.file:
     path: "{{ keepassxc_config_file | dirname }}"
     state: directory
-    owner: zeroknight
-    group: zeroknight
+    owner: "{{ user_id }}"
+    group: "{{ user_gid }}"
     mode: "0750"
 
 - name: Configure KeePassXC
   module_defaults:
-    community.general.ini_file: # TODO: user/group variable
+    community.general.ini_file:
       path: "{{ keepassxc_config_file }}"
       state: present
       no_extra_spaces: true
       exclusive: true
       backup: true
-      owner: zeroknight
-      group: zeroknight
+      owner: "{{ user_id }}"
+      group: "{{ user_gid }}"
       mode: "0640"
   block:
     - name: Set ConfigVersion
@@ -72,8 +72,8 @@
   ansible.builtin.file:
     path: "{{ autostart_dir }}"
     state: directory
-    owner: zeroknight
-    group: zeroknight
+    owner: "{{ user_id }}"
+    group: "{{ user_gid }}"
     mode: "0755"
   tags: autostart
 
@@ -81,7 +81,7 @@
   ansible.builtin.copy:
     src: org.keepassxc.KeePassXC.desktop
     dest: "{{ autostart_dir }}"
-    owner: zeroknight
-    group: zeroknight
+    owner: "{{ user_id }}"
+    group: "{{ user_gid }}"
     mode: "0644"
   tags: autostart

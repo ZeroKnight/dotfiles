@@ -10,8 +10,8 @@
       ansible.builtin.file:
         path: "{{ (state_dir, 'nvim', item) | path_join }}"
         state: directory
-        owner: zeroknight
-        group: zeroknight
+        owner: "{{ user_id }}"
+        group: "{{ user_gid }}"
         mode: '0750'
       loop:
         - session
@@ -24,8 +24,8 @@
       ansible.builtin.file:
         path: "{{ (data_dir, 'nvim', 'site') | path_join }}"
         state: directory
-        owner: zeroknight
-        group: zeroknight
+        owner: "{{ user_id }}"
+        group: "{{ user_gid }}"
         mode: '0755'
 
     - name: Import nvim role
