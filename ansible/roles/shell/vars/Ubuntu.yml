@@ -1,12 +1,4 @@
-software_lua_packages:
-  - lua5.1
-  - luajit
-
-software_purge_packages:
-  - command-not-found
-  - snapd
-
-software_utility_packages:
+shell_packages_utility:
   - bat
   - curl
   - eza
@@ -17,7 +9,6 @@ software_utility_packages:
   - git-delta
   - jq
   - keychain
-  - kitty-terminfo
   - "{{ ansible_facts['distribution_version'] is version('24.04', '>=') | ternary('lf', False) }}"
   - parallel
   - "{{ ansible_facts['distribution_version'] is version('22.04', '>=') | ternary('plocate', 'mlocate') }}"
@@ -26,7 +17,10 @@ software_utility_packages:
   - tmux
   - tree
 
-software_desktop_packages:
-  - firefox
-  - speedcrunch
-  - vlc
+shell_packages_zsh:
+  - zsh
+  - zsh-doc
+
+shell_packages_lua:
+  - lua5.1
+  - luajit

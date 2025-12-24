@@ -1,0 +1,25 @@
+# vim: ft=yaml.ansible
+
+- name: Create local opt directory for Tokyo Night extras
+  ansible.builtin.file:
+    path: "{{ tokyonight.root }}"
+    state: directory
+    owner: "{{ user_id }}"
+    mode: "0755"
+
+- name: Sparse checkout Tokyo Night repository
+  # noqa: command-instead-of-module
+  ansible.builtin.shell: |
+    git init
+    git symbolic-ref HEAD refs/heads/main
+    mkdir .git/info
+    git sparse-checkout set extras/
+    git remote add origin {{ tokyonight.repo }}
+    git pull --depth=1 origin main
+  args:
+    chdir: "{{ tokyonight.root }}"
+    creates: "{{ tokyonight.extras }}"
+
+- name: Deploy Tokyo Night
+  ansible.builtin.import_tasks:
+    file: deploy.yml

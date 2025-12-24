@@ -1,5 +1,9 @@
 # vim: ft=yaml.ansible
 
+- name: Set distribution-specific variables
+  ansible.builtin.include_vars:
+    file: "{{ ansible_facts['distribution'] | replace(' ', '_') }}.yml"
+
 - name: Purge and lock unwanted packages (openSUSE Tumbleweed)
   become: true
   when: ansible_facts["distribution"] == "openSUSE Tumbleweed"
@@ -7,7 +11,7 @@
     - name: Remove unwanted packages (openSUSE Tumbleweed)
       ansible.builtin.command:
         cmd: "/usr/bin/zypper --quiet --non-interactive --xmlout remove '{{ item }}'"
-      loop: "{{ software_purge_packages.Suse }}"
+      loop: "{{ purge_packages }}"
       register: zypper_remove
       changed_when: zypper_remove.rc == 0
       ignore_errors: true
@@ -15,14 +19,14 @@
     - name: Add package locks
       ansible.builtin.command:
         cmd: "/usr/bin/zypper --quiet --non-interactive --xmlout addlock '{{ item }}'"
-      loop: "{{ software_purge_packages.Suse }}"
+      loop: "{{ purge_packages }}"
       register: zypper_addlock
       changed_when: "'<locks' in zypper_addlock.stdout"
 
-- name: Purge unwanted packages (Debian)
+- name: Purge unwanted packages (Debian-based)
   become: true
   ansible.builtin.apt:
-    name: "{{ software_purge_packages }}"
+    name: "{{ purge_packages }}"
     state: absent
     purge: true
   when: ansible_facts["os_family"] == "Debian"

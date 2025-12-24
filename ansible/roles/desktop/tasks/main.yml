@@ -1,0 +1,29 @@
+# vim: ft=yaml.ansible
+
+- name: Set distribution-specific variables
+  ansible.builtin.include_vars:
+    file: "{{ ansible_facts['distribution'] | replace(' ', '_') }}.yml"
+
+- name: Install desktop applications
+  become: true
+  ansible.builtin.zypper:
+    name: "{{ desktop_packages | reject('false') }}"
+    state: present
+    disable_recommends: false
+  when: ansible_facts["distribution"] == "openSUSE Tumbleweed"
+  tags: install
+
+- name: Install desktop applications
+  become: true
+  ansible.builtin.apt:
+    name: "{{ desktop_packages | reject('false') }}"
+    state: present
+    install_recommends: true
+  when: ansible_facts["os_family"] == "Debian"
+  tags: install
+
+- name: Install and set up KeePassXC
+  ansible.builtin.import_role:
+    name: keepassxc
+  tags:
+    - keepassxc

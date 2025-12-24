@@ -1,0 +1,52 @@
+# vim: ft=yaml.ansible
+
+- name: Install zsh
+  become: true
+  ansible.builtin.package:
+    name: "{{ shell_packages_zsh }}"
+    state: present
+  tags: install
+
+- name: Ensure zsh directories exist
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ user_id }}"
+    mode: "0755"
+  loop:
+    - "{{ zsh.data_dir }}"
+    - "{{ zsh.site_dir }}"
+    - "{{ zsh.state_dir }}"
+    - "{{ (zsh.data_dir, 'site-functions') | path_join }}"
+    - "{{ (opt_dir, 'zcomet') | path_join }}"
+  tags: home
+
+- name: Remove unwanted openSuse /etc/zshrc edits
+  when: ansible_facts["distribution"] == "openSUSE Tumbleweed"
+  become: true
+  block:
+    - name: Don't run compinit in /etc/zshrc
+      ansible.builtin.lineinfile:
+        path: /etc/zshrc
+        search_string: "compinit"
+        state: absent
+
+    - name: Don't create aliases
+      ansible.builtin.lineinfile:
+        path: /etc/zshrc
+        regexp: '^\s*alias'
+        state: absent
+
+- name: Remove stray zcompdump files
+  ansible.builtin.file:
+    path: "{{ (item, '.zcompdump') | path_join }}"
+    state: absent
+  loop:
+    - "{{ ansible_facts.env.HOME }}"
+    - "{{ ansible_facts.env.ZDOTDIR | default(zsh.config_dir) }}"
+
+- name: Clone zcomet
+  ansible.builtin.git:
+    repo: https://github.com/agkozak/zcomet
+    dest: "{{ (opt_dir, 'zcomet', 'bin') | path_join }}"
+    depth: 1

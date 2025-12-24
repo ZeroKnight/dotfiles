@@ -1,2 +1,0 @@
-zsh:
-  local_dir: "{{ (local_prefix, 'share/zsh') | path_join }}"

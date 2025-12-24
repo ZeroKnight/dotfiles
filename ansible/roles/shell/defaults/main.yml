@@ -1,0 +1,7 @@
+pistol_repo: 'doronbehar/pistol'
+
+zsh:
+  config_dir: "{{ (config_dir, 'zsh') | path_join }}"
+  data_dir: "{{ (data_dir, 'zsh') | path_join }}"
+  site_dir: "{{ (data_dir, 'zsh/site') | path_join }}"
+  state_dir: "{{ (state_dir, 'zsh') | path_join }}"

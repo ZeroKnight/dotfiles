@@ -1,0 +1,78 @@
+# vim: ft=yaml.ansible
+
+- name: Deploy Toyko Night theme for bat
+  tags:
+    - bat
+    - shell
+  vars:
+    theme_dir: "{{ (config_dir, 'bat', 'themes') | path_join }}"
+    theme_file: "{{ tokyonight.style ~ '.tmTheme' }}"
+  block:
+    - name: Ensure bat themes directory exists
+      ansible.builtin.file:
+        path: "{{ theme_dir }}"
+        state: directory
+        owner: "{{ user_id }}"
+        mode: "0755"
+
+    - name: Link Tokyo Night theme for bat
+      ansible.builtin.file:
+        src: "{{ (tokyonight.extras, 'sublime', theme_file) | path_join }}"
+        dest: "{{ (theme_dir, theme_file) | path_join }}"
+        state: link
+        owner: "{{ user_id }}"
+      notify: rebuild bat cache
+
+- name: Deploy Tokyo Night theme for delta
+  tags:
+    - delta
+    - git
+    - shell
+  vars:
+    theme_dir: "{{ (config_dir, 'git', 'conf.enabled') | path_join }}"
+    theme_file: "{{ tokyonight.style ~ '.gitconfig' }}"
+    deployed_file: "{{ (theme_dir, 'delta-tokyonight.gitconfig') | path_join }}" # Generic name for include
+  block:
+    - name: Ensure delta themes directory exists
+      ansible.builtin.file:
+        path: "{{ theme_dir }}"
+        state: directory
+        owner: "{{ user_id }}"
+        mode: "0755"
+
+    - name: Enable Tokyo Night theme for delta
+      ansible.builtin.template:
+        src: delta-tokyonight.gitconfig.j2
+        dest: "{{ deployed_file }}"
+        owner: "{{ user_id }}"
+        mode: "0644"
+      when: "'/usr/bin/bat' is file"
+
+    # Only needed if bat is unavailable
+    - name: Link Tokyo Night theme for delta
+      ansible.builtin.file:
+        src: "{{ (tokyonight.extras, 'delta', theme_file) | path_join }}"
+        dest: "{{ deployed_file }}"
+        state: link
+        owner: "{{ user_id }}"
+      when: "'/usr/bin/bat' is not file"
+
+- name: Deploy Tokyo Night theme for kitty
+  tags: kitty
+  vars:
+    theme_dir: "{{ (config_dir, 'kitty', 'themes') | path_join }}"
+    theme_file: "{{ tokyonight.style ~ '.conf' }}"
+  block:
+    - name: Ensure kitty themes directory exists
+      ansible.builtin.file:
+        path: "{{ theme_dir }}"
+        state: directory
+        owner: "{{ user_id }}"
+        mode: "0755"
+
+    - name: Link Tokyo Night theme for kitty
+      ansible.builtin.file:
+        src: "{{ (tokyonight.extras, 'kitty', theme_file) | path_join }}"
+        dest: "{{ (theme_dir, theme_file) | path_join }}"
+        state: link
+        owner: "{{ user_id }}"

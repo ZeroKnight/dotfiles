@@ -22,18 +22,6 @@
     mode: "0700"
     state: directory
 
-- name: Remove unneeded bash files
-  ansible.builtin.file:
-    path: "{{ (ansible_facts.env.HOME, item) | path_join }}"
-    state: absent
-  loop:
-    - .bash_history
-    - .bash_login
-    - .bash_logout
-    - .bash_profile
-    - .bashrc
-    - .profile
-
 - name: Redirect KWin cache to tmpfs
   ansible.builtin.copy:
     src: files/.config/user-tmpfiles.d/kwin-cache.conf

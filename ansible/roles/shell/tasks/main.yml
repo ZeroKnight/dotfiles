@@ -1,0 +1,92 @@
+# vim: ft=yaml.ansible
+
+- name: Set distribution-specific variables
+  ansible.builtin.include_vars:
+    file: "{{ ansible_facts['distribution'] | replace(' ', '_') }}.yml"
+
+- name: Install shell tools and utilities
+  become: true
+  ansible.builtin.zypper:
+    name: "{{ shell_packages_utility | reject('false') }}"
+    state: present
+    disable_recommends: false
+  when: ansible_facts["distribution"] == "openSUSE Tumbleweed"
+  tags: install
+
+- name: Install shell tools and utilities
+  become: true
+  ansible.builtin.apt:
+    name: "{{ shell_packages_utility | reject('false') }}"
+    state: present
+    install_recommends: true
+  when: ansible_facts["os_family"] == "Debian"
+  tags: install
+
+# Some Debian-based packages have renamed the main binary for... reasons.
+# I don't particularly care what those reasons are.
+- name: Create link with proper executable name (Debian-based)
+  ansible.builtin.file:
+    src: "/usr/bin/{{ item[0] }}"
+    dest: "/usr/local/bin/{{ item[1] }}"
+    state: link
+    owner: root
+    group: root
+  loop:
+    - [fdfind, fd]
+    - [batcat, bat]
+  when: ansible_facts["os_family"] == "Debian"
+
+# TODO: Move this to its own role at some point
+- name: Install Lua interpreters
+  become: true
+  ansible.builtin.package:
+    name: "{{ shell_packages_lua }}"
+    state: present
+  tags:
+    - install
+    - lua
+
+- name: Remove unneeded bash files
+  ansible.builtin.file:
+    path: "{{ (ansible_facts.env.HOME, item) | path_join }}"
+    state: absent
+  loop:
+    - .bash_history
+    - .bash_login
+    - .bash_logout
+    - .bash_profile
+    - .bashrc
+    - .profile
+  tags:
+    - home
+    - bash
+
+- name: Set up zsh
+  ansible.builtin.import_tasks:
+    file: zsh.yml
+  tags: zsh
+
+- name: Install z.lua
+  ansible.builtin.git:
+    repo: https://github.com/skywind3000/z.lua
+    dest: "{{ (opt_dir, 'zlua') | path_join }}"
+    depth: 1
+  tags:
+    - install
+    - lua
+
+- name: Set up lf
+  ansible.builtin.import_tasks:
+    file: lf.yml
+  tags: lf
+
+# noqa: risky-file-permissions
+- name: Enable delta in git config if available
+  ansible.builtin.file:
+    src: "{{ (config_dir, 'git', 'conf.d', 'delta.gitconfig') | path_join }}"
+    dest: "{{ (config_dir, 'git', 'conf.enabled', 'delta.gitconfig') | path_join }}"
+    state: "{{ '/usr/bin/delta' is file | ternary('link', 'absent') }}"
+    owner: "{{ user_id }}"
+  tags:
+    - delta
+    - git

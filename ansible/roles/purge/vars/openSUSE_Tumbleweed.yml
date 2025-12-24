@@ -1,0 +1,3 @@
+purge_packages:
+  - "*-bash-completion"
+  - "plasma5-pk-updates"

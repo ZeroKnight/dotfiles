@@ -7,6 +7,7 @@
 # NOTE: I'll almost always be using a more bleeding version of nvim for regular
 # use, but the repo version is handy for bootstrapping.
 - name: Install Neovim stable
+  become: true
   ansible.builtin.package:
     name: neovim
     state: present

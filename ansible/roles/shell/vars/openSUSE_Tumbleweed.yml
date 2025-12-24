@@ -1,0 +1,27 @@
+shell_packages_utility:
+  - bat
+  - curl
+  - eza
+  - fd
+  - fortune
+  - fzf
+  - fzy
+  - gh
+  - git-delta
+  - gnu_parallel
+  - jq
+  - keychain
+  - lf
+  - plocate
+  - ripgrep
+  - sed
+  - tmux
+  - tree
+
+shell_packages_zsh:
+  - zsh
+  - zsh-htmldoc
+
+shell_packages_lua:
+  - lua51
+  - luajit

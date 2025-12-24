@@ -1,0 +1,3 @@
+purge_packages:
+  - command-not-found
+  - snapd

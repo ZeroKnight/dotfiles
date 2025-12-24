@@ -7,6 +7,9 @@
     - vars/main.yml
   tasks:
     - name: Set facts about desktop/graphical environment
+      ansible.builtin.set_fact:
+        graphical: "{{ lookup('ansible.builtin.env', *(desktop_vars + graphical_vars), default=False) is any }}"
+        desktop: "{{ lookup('ansible.builtin.env', *desktop_vars).split(',') | first }}"
       vars:
         graphical_vars:
           - WINDOWMANAGER
@@ -16,9 +19,6 @@
           - XDG_CURRENT_DESKTOP
           - XDG_SESSION_DESKTOP
           - DESKTOP_SESSION
-      ansible.builtin.set_fact:
-        graphical: "{{ lookup('ansible.builtin.env', *(desktop_vars + graphical_vars), default=False) is any }}"
-        desktop: "{{ lookup('ansible.builtin.env', *desktop_vars).split(',') | first }}"
       tags: always
 
     - name: Ensure home directory structure
@@ -31,18 +31,48 @@
         name: pkgmgr
       tags: pkgmgr
 
-    - name: Install and set up software
+    - name: Install and set up shell environment and utilities
       ansible.builtin.import_role:
-        name: software
-      tags: software
+        name: shell
+      tags:
+        - shell
+        - software
+
+    - name: Install and deploy Tokyo Night theme
+      ansible.builtin.import_role:
+        name: tokyonight
+      tags:
+        - software
+        - tokyonight
+        - theme
 
     - name: Set up Python stuff
       ansible.builtin.import_role:
         name: python
-      tags: python
+      tags:
+        - python
+        - shell
+        - software
+
+    - name: Install and set up desktop applications
+      ansible.builtin.import_role:
+        name: desktop
+      when: graphical | default(false)
+      tags:
+        - desktop
+        - software
+
+    - name: Purge unwanted software packages
+      ansible.builtin.import_role:
+        name: purge
+      tags:
+        - desktop
+        - shell
+        - purge
+        - software
 
 - name: Bootstrap Neovim setup
   ansible.builtin.import_playbook: nvim_bootstrap.yml
   tags:
-    - software
     - nvim
+    - software

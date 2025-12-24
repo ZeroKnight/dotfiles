@@ -1,0 +1,5 @@
+tokyonight:
+  repo: https://github.com/folke/tokyonight.nvim
+  root: "{{ (opt_dir, 'tokyonight-extras') | path_join }}"
+  extras: "{{ (opt_dir, 'tokyonight-extras', 'extras') | path_join }}"
+  style: tokyonight_storm
