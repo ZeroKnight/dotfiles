@@ -53,7 +53,6 @@ localmod search
 localmod ssh
 localmod system
 localmod distro
-localmod tmux
 localmod vim
 
 # Language Support and Development

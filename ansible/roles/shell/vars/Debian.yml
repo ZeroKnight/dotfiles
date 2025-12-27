@@ -13,7 +13,6 @@ shell_packages_utility:
   - plocate
   - ripgrep
   - sed
-  - tmux
   - tree
 
 shell_packages_zsh:
