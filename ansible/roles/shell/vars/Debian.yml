@@ -3,7 +3,6 @@ shell_packages_utility:
   - curl
   - eza
   - fd-find
-  - fortune-mod
   - fzf
   - fzy
   - "{{ ansible_facts['distribution_version'] is version('13', '>=') | ternary('git-delta', False) }}"

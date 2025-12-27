@@ -3,7 +3,6 @@ shell_packages_utility:
   - curl
   - eza
   - fd-find
-  - fortune-mod
   - fzf
   - fzy
   - git-delta

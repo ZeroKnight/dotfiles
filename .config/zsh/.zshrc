@@ -83,12 +83,6 @@ zcomet compinit
 
 ### Run core programs
 
-# Display a lovely fortune (but only if stdout is connected to a terminal)
-if (( $+commands[fortune] )) && [[ -t 1 ]]; then
-  fortune -a
-  print
-fi
-
 # Start keychain
 if (( ! $+SSH && $+commands[keychain] )); then
     eval $(keychain \

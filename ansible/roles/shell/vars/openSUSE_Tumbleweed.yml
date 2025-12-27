@@ -3,7 +3,6 @@ shell_packages_utility:
   - curl
   - eza
   - fd
-  - fortune
   - fzf
   - fzy
   - gh
