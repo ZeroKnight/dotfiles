@@ -31,22 +31,63 @@
   tags: desktop, kde
 
 - name: Deploy dotfiles
+  vars:
+    dot_config: "{{ (dotfiles, '.config') | path_join }}"
+    dot_ssh: "{{ (dotfiles, '.ssh') | path_join }}"
+    link_dirs:
+      # These directories are linked as a whole either because they get hacked
+      # on frequently or have numerous child directories
+      - nvim
+      - zsh
+  module_defaults:
+    ansible.builtin.file:
+      owner: "{{ user_id }}"
+      group: "{{ user_gid }}"
   block:
-    - name: Gather dotfiles
+    - name: Gather top-level directories in .config
       ansible.builtin.find:
-        paths:
-          - "{{ (dotfiles, '.config') | path_join }}"
-          - "{{ (dotfiles, '.ssh') | path_join }}"
-        file_type: any
-        hidden: true
-      register: link_targets
+        path: "{{ dot_config }}"
+        file_type: directory
+        excludes: "{{ link_dirs }}"
+      register: toplevel_dirs
 
-    - name: Create links to dotfiles
+    - name: Gather individual dotfiles
+      vars:
+        paths:
+          - "{{ dot_ssh }}"
+        to_find: "{{ paths | union(toplevel_dirs.files | map(attribute='path')) }}"
+      ansible.builtin.find:
+        paths: "{{ to_find }}"
+        file_type: file
+        recurse: true
+        hidden: true
+        excludes:
+          - '*~'
+          - '*.zwc'
+      register: link_files
+
+    - name: Create links to specific top-level directories
+      ansible.builtin.file:
+        src: "{{ (dot_config, item) | path_join }}"
+        path: "{{ (config_dir, item) | path_join }}"
+        state: link
+      loop: "{{ link_dirs }}"
+
+    - name: Create directory tree for individual dotfiles
+      ansible.builtin.file:
+        path: "{{ item | replace(dotfiles, ansible_facts.env.HOME) }}"
+        state: directory
+        mode: "0750"
+      loop: "{{
+        link_files.files | map(attribute='path') | map('dirname') |
+        unique | sort | reject('eq', dot_ssh) }}"
+
+    - name: Create links to individual dotfiles
       ansible.builtin.file:
         src: "{{ item.path }}"
         dest: "{{ item.path | replace(dotfiles, ansible_facts.env.HOME) }}"
         state: link
-      loop: "{{ link_targets.files }}"
+      loop: "{{ link_files.files | rejectattr('path', 'in', '.gitkeep') }}"
       loop_control:
         label: "{{ item.path }}"
 
