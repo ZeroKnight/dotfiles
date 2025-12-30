@@ -57,11 +57,35 @@
         owner: "{{ user_id }}"
       when: "'/usr/bin/bat' is not file"
 
+- name: Deploy Tokyo Night theme for eza
+  tags:
+    - eza
+    - shell
+  vars:
+    theme_dir: "{{ (config_dir, 'eza') | path_join }}"
+    theme_file: "{{ tokyonight.style }}.yml"
+    deployed_file: theme.yml
+  block:
+    - name: Ensure eza config directory exists
+      ansible.builtin.file:
+        path: "{{ theme_dir }}"
+        state: directory
+        owner: "{{ user_id }}"
+        mode: "0755"
+
+    - name: Link Tokyo Night theme for eza
+      ansible.builtin.file:
+        src: "{{ (tokyonight.extras, 'eza', theme_file) | path_join }}"
+        dest: "{{ (theme_dir, deployed_file) | path_join }}"
+        state: link
+        owner: "{{ user_id }}"
+
 - name: Deploy Tokyo Night theme for kitty
   tags: kitty
   vars:
     theme_dir: "{{ (config_dir, 'kitty', 'themes') | path_join }}"
     theme_file: "{{ tokyonight.style ~ '.conf' }}"
+    deployed_file: tokyonight.conf
   block:
     - name: Ensure kitty themes directory exists
       ansible.builtin.file:
@@ -73,6 +97,6 @@
     - name: Link Tokyo Night theme for kitty
       ansible.builtin.file:
         src: "{{ (tokyonight.extras, 'kitty', theme_file) | path_join }}"
-        dest: "{{ (theme_dir, theme_file) | path_join }}"
+        dest: "{{ (theme_dir, deployed_file) | path_join }}"
         state: link
         owner: "{{ user_id }}"
