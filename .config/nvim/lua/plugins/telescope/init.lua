@@ -203,6 +203,9 @@ return {
             show_disabled = true,
             auto_rescan = true,
           },
+          ['ui-select'] = {
+            require('telescope.themes').get_dropdown(),
+          },
         },
       }
       local mappings = ret.defaults.mappings
