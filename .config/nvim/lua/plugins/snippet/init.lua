@@ -1,10 +1,9 @@
-local uv = require 'luv'
 local util = require 'zeroknight.util'
 local Color = require('zeroknight.util.color').Color
 
 local keymaps = require 'plugins.snippet.keymaps'
 
-local snippets_path = join_stdpath('config', 'snippets/luasnip')
+local snippets_path = join_stdpath('config', 'snippets/luasnip') --[[@as string]]
 local external_snippets_path = join_stdpath('data', 'external_snippets')
 
 ---@type LazySpec
@@ -35,7 +34,7 @@ return {
 
       vim.api.nvim_create_user_command('NewSnippet', function(cmd_opts)
         local new_file = string.format('%s/%s.lua', snippets_path, cmd_opts.args)
-        uv.fs_copyfile(string.format('%s/_template.lua', snippets_path), new_file, { excl = not cmd_opts.bang })
+        vim.uv.fs_copyfile(string.format('%s/_template.lua', snippets_path), new_file, { excl = not cmd_opts.bang })
         vim.cmd('e ' .. new_file)
       end, {
         bang = true,
