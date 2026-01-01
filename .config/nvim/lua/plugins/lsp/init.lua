@@ -19,6 +19,9 @@ return {
             'lazy.nvim',
             'nvim-lspconfig',
             { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
+            -- NOTE: Just 'luasnip' would probably also be fine since I use
+            -- a @module annotation in each snippet file.
+            { path = 'snippets/luasnip/_meta.lua', mods = { 'plugins.snippet.util' } },
           },
           integrations = {
             lspconfig = true,

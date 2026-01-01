@@ -1,7 +1,7 @@
 -- sh snippets
 -- Snippets common to any shell as well as POSIX-compliant idioms
 
---# selene: allow(undefined_variable)
+---@module 'luasnip'
 
 local util = require 'plugins.snippet.util'
 

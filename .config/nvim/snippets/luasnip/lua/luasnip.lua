@@ -1,7 +1,5 @@
 -- LuaSnip snippets
 
---# selene: allow(undefined_variable)
-
 local ls = require 'luasnip'
 
 local util = require 'plugins.snippet.util'

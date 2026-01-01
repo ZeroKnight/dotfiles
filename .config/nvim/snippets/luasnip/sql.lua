@@ -1,7 +1,7 @@
 -- SQL snippets
 -- Generic, dialect-agnostic, generally ANSI-compliant SQL snippets.
 
---# selene: allow(undefined_variable)
+---@module 'luasnip'
 
 local util = require 'plugins.snippet.util'
 

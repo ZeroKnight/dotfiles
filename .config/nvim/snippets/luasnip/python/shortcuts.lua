@@ -1,6 +1,6 @@
 -- Miscellaneous Python idioms and shortcuts
 
---# selene: allow(undefined_variable)
+---@module 'luasnip'
 
 local util = require 'plugins.snippet.util'
 

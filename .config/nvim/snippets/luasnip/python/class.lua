@@ -1,6 +1,6 @@
 -- Python class-related snippets
 
---# selene: allow(undefined_variable)
+---@module 'luasnip'
 
 local util = require 'plugins.snippet.util'
 local isn = require('luasnip').indent_snippet_node

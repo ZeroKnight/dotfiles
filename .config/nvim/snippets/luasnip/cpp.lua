@@ -1,6 +1,6 @@
 -- C++ snippets
 
---# selene: allow(undefined_variable)
+---@module 'luasnip'
 
 local util = require 'plugins.snippet.util'
 

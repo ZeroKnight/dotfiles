@@ -2,7 +2,7 @@
 -- Markdown-like markup languages share similar syntaxes, so this snippet file
 -- is intended to be included in others.
 
---# selene: allow(undefined_variable)
+---@module 'luasnip'
 
 local util = require 'plugins.snippet.util'
 
