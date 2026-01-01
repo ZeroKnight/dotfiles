@@ -15,11 +15,14 @@ return {
         'folke/lazydev.nvim',
         ft = 'lua',
         opts = {
-          cmp = true,
           library = {
             'lazy.nvim',
             'nvim-lspconfig',
             { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
+          },
+          integrations = {
+            lspconfig = true,
+            cmp = true,
           },
         },
       },
