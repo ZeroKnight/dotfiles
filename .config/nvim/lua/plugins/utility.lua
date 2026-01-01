@@ -211,9 +211,4 @@ return {
       })
     end,
   },
-
-  -- Extra Documentation
-  'nanotee/nvim-lua-guide',
-  'nanotee/luv-vimdocs',
-  'bfredl/luarefvim',
 }
