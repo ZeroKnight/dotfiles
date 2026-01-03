@@ -10,7 +10,7 @@ local s = util.snippet_with_def_prio()
 
 -- stylua: ignore start
 return {
-	s({trig = 'heading', dscr = 'Markdown-like section heading with underline'}, fmt([[
+	s({trig = 'heading', desc = 'Markdown-like section heading with underline'}, fmt([[
 		{}
 		{}{}
 
@@ -22,7 +22,7 @@ return {
 		i(3)
 	})),
 
-	s({trig = 'rule', dscr = 'Horizontal rule'}, fmt([[
+	s({trig = 'rule', desc = 'Horizontal rule'}, fmt([[
 		{}{}
 
 		{}
@@ -32,7 +32,7 @@ return {
 		i(2)
 	})),
 
-	s({trig = 'fence', dscr = 'Code fence (```)'}, fmt([[
+	s({trig = 'fence', desc = 'Code fence (```)'}, fmt([[
 		```{}
 		{}
 		```
@@ -41,7 +41,7 @@ return {
 		util.selection(2, 'SELECT_DEDENT'),
 	})),
 
-	s({trig = 'link', dscr = 'Inline link, e.g. [Link](https://example.com)'}, fmt([[
+	s({trig = 'link', desc = 'Inline link, e.g. [Link](https://example.com)'}, fmt([[
 		[{}]{}
 	]], {
 		i(1),

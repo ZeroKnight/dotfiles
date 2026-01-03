@@ -6,7 +6,7 @@ local util = require 'plugins.snippet.util'
 
 -- stylua: ignore start
 return {
-	s({trig = 'e?if', dscr = '(el)if statement', regTrig = true}, fmt([[
+	s({trig = 'e?if', desc = '(el)if statement', regTrig = true}, fmt([[
 		{}if {}{}{} {{
 			{}{}
 	]], {
@@ -38,7 +38,7 @@ return {
 		}),
 	})),
 
-	s({trig = 'el', dscr = 'else statement'}, fmt([[
+	s({trig = 'el', desc = 'else statement'}, fmt([[
 		else {{
 			{}
 		}}
@@ -46,7 +46,7 @@ return {
 		util.selection(1, 'SELECT_DEDENT'),
 	})),
 
-	s({trig = 'e?ifn?s', dscr = 'el(if) (not) set', regTrig = true}, fmt([[
+	s({trig = 'e?ifn?s', desc = 'el(if) (not) set', regTrig = true}, fmt([[
 		{}if {} {{
 			{}
 		}}
@@ -65,7 +65,7 @@ return {
 		util.selection(2, 'SELECT_DEDENT'),
 	})),
 
-	s({trig = 'for', dscr = 'for loop'}, fmt([[
+	s({trig = 'for', desc = 'for loop'}, fmt([[
 		for {} ({}) {{
 			{}
 		}}
@@ -75,7 +75,7 @@ return {
 		util.selection(3, 'SELECT_DEDENT'),
 	})),
 
-	s({trig = 'wh', dscr = 'while loop'}, fmt([[
+	s({trig = 'wh', desc = 'while loop'}, fmt([[
 		while {}{}{} {{
 			{}
 		}}
@@ -86,7 +86,7 @@ return {
 		util.selection(3, 'SELECT_DEDENT'),
 	})),
 
-	s({trig = 'whr', dscr = 'while loop (read)'}, fmt([[
+	s({trig = 'whr', desc = 'while loop (read)'}, fmt([[
 		while {{ {} -r {} }} {{
 			{}
 		}}
@@ -99,7 +99,7 @@ return {
 		util.selection(3, 'SELECT_DEDENT'),
 	})),
 
-	s({trig = 'until', dscr = 'until loop'}, fmt([[
+	s({trig = 'until', desc = 'until loop'}, fmt([[
 		until {}{}{} {{
 			{}
 		}}
@@ -110,7 +110,7 @@ return {
 		util.selection(3, 'SELECT_DEDENT'),
 	})),
 
-	s({trig = 'repeat', dscr = 'repeat statement'}, fmt([[
+	s({trig = 'repeat', desc = 'repeat statement'}, fmt([[
 		repeat (( {} )) {{
 			{}
 		}}
@@ -119,7 +119,7 @@ return {
 			util.selection(2, 'SELECT_DEDENT'),
 	})),
 
-	s({trig = 'case', dscr = 'case statement'}, fmt([[
+	s({trig = 'case', desc = 'case statement'}, fmt([[
 		case {} {{
 			{})
 				{}

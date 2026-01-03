@@ -6,14 +6,14 @@ local util = require 'plugins.snippet.util'
 
 -- stylua: ignore start
 return {
-	s({trig = 'imp?', dscr = 'import foo.bar (as baz)', regTrig = true}, fmt('import {}', {
+	s({trig = 'imp?', desc = 'import foo.bar (as baz)', regTrig = true}, fmt('import {}', {
 		c(1, {
 			i(1, 'sys'),
 			sn(nil, fmt('{} as {}', { i(1, 'sys'), i(2) })),
 		}),
 	})),
 
-	s({trig = 'fimp?', dscr = 'from foo import bar (as baz)', regTrig = true}, fmt('from {} import {}', {
+	s({trig = 'fimp?', desc = 'from foo import bar (as baz)', regTrig = true}, fmt('from {} import {}', {
 		i(1, 'sys'),
 		c(2, {
 			i(1),
@@ -21,7 +21,7 @@ return {
 		}),
 	})),
 
-	s({trig = 'e?if', dscr = '(el)if statement', regTrig = true}, fmt([[
+	s({trig = 'e?if', desc = '(el)if statement', regTrig = true}, fmt([[
 		{}if {}:
 			{}{}
 	]], {
@@ -47,14 +47,14 @@ return {
 		}),
 	})),
 
-	s({trig = 'el', dscr = 'else statement'}, fmt([[
+	s({trig = 'el', desc = 'else statement'}, fmt([[
 		else:
 			{}
 	]], {
 		util.selection(1, 'SELECT_DEDENT', 'pass')
 	})),
 
-	s({trig = 'e?ifnn?', dscr = '(el)if x is (not) None', regTrig = true}, fmt([[
+	s({trig = 'e?ifnn?', desc = '(el)if x is (not) None', regTrig = true}, fmt([[
 		{}if {} is{} None:
 			{}
 	]], {
@@ -64,7 +64,7 @@ return {
 		util.selection(2, 'SELECT_DEDENT', 'pass')
 	})),
 
-	s({trig = 'for', dscr = 'for loop'}, fmt([[
+	s({trig = 'for', desc = 'for loop'}, fmt([[
 		for {}:
 			{}
 	]], {
@@ -76,7 +76,7 @@ return {
 		util.selection(2, 'SELECT_DEDENT', 'pass'),
 	})),
 
-	s({trig = 'wh', dscr = 'while loop'}, fmt([[
+	s({trig = 'wh', desc = 'while loop'}, fmt([[
 		while {}:
 			{}
 	]], {
@@ -84,7 +84,7 @@ return {
 		util.selection(2, 'SELECT_DEDENT', 'pass'),
 	})),
 
-	s({trig = 'try', dscr = 'try ... except'}, fmt([[
+	s({trig = 'try', desc = 'try ... except'}, fmt([[
 		try:
 			{}
 		except {}:
@@ -102,7 +102,7 @@ return {
 		i(3, 'pass'),
 	})),
 
-	s({trig = 'exc', dscr = 'except Exception (as exc) ...'}, fmt([[
+	s({trig = 'exc', desc = 'except Exception (as exc) ...'}, fmt([[
 		except {}:
 			{}
 	]], {
@@ -117,14 +117,14 @@ return {
 		util.selection(2, 'SELECT_DEDENT', 'pass'),
 	})),
 
-	s({trig = 'fin', dscr = 'finally block'}, fmt([[
+	s({trig = 'fin', desc = 'finally block'}, fmt([[
 		finally:
 			{}
 	]], {
 		util.selection(1, 'SELECT_DEDENT', 'pass'),
 	})),
 
-	s({trig = 'r', dscr = 'raise staement'}, fmt('raise {}{}', {
+	s({trig = 'r', desc = 'raise staement'}, fmt('raise {}{}', {
 		c(1, {
 			t 'TypeError',
 			t 'ValueError',
@@ -136,7 +136,7 @@ return {
 		}),
 	})),
 
-	s({trig = 'with', dscr = 'with statement'}, fmt([[
+	s({trig = 'with', desc = 'with statement'}, fmt([[
 		with {} as {}:
 			{}
 	]], {
@@ -145,7 +145,7 @@ return {
 		util.selection(3, 'SELECT_DEDENT', 'pass'),
 	})),
 
-	s({trig = 'a?def[mcs]?', dscr = 'Function/method definition', regTrig = true}, fmt([[
+	s({trig = 'a?def[mcs]?', desc = 'Function/method definition', regTrig = true}, fmt([[
 		{deco}{async}def {name}({self}{args}){ret_anno}:
 			"""{docstring}{close_doc}
 			{fn_body}
@@ -164,7 +164,7 @@ return {
 		fn_body = util.selection(5, 'SELECT_DEDENT', 'pass'),
 	})),
 }, { -- Autosnippets
-	s({trig = '#!', dscr = 'shebang'}, fmt([[
+	s({trig = '#!', desc = 'shebang'}, fmt([[
 		#!/usr/bin/env python{}
 
 		{}

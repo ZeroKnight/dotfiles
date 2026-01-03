@@ -12,40 +12,40 @@ local s = util.snippet_with_def_prio(800)
 return {
 	-- Data Types
 
-	s({trig = 'n?v?ch', dscr = '(N)(VAR)CHAR', regTrig = true}, fmt('{}{}CHAR({})', {
+	s({trig = 'n?v?ch', desc = '(N)(VAR)CHAR', regTrig = true}, fmt('{}{}CHAR({})', {
 		util.if_trigger('n', 'N'),
 		util.if_trigger('v', 'VAR'),
 		i(1)
 	})),
 
-	s({trig = 's?int', dscr = '(SMALL)INT', regTrig = true}, fmt('{}INTEGER', util.if_trigger('s', 'SMALL'))),
+	s({trig = 's?int', desc = '(SMALL)INT', regTrig = true}, fmt('{}INTEGER', util.if_trigger('s', 'SMALL'))),
 
-	s({trig = 'num', dscr = 'NUMERIC'}, fmt('NUMERIC({}, {})', { i(1, 'p'), i(2, 's') })),
+	s({trig = 'num', desc = 'NUMERIC'}, fmt('NUMERIC({}, {})', { i(1, 'p'), i(2, 's') })),
 
 	-- NUMERIC and DECIMAL are synonyms
-	s({trig = 'dec', dscr = 'DECIMAL'}, fmt('DECIMAL({}, {})', { i(1, 'p'), i(2, 's') })),
+	s({trig = 'dec', desc = 'DECIMAL'}, fmt('DECIMAL({}, {})', { i(1, 'p'), i(2, 's') })),
 
-	s({trig = 'fl', dscr = 'FLOAT'}, fmt('FLOAT({})', i(1, 'n'))),
+	s({trig = 'fl', desc = 'FLOAT'}, fmt('FLOAT({})', i(1, 'n'))),
 
 	-- Constraints
 
-	s({trig = 'pk', dscr = 'PRIMARY KEY'}, t 'PRIMARY KEY'),
+	s({trig = 'pk', desc = 'PRIMARY KEY'}, t 'PRIMARY KEY'),
 
-	s({trig = 'fk', dscr = 'FOREIGN KEY ... REFERENCES'}, fmt('FOREIGN KEY ({}) REFERENCES {}({})', {
+	s({trig = 'fk', desc = 'FOREIGN KEY ... REFERENCES'}, fmt('FOREIGN KEY ({}) REFERENCES {}({})', {
 		i(1, 'foo'), i(2, 'table'), i(3, 'id'),
 	})),
 
-	s({trig = 'nn', dscr = 'NOT NULL'}, { t 'NOT NULL' }),
+	s({trig = 'nn', desc = 'NOT NULL'}, { t 'NOT NULL' }),
 
-	s({trig = 'def', dscr = 'DEFAULT'}, fmt('DEFAULT {}', i(1))),
+	s({trig = 'def', desc = 'DEFAULT'}, fmt('DEFAULT {}', i(1))),
 
-	s({trig = 'def', dscr = 'DEFAULT'}, fmt('DEFAULT {}', i(1))),
+	s({trig = 'def', desc = 'DEFAULT'}, fmt('DEFAULT {}', i(1))),
 
 	-- Operators
 
-	s({trig = 'betw', dscr = 'BETWEEN expr AND expr'}, fmt('BETWEEN {} AND {}', { i(1, 'expr'), i(2, 'expr') })),
+	s({trig = 'betw', desc = 'BETWEEN expr AND expr'}, fmt('BETWEEN {} AND {}', { i(1, 'expr'), i(2, 'expr') })),
 
-	s({trig = 'in(%d?)', dscr = 'IN (a, b, c)', regTrig = true}, fmt('IN ({})', {
+	s({trig = 'in(%d?)', desc = 'IN (a, b, c)', regTrig = true}, fmt('IN ({})', {
 		d(1, function(_, snip)
 			local n = #snip.captures[1] > 0 and snip.captures[1] or 2
 			local placeholders = {}
@@ -58,57 +58,57 @@ return {
 		end),
 	})),
 
-	s({trig = 'isnn?', dscr = 'IS (NOT) NULL', regTrig = true}, fmt('IS {}NULL', util.if_trigger('nn$', 'NOT '))),
+	s({trig = 'isnn?', desc = 'IS (NOT) NULL', regTrig = true}, fmt('IS {}NULL', util.if_trigger('nn$', 'NOT '))),
 
-	s({trig = 'like', dscr = 'LIKE ...'}, fmt("LIKE '{}'", { i(1) })),
+	s({trig = 'like', desc = 'LIKE ...'}, fmt("LIKE '{}'", { i(1) })),
 
 	-- DDL
 
-	s({trig = 'ct', dscr = 'CREATE TABLE'}, fmt([[
+	s({trig = 'ct', desc = 'CREATE TABLE'}, fmt([[
 		CREATE TABLE {} (
 			{} INTEGER PRIMARY KEY,
 			{}
 		);
 	]], { i(1, 'foo'), i(2, 'id'), i(3) })),
 
-	s({trig = 'cta', dscr = 'CREATE TABLE AS ... SELECT'}, fmt([[
+	s({trig = 'cta', desc = 'CREATE TABLE AS ... SELECT'}, fmt([[
 		CREATE TABLE {} AS
 			SELECT {}
 			FROM {};
 	]], { i(1, 'foo'), i(2, '*'), i(3, 'src') })),
 
-	s({trig = 'ci', dscr = 'CREATE (UNIQUE) INDEX'}, fmt([[
+	s({trig = 'ci', desc = 'CREATE (UNIQUE) INDEX'}, fmt([[
 		CREATE {}{}_idx
 			ON {}({});
 	]], {
 		c(1, { t '', t 'UNIQUE ' }), i(1, 'foo'), i(2, 'table'), i(3, 'col')
 	})),
 
-	s({trig = 'at', dscr = 'ALTER TABLE ...'}, fmt([[
+	s({trig = 'at', desc = 'ALTER TABLE ...'}, fmt([[
 		ALTER TABLE {}
 		{}
 	]], { i(1, 'table'), i(2) })),
 
-	s({trig = 'ata', dscr = 'ALTER TABLE - ADD'}, fmt('ADD {} {}', { i(1, 'col'), i(2, 'INTEGER') })),
+	s({trig = 'ata', desc = 'ALTER TABLE - ADD'}, fmt('ADD {} {}', { i(1, 'col'), i(2, 'INTEGER') })),
 
-	s({trig = 'atm', dscr = 'ALTER TABLE - MODIFY'}, fmt('MODIFY {} {}', { i(1, 'col'), i(2, 'INTEGER') })),
+	s({trig = 'atm', desc = 'ALTER TABLE - MODIFY'}, fmt('MODIFY {} {}', { i(1, 'col'), i(2, 'INTEGER') })),
 
-	s({trig = 'atd', dscr = 'ALTER TABLE - DROP'}, fmt('DROP {}{}', {
+	s({trig = 'atd', desc = 'ALTER TABLE - DROP'}, fmt('DROP {}{}', {
 		c(1, { t '', t 'CONSTRAINT ' }), i(1, 'name')
 	})),
 
-	s({trig = 'd[tv]', dscr = 'DROP TABLE|VIEW', regTrig = true}, {
+	s({trig = 'd[tv]', desc = 'DROP TABLE|VIEW', regTrig = true}, {
 		c(1, {
 			sn(nil, fmt('DROP {} {};', { util.when_trigger { t = 'TABLE', v = 'VIEW' }, i(1, 'name') })),
 			sn(nil, fmt('DROP {} IF EXISTS {};', { util.when_trigger { t = 'TABLE', v = 'VIEW' }, i(1, 'name') })),
 		}),
 	}),
 
-	s({trig = 'trt', dscr = 'TRUNCATE TABLE'}, fmt('TRUNCATE TABLE {};', i(1, 'table'))),
+	s({trig = 'trt', desc = 'TRUNCATE TABLE'}, fmt('TRUNCATE TABLE {};', i(1, 'table'))),
 
 	-- DQL
 
-	s({trig = 'sel', dscr = 'SELECT ... FROM'}, fmt([[
+	s({trig = 'sel', desc = 'SELECT ... FROM'}, fmt([[
 		SELECT {}{}
 		FROM {}
 	]], {
@@ -117,7 +117,7 @@ return {
 		i(3, 'table'),
 	})),
 
-	s({trig = 'n?[clrf]?join', dscr = 'JOIN clause', regTrig = true}, fmt('{}{}JOIN {} {}', {
+	s({trig = 'n?[clrf]?join', desc = 'JOIN clause', regTrig = true}, fmt('{}{}JOIN {} {}', {
 		util.if_trigger('^n', 'NATURAL '),
 		util.when_trigger { c = 'CROSS ', l = 'LEFT ', r = 'RIGHT ', f = 'FULL ' },
 		i(1, 'table'),
@@ -128,7 +128,7 @@ return {
 		}),
 	})),
 
-	s({trig = 'gb', dscr = 'GROUP BY'}, {
+	s({trig = 'gb', desc = 'GROUP BY'}, {
 		c(1, {
 			sn(nil, fmt('GROUP BY {}', i(1, 'cols'))),
 			sn(nil, fmt([[
@@ -138,7 +138,7 @@ return {
 		}),
 	}),
 
-	s({trig = 'ob', dscr = 'ORDER BY'}, {
+	s({trig = 'ob', desc = 'ORDER BY'}, {
 		c(1, {
 			sn(nil, fmt('ORDER BY {}', i(1, 'expr'))),
 			sn(nil, fmt('ORDER BY {} DESC', i(1, 'expr'))),
@@ -147,9 +147,9 @@ return {
 
 	-- DML
 
-	s({trig = 'wh', dscr = 'WHERE ...'}, fmt('WHERE {}', i(1, 'expr'))),
+	s({trig = 'wh', desc = 'WHERE ...'}, fmt('WHERE {}', i(1, 'expr'))),
 
-	s({trig = 'ins', dscr = 'INSERT INTO'}, fmt([[
+	s({trig = 'ins', desc = 'INSERT INTO'}, fmt([[
 		INSERT INTO {}{}
 		VALUES ({});
 	]], {
@@ -161,15 +161,15 @@ return {
 		d(3, util.generate_insertnodes '%w+', ai[2][1]),
 	})),
 
-	s({trig = 'up', dscr = 'UPDATE ... SET'}, fmt([[
+	s({trig = 'up', desc = 'UPDATE ... SET'}, fmt([[
 		UPDATE {}
 		SET {} = {}
 		WHERE {};
 	]], { i(1, 'table'), i(3, 'col'), i(4, 'expr'), i(2, 'expr') })),
 
-	s({trig = 'set', dscr = 'SET clause'}, fmt('SET {} = {}', { i(1, 'col'), i(2, 'expr') })),
+	s({trig = 'set', desc = 'SET clause'}, fmt('SET {} = {}', { i(1, 'col'), i(2, 'expr') })),
 
-	s({trig = 'del', dscr = 'DELETE FROM ...'}, fmt([[
+	s({trig = 'del', desc = 'DELETE FROM ...'}, fmt([[
 		DELETE FROM {}
 		WHERE {};
 	]], { i(1, 'table'), i(2, 'expr') })),

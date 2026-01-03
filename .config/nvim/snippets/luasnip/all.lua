@@ -6,20 +6,20 @@ local util = require 'plugins.snippet.util'
 
 -- stylua: ignore start
 return {
-	s({trig = 'sig', dscr = 'Signature'}, f(util.author)),
+	s({trig = 'sig', desc = 'Signature'}, f(util.author)),
 
-	s({trig = 'todo', dscr = 'Create a TODO comment'}, fmt('{} {}: {}', {
+	s({trig = 'todo', desc = 'Create a TODO comment'}, fmt('{} {}: {}', {
 		f(util.get_comment),
 		c(1, { t 'TODO', t 'TBD', t 'FIXME', t 'NOTE', t 'IDEA', t 'WARN', t 'HACK', t 'PERF' }),
 		i(2),
 	})),
 
-	s({trig = 'copyright', dscr = 'Copyright string'}, fmt('Copyright © {} {}', {
+	s({trig = 'copyright', desc = 'Copyright string'}, fmt('Copyright © {} {}', {
 		p(os.date, '%Y'),
 		f(util.author),
 	})),
 
-	s({trig = 'time', dscr = 'Current time'},
+	s({trig = 'time', desc = 'Current time'},
 		c(1, {
 			p(os.date, '%T'), -- ISO 8601
 			p(os.date, '%k:%M:%S'), -- 24h, no zero-padding
@@ -35,7 +35,7 @@ return {
 		})
 	),
 
-	s({trig = 'date', dscr = 'Current date'},
+	s({trig = 'date', desc = 'Current date'},
 		c(1, {
 			p(os.date, '%F'), -- ISO 8601
 			p(os.date, '%m/%d/%Y'), -- US Format
@@ -50,7 +50,7 @@ return {
 		})
 	),
 
-	s({trig = 'datetime', dscr = 'Current date/time'},
+	s({trig = 'datetime', desc = 'Current date/time'},
 		c(1, {
 			p(os.date, '%F %T'), -- ISO 8601
 			p(os.date, '%B %d, %Y %T'), -- Full month, 24h
@@ -63,21 +63,21 @@ return {
 
 	-- Folding Snippets
 
-	s({trig = 'fold', dscr = 'Vim opening fold marker'}, fmt('{} {} {}{}', {
+	s({trig = 'fold', desc = 'Vim opening fold marker'}, fmt('{} {} {}{}', {
 		f(util.get_comment),
 		i(1, 'Fold description'),
 		p(util.get_foldmarker, 'open'),
 		i(2, '1'),
 	})),
 
-	s({trig = 'foldc', dscr = 'Vim closing fold marker'}, fmt('{} {}{}', {
+	s({trig = 'foldc', desc = 'Vim closing fold marker'}, fmt('{} {}{}', {
 		f(util.get_comment),
 		p(util.get_foldmarker, 'close'),
 		i(1, '1'),
 	})),
 
 	-- TODO: figure out how to just nest the existing fold snippets here
-	s({trig = 'foldp', dscr = 'Vim fold marker pair'}, fmt([[
+	s({trig = 'foldp', desc = 'Vim fold marker pair'}, fmt([[
 		{} {} {}{}
 
 		{}
@@ -97,7 +97,7 @@ return {
 		rep(2),
 	})),
 
-	s({trig = 'modeline', dscr = 'Some common modelines'}, fmt('{} vim: {}', {
+	s({trig = 'modeline', desc = 'Some common modelines'}, fmt('{} vim: {}', {
 		f(util.get_comment),
 		c(1, {
 			sn(nil, fmt('{}et sta sw={} ts={} sts={}', {
@@ -112,7 +112,7 @@ return {
 		}),
 	})),
 
-	s({trig = 'lorem', dscr = 'Lorem ipsum text (50 words)'}, t {
+	s({trig = 'lorem', desc = 'Lorem ipsum text (50 words)'}, t {
 		'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod',
 		'tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At',
 		'vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren,',

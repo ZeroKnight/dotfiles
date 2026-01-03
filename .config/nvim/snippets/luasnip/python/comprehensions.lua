@@ -5,9 +5,9 @@
 local util = require 'plugins.snippet.util'
 
 -- stylua: ignore start
-local function make_comp_snippet(trig, dscr, open, close)
+local function make_comp_snippet(trig, desc, open, close)
 	local body = string.format('%s{}%s', open, close)
-	return s({trig = trig, dscr = dscr}, fmt(body, {
+	return s({trig = trig, desc = desc}, fmt(body, {
 		c(1, {
 			sn(nil, fmt('{} for {} in {}', {
 				i(1, 'expr'), i(2, 'name'), i(3, 'iterable')
@@ -27,7 +27,7 @@ return {
 	make_comp_snippet('sc', 'Set comprehension', '{{', '}}'),
 	make_comp_snippet('gc', 'Generator expression', '(', ')'),
 
-	s({trig = 'dc', dscr = 'Dictionary comprehension'}, fmt('{{{}}}', {
+	s({trig = 'dc', desc = 'Dictionary comprehension'}, fmt('{{{}}}', {
 		c(1, {
 			sn(nil, fmt('{}: {} for {}, {} in {}', {
 				i(1, 'expr_k'), i(2, 'expr_v'), i(3, 'k'), i(4, 'v'), i(5, 'iterable')

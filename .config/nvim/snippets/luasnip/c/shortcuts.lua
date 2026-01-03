@@ -6,7 +6,7 @@ local util = require 'plugins.snippet.util'
 
 -- stylua: ignore start
 return {
-	s({trig = 'main', dscr = 'int main() { ... }'}, fmt([[
+	s({trig = 'main', desc = 'int main() { ... }'}, fmt([[
 		int main(int argc, char *argv[]) {{
 			{}{}
 			return 0;

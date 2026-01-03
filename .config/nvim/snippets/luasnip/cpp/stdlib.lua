@@ -6,33 +6,33 @@ local util = require 'plugins.snippet.util'
 
 -- stylua: ignore start
 return {
-	s({trig = 's:', dscr = 'std::'}, t 'std::'),
+	s({trig = 's:', desc = 'std::'}, t 'std::'),
 
-	s({trig = 'endl', dscr = 'std::endl'}, t 'std::endl'),
+	s({trig = 'endl', desc = 'std::endl'}, t 'std::endl'),
 
-	s({trig = 'str', dscr = 'std::string'}, fmt('std::string {}', { i(1, 's') })),
+	s({trig = 'str', desc = 'std::string'}, fmt('std::string {}', { i(1, 's') })),
 
-	s({trig = 'map', dscr = 'std::map'}, fmt('std::map<{}, {}> {}', { i(1, 'std::string'), i(2), i(3, 'm'), })),
+	s({trig = 'map', desc = 'std::map'}, fmt('std::map<{}, {}> {}', { i(1, 'std::string'), i(2), i(3, 'm'), })),
 
-	s({trig = 'vec', dscr = 'std::vector'}, fmt('std::vector<{}> {}', { i(1, 'int'), i(2, 'v') })),
+	s({trig = 'vec', desc = 'std::vector'}, fmt('std::vector<{}> {}', { i(1, 'int'), i(2, 'v') })),
 
 }, { -- Autosnippets
-	s({trig = 'coutl? ', dscr = 'std::cout << ...', regTrig = true}, fmt('std::cout << {}{}', {
+	s({trig = 'coutl? ', desc = 'std::cout << ...', regTrig = true}, fmt('std::cout << {}{}', {
 		i(1),
 		util.if_trigger('l $', ' << std::endl;'),
 	})),
 
-	s({trig = 'cerrl? ', dscr = 'std::cerr << ...', regTrig = true}, fmt('std::cerr << {}{}', {
+	s({trig = 'cerrl? ', desc = 'std::cerr << ...', regTrig = true}, fmt('std::cerr << {}{}', {
 		i(1),
 		util.if_trigger('l $', ' << std::endl;'),
 	})),
 
-	s({trig = 'clogl? ', dscr = 'std::clog << ...', regTrig = true}, fmt('std::clog << {}{}', {
+	s({trig = 'clogl? ', desc = 'std::clog << ...', regTrig = true}, fmt('std::clog << {}{}', {
 		i(1),
 		util.if_trigger('l $', ' << std::endl;'),
 	})),
 
-	s({trig = 'cin ', dscr = 'std::cin >> ...', regTrig = true}, { t 'std::cin >> ', i(1) }),
+	s({trig = 'cin ', desc = 'std::cin >> ...', regTrig = true}, { t 'std::cin >> ', i(1) }),
 }
 -- stylua: ignore end
 

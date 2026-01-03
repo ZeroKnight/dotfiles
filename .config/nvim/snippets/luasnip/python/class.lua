@@ -68,9 +68,9 @@ end
 
 -- stylua: ignore start
 return {
-	s({trig = 'cname', dscr = 'class name'}, t 'type(self).__name__'),
+	s({trig = 'cname', desc = 'class name'}, t 'type(self).__name__'),
 
-	s({trig = 'super', dscr = 'super call'}, fmt('super({}).{}({})', {
+	s({trig = 'super', desc = 'super call'}, fmt('super({}).{}({})', {
 		c(1, {
 			t '',
 			sn(nil, fmt('{}, self', { i(1) })),
@@ -79,17 +79,17 @@ return {
 		i(3)
 	})),
 
-	s({trig = 'str', dscr = '__str__ method'}, fmt([[
+	s({trig = 'str', desc = '__str__ method'}, fmt([[
 		def __str__(self):
 			{}
 	]], { i(1, 'pass') })),
 
-	s({trig = 'repr', dscr = '__repr__ method'}, fmt([[
+	s({trig = 'repr', desc = '__repr__ method'}, fmt([[
 		def __repr__(self):
 			return f'<{{type(self).__name__}} {}>'
 	]], { i(1) })),
 
-	s({trig = 'prop', dscr = 'property decorator'}, fmt([[
+	s({trig = 'prop', desc = 'property decorator'}, fmt([[
 		@property
 		def {name}(self){ret_anno}:
 			"""{docstring}{close_doc}
@@ -105,7 +105,7 @@ return {
 		fn_body = util.selection(4, 'SELECT_DEDENT', 'pass'),
 	})),
 
-	s({trig = 'setter', dscr = 'setter property'}, fmt([[
+	s({trig = 'setter', desc = 'setter property'}, fmt([[
 		@{}.setter
 		def {}(self, {}):
 			{}
@@ -116,7 +116,7 @@ return {
 		util.selection(3, 'SELECT_DEDENT', 'pass'),
 	})),
 
-	s({trig = 'deleter', dscr = 'deleter property'}, fmt([[
+	s({trig = 'deleter', desc = 'deleter property'}, fmt([[
 		@{}.deleter
 		def {}(self):
 			{}
@@ -127,7 +127,7 @@ return {
 	})),
 
 	-- TODO: Expand params in docstring when I settle on a docstring style
-	s({trig = 'cl', dscr = 'class definition'}, fmt([[
+	s({trig = 'cl', desc = 'class definition'}, fmt([[
 		class {name}:
 			"""{docstring}{close_doc}
 
@@ -142,7 +142,7 @@ return {
 		init_body = init_body(4, 1, 3),
 	})),
 
-	s({trig = 'dcl', dscr = 'dataclass'}, fmt([[
+	s({trig = 'dcl', desc = 'dataclass'}, fmt([[
 		@dataclass
 		class {}:
 			"""{}{}
@@ -155,7 +155,7 @@ return {
 		util.selection(3, 'SELECT_DEDENT', 'pass'),
 	})),
 
-	s({trig = 'field', dscr = 'dataclass field'}, fmt('field({})', {
+	s({trig = 'field', desc = 'dataclass field'}, fmt('field({})', {
 		c(1, {
 			sn(nil, fmt('default={}', { i(1) })),
 			sn(nil, fmt('default_factory={}', { i(1) })),
@@ -163,7 +163,7 @@ return {
 		}),
 	})),
 
-	s({trig = 'pinit', dscr = 'dataclass __post_init__'}, fmt([[
+	s({trig = 'pinit', desc = 'dataclass __post_init__'}, fmt([[
 		def __post_init__(self):
 			{}
 	]], { i(1) })),

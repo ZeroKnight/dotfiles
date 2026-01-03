@@ -13,9 +13,9 @@ end
 
 -- stylua: ignore start
 return {
-	s({trig = 'cr', dscr = 'const reference: const foo&'}, fmt('const {}& {}', { i(1, 'std::string'), i(2) })),
+	s({trig = 'cr', desc = 'const reference: const foo&'}, fmt('const {}& {}', { i(1, 'std::string'), i(2) })),
 
-	s({trig = 'ns', dscr = 'namespace'}, fmt([[
+	s({trig = 'ns', desc = 'namespace'}, fmt([[
 		namespace {} {{
 			{}
 		}}

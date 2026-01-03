@@ -13,9 +13,9 @@ end
 
 -- stylua: ignore start
 return {
-	s({trig = 'open', dscr = 'open file'}, fmt('open({})', open_call(1))),
+	s({trig = 'open', desc = 'open file'}, fmt('open({})', open_call(1))),
 
-	s({trig = 'wopen', dscr = 'with open(...)'}, fmt([[
+	s({trig = 'wopen', desc = 'with open(...)'}, fmt([[
 		with open({}) as {}:
 			{}
 	]], {
@@ -23,7 +23,7 @@ return {
 		util.selection(3, 'SELECT_DEDENT', 'pass'),
 	})),
 
-	s({trig = 'forl', dscr = 'Iterate over lines in file'}, fmt([[
+	s({trig = 'forl', desc = 'Iterate over lines in file'}, fmt([[
 		for {} in {}:
 			{}
 	]], {

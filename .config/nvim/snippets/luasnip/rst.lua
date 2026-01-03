@@ -8,26 +8,26 @@ local util = require 'plugins.snippet.util'
 return {
 	-- Inline Markup
 
-	s({trig = ':', dscr = 'Field list (:name: body'}, fmt(':{}: {}', {
+	s({trig = ':', desc = 'Field list (:name: body'}, fmt(':{}: {}', {
 		i(1, 'field name'), i(2, 'field body'),
 	})),
 
-	s({trig = '..', dscr = 'Directive (..)'}, fmt('.. {}:: {}', {
+	s({trig = '..', desc = 'Directive (..)'}, fmt('.. {}:: {}', {
 		i(1, 'directive'),
 		util.selection(2, 'SELECT_DEDENT', 'directive body'),
 	})),
 
-	s({trig = 'sub', dscr = 'Substitution definition'}, fmt('.. |{}| {}:: {}', {
+	s({trig = 'sub', desc = 'Substitution definition'}, fmt('.. |{}| {}:: {}', {
 		i(1, 'name'), i(2, 'directive'), i(3, 'target')
 	})),
 
-	s({trig = 'img', dscr = 'Image directive'}, fmt('.. image:: {}', {
+	s({trig = 'img', desc = 'Image directive'}, fmt('.. image:: {}', {
 		i(1, 'img')
 	})),
 
 	-- Block Markup
 
-	s({trig = '::', dscr = 'Literal block (::)'}, fmt([[
+	s({trig = '::', desc = 'Literal block (::)'}, fmt([[
 		::
 
 			{}
@@ -35,7 +35,7 @@ return {
 		util.selection(1, 'SELECT_DEDENT'),
 	})),
 
-	s({trig = '>>>', dscr = 'Doctest block (>>> 1 + 1)'}, fmt([[
+	s({trig = '>>>', desc = 'Doctest block (>>> 1 + 1)'}, fmt([[
 		>>> {}
 		{}
 	]], {
@@ -50,7 +50,7 @@ return {
 		end, 1),
 	})),
 
-	s({trig = 'toc', dscr = 'Table of Contents (toctree)'}, fmt([[
+	s({trig = 'toc', desc = 'Table of Contents (toctree)'}, fmt([[
 		.. toctree::
 			:maxdepth: {}
 	]], { i(1, '2') })),

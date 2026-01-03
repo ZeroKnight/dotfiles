@@ -25,26 +25,26 @@ end
 
 -- stylua: ignore start
 return {
-	s({trig = 'req', dscr = 'require'}, fmt("{}{}{}require('{}')", {
+	s({trig = 'req', desc = 'require'}, fmt("{}{}{}require('{}')", {
 		n(2, 'local '),
 		import_tail(2, 1, true),
 		n(2, ' = '),
 		i(1),
 	})),
 
-	s({trig = 'luv', dscr = 'import luv'}, t "local uv = require('luv')"),
+	s({trig = 'luv', desc = 'import luv'}, t "local uv = require('luv')"),
 
-	s({trig = 'l', dscr = 'New local variable'}, fmt('local {} = {}', {
+	s({trig = 'l', desc = 'New local variable'}, fmt('local {} = {}', {
 		i(1, 'x'),
 		i(0)
 	})),
 
-	s({trig = 'lf', dscr = 'Local shortcut to a field, e.g. `local biz = foo.bar.biz`'}, fmt('local {} = {}', {
+	s({trig = 'lf', desc = 'Local shortcut to a field, e.g. `local biz = foo.bar.biz`'}, fmt('local {} = {}', {
 		import_tail(2, 1, false),
 		i(1),
 	})),
 
-	s({trig = 'l?fn', dscr = 'Function definition', regTrig = true}, fmt([[
+	s({trig = 'l?fn', desc = 'Function definition', regTrig = true}, fmt([[
 		{}function{}{}({})
 			{}
 		end
@@ -55,11 +55,11 @@ return {
 		util.selection(3, 'SELECT_DEDENT'),
 	})),
 
-	s({trig = 'fni', dscr = 'Function definition (inline)'}, fmt('function({}) {} end', {
+	s({trig = 'fni', desc = 'Function definition (inline)'}, fmt('function({}) {} end', {
 		i(1), i(2),
 	})),
 
-	s({trig = 'for', dscr = 'for loop'}, fmt([[
+	s({trig = 'for', desc = 'for loop'}, fmt([[
 		for {} do
 			{}
 		end
@@ -78,7 +78,7 @@ return {
 		util.selection(2, 'SELECT_DEDENT'),
 	})),
 
-	s({trig = 'forl', dscr = 'Iterate over lines in file'}, fmt([[
+	s({trig = 'forl', desc = 'Iterate over lines in file'}, fmt([[
 		for {} in {}:lines() do
 			{}
 		end
@@ -87,7 +87,7 @@ return {
 		util.selection(3, 'SELECT_DEDENT'),
 	})),
 
-	s({trig = 'wh', dscr = 'while loop'}, fmt([[
+	s({trig = 'wh', desc = 'while loop'}, fmt([[
 		while {} do
 			{}
 		end
@@ -96,7 +96,7 @@ return {
 		util.selection(2, 'SELECT_DEDENT'),
 	})),
 
-	s({trig = 'repeat', dscr = 'repeat ... until'}, fmt([[
+	s({trig = 'repeat', desc = 'repeat ... until'}, fmt([[
 		repeat
 			{}
 		until {}
@@ -107,7 +107,7 @@ return {
 
 	-- NOTE: I hate having to separately define if/elseif, but I ran into weird
 	-- indentation problems with my optional "end". Seems like a LuaSnip bug.
-	s({trig = 'if', dscr = 'if statement'}, fmt([[
+	s({trig = 'if', desc = 'if statement'}, fmt([[
 		if {} then
 			{}{}
 	]], {
@@ -135,7 +135,7 @@ return {
 		}),
 	})),
 
-	s({trig = 'eif', dscr = 'elseif statement'}, fmt([[
+	s({trig = 'eif', desc = 'elseif statement'}, fmt([[
 		elseif {} then
 			{}{}
 	]], {
@@ -163,7 +163,7 @@ return {
 		}),
 	})),
 
-	s({trig = 'e?ifnn?', dscr = '(else)if x is (not) nil', regTrig = true}, fmt([[
+	s({trig = 'e?ifnn?', desc = '(else)if x is (not) nil', regTrig = true}, fmt([[
 		{}if {} {} nil then
 			{}{}
 	]], {
@@ -174,14 +174,14 @@ return {
 		util.if_trigger('^i', { '', 'end' }),
 	})),
 
-	s({trig = 'el', dscr = 'else statement'}, fmt([[
+	s({trig = 'el', desc = 'else statement'}, fmt([[
 		else
 			{}
 	]], {
 		util.selection(1, 'SELECT_DEDENT'),
 	})),
 
-	s({trig = 'e?ifn?t', dscr = '(else)if type(x) is (not) ...', regTrig = true}, fmt([[
+	s({trig = 'e?ifn?t', desc = '(else)if type(x) is (not) ...', regTrig = true}, fmt([[
 		{}if type({}) {} '{}' then
 			{}{}
 	]], {
@@ -193,7 +193,7 @@ return {
 		util.if_trigger('^i', { '', 'end' })
 	})),
 
-	s({trig = 'do', dscr = 'do block'}, fmt([[
+	s({trig = 'do', desc = 'do block'}, fmt([[
 		do
 			{}
 		end
@@ -201,7 +201,7 @@ return {
 		util.selection(1, 'SELECT_DEDENT'),
 	})),
 
-	s({trig = 'bcom', dscr = 'Block comment'}, fmt([[
+	s({trig = 'bcom', desc = 'Block comment'}, fmt([[
 		--[{}[
 		{}
 		--]{}]
@@ -211,7 +211,7 @@ return {
 		rep(1),
 	})),
 }, { -- Autosnippets
-	s({trig = '#!', dscr = 'shebang'}, fmt([[
+	s({trig = '#!', desc = 'shebang'}, fmt([[
 		#!/usr/bin/env {}
 
 		{}

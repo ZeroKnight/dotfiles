@@ -6,12 +6,12 @@ local util = require 'plugins.snippet.util'
 
 -- stylua: ignore start
 return {
-	s({trig = 'unit', dscr = 'Unit section'}, fmt([[
+	s({trig = 'unit', desc = 'Unit section'}, fmt([[
 		[Unit]
 		Description={}
 	]], { i(1) })),
 
-	s({trig = 'service', dscr = 'Service section'}, fmt([[
+	s({trig = 'service', desc = 'Service section'}, fmt([[
 		[Service]
 		Type={}
 	]], {
@@ -25,7 +25,7 @@ return {
 		}),
 	})),
 
-	s({trig = 'install', dscr = 'Install section'}, fmt([[
+	s({trig = 'install', desc = 'Install section'}, fmt([[
 		[Install]
 		WantedBy={}
 	]], {
@@ -39,7 +39,7 @@ return {
 		}),
 	})),
 
-	s({trig = 'timer', dscr = 'Timer section'}, fmt([[
+	s({trig = 'timer', desc = 'Timer section'}, fmt([[
 		[Timer]
 		{}={}
 	]], {

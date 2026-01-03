@@ -6,7 +6,7 @@ local util = require 'plugins.snippet.util'
 
 -- stylua: ignore start
 return {
-	s({trig = 'e?if', dscr = '(else) if statement', regTrig = true}, fmt([[
+	s({trig = 'e?if', desc = '(else) if statement', regTrig = true}, fmt([[
 		{}if ({}) {{
 			{}{}
 	]], {
@@ -36,13 +36,13 @@ return {
 		}),
 	})),
 
-	s({trig = 'el', dscr = 'else statement'}, fmt([[
+	s({trig = 'el', desc = 'else statement'}, fmt([[
 		else {{
 			{}
 		}}
 	]], { util.selection(1, 'SELECT_DEDENT') })),
 
-	s({trig = 'for', dscr = 'for loop'}, fmt([[
+	s({trig = 'for', desc = 'for loop'}, fmt([[
 		for ({}; {}; {}) {{
 			{}
 		}}
@@ -51,7 +51,7 @@ return {
 		util.selection(4, 'SELECT_DEDENT'),
 	})),
 
-	s({trig = 'fori', dscr = 'for loop (range)'}, fmt([[
+	s({trig = 'fori', desc = 'for loop (range)'}, fmt([[
 		for ({}) {{
 			{}
 		}}
@@ -71,19 +71,19 @@ return {
 		util.selection(2, 'SELECT_DEDENT'),
 	})),
 
-	s({trig = 'wh', dscr = 'while loop'}, fmt([[
+	s({trig = 'wh', desc = 'while loop'}, fmt([[
 		while ({}) {{
 			{}
 		}}
 	]], { i(1), util.selection(2, 'SELECT_DEDENT'), })),
 
-	s({trig = 'dw', dscr = 'do while loop'}, fmt([[
+	s({trig = 'dw', desc = 'do while loop'}, fmt([[
 		do {{
 			{}
 		}} while ({});
 	]], { util.selection(2, 'SELECT_DEDENT'), i(1), })),
 
-	s({trig = 'sw', dscr = 'switch statement'}, fmt([[
+	s({trig = 'sw', desc = 'switch statement'}, fmt([[
 		switch ({}) {{
 			case {}:
 				{}
@@ -91,13 +91,13 @@ return {
 		}}
 	]], { i(1), i(2), i(0) })),
 
-	s({trig = 'cased?', dscr = 'case statement', regTrig = true}, fmt([[
+	s({trig = 'cased?', desc = 'case statement', regTrig = true}, fmt([[
 		{} {}:
 			{}
 			break;
 	]], { util.if_trigger('d$', 'default', 'case'), i(1), i(2) })),
 
-	s({trig = 't?enum', dscr = 'enum definition', regTrig = true}, fmt([[
+	s({trig = 't?enum', desc = 'enum definition', regTrig = true}, fmt([[
 		{}enum {} {{
 			{}
 		}}{};
@@ -112,7 +112,7 @@ return {
 		end, 1),
 	})),
 
-	s({trig = 't?struct', dscr = 'struct definition', regTrig = true}, fmt([[
+	s({trig = 't?struct', desc = 'struct definition', regTrig = true}, fmt([[
 		{}struct {} {{
 			{}
 		}}{};
@@ -127,7 +127,7 @@ return {
 		end, 1),
 	})),
 
-	s({trig = 't?union', dscr = 'union definition', regTrig = true}, fmt([[
+	s({trig = 't?union', desc = 'union definition', regTrig = true}, fmt([[
 		{}union {} {{
 			{}
 		}}{};
@@ -142,15 +142,15 @@ return {
 		end, 1),
 	})),
 
-	s({trig = 'td', dscr = 'typedef'}, fmt('typedef {} {};', { i(1, 'int'), i(2, 'name') })),
+	s({trig = 'td', desc = 'typedef'}, fmt('typedef {} {};', { i(1, 'int'), i(2, 'name') })),
 
-	s({trig = 'fn', dscr = 'function definition'}, fmt([[
+	s({trig = 'fn', desc = 'function definition'}, fmt([[
 		{} {}({}) {{
 			{}
 		}}
 	]], { i(1, 'void'), i(2, 'name'), i(3), i(4) })),
 
-	s({trig = 'fnd', dscr = 'function declaration'}, fmt([[
+	s({trig = 'fnd', desc = 'function declaration'}, fmt([[
 		{} {}({});
 	]], { i(1, 'void'), i(2, 'name'), i(3) })),
 

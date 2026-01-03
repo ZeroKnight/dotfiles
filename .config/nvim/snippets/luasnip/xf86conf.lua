@@ -6,13 +6,13 @@ local util = require 'plugins.snippet.util'
 
 -- stylua: ignore start
 return {
-	s({trig = 'sec', dscr = 'Section ... EndSection'}, fmt([[
+	s({trig = 'sec', desc = 'Section ... EndSection'}, fmt([[
 		Section "{}"
 			{}
 		EndSection
 	]], { i(1), i(2) })),
 
-	s({trig = 'opt', dscr = "Option 'foo' 'bar'"}, fmt([[
+	s({trig = 'opt', desc = "Option 'foo' 'bar'"}, fmt([[
 		Option "{}" "{}"
 	]], { i(1), i(2) })),
 }, { -- Autosnippets

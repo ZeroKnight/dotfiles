@@ -9,7 +9,7 @@ local s = util.snippet_with_def_prio()
 
 -- stylua: ignore start
 return {
-	s({trig = 'scriptdir', dscr = 'Directory of the script'}, fmt('{}={}', {
+	s({trig = 'scriptdir', desc = 'Directory of the script'}, fmt('{}={}', {
 		i(1, 'dir'),
 		c(2, {
 			t '$(dirname "$(realpath -P -- "$0")")',
@@ -18,7 +18,7 @@ return {
 		}),
 	})),
 
-	s({trig = 'e?if', dscr = '(el)if statement', regTrig = true}, fmt([[
+	s({trig = 'e?if', desc = '(el)if statement', regTrig = true}, fmt([[
 		{}if {}{}{}; then
 			{}{}
 	]], {
@@ -49,14 +49,14 @@ return {
 		}),
 	})),
 
-	s({trig = 'el', dscr = 'else statement'}, fmt([[
+	s({trig = 'el', desc = 'else statement'}, fmt([[
 		else
 			{}
 	]], {
 		util.selection(1, 'SELECT_DEDENT'),
 	})),
 
-	s({trig = 'e?ifn?s', dscr = 'el(if) (not) set', regTrig = true}, fmt([[
+	s({trig = 'e?ifn?s', desc = 'el(if) (not) set', regTrig = true}, fmt([[
 		{}if [ {}"${{{}+x}}" ]; then
 			{}{}
 	]], {
@@ -67,7 +67,7 @@ return {
 		util.if_trigger('^i', {'', 'fi'}),
 	})),
 
-	s({trig = 'for', dscr = 'for loop'}, fmt([[
+	s({trig = 'for', desc = 'for loop'}, fmt([[
 		for {}; do
 			{}
 		done
@@ -89,7 +89,7 @@ return {
 		util.selection(2, 'SELECT_DEDENT'),
 	})),
 
-	s({trig = 'wh', dscr = 'while loop'}, fmt([[
+	s({trig = 'wh', desc = 'while loop'}, fmt([[
 		while {}{}{}; do
 			{}
 		done
@@ -100,7 +100,7 @@ return {
 		util.selection(3, 'SELECT_DEDENT'),
 	})),
 
-	s({trig = 'whr', dscr = 'while loop (read)'}, fmt([[
+	s({trig = 'whr', desc = 'while loop (read)'}, fmt([[
 		while {} -r {}; do
 			{}
 		done
@@ -113,7 +113,7 @@ return {
 		util.selection(3, 'SELECT_DEDENT'),
 	})),
 
-	s({trig = 'until', dscr = 'until loop'}, fmt([[
+	s({trig = 'until', desc = 'until loop'}, fmt([[
 		until {}{}{}; do
 			{}
 		done
@@ -124,7 +124,7 @@ return {
 		util.selection(3, 'SELECT_DEDENT'),
 	})),
 
-	s({trig = 'case', dscr = 'case statement'}, fmt([[
+	s({trig = 'case', desc = 'case statement'}, fmt([[
 		case {} in
 			{})
 				{}
@@ -132,13 +132,13 @@ return {
 		esac
 	]], { i(1, 'expr'), i(2, 'pattern'), i(3, 'statement'), i(0) })),
 
-	s({trig = 'casep', dscr = 'case pattern'}, fmt([[
+	s({trig = 'casep', desc = 'case pattern'}, fmt([[
 		{})
 			{}
 			;;{}
 	]], { i(1, 'pattern'), i(2, 'statement'), i(0) })),
 
-	s({trig = 'sel', dscr = 'select statement'}, fmt([[
+	s({trig = 'sel', desc = 'select statement'}, fmt([[
 		select {}{}; do
 			{}
 		done
@@ -151,7 +151,7 @@ return {
 		util.selection(3, 'SELECT_DEDENT'),
 	})),
 
-	s({trig = 'here', dscr = 'Here Document'}, fmt([[
+	s({trig = 'here', desc = 'Here Document'}, fmt([[
 		{}
 		{}
 		{}
@@ -166,7 +166,7 @@ return {
 		l(l._1:gsub('%d*<<%-?', ''), 1),
 	})),
 
-	s({trig = 'heres', dscr = 'Here String'}, fmt('{} {}', {
+	s({trig = 'heres', desc = 'Here String'}, fmt('{} {}', {
 		c(1, {
 			t '<<<',
 			sn(nil, fmt('{}<<<', { i(1, '2') })),
@@ -175,7 +175,7 @@ return {
 	})),
 
 }, { -- Autosnippets
-	s({trig = '#!', dscr = 'shebang'}, fmt([[
+	s({trig = '#!', desc = 'shebang'}, fmt([[
 		#!{}{}
 
 		{}

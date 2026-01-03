@@ -6,7 +6,7 @@ local util = require 'plugins.snippet.util'
 
 -- stylua: ignore start
 return {
-	s({trig = 'img', dscr = 'Image'}, fmt('![{}]({}){}', {
+	s({trig = 'img', desc = 'Image'}, fmt('![{}]({}){}', {
 		i(1, 'alt text'),
 		i(2, 'path'),
 		c(3, {
@@ -15,7 +15,7 @@ return {
 		}),
 	})),
 
-	s({trig = 'linkr', dscr = 'Link reference'}, fmt('[{}]: https://{}{}', {
+	s({trig = 'linkr', desc = 'Link reference'}, fmt('[{}]: https://{}{}', {
 		i(1, '1'),
 		i(2, 'example.com'),
 		c(3, {
@@ -24,11 +24,11 @@ return {
 		}),
 	})),
 
-	s({trig = 'fn', dscr = 'Footnote'}, fmt('[^{}]', { i(1, '1') })),
+	s({trig = 'fn', desc = 'Footnote'}, fmt('[^{}]', { i(1, '1') })),
 
-	s({trig = 'fnr', dscr = 'Footnote reference'}, fmt('[^{}]: {}', { i(1, '1'), i(2) })),
+	s({trig = 'fnr', desc = 'Footnote reference'}, fmt('[^{}]: {}', { i(1, '1'), i(2) })),
 
-	s({trig = 'table(%d)x(%d)', dscr = 'Create an AxB sized table', regTrig = true}, {
+	s({trig = 'table(%d)x(%d)', desc = 'Create an AxB sized table', regTrig = true}, {
 		d(1, function(_, snip)
 			local cols = snip.captures[2]
 			local header = {

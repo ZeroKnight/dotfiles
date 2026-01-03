@@ -6,7 +6,7 @@ local util = require 'plugins.snippet.util'
 
 -- stylua: ignore start
 return {
-	s({trig = 'inc', dscr = '#include'}, fmt('#include {}', {
+	s({trig = 'inc', desc = '#include'}, fmt('#include {}', {
 		c(1, {
 			d(1, function()
 				if vim.bo.filetype == 'cpp' then
@@ -27,9 +27,9 @@ return {
 		}),
 	})),
 
-	s({trig = 'def', dscr = '#define'}, fmt('#define {}', { i(1) })),
+	s({trig = 'def', desc = '#define'}, fmt('#define {}', { i(1) })),
 
-	s({trig = '#e?if', dscr = '#if ... #endif', regTrig = true}, fmt([[
+	s({trig = '#e?if', desc = '#if ... #endif', regTrig = true}, fmt([[
 		#{}if {}
 		{}{}
 	]], {
@@ -39,12 +39,12 @@ return {
 		util.if_trigger('^#i', {'', '#endif'}),
 	})),
 
-	s({trig = '#el', dscr = '#else ...'}, fmt([[
+	s({trig = '#el', desc = '#else ...'}, fmt([[
 		#else
 		{}
 	]], { util.selection(1, 'SELECT_DEDENT') })),
 
-	s({trig = 'ifn?def', dscr = '#if(n)def ... #endif', regTrig = true}, fmt([[
+	s({trig = 'ifn?def', desc = '#if(n)def ... #endif', regTrig = true}, fmt([[
 		#if{}def {}
 		{}
 		#endif /* {} */
@@ -55,7 +55,7 @@ return {
 		rep(1),
 	})),
 
-	s({trig = 'guard', dscr = 'Header guard'}, fmt([[
+	s({trig = 'guard', desc = 'Header guard'}, fmt([[
 		#ifndef PATH_{}_INCLUDED
 		#define PATH_{}_INCLUDED
 

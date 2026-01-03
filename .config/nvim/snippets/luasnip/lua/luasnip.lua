@@ -26,12 +26,12 @@ end
 
 -- stylua: ignore start
 return {
-	s({trig = 's', dscr = 'New snippet'}, fmt("s({{{}}}, {}", {
+	s({trig = 's', desc = 'New snippet'}, fmt("s({{{}}}, {}", {
 		c(1, {
-			sn(nil, fmt("trig = '{}', dscr = '{}'", {
+			sn(nil, fmt("trig = '{}', desc = '{}'", {
 				i(1), i(2),
 			})),
-			sn(nil, fmt("trig = '{}', dscr = '{}', regTrig = true", {
+			sn(nil, fmt("trig = '{}', desc = '{}', regTrig = true", {
 				i(1), i(2),
 			})),
 		}),
@@ -57,7 +57,7 @@ return {
 		}),
 	})),
 
-	s({trig = 'sn', dscr = 'Snippet node'}, fmt('sn({}, {}', {
+	s({trig = 'sn', desc = 'Snippet node'}, fmt('sn({}, {}', {
 		i(1, 'nil'),
 		c(2, {
 			sn(nil, fmt([[
@@ -81,7 +81,7 @@ return {
 		}),
 	})),
 
-	s({trig = 'c', dscr = 'Choice node'}, fmt([[
+	s({trig = 'c', desc = 'Choice node'}, fmt([[
 		c({}, {{
 			{}
 		}}),
@@ -89,7 +89,7 @@ return {
 		i(1), i(2)
 	})),
 
-	s({trig = 'selection', dscr = 'Function node for $TM_SELECTED_TEXT'},
+	s({trig = 'selection', desc = 'Function node for $TM_SELECTED_TEXT'},
 		fmt("util.selection({}, '{}'{}{}),", {
 			i(1, '1'),
 			c(2, {t 'SELECT_DEDENT', t 'TM_SELECTED_TEXT', t 'SELECT_RAW'}),

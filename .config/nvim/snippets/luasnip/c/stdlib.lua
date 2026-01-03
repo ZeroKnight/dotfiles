@@ -14,7 +14,7 @@ fspec_regex = vim.fn.trim(fspec_regex)
 return {
 	-- IO
 
-	s({trig = 'v?f?w?pf', dscr = '(f)printf family', regTrig = true}, fmt('{}{}{}printf({}"{}\\n"{}{});', {
+	s({trig = 'v?f?w?pf', desc = '(f)printf family', regTrig = true}, fmt('{}{}{}printf({}"{}\\n"{}{});', {
 		util.if_trigger('^v', 'v'),
 		util.if_trigger('^v?f', 'f'),
 		util.if_trigger('wpf$', 'w'),
@@ -35,7 +35,7 @@ return {
 		end, 2),
 	})),
 
-	s({trig = 'v?s[nw]?pf', dscr = 'sprintf family', regTrig = true}, fmt('{}s{}printf({}, {}"{}\\n"{}{});', {
+	s({trig = 'v?s[nw]?pf', desc = 'sprintf family', regTrig = true}, fmt('{}s{}printf({}, {}"{}\\n"{}{});', {
 		util.if_trigger('^v', 'v'),
 		util.when_trigger { n = 'n', w = 'w' },
 		i(1, 'buffer'),
