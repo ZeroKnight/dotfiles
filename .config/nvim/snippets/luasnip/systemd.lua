@@ -54,6 +54,48 @@ return {
 		i(2),
 	})),
 
+	s({trig = 'env', desc = 'Environment variable'}, { t 'Environment=' }),
+	s({trig = 'envf', desc = 'EnvironmentFile'}, { t 'EnvironmentFile=' }),
+
+	s({trig = 'req', desc = 'Requires Dependency'}, {
+		c(1, {
+			sn(nil, fmt('Requires={}', { r(1, 'dep', i(1)) })),
+			sn(nil, fmt([[
+				Requires={}
+				After={}
+			]], {
+				r(1, 'dep', i(1)),
+				rep(1)
+			})),
+			sn(nil, fmt([[
+				Requires={}
+				Before={}
+			]], {
+				r(1, 'dep', i(1)),
+				rep(1)
+			})),
+		}),
+	}),
+
+	s({trig = 'wants', desc = 'Wants Dependency'}, {
+		c(1, {
+			sn(nil, fmt('Wants={}', { r(1, 'dep', i(1)) })),
+			sn(nil, fmt([[
+				Wants={}
+				After={}
+			]], {
+				r(1, 'dep', i(1)),
+				rep(1),
+			})),
+			sn(nil, fmt([[
+				Wants={}
+				Before={}
+			]], {
+				r(1, 'dep', i(1)),
+				rep(1),
+			})),
+		}),
+	}),
 }, { -- Autosnippets
 }
 -- stylua: ignore end
