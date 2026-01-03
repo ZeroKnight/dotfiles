@@ -5,24 +5,10 @@ local ls = require 'luasnip'
 local util = require 'plugins.snippet.util'
 
 -- Wrapped snippet constructor that ensures snippets defined here are only
--- active when editing a snippet file. Their priority is set higher than usual
--- so that when they are active, they take precedence over non-snippet-related
--- triggers.
-local s = function(t, nodes, opts)
-  if type(t) == 'string' then
-    t = { trig = t }
-  end
-  -- Take priority when actually active
-  t.priority = t.priority and t.priority + 10000 or 11000
-
-  local cond = function() return vim.api.nvim_buf_get_name(0):match 'nvim/snippets/luasnip' end
-  opts = vim.tbl_extend('keep', opts or {}, {
-    condition = cond,
-    show_condition = cond,
-  })
-
-  return ls.s(t, nodes, opts)
-end
+-- active when editing a snippet file.
+local s = util.snippet_subtype {
+  cond = function() return vim.api.nvim_buf_get_name(0):match 'nvim/snippets/luasnip' end,
+}
 
 -- stylua: ignore start
 return {

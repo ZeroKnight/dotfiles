@@ -30,22 +30,39 @@ function M.get_snippet_by_name(name)
   end
 end
 
--- Creates a modified luasnip.s function that creates snippets with a specific
--- priority if one isn't specified. Typically useful for ensuring snippets
--- have a lower priority so that similar, more specific ones will override
--- them, like with shell script or markdown flavors.
--- The default is to create snippets with priority 500, compared to the
--- luasnip default of 1000.
-function M.snippet_with_def_prio(priority)
-  if priority == nil then
-    priority = 500
-  end
-  return function(t, nodes, opts)
-    if type(t) == 'string' then
-      t = { trig = t }
+-- Creates a modified luasnip.s function intended for snippets that are a
+-- conditional specialization of another filetype. These snippets should take
+-- priority over the base type, but only in specific circumstances.
+-- Examples would be snippets for making LuaSnip snippets (specializes lua) or
+-- Podman Quadlet snippets (specializes systemd). Also useful for the converse
+-- case, when creating even more generic snippets is desired, e.g. SQL.
+--
+-- The opts table expects either a condition (`cond`), an optional `priority`,
+-- or both.
+function M.snippet_subtype(opts)
+  return function(ctx, nodes, s_opts)
+    if type(ctx) == 'string' then
+      ctx = { trig = ctx }
     end
-    t.priority = t.priority and t.priority - priority or priority
-    return ls.s(t, nodes, opts)
+
+    -- High default priority since these snippets are supposed to override
+    -- their parent type. 10,000 should be a sufficiently high enough namespace
+    -- to avoid collisions with regular snippets.
+    ctx.priority = opts.priority and opts.priority + 10000 or 11000
+
+    -- Merge the subtype-determining condition with any snippet-specific condition
+    if type(ctx.condition) == 'function' then
+      ctx.condition = function(line_to_cursor, matched_trigger, captures)
+        return opts.cond() and ctx.condition(line_to_cursor, matched_trigger, captures)
+      end
+    end
+    if type(ctx.show_condition) == 'function' then
+      ctx.show_condition = function(line_to_cursor, matched_trigger, captures)
+        return opts.cond() and ctx.show_condition(line_to_cursor, matched_trigger, captures)
+      end
+    end
+
+    return ls.s(ctx, nodes, s_opts)
   end
 end
 

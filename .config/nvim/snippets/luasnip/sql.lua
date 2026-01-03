@@ -6,7 +6,7 @@
 local util = require 'plugins.snippet.util'
 
 -- Slightly lower priority so that other dialects may override
-local s = util.snippet_with_def_prio(800)
+local s = util.snippet_subtype { priority = 800 }
 
 -- stylua: ignore start
 return {
