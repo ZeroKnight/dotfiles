@@ -8,7 +8,7 @@ local M = {}
 
 -- Snippet data is sometimes within a parent snippet (i.e. snippetnode), so
 -- try each parent until the data we want is found.
-local function get_snip(snip, field)
+function M.get_snip(snip, field)
   while snip[field] == nil do
     snip = snip.parent
   end
@@ -122,7 +122,7 @@ end
 -- Defaults to `false`.
 function M.if_trigger(pat, text, fallback, exact)
   return ls.f(function(_, snip)
-    local trigger = get_snip(snip, 'trigger')
+    local trigger = M.get_snip(snip, 'trigger')
     if exact then
       return trigger == pat and text or fallback or ''
     else
@@ -138,7 +138,20 @@ end
 function M.when_trigger(map)
   return ls.f(function(_, snip)
     for pat, output in pairs(map) do
-      if snip.trigger:match(pat) then
+      local trigger = M.get_snip(snip, 'trigger')
+      if trigger:match(pat) then
+        return output
+      end
+    end
+    return ''
+  end)
+end
+
+function M.when_capture(n, map)
+  return ls.f(function(_, snip)
+    local capture = M.get_snip(snip, 'captures')[n]
+    for pat, output in pairs(map) do
+      if capture:match(pat) then
         return output
       end
     end
@@ -151,7 +164,7 @@ end
 -- unspecified.
 function M.selection(pos, selection_type, fallback_text)
   return ls.d(pos, function(_, snip)
-    local sel = get_snip(snip, 'env')[selection_type]
+    local sel = M.get_snip(snip, 'env')[selection_type]
     if #sel > 0 then
       return ls.sn(nil, ls.t(sel))
     else
