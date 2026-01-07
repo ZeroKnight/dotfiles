@@ -179,6 +179,7 @@ return {
                 ['<M-b>'] = false,
               },
               n = {
+                ['<Esc>'] = false,
                 ['g'] = false,
                 ['e'] = false,
                 ['s'] = false,
