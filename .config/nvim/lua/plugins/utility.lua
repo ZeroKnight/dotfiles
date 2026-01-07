@@ -36,12 +36,6 @@ return {
     cmd = { 'Ilist' },
   },
 
-  -- Libraries
-  { 'nvim-lua/plenary.nvim', lazy = true },
-  { 'tpope/vim-repeat', event = 'VeryLazy' },
-  { 'tjdevries/colorbuddy.nvim', lazy = true },
-  { 'nvim-lua/popup.nvim', lazy = true },
-
   {
     'echasnovski/mini.icons',
     version = false,
@@ -218,4 +212,7 @@ return {
       })
     end,
   },
+
+  -- Libraries
+  { 'tjdevries/colorbuddy.nvim', lazy = true },
 }
