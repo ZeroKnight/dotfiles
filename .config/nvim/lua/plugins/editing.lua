@@ -2,6 +2,7 @@
 --
 -- Plugins that enhance the actual text-editing experience.
 
+local ui = require 'zeroknight.config.ui'
 local util = require 'zeroknight.util'
 
 ---@type LazySpec
@@ -343,5 +344,53 @@ return {
       require('yanky').setup(opts)
       require('plugins.telescope.ext').add_extension 'yank_history'
     end,
+  },
+
+  {
+    'stevearc/oil.nvim',
+    lazy = false,
+    opts = {
+      default_file_explorer = true,
+      columns = {
+        { 'icon', default_file = ui.icons.common.file_blank, directory = ui.icons.common.folder },
+        'permissions',
+        'size',
+        'mtime',
+      },
+      delete_to_trash = true,
+      skip_confirm_for_simple_edits = true,
+      watch_for_changes = true,
+      float = {
+        border = ui.borders,
+        max_height = 0.9,
+        max_width = 0.8,
+      },
+      keymaps = {
+        ['`'] = false,
+        ['<C-c>'] = false,
+        ['<C-h>'] = false,
+        ['<C-p>'] = false,
+
+        ['gy'] = 'actions.yank_entry',
+        ['gY'] = 'actions.copy_to_system_clipboard',
+        ['g:'] = 'actions.open_cmdline',
+        ['g/'] = 'actions.open_terminal',
+
+        ['<C-c>c'] = 'actions.cd',
+        ['<C-c>l'] = { 'actions.cd', opts = { scope = 'win' } },
+        ['<C-c>t'] = { 'actions.cd', opts = { scope = 'tab' } },
+        ['<C-s>'] = { 'actions.select', opts = { horizontal = true } },
+        ['<C-v>'] = { 'actions.select', opts = { vertical = true } },
+
+        ['<C-q>'] = { 'actions.send_to_qflist', opts = { action = 'r', target = 'qflist' } },
+        ['<M-q>'] = { 'actions.send_to_qflist', opts = { action = 'a', target = 'qflist' } },
+        ['<C-l>'] = { 'actions.send_to_qflist', opts = { action = 'r', target = 'loclist' } },
+        ['<M-l>'] = { 'actions.send_to_qflist', opts = { action = 'a', target = 'loclist' } },
+
+        ['<C-g>p'] = 'actions.preview',
+        ['<C-f>'] = 'actions.preview_scroll_down',
+        ['<C-b>'] = 'actions.preview_scroll_up',
+      },
+    },
   },
 }

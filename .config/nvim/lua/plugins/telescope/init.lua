@@ -163,41 +163,6 @@ return {
           spell_suggest = { theme = 'cursor' },
         },
         extensions = {
-          file_browser = {
-            theme = 'ivy',
-            dir_icon = require('zeroknight.config.ui').icons.common.folder,
-            hijack_netrw = true,
-            grouped = true,
-            prompt_path = true,
-            hide_parent_dir = true,
-            -- Standard picker options
-            initial_mode = 'normal',
-            scroll_strategy = 'limit',
-            selection_strategy = 'follow',
-            mappings = {
-              i = {
-                ['<M-b>'] = false,
-              },
-              n = {
-                ['<Esc>'] = false,
-                ['g'] = false,
-                ['e'] = false,
-                ['s'] = false,
-                ['t'] = false,
-                ['<M-b>'] = false,
-
-                ['h'] = fb_actions.goto_parent_dir,
-                ['l'] = actions.select_default,
-                ['gh'] = fb_actions.goto_home_dir,
-
-                ['sd'] = fb_actions.sort_by_date,
-                ['ss'] = fb_actions.sort_by_size,
-                ['v'] = fb_actions.toggle_all,
-                ['zh'] = fb_actions.toggle_hidden,
-                ['zi'] = fb_actions.toggle_respect_gitignore,
-              },
-            },
-          },
           lazy_plugins = {
             lazy_config = vim.env.MYVIMRC,
             name_only = true,
@@ -219,7 +184,6 @@ return {
     end,
     keys = {
       { '<C-p>', util.telescope('buffers', { sort_mru = true, cwd = false }), desc = 'Find Buffer' },
-      { '<Leader>F', util.telescope 'file_browser.file_browser', desc = 'Browse Files' },
       { '<Leader>ff', util.telescope 'find_files', desc = 'Find File' },
       { '<Leader>fF', util.telescope('find_files', { cwd = false }), desc = 'Find File (cwd)' },
       { '<Leader>fo', util.telescope('oldfiles', { cwd = false }), desc = 'Find Old File' },
@@ -283,7 +247,6 @@ return {
   },
 
   -- Extensions
-  ext.spec('nvim-telescope/telescope-file-browser.nvim', 'file_browser'),
   ext.spec('nvim-telescope/telescope-github.nvim', 'gh'),
   ext.spec('benfowler/telescope-luasnip.nvim', 'luasnip'),
   ext.spec('nvim-telescope/telescope-z.nvim', 'z'),
