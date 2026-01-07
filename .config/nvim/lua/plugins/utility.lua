@@ -197,6 +197,23 @@ return {
 
           vim.api.nvim_create_user_command('Rename', function() Snacks.rename.rename_file() end, {})
           vim.api.nvim_create_user_command('Notifications', function() Snacks.notifier.show_history() end, {})
+
+          vim.api.nvim_create_user_command(
+            'BDelete',
+            function(ctx) Snacks.bufdelete.delete { buf = ctx.args and vim.fn.bufnr(ctx.args) or nil, force = ctx.bang } end,
+            { bang = true, nargs = '?', complete = 'buffer' }
+          )
+          vim.api.nvim_create_user_command(
+            'BWipeout',
+            function(ctx)
+              Snacks.bufdelete.delete { buf = ctx.args and vim.fn.bufnr(ctx.args) or nil, wipe = true, force = ctx.bang }
+            end,
+            { bang = true, nargs = '?', complete = 'buffer' }
+          )
+          util.cmd_alias('Bd', 'BD')
+          util.cmd_alias('Bw', 'BW')
+          util.cmd_alias('Bdelete', 'BDelete')
+          util.cmd_alias('Bwipeout', 'BWipeout')
         end,
       })
     end,
