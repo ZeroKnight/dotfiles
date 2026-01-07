@@ -15,25 +15,6 @@ return {
   { 'tpope/vim-eunuch', event = 'VeryLazy' },
 
   {
-    'echasnovski/mini.bufremove',
-    version = false,
-    keys = function()
-      return {
-        {
-          '<Leader>bd',
-          function() require('snacks').bufdelete.delete() end,
-          desc = 'Delete buffer but keep window',
-        },
-        {
-          '<Leader>bD',
-          function() require('snacks').bufdelete.delete { force = true } end,
-          desc = 'Delete buffer but keep window (force)',
-        },
-      }
-    end,
-  },
-
-  {
     'tpope/vim-characterize',
     keys = {
       { 'ga', '<Plug>(characterize)', desc = 'Get character info' },
@@ -161,6 +142,16 @@ return {
         '<C-/>',
         function() Snacks.terminal() end,
         desc = 'Toggle terminal',
+      },
+      {
+        '<Leader>bd',
+        function() require('snacks').bufdelete.delete() end,
+        desc = 'Delete buffer but keep window',
+      },
+      {
+        '<Leader>bD',
+        function() require('snacks').bufdelete.delete { force = true } end,
+        desc = 'Delete buffer but keep window (force)',
       },
     },
     init = function()
