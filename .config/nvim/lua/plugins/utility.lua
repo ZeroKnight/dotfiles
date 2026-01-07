@@ -11,7 +11,6 @@ local util = require 'zeroknight.util'
 return {
   -- Utilities
   { 'dstein64/vim-startuptime', cmd = 'StartupTime' },
-  { 'tpope/vim-dispatch', cmd = { 'Make', 'Dispatch', 'Start', 'Spawn' } }, -- TBD: keep this?
   { 'tpope/vim-eunuch', event = 'VeryLazy' },
 
   {
