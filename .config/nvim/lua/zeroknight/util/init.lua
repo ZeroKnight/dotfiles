@@ -218,4 +218,20 @@ end
 ---@param buffer number?
 function M.flag(name, buffer) return vim.b[buffer or 0][name] ~= false and vim.g[name] ~= false end
 
+-- Create a command "alias" via abbreviations, but only at the start of a
+-- command to avoid erroneous substitutions elsewhere. Ex: `:W` -> `:w`
+---@param from string
+---@param to string
+function M.cmd_alias(from, to)
+  vim.cmd(
+    string.format(
+      [[cnoreabbrev <expr> %s ((getcmdtype() == ':' && getcmdline() ==# '%s') ? '%s' : '%s')]],
+      from,
+      from,
+      to,
+      from
+    )
+  )
+end
+
 return M
