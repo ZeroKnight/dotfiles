@@ -418,35 +418,6 @@ return {
     },
   },
 
-  {
-    'ThePrimeagen/harpoon',
-    keys = function()
-      local keymaps = {
-        { '<Leader>H', function() require('harpoon.ui').toggle_quick_menu() end, 'Harpoon Menu' },
-        { ']n', function() require('harpoon.ui').nav_next() end, desc = 'Next Harpooned file' },
-        { '[n', function() require('harpoon.ui').nav_prev() end, desc = 'Previous Harpooned file' },
-      }
-      for i = 0, 9 do
-        table.insert(keymaps, {
-          string.format('<M-%d>', i),
-          function() require('harpoon.ui').nav_file(i) end,
-          'Harpoon file ' .. i,
-        })
-      end
-      return keymaps
-    end,
-    cmd = 'Harpoon',
-    config = function()
-      require('harpoon').setup()
-      require('plugins.telescope.ext').add_extension 'harpoon'
-      vim.api.nvim_create_user_command(
-        'Harpoon',
-        function() require('harpoon.mark').add_file() end,
-        { desc = 'Harpoon current file' }
-      )
-    end,
-  },
-
   -- LSP-Related UI
 
   {
