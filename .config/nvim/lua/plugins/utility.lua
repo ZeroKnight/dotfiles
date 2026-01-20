@@ -24,6 +24,9 @@ return {
     'folke/persistence.nvim',
     event = 'BufReadPre',
     opts = function() return { dir = vim.g.sessiondir .. '/', options = vim.opt.sessionoptions:get() } end,
+    keys = {
+      { '<Leader>ss', function() require('persistence').select() end, desc = 'Search Sessions' },
+    },
   },
 
   -- Built-in Overrides/Enhancements
