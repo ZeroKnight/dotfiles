@@ -526,22 +526,38 @@ return {
   },
 
   {
-    'aznhe21/actions-preview.nvim',
-    lazy = true,
-    opts = function()
-      return {
-        highlight_command = { require('actions-preview.highlight').delta() },
-        ---@type telescope.picker.opts
-        telescope = {
+    'rachartier/tiny-code-action.nvim',
+    dependencies = { 'nvim-lua/plenary.nvim', 'nvim-telescope/telescope.nvim' },
+    event = 'LspAttach',
+    opts = {
+      backend = vim.fn.executable 'delta' == 1 and 'delta' or 'vim',
+      picker = {
+        'telescope',
+        opts = {
           sorting_strategy = 'ascending',
           layout_strategy = 'vertical',
           layout_config = {
+            height = 0.75,
             prompt_position = 'top',
-            preview_height = 0.75,
+            preview_height = function(_, _, max_lines) return math.max(math.floor(max_lines * 0.5), 10) end,
           },
         },
-      }
-    end,
+      },
+      signs = {
+        quickfix = { ' ', { link = 'MiniIconsYellow' } },
+        codeAction = { ui.icons.diagnostics.Hint, { link = 'MiniIconsPurple' } },
+        others = { ui.icons.diagnostics.Hint, { link = 'MiniIconsGreen' } },
+        rename = { ' ', { link = 'MiniIconsOrange' } },
+
+        refactor = { '󱎝 ', { link = 'MiniIconsOrange' } },
+        ['refactor.extract'] = { '󰩫 ', { link = 'MiniIconsOrange' } },
+        ['refactor.move'] = { '󱀱 ', { link = 'MiniIconsOrange' } },
+
+        source = { ' ', { link = 'MiniIconsCyan' } },
+        ['source.organizeImports'] = { ' ', { link = 'MiniIconsCyan' } },
+        ['source.fixAll'] = { '󰃢 ', { link = 'MiniIconsRed' } },
+      },
+    },
   },
 
   {

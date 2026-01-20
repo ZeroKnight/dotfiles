@@ -37,7 +37,7 @@ M.keys = {
   { '<F2>', lsp.buf.rename, desc = 'Rename Symbol', has = 'rename' },
   { '<C-s>', require('noice.lsp').signature, desc = 'Show Signature Help', mode = 'i', has = 'signatureHelp' },
 
-  { '<LocalLeader>ca', function() require('actions-preview').code_actions() end, desc = 'Code Actions', mode = { 'n', 'v' }, has = 'codeAction' },
+  { '<LocalLeader>ca', function() require('tiny-code-action').code_action() end, desc = 'Code Actions', mode = { 'n', 'v' }, has = 'codeAction' },
   { '<LocalLeader>ci', '<Cmd>Telescope lsp_incoming_calls<CR>', desc = 'Incoming calls', has = 'callHierarchy' },
   { '<LocalLeader>co', '<Cmd>Telescope lsp_outgoing_calls<CR>', desc = 'Outgoing calls', has = 'callHierarchy' },
   { '<LocalLeader>cS', '<Cmd>Telescope lsp_dynamic_workspace_symbols<CR>', desc = 'Find Symbol (Workspace)' },
