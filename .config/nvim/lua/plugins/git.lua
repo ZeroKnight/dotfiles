@@ -12,12 +12,24 @@ return {
 
   {
     'tpope/vim-fugitive',
+    enabled = false,
     event = { 'BufReadPre', 'BufNewFile' },
     dependencies = { 'tpope/vim-rhubarb' },
     keys = {
       { '<Leader>G', '<Cmd>Git<CR>', desc = 'Status window' },
       { '<Leader>gcc', '<Cmd>Git commit --verbose<CR>', desc = 'Commit' },
       { '<Leader>gce', '<Cmd>Git commit --amend --reuse-message=HEAD<CR>', desc = 'Amend last commit (no edit)' },
+    },
+  },
+
+  {
+    'NeogitOrg/neogit',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    cmd = 'Neogit',
+    opts = {
+      commit_date_format = '%c %z',
+      graph_style = vim.env.TERM == 'xterm-kitty' and 'kitty' or 'unicode',
+      integrations = { telescope = true, diffview = true },
     },
   },
 
