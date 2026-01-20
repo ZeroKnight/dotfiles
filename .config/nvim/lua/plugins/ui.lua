@@ -418,6 +418,30 @@ return {
     },
   },
 
+  {
+    'stevearc/quicker.nvim',
+    ft = 'qf',
+    opts = {
+      type_icons = {
+        E = ui.icons.diagnostics.Error,
+        W = ui.icons.diagnostics.Warn,
+        I = ui.icons.diagnostics.Info,
+        H = ui.icons.diagnostics.Hint,
+        N = ui.icons.common.note,
+      },
+      trim_leading_whitespace = 'common',
+      keys = {
+        {
+          '>',
+          function() require('quicker').expand { before = 2, after = 2, add_to_existing = true } end,
+          desc = 'Expand quickfix context',
+          nowait = true,
+        },
+        { '<', function() require('quicker').collapse() end, desc = 'Collapse quickfix context', nowait = true },
+      },
+    },
+  },
+
   -- LSP-Related UI
 
   {
