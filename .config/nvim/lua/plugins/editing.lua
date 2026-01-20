@@ -292,7 +292,7 @@ return {
           storage = 'shada',
           sync_with_numbered_registers = true,
         },
-        system_clipboard = { sync_with_ring = true },
+        system_clipboard = { sync_with_ring = false },
         highlight = { on_put = false, on_yank = false },
         picker = {
           telescope = {
