@@ -26,7 +26,6 @@ return {
       local telescope = require 'telescope'
       local layout = require 'telescope.actions.layout'
       local actions = require 'plugins.telescope.actions'
-      local fb_actions = require('telescope').extensions.file_browser.actions
 
       -- When using the flex layout with the default picker layout settings,
       -- there is a point where the horizontal preview disappears due to a lack
@@ -86,7 +85,6 @@ return {
               ['<C-s>'] = actions.select_horizontal,
               ['<C-t>'] = actions.select_tab,
               ['<C-x>'] = actions.open_with_trouble,
-              ['<M-b>'] = actions.open_in_file_browser,
               ['<C-q>'] = actions.smart_send_to_qflist + actions.open_qflist,
               ['<M-q>'] = actions.smart_add_to_qflist,
               ['<C-o>'] = actions.smart_send_to_loclist + actions.open_loclist,
