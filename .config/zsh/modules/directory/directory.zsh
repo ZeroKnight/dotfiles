@@ -7,7 +7,7 @@ autoload -Uz z{mv,cp,ln}
 ### dircolors
 
 # Set LS_COLORS
-[[ -e $HOME/.config/.dircolors ]] && eval $(dircolors -b $HOME/.config/.dircolors)
+export LS_COLORS="$(vivid generate tokyonight-storm)"
 
 # Enable dircolors in file completion
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"

@@ -90,3 +90,22 @@
   tags:
     - delta
     - git
+
+- name: Install cargo
+  become: true
+  ansible.builtin.package:
+    name: cargo
+    state: present
+  tags:
+    - install
+    - rust
+
+- name: Install Rust-based utilities
+  community.general.cargo:
+    name:
+      - vivid
+    state: present
+    path: "{{ local_prefix }}"
+  tags:
+    - install
+    - rust
