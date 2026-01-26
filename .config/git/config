@@ -41,6 +41,10 @@
     markUnblamableLines = true
     markIgnoredLines = true
 
+[commit]
+    status = true
+    verbose = true
+
 [checkout]
     defaultRemote = origin
     guess = true
@@ -73,6 +77,10 @@
 
 [rebase]
     autoSquash = true
+
+[stash]
+    showPatch = true
+    showStat = true
 
 [status]
     short = true
