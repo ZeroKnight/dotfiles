@@ -1,0 +1,7 @@
+desktop_packages:
+  - kitty
+  - kitty-shell-integration
+  - kitty-terminfo
+  - firefox
+  - speedcrunch
+  - vlc

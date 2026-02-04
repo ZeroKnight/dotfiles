@@ -1,0 +1,12 @@
+nvim_build_deps:
+  - ccache
+  - cmake
+  - curl
+  - gettext
+  - gcc
+  - glibc-gconv-extra
+  - make
+  - ninja-build
+
+nvim_treesitter_pkgs:
+  - tree-sitter-cli

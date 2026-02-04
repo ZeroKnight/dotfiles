@@ -22,6 +22,15 @@
   when: ansible_facts["os_family"] == "Debian"
   tags: install
 
+- name: Install shell tools and utilities
+  become: true
+  ansible.builtin.dnf:
+    name: "{{ shell_packages_utility | reject('false') }}"
+    state: present
+    install_weak_deps: true
+  when: ansible_facts["distribution"] == "Fedora"
+  tags: install
+
 # Some Debian-based packages have renamed the main binary for... reasons.
 # I don't particularly care what those reasons are.
 - name: Create link with proper executable name (Debian-based)

@@ -1,0 +1,25 @@
+shell_packages_utility:
+  - bat
+  - curl
+  # TODO: eza dropped from Fedora 42+
+  - fd-find
+  - fzf
+  # TODO: fzy
+  # TODO: gh
+  - git-delta
+  - parallel
+  - jq
+  - keychain
+  # TODO: lf
+  - plocate
+  - ripgrep
+  - sed
+  - tree
+
+shell_packages_zsh:
+  - zsh
+  - zsh-html
+
+shell_packages_lua:
+  - lua
+  - luajit
