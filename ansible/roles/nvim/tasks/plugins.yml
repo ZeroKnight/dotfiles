@@ -30,6 +30,7 @@
     creates: "{{ (nvim_state, 'lazy') | path_join }}"
 
 - name: Install Treesitter CLI
+  become: true
   ansible.builtin.package:
     name: "{{ nvim_treesitter_pkgs }}"
     state: present
