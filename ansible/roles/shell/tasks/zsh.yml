@@ -21,6 +21,12 @@
     - "{{ (opt_dir, 'zcomet') | path_join }}"
   tags: home
 
+- name: Link .zshenv into home directory
+  ansible.builtin.file:
+    src: "{{ (zsh.config_dir, '.zshenv') | path_join }}"
+    dest: "{{ (ansible_facts.env.HOME, '.zshenv') | path_join }}"
+    state: link
+
 - name: Remove unwanted openSuse /etc/zshrc edits
   when: ansible_facts["distribution"] == "openSUSE Tumbleweed"
   become: true
