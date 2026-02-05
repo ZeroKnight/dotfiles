@@ -83,7 +83,8 @@
 - name: Deploy Tokyo Night theme for kitty
   tags: kitty
   vars:
-    theme_dir: "{{ (config_dir, 'kitty', 'themes') | path_join }}"
+    kitty_dir: "{{ (config_dir, 'kitty') | path_join }}"
+    theme_dir: "{{ (kitty_dir, 'themes') | path_join }}"
     theme_file: "{{ tokyonight.style ~ '.conf' }}"
     deployed_file: tokyonight.conf
   block:
@@ -98,5 +99,19 @@
       ansible.builtin.file:
         src: "{{ (tokyonight.extras, 'kitty', theme_file) | path_join }}"
         dest: "{{ (theme_dir, deployed_file) | path_join }}"
+        state: link
+        owner: "{{ user_id }}"
+
+    - name: Create kitty auto dark-theme link
+      ansible.builtin.file:
+        src: "{{ (tokyonight.extras, 'kitty', theme_file) | path_join }}"
+        dest: "{{ (kitty_dir, 'dark-theme.auto.conf') | path_join }}"
+        state: link
+        owner: "{{ user_id }}"
+
+    - name: Create kitty auto light-theme link
+      ansible.builtin.file:
+        src: "{{ (tokyonight.extras, 'kitty', 'tokyonight_day.conf') | path_join }}"
+        dest: "{{ (kitty_dir, 'light-theme.auto.conf') | path_join }}"
         state: link
         owner: "{{ user_id }}"
