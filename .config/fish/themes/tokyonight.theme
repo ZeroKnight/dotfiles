@@ -1,0 +1,112 @@
+# name: 'Tokyo Night'
+
+[light]
+# preferred_background: e1e2e7
+
+# Syntax Highlighting Colors
+fish_color_normal 3760bf
+fish_color_command 07879d
+fish_color_keyword 9854f1
+fish_color_quote 8c6c3e
+fish_color_redirection 38919f
+fish_color_end b15c00
+fish_color_option 2e7de9
+fish_color_error f52a65
+fish_color_param 3760bf
+fish_color_comment 848cb5
+fish_color_selection --background=b7c1e3
+fish_color_search_match --background=b7c1e3
+fish_color_operator 587539
+fish_color_escape 07879d
+fish_color_autosuggestion 848cb5
+fish_color_valid_path 118c74
+fish_color_history_current 8c6c3e
+
+# Completion Pager Colors
+fish_pager_color_completion 3760bf
+fish_pager_color_progress 68709a
+fish_pager_color_prefix b15c00
+fish_pager_color_description 188092
+fish_pager_color_selected_background --background=b7c1e3
+
+# Define additional fish_color_* variables
+fish_color_user 8c6c3e
+fish_color_host 007197
+fish_color_host_remote 9854f1
+fish_color_cwd 68709a # dark5
+fish_color_status f52a65
+fish_color_status_unchanged c64343
+
+[dark]
+# preferred_background: 24283b
+
+# Syntax Highlighting Colors
+fish_color_normal c0caf5
+fish_color_command 7dcfff
+fish_color_keyword bb9af7
+fish_color_quote e0af68
+fish_color_redirection 41a6b5
+fish_color_end ff9e64
+fish_color_option 9d7cd8
+fish_color_error f7768e
+fish_color_param c0caf5
+fish_color_comment 565f89
+fish_color_selection --background=2e3c64
+fish_color_search_match --background=2e3c64
+fish_color_operator 9ece6a
+fish_color_escape 1abc9c
+fish_color_autosuggestion 565f89
+fish_color_valid_path 73daca
+fish_color_history_current e0af68
+
+# Completion Pager Colors
+fish_pager_color_completion c0caf5
+fish_pager_color_progress 737aa2
+fish_pager_color_prefix ff9e64
+fish_pager_color_description 2ac3de
+fish_pager_color_selected_background --background=2e3c64
+
+# Define additional fish_color_* variables
+fish_color_user e0af68
+fish_color_host 7dcfff
+fish_color_host_remote bb9af7
+fish_color_cwd 737aa2 # dark5
+fish_color_status f7768e
+fish_color_status_unchanged db4b4b
+
+[unknown]
+# preferred_background: 24283b
+
+# Syntax Highlighting Colors
+fish_color_normal c0caf5
+fish_color_command 7dcfff
+fish_color_keyword bb9af7
+fish_color_quote e0af68
+fish_color_redirection 41a6b5
+fish_color_end ff9e64
+fish_color_option 9d7cd8
+fish_color_error f7768e
+fish_color_param c0caf5
+fish_color_comment 565f89
+fish_color_selection --background=2e3c64
+fish_color_search_match --background=2e3c64
+fish_color_operator 9ece6a
+fish_color_escape 1abc9c
+fish_color_autosuggestion 565f89
+fish_color_valid_path 73daca
+fish_color_history_current e0af68
+
+# Completion Pager Colors
+fish_pager_color_completion c0caf5
+fish_pager_color_progress 737aa2
+fish_pager_color_prefix ff9e64
+fish_pager_color_description 2ac3de
+fish_pager_color_selected_background --background=2e3c64
+
+# Define additional fish_color_* variables
+fish_color_user e0af68
+fish_color_host 7dcfff
+fish_color_host_remote bb9af7
+fish_color_cwd 737aa2 # dark5
+fish_color_status f7768e
+fish_color_status_unchanged db4b4b

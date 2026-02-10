@@ -150,7 +150,7 @@ zle-prepend-sudo() {
     zle redisplay
 }
 zle -N zle-prepend-sudo
-bindkey '^S' zle-prepend-sudo
+bindkey '\es' zle-prepend-sudo
 
 ### Options
 

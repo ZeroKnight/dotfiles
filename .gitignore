@@ -14,6 +14,9 @@ fonts/Iosevka/private-build-plans.toml
 ### Zsh
 *.zwc
 
+### fish
+/.config/fish/fish_variables
+
 ### Vim
 /.config/nvim/en.utf-8.add.spl
 /.config/nvim/plugin/packer_compiled.vim
