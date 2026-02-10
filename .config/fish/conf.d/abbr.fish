@@ -3,6 +3,10 @@
 #
 
 if status is-interactive
+    # Frequent typos
+    abbr -a -p anywhere podamn podman
+    abbr -a -p anywhere fucntion function
+
     # Common pipelines/redirects
     abbr -a -p anywhere --set-cursor L '| less'
     abbr -a -p anywhere --set-cursor H '| head'
@@ -18,8 +22,7 @@ if status is-interactive
     # Add some nice defaults to rsync (can disable as needed with --no-<option>)
     alias rsync 'rsync -hhh --partial --info=stats1,progress2,name1'
 
-    # Frequent podman typo
-    abbr -a -p anywhere podamn podman
+    abbr -a kssh kitten ssh
 
     # Prompt to remove destination
     abbr -a ln ln -i
