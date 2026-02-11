@@ -37,6 +37,7 @@
     link_dirs:
       # These directories are linked as a whole either because they get hacked
       # on frequently or have numerous child directories
+      - fish
       - nvim
       - zsh
   module_defaults:
