@@ -85,8 +85,10 @@ function prompt_pwd --description "CWD segment for $prompt_title"
             set path "$root_name$subpath"
         end
     end
+    set -l homedir (string escape --style=regex -- ~)
+    set path (string replace -r "^$homedir(\$|/)" '~$1' $path)
 
-    echo -n -s (set_color $fish_color_cwd) (__fish_unexpand_tilde $path) (set_color normal)
+    echo -n -s (set_color $fish_color_cwd) $path (set_color normal)
 end
 
 # Mostly taken from the default fish_prompt and modified a bit
