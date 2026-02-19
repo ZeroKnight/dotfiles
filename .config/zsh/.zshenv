@@ -2,6 +2,10 @@
 # ZeroKnight's .zshenv
 #
 
+# Ensure that SHELL is set correctly in the case where another shell
+# (e.g. fish) executed zsh.
+export SHELL="$commands[zsh]"
+
 # Declare *PATH variables
 # NOTE: Do NOT assign to PATH here. It will likely be overwritten by
 # /etc/profile
