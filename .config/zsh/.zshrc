@@ -90,6 +90,8 @@ if (( ! $+SSH && $+commands[keychain] )); then
       --agents ssh \
       --quick \
       --quiet \
+      --absolute \
+      --dir "$HOME/.local/state/keychain"
       ~/.ssh/*.key
     )
 fi
