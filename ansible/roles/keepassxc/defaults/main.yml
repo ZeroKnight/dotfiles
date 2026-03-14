@@ -23,7 +23,7 @@ keepassxc_config:
     HideGroupPanel: 'false'
     HidePasswords: 'false'
     MinimizeOnClose: 'true'
-    MinimizeOnStartup: 'true'
+    MinimizeOnStartup: 'false'
     MonospaceNotes: 'true'
     ShowTrayIcon: 'true'
     TrayIconAppearance: colorful
