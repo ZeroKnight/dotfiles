@@ -29,7 +29,6 @@ return {
           },
         },
       },
-      { 'folke/neoconf.nvim', opts = {} },
       'mason.nvim',
       'mason-lspconfig.nvim',
     },
