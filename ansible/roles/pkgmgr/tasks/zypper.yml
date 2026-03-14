@@ -66,3 +66,9 @@
         path: "{{ config }}"
         regexp: "download\\.min_download_speed\\s*=\\s*\\d*"
         line: "download.min_download_speed = {{ 1024 * 25 }}"
+
+    - name: Set number of previous kernels to keep
+      ansible.builtin.lineinfile:
+        path: "{{ config }}"
+        regexp: "multiversion\\.kernels\\s*=.*"
+        line: multiversion.kernels = latest,latest-1,latest-2,latest-3,running
