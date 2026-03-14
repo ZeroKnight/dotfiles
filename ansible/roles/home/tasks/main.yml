@@ -86,11 +86,14 @@
         unique | sort | reject('eq', dot_ssh) }}"
 
     - name: Create links to individual dotfiles
+      vars:
+        reject_patterns:
+          - \.gitkeep
       ansible.builtin.file:
         src: "{{ item.path }}"
         dest: "{{ item.path | replace(dotfiles, ansible_facts.env.HOME) }}"
         state: link
-      loop: "{{ link_files.files | rejectattr('path', 'in', '.gitkeep') }}"
+      loop: "{{ link_files.files | rejectattr('path', 'search', reject_patterns | join('|')) }}"
       loop_control:
         label: "{{ item.path }}"
 
