@@ -21,6 +21,7 @@
     path: "{{ (ansible_facts.env.HOME, '.ssh') | path_join }}"
     mode: "0700"
     state: directory
+  tags: dotfiles
 
 - name: Redirect KWin cache to tmpfs
   ansible.builtin.copy:
@@ -31,6 +32,7 @@
   tags: desktop, kde
 
 - name: Deploy dotfiles
+  tags: dotfiles
   vars:
     dot_config: "{{ (dotfiles, '.config') | path_join }}"
     dot_ssh: "{{ (dotfiles, '.ssh') | path_join }}"

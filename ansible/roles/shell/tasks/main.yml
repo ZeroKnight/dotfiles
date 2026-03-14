@@ -59,6 +59,7 @@
     - .profile
   tags:
     - home
+    - dotfiles
     - bash
 
 - name: Set up zsh
@@ -90,6 +91,8 @@
   tags:
     - delta
     - git
+    - home
+    - dotfiles
 
 - name: Install cargo
   become: true
