@@ -13,7 +13,7 @@
         path: "{{ theme_dir }}"
         state: directory
         owner: "{{ user_id }}"
-        mode: "0755"
+        mode: "0750"
 
     - name: Link Tokyo Night theme for bat
       ansible.builtin.file:
@@ -38,7 +38,7 @@
         path: "{{ theme_dir }}"
         state: directory
         owner: "{{ user_id }}"
-        mode: "0755"
+        mode: "0750"
 
     - name: Enable Tokyo Night theme for delta
       ansible.builtin.template:
@@ -71,7 +71,7 @@
         path: "{{ theme_dir }}"
         state: directory
         owner: "{{ user_id }}"
-        mode: "0755"
+        mode: "0750"
 
     - name: Link Tokyo Night theme for eza
       ansible.builtin.file:
@@ -93,7 +93,7 @@
         path: "{{ theme_dir }}"
         state: directory
         owner: "{{ user_id }}"
-        mode: "0755"
+        mode: "0750"
 
     - name: Link Tokyo Night theme for kitty
       ansible.builtin.file:
