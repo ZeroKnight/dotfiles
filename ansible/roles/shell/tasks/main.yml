@@ -35,6 +35,7 @@
     - [fdfind, fd]
     - [batcat, bat]
   when: ansible_facts["os_family"] == "Debian"
+  tags: install
 
 # TODO: Move this to its own role at some point
 - name: Install Lua interpreters

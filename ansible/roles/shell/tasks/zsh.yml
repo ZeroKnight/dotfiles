@@ -62,3 +62,4 @@
     repo: https://github.com/agkozak/zcomet
     dest: "{{ (opt_dir, 'zcomet', 'bin') | path_join }}"
     depth: 1
+  tags: install
