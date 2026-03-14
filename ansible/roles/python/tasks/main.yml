@@ -5,6 +5,8 @@
   ansible.builtin.package:
     name: python3
     state: present
+  tags: install
 
 - name: Set up virtualenv for user installs
   ansible.builtin.import_tasks: venv.yml
+  tags: install
