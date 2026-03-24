@@ -263,9 +263,5 @@ return {
     end,
   }),
 
-  ext.spec(
-    'nvim-telescope/telescope-fzf-native.nvim',
-    'fzf',
-    { build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release' }
-  ),
+  ext.spec('nvim-telescope/telescope-fzf-native.nvim', 'fzf', { build = 'make' }),
 }
