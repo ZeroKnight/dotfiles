@@ -10,7 +10,7 @@ if status is-interactive
     end
 
     if command -q keychain
-        keychain --eval --quiet --quick \
+        SHELL=(command -s fish) keychain --eval --quiet --quick \
             --attempts 3 --agents ssh \
             --absolute --dir $HOME/.local/state/keychain \
             $HOME/.ssh/*.key | source
