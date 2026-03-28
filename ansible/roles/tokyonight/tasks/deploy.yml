@@ -6,7 +6,6 @@
     - shell
   vars:
     theme_dir: "{{ (config_dir, 'bat', 'themes') | path_join }}"
-    theme_file: "{{ tokyonight.style ~ '.tmTheme' }}"
   block:
     - name: Ensure bat themes directory exists
       ansible.builtin.file:
@@ -21,6 +20,11 @@
         dest: "{{ (theme_dir, theme_file) | path_join }}"
         state: link
         owner: "{{ user_id }}"
+      vars:
+        theme_file: "{{ item ~ '.tmTheme' }}"
+      loop:
+        - "{{ tokyonight.style }}"
+        - tokyonight_day
       notify: rebuild bat cache
 
 - name: Deploy Tokyo Night theme for delta

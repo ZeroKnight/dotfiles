@@ -1,1 +1,2 @@
---theme "tokyonight_storm"
+--theme-dark "tokyonight_storm"
+--theme-light "tokyonight_day"
