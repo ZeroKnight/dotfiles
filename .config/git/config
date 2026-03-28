@@ -1,6 +1,5 @@
 [include]
     path = conf.enabled/delta.gitconfig
-    path = conf.enabled/delta-tokyonight.gitconfig
 
 [user]
     name = ZeroKnight

@@ -27,7 +27,9 @@
         - tokyonight_day
       notify: Rebuild bat cache
 
+# Only needed if bat is unavailable
 - name: Deploy Tokyo Night theme for delta
+  when: "'/usr/bin/bat' is not file"
   tags:
     - delta
     - git
@@ -44,22 +46,12 @@
         owner: "{{ user_id }}"
         mode: "0750"
 
-    - name: Enable Tokyo Night theme for delta
-      ansible.builtin.template:
-        src: delta-tokyonight.gitconfig.j2
-        dest: "{{ deployed_file }}"
-        owner: "{{ user_id }}"
-        mode: "0644"
-      when: "'/usr/bin/bat' is file"
-
-    # Only needed if bat is unavailable
     - name: Link Tokyo Night theme for delta
       ansible.builtin.file:
         src: "{{ (tokyonight.extras, 'delta', theme_file) | path_join }}"
         dest: "{{ deployed_file }}"
         state: link
         owner: "{{ user_id }}"
-      when: "'/usr/bin/bat' is not file"
 
 - name: Deploy Tokyo Night theme for eza
   tags:
