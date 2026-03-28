@@ -39,3 +39,7 @@ end
 
 # Shell integration
 fzf --fish | source
+
+# Don't replace shift-tab search
+bind -e shift-tab
+bind -M insert -e shift-tab
