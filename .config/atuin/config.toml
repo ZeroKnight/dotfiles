@@ -1,0 +1,28 @@
+update_check = false
+enter_accept = false
+invert = true
+show_tabs = false
+
+auto_sync = true  # TBD: might turn this off
+sync_address = ''
+
+[ui]
+columns = ['duration', 'exit', 'time', 'command']
+
+[keys]
+scroll_exits = false
+exit_past_line_start = false
+
+[sync]
+records = true
+
+[logs]
+dir = '~/.local/state/atuin/logs'
+level = 'warn'
+
+# ... why?
+[dotfiles]
+enabled = false
+
+[ai]
+enabled = false
