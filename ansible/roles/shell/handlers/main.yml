@@ -1,7 +1,6 @@
 # vim: ft=yaml.ansible
 
+# noqa: no-changed-when
 - name: Rebuild bat cache
   ansible.builtin.command:
     cmd: bat cache --build
-    creates: "{{ (ansible_facts.env.HOME, '.cache', 'bat') | path_join }}"
-  listen: rebuild bat cache

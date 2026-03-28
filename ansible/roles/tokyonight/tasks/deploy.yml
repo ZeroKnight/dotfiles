@@ -25,7 +25,7 @@
       loop:
         - "{{ tokyonight.style }}"
         - tokyonight_day
-      notify: rebuild bat cache
+      notify: Rebuild bat cache
 
 - name: Deploy Tokyo Night theme for delta
   tags:
