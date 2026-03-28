@@ -53,6 +53,7 @@
     filterSubmodules = true
 
 [diff]
+    colorMoved = default
     mnemonicPrefix = true
     tool = nvimdiff
 

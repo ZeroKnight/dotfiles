@@ -14,4 +14,16 @@
     hyperlinks = true
     keep-plus-minus-markers = false
 
+# NOTE: Select these features dynamically via the DELTA_FEATURES env var
+
+[delta "tokyonight_storm"]
+    map-styles = \
+        bold purple => "syntax #574e7b", \
+        bold cyan => "syntax #42527b"
+
+[delta "tokyonight_day"]
+    map-styles = \
+        bold purple => "syntax #c8b4e9", \
+        bold cyan => "syntax #a6c1e9"
+
 # vim: ft=gitconfig
