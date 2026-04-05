@@ -12,7 +12,7 @@ end
 autocmd({ 'BufWritePre', 'FileWritePre' }, {
   desc = 'Automatically create directories for new files when saving',
   callback = function(event)
-    if event.match:match '^%w%w+://' then
+    if event.match:match '^%w[%w-]+://' then
       return
     end
     vim.fn.mkdir(vim.fs.dirname(event.match), 'p')
