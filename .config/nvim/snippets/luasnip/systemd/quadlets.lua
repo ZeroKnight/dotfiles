@@ -35,13 +35,13 @@ return {
 				{}={}
 			]], {
 				i(1),
-				c(2, { t 'Pod', t 'PublishPorts' }),
+				c(2, { t 'Pod', t 'PublishPort' }),
 				i(0),
 			})),
 			t '[Volume]',
 			sn(nil, fmt([[
 				[Pod]
-				PublishPorts={}
+				PublishPort={}
 			]], { i(1) })),
 		}),
 	})),
