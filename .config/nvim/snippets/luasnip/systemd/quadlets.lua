@@ -46,6 +46,16 @@ return {
 		}),
 	})),
 
+	s({trig = 'secret', desc = 'Podman secret'}, fmt([[
+		Secret={},{}
+	]], {
+		i(1, 'secret-name'),
+		c(2, {
+			sn(nil, fmt('type=env,target={}', { i(1, 'SECRET') })),
+			sn(nil, fmt('type=mount,target={}', { i(1, 'secret') })),
+		}),
+	})),
+
 	s({trig = 'port', desc = 'Publish port(s) (host:container)'}, fmt('PublishPort={}:{}', { i(1, '8080'), i(2) })),
 	s({trig = 'vol', desc = 'Volume mount'}, fmt('Volume={}:{}', { i(1), i(2) })),
 
