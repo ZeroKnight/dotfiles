@@ -12,7 +12,7 @@ local augroup = vim.api.nvim_create_augroup
 ---@type LazySpec
 return {
   {
-    'ggandor/leap.nvim',
+    'https://codeberg.org/andyg/leap.nvim',
     lazy = false,
     keys = {
       { 's', '<Plug>(leap)', desc = 'Leap', mode = { 'n', 'x', 'o' } },
