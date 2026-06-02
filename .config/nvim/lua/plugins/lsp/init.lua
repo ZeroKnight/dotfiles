@@ -43,7 +43,7 @@ return {
       util.on_attach(require('plugins.lsp.keymaps').on_attach, 'Set up LSP-related keymaps')
 
       util.on_attach(function(client, _)
-        if client:supports_method(vim.lsp.protocol.Methods.textDocument_foldingRange) then
+        if client:supports_method 'textDocument/foldingRange' then
           local win = vim.api.nvim_get_current_win()
           vim.wo[win][0].foldmethod = 'expr'
           vim.wo[win][0].foldexpr = 'v:lua.vim.lsp.foldexpr()'
@@ -52,7 +52,7 @@ return {
 
       if not util.has_plugin 'conform.nvim' then
         util.on_attach(function(client, buffer)
-          if client:supports_method(vim.lsp.protocol.Methods.textDocument_formatting) then
+          if client:supports_method 'textDocument/formatting' then
             vim.bo[buffer].formatexpr = 'v:lua.vim.lsp.formatexpr()'
           end
         end, 'Use LSP-backed foldexpr')
@@ -68,26 +68,35 @@ return {
         ),
       })
 
-      for server, config in pairs(require 'plugins.lsp.servers') do
-        vim.lsp.config(server, config)
-        vim.lsp.enable(server, not config.disabled)
-      end
-
       -- Live reload LS settings when server settings change
       vim.api.nvim_create_autocmd('BufWritePost', {
-        pattern = '*/nvim/lua/plugins/lsp/servers.lua',
+        pattern = { '*/nvim/lsp/*.lua', '*/nvim/after/lsp/*.lua' },
         group = vim.api.nvim_create_augroup('ZeroKnight.lsp.reload', { clear = true }),
         desc = 'Reload language server settings on config change',
-        callback = function()
-          local servers = rerequire 'plugins.lsp.servers'
+        callback = function(ctx)
+          local faulty_servers = { 'lua_ls' }
+          local server = vim.fn.fnamemodify(ctx.match, ':t:r')
+
+          -- Invalidate current configuration and merge with an empty table
+          -- Effectively re-reads all configs in runtimepath
+          vim.lsp.config[server] = {}
+
           vim.notify(
-            'Language Server settings file changed. Updating server configurations.',
-            vim.log.levels.WARN,
+            string.format(
+              "Language Server config file for '%s' changed. Updating active clients and notifying servers...",
+              server
+            ),
+            vim.log.levels.INFO,
             { title = 'ZeroKnight LSP' }
           )
-          for server, config in pairs(servers) do
-            util.update_ls_config(server, config or {})
+          if vim.tbl_contains(faulty_servers, server) then
+            vim.notify(
+              string.format("Server '%s' doesn't correctly handle config updates and will need to be restarted", server),
+              vim.log.levels.WARN,
+              { title = 'ZeroKnight LSP' }
+            )
           end
+          util.update_ls_config(server, vim.lsp.config[server])
         end,
       })
     end,
