@@ -222,11 +222,7 @@ return {
     dependencies = { 'nvim-cmp' },
     event = { 'BufReadPost', 'BufNewFile' },
     opts = {
-      map_c_w = true,
-      fast_wrap = {
-        map = '<M-w>',
-        highlight_grey = 'Visual',
-      },
+      map_c_w = true, -- Make <C-w> delete pairs in insert mode
     },
     config = function(_, opts)
       local npairs = require 'nvim-autopairs'
