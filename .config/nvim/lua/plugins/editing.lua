@@ -81,7 +81,7 @@ return {
     'echasnovski/mini.splitjoin',
     version = false,
     event = { 'BufReadPost', 'BufNewFile' },
-    opts = { toggle = 'gA' },
+    config = true,
   },
 
   {
