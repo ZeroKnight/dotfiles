@@ -22,7 +22,6 @@ return {
     config = function()
       local leap = require 'leap'
       leap.opts.case_sensitive = false
-      leap.opts.highlight_unlabeled_phase_one_targets = true
     end,
   },
 
