@@ -54,7 +54,7 @@ function fish_right_prompt --description "Right $prompt_title"
     set -l rpad 1
     set -l segment_rhead "$(set_color blue)❮$(set_color brblue)❮$(set_color normal)"
 
-    echo -n -s "$segment_rhead " (prompt_pwd) (fish_vcs_prompt) ' '(prompt_status) (string repeat -N $rpad ' ')
+    echo -n -s "$segment_rhead " (set_color $fish_color_cwd) (prompt_pwd) (set_color normal) (fish_vcs_prompt) ' '(prompt_status) (string repeat -N $rpad ' ')
 end
 
 function prompt_login --description "Login segment for $prompt_title" -V color_symbol
@@ -88,7 +88,7 @@ function prompt_pwd --description "CWD segment for $prompt_title"
     set -l homedir (string escape --style=regex -- ~)
     set path (string replace -r "^$homedir(\$|/)" '~$1' $path)
 
-    echo -n -s (set_color $fish_color_cwd) $path (set_color normal)
+    echo -n -s $path
 end
 
 # Mostly taken from the default fish_prompt and modified a bit
