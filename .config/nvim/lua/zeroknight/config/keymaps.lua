@@ -186,18 +186,14 @@ vim.cmd [[
 
 -- Command Typos {{{1
 
-vim.cmd [[
-  cabbrev W w
-  cabbrev Q q
-  cabbrev E e
-]]
+for _, v in ipairs { 'W', 'Q', 'E', 'X' } do
+  util.cmd_alias(v, v:lower())
+end
 
 -- Command Shortcuts {{{1
 
-vim.cmd [[
-  cnoreabbrev hv vert help
-  cnoreabbrev ht tab help
-]]
+util.cmd_alias('hv', 'vert help')
+util.cmd_alias('ht', 'tab help')
 
 -- }}}
 
