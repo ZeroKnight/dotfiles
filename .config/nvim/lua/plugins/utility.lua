@@ -215,7 +215,4 @@ return {
       })
     end,
   },
-
-  -- Libraries
-  { 'tjdevries/colorbuddy.nvim', lazy = true },
 }
