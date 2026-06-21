@@ -242,6 +242,9 @@ end
 
 -- }}}
 
+-- Enable per-directory configuration files (.nvimrc, .nvim.lua, etc.)
+opt.exrc = true
+
 -- Use local config, if available
 local local_init = join_stdpath('data', 'init.local.lua')
 if vim.fn.filereadable(local_init) == 1 then
