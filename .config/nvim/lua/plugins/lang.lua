@@ -37,9 +37,6 @@ return {
   -- TODO: revisit this after trying an HTML language server,
   { 'mattn/emmet-vim', ft = { 'html', 'xhtml', 'xml', 'jinja' } },
 
-  -- Misc
-  { 'withgod/vim-sourcepawn', ft = 'sourcepawn', enabled = false },
-
   -- Treesitter
   {
     'nvim-treesitter/nvim-treesitter',

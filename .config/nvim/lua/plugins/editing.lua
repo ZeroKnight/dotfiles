@@ -8,7 +8,6 @@ local util = require 'zeroknight.util'
 ---@type LazySpec
 return {
   { 'christoomey/vim-sort-motion', keys = { 'gs', 'gss' } },
-  { 'godlygeek/tabular', cmd = 'Tabularize' },
 
   {
     'echasnovski/mini.ai',

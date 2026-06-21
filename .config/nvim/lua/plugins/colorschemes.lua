@@ -49,14 +49,4 @@ return {
         ]]
     end,
   },
-
-  { 'ciaranm/inkpot', lazy = true },
-  { 'tomasr/molokai', lazy = true },
-  { 'romainl/Apprentice', lazy = true },
-  { 'arcticicestudio/nord-vim', lazy = true },
-  { 'tyrannicaltoucan/vim-quantum', lazy = true },
-  { 'tyrannicaltoucan/vim-deep-space', lazy = true },
-  { 'mhartington/oceanic-next', lazy = true },
-  { 'dracula/vim', lazy = true, name = 'dracula' },
-  { 'drewtempelmeyer/palenight.vim', lazy = true },
 }
