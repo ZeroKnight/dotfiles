@@ -238,4 +238,20 @@ function M.cmd_alias(from, to)
   )
 end
 
+-- Copy an existing keymap to another lhs. Useful for binding an existing
+-- (or default) mapping to something else. Taken from mini.ai.
+---@param mode string keymap mode
+---@param from_lhs string lhs of the keymap to copy
+---@param to_lhs string new lhs to copy the keymap to
+function M.copy_keymap(mode, from_lhs, to_lhs)
+  local keymap = vim.fn.maparg(from_lhs, mode, false, true)
+  local rhs = keymap.callback or keymap.rhs
+  vim.keymap.set(mode, to_lhs, rhs, {
+    desc = keymap.desc,
+    noremap = keymap.noremap == 1 and true or false,
+    silent = keymap.silent == 1 and true or false,
+    expr = keymap.expr == 1 and true or false,
+  })
+end
+
 return M

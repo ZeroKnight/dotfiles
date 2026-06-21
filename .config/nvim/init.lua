@@ -14,6 +14,9 @@ end
 
 vim.g.sessiondir = join_stdpath('state', 'session')
 
+-- Load basic configuration
+require('zeroknight.config').setup()
+
 -- Load plugins
 require('lazy').setup('plugins', {
   defaults = {
@@ -37,6 +40,3 @@ require('lazy').setup('plugins', {
     ['<LocalLeader>t'] = false,
   },
 })
-
--- Load basic configuration
-require('zeroknight.config').setup()

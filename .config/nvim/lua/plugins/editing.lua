@@ -22,8 +22,8 @@ return {
         silent = true,
         search_method = 'cover_or_next',
         mappings = {
-          around_last = '',
-          inside_last = '',
+          around_last = 'aN',
+          inside_last = 'iN',
         },
         custom_textobjects = {
           A = spec_treesitter { a = '@assignment.outer', i = '@assignment.inner' },

@@ -142,6 +142,13 @@ vim.keymap.set('n', '<M-;>', ':lua ', { desc = 'Quick :lua prompt' })
 -- Append comma to line and start a new line
 vim.keymap.set('i', '<M-,>', '<End>,<CR>', { desc = 'Append comma and start new line' })
 
+-- More comfortable mappings for incremental selection
+util.copy_keymap('x', 'an', '<C-Space>')
+util.copy_keymap('x', 'in', '<BS>')
+vim.keymap.set('n', '<C-Space>', 'v<C-Space>', { remap = true })
+vim.keymap.del('x', 'an')
+vim.keymap.del('x', 'in')
+
 -- UI Related {{{1
 
 -- Window Switching

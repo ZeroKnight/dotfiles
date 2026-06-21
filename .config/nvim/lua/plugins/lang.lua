@@ -149,26 +149,6 @@ return {
     },
   },
 
-  -- FIXME: Temporary stop-gap for now. Maybe try out the new
-  -- vim.lsp.buf.selection_range in 0.12, which is similar
-  {
-    'MeanderingProgrammer/treesitter-modules.nvim',
-    dependencies = { 'nvim-treesitter/nvim-treesitter' },
-    ---@module 'treesitter-modules'
-    ---@type ts.mod.UserConfig
-    opts = {
-      incremental_selection = {
-        enable = true,
-        keymaps = {
-          init_selection = '<C-Space>',
-          node_incremental = '<C-Space>',
-          node_decremental = '<BS>',
-          scope_incremental = '<C-s>',
-        },
-      },
-    },
-  },
-
   -- TODO: Reimplement context-commentstring
 
   {
