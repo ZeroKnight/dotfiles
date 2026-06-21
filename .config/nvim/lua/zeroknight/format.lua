@@ -11,7 +11,7 @@ local M = {
   format_func = vim.lsp.buf.format,
 
   -- Default options to call format_func with
-  format_opts = { timeout_ms = 1000 },
+  format_opts = {},
 }
 
 -- Whether formatting should be done automatically on write.

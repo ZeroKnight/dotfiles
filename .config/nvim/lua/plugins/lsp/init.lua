@@ -121,7 +121,9 @@ return {
     dependencies = { 'mason.nvim' },
     lazy = true,
     opts = {
-      automatic_enable = true,
+      automatic_enable = {
+        exclude = { 'stylua' },
+      },
       ensure_installed = { 'lua_ls', 'jsonls', 'taplo' },
     },
   },

@@ -47,7 +47,11 @@ return {
     'stevearc/conform.nvim',
     event = 'BufWritePre',
     cmd = { 'ConformInfo' },
-    opts = {
+    opts = { ---@type conform.setupOpts
+      default_format_opts = {
+        timeout_ms = 1000,
+        lsp_format = 'fallback',
+      },
       formatters = {
         trim_newlines = {
           condition = function(self, ctx) return not util.is_filetype(ctx.buf, { 'diff', 'gitcommit' }) end,
@@ -74,7 +78,6 @@ return {
       local format = require 'zeroknight.format'
 
       -- Hook into my formatting module
-      format.format_opts.lsp_fallback = 'always'
       format.format_func = function()
         -- One-time wrapper to support lazy-loading on keymap defined elsewhere
         format.format_func = require('conform').format
