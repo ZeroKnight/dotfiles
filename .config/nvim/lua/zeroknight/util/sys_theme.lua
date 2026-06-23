@@ -24,11 +24,20 @@ local handle_theme_change = vim.schedule_wrap(function(pref, time)
   end
 end)
 
+-- Whether we can query the system theme or not. Relies on dbus userspace tools.
+---@return boolean
+function M.can_sync() return vim.fn.executable 'dbus-monitor' == 1 and vim.fn.executable 'dbus-send' == 1 end
+
 -- Spawn a dbus-monitor process that listens for system theme changes and
 -- updates the 'background' option accordingly.
 ---@return integer? pid pid of dbus-monitor process or `nil` if it could not be spawned
 function M.spawn_theme_monitor()
   if vim.fn.executable 'dbus-monitor' == 0 then
+    vim.notify(
+      'dbus-monitor is unavailable, cannot sync with system theme',
+      vim.log.levels.ERROR,
+      { title = 'System theme' }
+    )
     return
   end
 
@@ -93,6 +102,10 @@ end
 -- Get the current system theme. Expressed like the 'background' option.
 ---@return 'light'|'dark'|vim.NIL theme
 function M.current()
+  if vim.fn.executable 'dbus-send' == 0 then
+    vim.notify('dbus-send is unavailable, cannot query system theme', vim.log.levels.ERROR, { title = 'System theme' })
+    return vim.NIL
+  end
   local result = vim
     .system({
       'dbus-send',

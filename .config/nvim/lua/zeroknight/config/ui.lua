@@ -113,11 +113,15 @@ local M = {
 }
 
 function M.init()
-  -- Set initial background based on current system theme
-  vim.opt.background = sys_theme.current()
-
-  -- Set up dbus monitor to watch for changes to system theme
-  sys_theme.spawn_theme_monitor()
+  -- Set initial background based on current system theme or fall back to
+  -- 'dark' if we can't query it
+  if sys_theme.can_sync() then
+    vim.opt.background = sys_theme.current()
+    -- Set up dbus monitor to watch for changes to system theme
+    sys_theme.spawn_theme_monitor()
+  else
+    vim.opt.background = 'dark'
+  end
 
   vim.api.nvim_create_autocmd('ColorScheme', {
     desc = 'Reload highlighting on colorscheme change',
