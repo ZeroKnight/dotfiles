@@ -13,6 +13,7 @@ build ref='nightly': fetch
     git checkout {{ ref }}
     [ -d '.deps' ] && make distclean
     make CMAKE_BUILD_TYPE={{ nvim_btype }}
+    sudo rm -rf /usr/local/share/nvim/runtime
     sudo make install
 
 rebuild:
