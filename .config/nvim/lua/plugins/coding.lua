@@ -50,7 +50,7 @@ return {
     opts = { ---@type conform.setupOpts
       default_format_opts = {
         timeout_ms = 1000,
-        lsp_format = 'fallback',
+        lsp_format = 'first',
       },
       formatters = {
         trim_newlines = {
