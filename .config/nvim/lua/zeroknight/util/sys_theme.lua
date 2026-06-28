@@ -75,11 +75,12 @@ function M.spawn_theme_monitor()
     while i <= #lines do
       if vim.startswith(lines[i], 'signal') then
         if lines[i]:match 'member=SettingChanged' then
-          if lines[i + 2]:match '^%s+string%s+"color%-scheme"$' then
+          if lines[i + 2] and lines[i + 2]:match '^%s+string%s+"color%-scheme"$' then
             local time = tonumber(lines[i]:match '^signal time=(%d+)')
             local pref = tonumber(lines[i + 3]:match '^%s+variant%s+uint32%s+(%d)$')
-            assert(pref, 'no value for color-scheme pref?')
-            handle_theme_change(pref, time)
+            if pref ~= nil then
+              handle_theme_change(pref, time)
+            end
           end
         end
       end
