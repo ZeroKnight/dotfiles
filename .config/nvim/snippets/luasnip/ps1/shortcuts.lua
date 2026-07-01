@@ -13,9 +13,7 @@ return {
 	]], { i(1, 'Name'), i(2, 'Value') })),
 
 	s({trig = 'catch-err', desc = 'Write-Error -Exception ...'}, fmt([[
-		catch {{
-			Write-Error -Exception $_.Exception -Message "{}: $_"{}
-		}}
+		Write-Error -Exception $_.Exception -Message "{}: $_"{}
 	]], { i(1), i(0) })),
 
 	s({trig = 'cprop', desc = 'Calculated Property'}, fmta("@{Name='<>';Expression={<>}}", {

@@ -31,6 +31,22 @@ return {
 		util.selection(3, 'SELECT_DEDENT'),
 	})),
 
+	s({trig = 'pblock', desc = 'param block'}, {
+		c(1, {
+			sn(nil, fmt([[
+				[CmdletBinding()]
+				param (
+					{}
+				)
+			]], { r(1, 'parameters', i(1)) })),
+			sn(nil, fmt([[
+				param (
+					{}
+				)
+			]], { r(1, 'parameters', i(1)) })),
+		}),
+	}),
+
   s({trig = 'param', desc = 'advanced function parameter'}, fmt([[
     [Parameter({})]
     [{}]
