@@ -149,11 +149,13 @@ opt.smartcase = true
 opt.incsearch = true
 opt.hlsearch = true
 
-opt.textwidth = 120
+opt.textwidth = 80
 opt.commentstring = '# %s' -- Sane default
 opt.formatoptions = opt.formatoptions
-  - 'at' -- Don't auto-format, we have linters now
-  + 'cq' -- Formatting comments is fine, though
+  - 'a' -- Don't auto-format text, dedicated formatters are ubiquitous now
+  - 't'
+  + 'c' -- Formatting comments is fine, though
+  + 'q'
   + '1' -- Don't break on single-letter words
   + 'l' -- Don't try to wrap a line that was already longer than textwidth
   - 'o' -- I rarely want comment leaders continued on o and O
