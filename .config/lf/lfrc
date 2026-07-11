@@ -5,7 +5,7 @@
 set shell 'bash'
 set shellopts '-eu'
 
-set anchorfind false
+set anchorfind true
 set ignorecase true
 set smartcase true
 set incsearch true
