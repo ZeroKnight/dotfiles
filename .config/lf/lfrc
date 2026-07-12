@@ -10,7 +10,6 @@ set ignorecase true
 set smartcase true
 set incsearch true
 
-set hidecursorinactive true
 set scrolloff 3
 set tabstop 4
 
