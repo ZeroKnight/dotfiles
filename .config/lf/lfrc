@@ -3,16 +3,35 @@
 # Options
 
 set shell 'bash'
+set shellflag '-c'
 set shellopts '-eu'
+set history true
+
+set selmode all
 
 set anchorfind true
 set ignorecase true
 set smartcase true
 set incsearch true
+set incfilter true
+set wrapscan true
+
+set dircache true
+set dirfirst true
+set sortby natural
 
 set scrolloff 3
-set tabstop 4
+set wrapscroll false
 
+set tabstop 4
+set drawbox false
+set roundbox true
+set ratios 1:2:3
+
+set number false
+set relativenumber false
+
+set preview true
 set previewer ~/.config/lf/lf_kitty_preview
 set cleaner ~/.config/lf/lf_kitty_clean
 
