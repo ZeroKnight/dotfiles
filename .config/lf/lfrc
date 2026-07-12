@@ -27,6 +27,8 @@ set tabstop 4
 set drawbox false
 set roundbox true
 set ratios 1:2:3
+set truncatechar '…'
+set truncatepct 90
 
 set number false
 set relativenumber false
